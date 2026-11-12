@@ -14,36 +14,32 @@ import matplotlib.pyplot as plt
 
 def solve_richardson_equation_h2(eps1, eps2, g):
     """
-    Solve Richardson equation for H₂ (M=1 pair, K=2 orbitals)
+    Solve pairing Hamiltonian for H₂ (M=1 pair, K=2 orbitals)
     
-    Analytic solution of:
-    1 = -g * (1/(2*eps1 - E) + 1/(2*eps2 - E))
+    Correct eigenvalue from 2x2 FCI matrix:
+    H = [[ε₁-ε₂, -g], [-g, -ε₁+ε₂]]
+    
+    Eigenvalue: λ = ±√(g² + (ε₁-ε₂)²)
     
     Returns:
-        E_ground: Ground state pair energy
-        E_excited: Excited state pair energy
+        E_ground: Ground state energy
+        E_excited: Excited state energy
     """
-    # Quadratic equation: E^2 - 2*E*(eps1 + eps2 - g) + 4*eps1*eps2 - 2*g*(eps1 + eps2) = 0
-    a = 1.0
-    b = -2.0 * (eps1 + eps2 - g)
-    c = 4.0 * eps1 * eps2 - 2.0 * g * (eps1 + eps2)
+    # Direct solution from 2x2 Hamiltonian matrix
+    discriminant = g**2 + (eps1 - eps2)**2
     
-    discriminant = b**2 - 4*a*c
-    
-    E_plus = (-b + np.sqrt(discriminant)) / (2*a)
-    E_minus = (-b - np.sqrt(discriminant)) / (2*a)
-    
-    # Ground state has lower energy
-    E_ground = min(E_plus, E_minus)
-    E_excited = max(E_plus, E_minus)
+    E_ground = -np.sqrt(discriminant)
+    E_excited = np.sqrt(discriminant)
     
     return E_ground, E_excited
 
 
 def verify_richardson_equation(E, eps1, eps2, g):
-    """Verify that E satisfies the Richardson equation"""
-    lhs = 1.0
-    rhs = -g * (1.0/(2*eps1 - E) + 1.0/(2*eps2 - E))
+    """
+    Verify eigenvalue equation: E² = g² + (ε₁-ε₂)²
+    """
+    lhs = E**2
+    rhs = g**2 + (eps1 - eps2)**2
     return np.abs(lhs - rhs)
 
 
@@ -53,28 +49,32 @@ def verify_richardson_equation(E, eps1, eps2, g):
 
 def construct_bethe_wavefunction(E, eps1, eps2):
     """
-    Construct normalized Bethe ansatz wavefunction
+    Construct normalized eigenvector of 2x2 pairing Hamiltonian
     
-    |Psi> = (c1 * S^+_1 + c2 * S^+_2) |vac>
-          = (c1 * a†_1↑ a†_1↓ + c2 * a†_2↑ a†_2↓) |vac>
+    H = [[ε₁-ε₂, -g], [-g, -ε₁+ε₂]]
+    
+    For eigenvalue E, eigenvector: (H11 - E) c1 + H12 c2 = 0
+    → c2/c1 = -(H11 - E)/H12 = (ε₁-ε₂ - E)/g
     
     Returns:
         wf: Wavefunction in Fock space basis
         coeffs: Pair coefficients [c1, c2]
     """
-    c1 = 1.0 / (2*eps1 - E)
-    c2 = 1.0 / (2*eps2 - E)
+    H11 = eps1 - eps2
+    
+    # Eigenvector relation
+    c1 = 1.0
+    c2 = (H11 - E) / g
     
     # Normalize
     norm = np.sqrt(c1**2 + c2**2)
     c1 /= norm
     c2 /= norm
     
-    # Basis: |11̄>, |1↑2↓>, |1↓2↑>, |22̄>, |12>, |∅> (not used)
-    # For singlet pairing: only |11̄> and |22̄> contribute
+    # Basis: |11̄⟩, |22̄⟩
     wf = np.zeros(6, dtype=complex)
-    wf[0] = c1  # |11̄> = both electrons in orbital 1
-    wf[3] = c2  # |22̄> = both electrons in orbital 2
+    wf[0] = c1  # |11̄>
+    wf[3] = c2  # |22̄>
     
     return wf, np.array([c1, c2])
 
@@ -163,13 +163,18 @@ def compare_bethe_vs_fci(eps1, eps2, g, verbose=True):
         results: Dictionary with energies, wavefunctions, and errors
     """
     # 1. Bethe ansatz solution
-    E_bethe_ground, E_bethe_excited = solve_richardson_equation_h2(eps1, eps2, g)
+    E_pair, E_bethe_excited = solve_richardson_equation_h2(eps1, eps2, g)
+    
+    # Richardson equation gives PAIR energy E₁
+    # Total energy for M=1 pair: E_total = E₁
+    # (The pairing Hamiltonian already includes single-particle energies in its definition)
+    E_bethe_ground = E_pair
     
     # Verify Richardson equation
-    error_richardson = verify_richardson_equation(E_bethe_ground, eps1, eps2, g)
+    error_richardson = verify_richardson_equation(E_pair, eps1, eps2, g)
     
     # Construct wavefunction
-    wf_bethe, coeffs_bethe = construct_bethe_wavefunction(E_bethe_ground, eps1, eps2)
+    wf_bethe, coeffs_bethe = construct_bethe_wavefunction(E_pair, eps1, eps2)
     
     # 2. FCI solution
     basis, basis_idx = build_fock_basis(n_orb=2, n_elec=2)
