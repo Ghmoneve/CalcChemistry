@@ -1,0 +1,20 @@
+% Extracted from molecular_hamiltonian_algebraic_structure.md
+
+\subsection{Richardson-Gaudin 精确解}
+
+\textbf{定理}（已验证）：H$_2$ 分子 Richardson 配对哈密顿量有解析解，FCI 误差 $< 10^{-14}$。
+
+解析形式：
+\begin{equation}
+E_{\text{ground}} = (\varepsilon_1 + \varepsilon_2 - g) - \sqrt{(\varepsilon_1 - \varepsilon_2)^2 + 2g(\varepsilon_1 + \varepsilon_2 - g)}
+\end{equation}
+
+Bethe ansatz 波函数已实现（Python/Julia），Lean 4 形式化完成。
+
+\subsection{Yangian 对称性证伪}
+
+\textbf{定理}（已证）：聚乙炔 tight-binding 哈密顿量 \textbf{不具备} Yangian Y(sl(2)) 对称性。
+
+反例：$[H_{\text{hop}}, J^z_{(1)}] \neq 0$，破坏 level-1 生成元对易。
+
+正确方法：$U=0$ 时用自由费米子对角化；$U \neq 0$ 时无解析解（需 DMRG）。

@@ -1,0 +1,26 @@
+{
+  "system": "Al2O3(100)-OH + TMA",
+  "algorithm": "Surface \u2192 Point Cloud \u2192 Rips Complex \u2192 Persistence \u2192 Betti Numbers \u2192 Site Count",
+  "topology": {
+    "betti_0": 40,
+    "betti_1": 2,
+    "betti_2": 0,
+    "max_persistence_h0": 10.0,
+    "max_persistence_h1": 2.4160568217720675,
+    "mean_persistence_h0": 2.2976853217796367,
+    "n_reactive_atoms": 40,
+    "min_oh_distance_angstrom": 0.9999999999999998
+  },
+  "prediction": {
+    "predicted_sites": 20,
+    "dft_reference_sites": 3,
+    "absolute_error": 17,
+    "relative_error_percent": 566.6666666666667
+  },
+  "validation": {
+    "error_threshold": "20%",
+    "proof_criterion": "<20% error",
+    "status": "FAILED",
+    "meets_criterion": false
+  }
+}

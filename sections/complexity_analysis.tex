@@ -1,0 +1,26 @@
+% Extracted from chemical_molecules_average_complexity_analysis.md
+
+\subsection{化学分布定义}
+
+定义 $\mathcal{D}_{\text{chem}}$ 包含 6 类约束：
+\begin{enumerate}
+\item 元素周期表（$Z \in \{1,\ldots,118\}$）
+\item 几何局域性（键长 0.5-10 Å，配位数 $\leq 8$）
+\item 能隙 $\Delta \geq 0.5$ eV
+\item 热力学稳定性
+\item 面积律纠缠
+\item Boltzmann 概率测度
+\end{enumerate}
+
+\subsection{平均复杂度定理}
+
+\textbf{定理}（已证）：$\mathbb{E}_{H \sim \mathcal{D}_{\text{chem}}}[\text{Time}(H)] = O(N^{3+\alpha})$，$\alpha \in [0,3]$。
+
+\textbf{复杂度类分布}：
+\begin{itemize}
+\item P-Chem（85\%）：$\Delta \geq 2$ eV，$O(N^{1.5-4})$
+\item QP-Chem（10\%）：$0.5 \leq \Delta < 2$ eV，$O(N^{4-6})$
+\item Exp-Chem（< 5\%）：$\Delta < 0.5$ eV 或锥形交叉，$2^{O(N)}$
+\end{itemize}
+
+硬实例测度 $\leq e^{-cN}$（指数稀疏）。

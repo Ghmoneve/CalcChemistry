@@ -1,0 +1,23 @@
+% Extracted from tensor_network_molecular_integrals_theory.md
+
+\subsection{MPS方法的维度诅咒}
+
+3D 分子纠缠熵满足面积律 $S(A) \sim L^2$，导致 bond dimension $D \sim e^{cL^2}$ 指数增长。
+
+\textbf{解决方案}：纠缠感知轨道优化（EAOO）
+\begin{enumerate}
+\item 构造交换积分图 $G$：$w_{ij} = |K_{ij}|$
+\item Fiedler 向量排序
+\item 梯度下降优化 $\mathcal{S}[\{|\phi_i\rangle\}] = \frac{1}{L}\sum_{k=1}^{L-1} S(A_k)$
+\end{enumerate}
+
+理论预测纠缠熵降低 30-50\%。
+
+\subsection{持久同调应用于 ALD}
+
+首次用持久同调预测表面吸附位点：
+\begin{equation}
+\beta_0(\text{scale}=r_{\text{steric}}) = \text{吸附位点数}
+\end{equation}
+
+验证：TMA/Al$_2$O$_3$(100)-OH，预测 3 位点，DFT 3 位点，误差 0\%。

@@ -1,0 +1,21 @@
+% Extracted from mathematical_foundations_quantum_chemistry_approximations.md
+
+\subsection{Born-Oppenheimer 误差界}
+
+\textbf{定理}（Combes-Duclos-Seiler 1980）：BO 近似误差 $O(\varepsilon^5)$，其中 $\varepsilon = (m_e/M_{\text{核}})^{1/4}$。
+
+\textbf{CaF$_2$ ALD 验证}：
+\begin{itemize}
+\item $\varepsilon(\text{H-F}) = 0.1547$（最坏情况）
+\item BO 误差 $8.87 \times 10^{-5}$（相对）
+\item 化学精度 200 倍以下，BO 有效
+\item 无锥形交叉（HOMO-LUMO gap > 4.5 eV）
+\end{itemize}
+
+\subsection{Nearsightedness 理论}
+
+\textbf{条件}：能隙 $\Delta > 0$，关联长度 $\xi$ 有界。
+
+密度矩阵衰减：$|\rho(r,r')| \leq C \exp(-\alpha r)$，其中 $\alpha \propto \Delta$（间接能隙）。
+
+失效：金属（幂律衰减）、小能隙系统、临界点。
