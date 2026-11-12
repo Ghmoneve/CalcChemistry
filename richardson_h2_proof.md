@@ -1,176 +1,154 @@
-# Richardson-Gaudin Pairing Hamiltonian for H₂: Exact Solution with Zero FCI Error
+# Two-level reduced pairing model: exact finite-sector derivation
 
-**Theorem**: The Richardson-Gaudin pairing Hamiltonian for H₂ admits an exact Bethe ansatz solution with zero FCI error (up to machine precision).
+The historical filename contains `h2`; the model here is a **synthetic reduced pairing Hamiltonian**, not an ab initio H₂ calculation. No molecular integrals, nuclear repulsion, geometry, basis-set limit, or molecular error bound are supplied. Exact algebra for this model does not establish chemical accuracy. Numerical comparisons below use ordinary floating-point arithmetic, not rigorous interval arithmetic.
 
----
+## 1. Operators and energy conventions
 
-## 1. Mathematical Framework
+Order the four fermionic modes as \((1\uparrow,1\downarrow,2\uparrow,2\downarrow)\), with canonical anticommutation relations. Define
 
-### 1.1 Pairing Hamiltonian for H₂
+\[
+P_p^\dagger=a_{p\uparrow}^\dagger a_{p\downarrow}^\dagger,
+\quad P_p=a_{p\downarrow}a_{p\uparrow},
+\quad S_p^z=\tfrac12(n_{p\uparrow}+n_{p\downarrow}-1).
+\]
 
-For H₂ with 2 spatial orbitals (K=2) and 2 electrons (N=2), the Richardson-Gaudin pairing Hamiltonian is:
+The CAR give \([S_p^z,P_q^\dagger]=\delta_{pq}P_p^\dagger\), \([S_p^z,P_q]=-\delta_{pq}P_p\), and \([P_p^\dagger,P_q]=2\delta_{pq}S_p^z\). In particular,
 
-$$\hat{H}_{\text{pair}} = \sum_{p=1}^{2} 2\varepsilon_p \hat{S}^z_p - g \sum_{p,q=1}^{2} \hat{S}^+_p \hat{S}^-_q$$
+\[
+P_p^\dagger P_p=n_{p\uparrow}n_{p\downarrow}.
+\]
 
-where the quasi-spin operators are:
-- $\hat{S}^+_p = a^\dagger_{p\uparrow} a^\dagger_{p\downarrow}$ (pair creation)
-- $\hat{S}^-_p = a_{p\downarrow} a_{p\uparrow}$ (pair annihilation)
-- $\hat{S}^z_p = \frac{1}{2}(n_{p\uparrow} + n_{p\downarrow} - 1)$ (pair number - 1/2)
+For finite real orbital parameters and attractive coupling \(g\ge0\), distinguish
 
-### 1.2 su(2) Lie Algebra Structure
+\[
+H_z=\sum_{p=1}^2 2\varepsilon_p S_p^z
+       -g\sum_{p,q=1}^2P_p^\dagger P_q,
+\qquad
+H_N=\sum_{p=1}^2\varepsilon_p(n_{p\uparrow}+n_{p\downarrow})
+       -g\sum_{p,q=1}^2P_p^\dagger P_q.
+\]
 
-**Lemma 1.1**: The operators $\{\hat{S}^+_p, \hat{S}^-_p, \hat{S}^z_p\}$ satisfy the su(2) commutation relations:
+Both sums include **\(p=q\)**. The exact operator identity is
 
-$$[\hat{S}^z_p, \hat{S}^\pm_q] = \pm \delta_{pq} \hat{S}^\pm_p$$
-$$[\hat{S}^+_p, \hat{S}^-_q] = 2\delta_{pq} \hat{S}^z_p$$
+\[
+H_N=H_z+(\varepsilon_1+\varepsilon_2)I.
+\]
 
-**Proof**: Direct verification using fermionic anticommutation relations $\{a_i, a^\dagger_j\} = \delta_{ij}$.
+Thus a Richardson pair energy \(E_{\rm pair}\) in the number convention corresponds to \(E_z=E_{\rm pair}-(\varepsilon_1+\varepsilon_2)\). In particular, the empty vacuum has energy zero under \(H_N\), but energy \(-\varepsilon_1-\varepsilon_2\) under \(H_z\). A common orbital offset changes \(H_N\) by twice the offset in the two-electron sector while leaving \(H_z\) unchanged there.
 
-### 1.3 Richardson's Bethe Ansatz (1963)
+## 2. Paired block, self-pairing, and complete spectrum
 
-**Theorem 1.2** (Richardson 1963): The exact eigenstate for M pairs is:
+The two-electron space has dimension \(\binom42=6\). Its paired determinants are
 
-$$|\Psi\rangle = \prod_{\alpha=1}^{M} \left( \sum_{p=1}^{K} \frac{1}{2\varepsilon_p - E_\alpha} \hat{S}^+_p \right) |\text{vac}\rangle$$
+\[
+|1\bar1\rangle=P_1^\dagger|0\rangle=|1100\rangle,
+\qquad |2\bar2\rangle=P_2^\dagger|0\rangle=|0011\rangle.
+\]
 
-where $E_\alpha$ are the **pair energies** satisfying the Richardson equations:
+Annihilating a pair and then creating it at the same orbital gives the same determinant. Consequently each occupied pair receives \(-g\) from \(p=q\). Checking whether the target orbital is empty **before** annihilation incorrectly removes this contribution. With \(d=\varepsilon_1-\varepsilon_2\),
 
-$$1 = -g \sum_{p=1}^{K} \frac{1}{2\varepsilon_p - E_\alpha} - g \sum_{\beta \neq \alpha}^{M} \frac{2}{E_\alpha - E_\beta}$$
+\[
+H_z^{\rm pair}=\begin{pmatrix}d-g&-g\\-g&-d-g\end{pmatrix},
+\qquad
+H_N^{\rm pair}=\begin{pmatrix}2\varepsilon_1-g&-g\\-g&2\varepsilon_2-g\end{pmatrix}.
+\]
 
-The total energy is:
-$$E_{\text{tot}} = \sum_{\alpha=1}^{M} E_\alpha$$
+Therefore
 
----
+\[
+\det(H_z^{\rm pair}-\lambda I)=(\lambda+g)^2-d^2-g^2,
+\quad
+\boxed{\lambda_\pm=-g\pm\sqrt{d^2+g^2}},
+\]
 
-## 2. Exact Solution for H₂
+\[
+\boxed{E_\pm=\varepsilon_1+\varepsilon_2-g\pm\sqrt{d^2+g^2}}.
+\]
 
-### 2.1 Parameters
-- **K = 2** spatial orbitals
-- **N = 2** electrons → **M = 1** pair
-- Single orbital energies: $\varepsilon_1, \varepsilon_2$
-- Pairing strength: $g > 0$
+The **four** unpaired determinants are
 
-### 2.2 Corrected Solution for M=1
+\[
+|1010\rangle,\ |1001\rangle,\ |0110\rangle,\ |0101\rangle.
+\]
 
-**Important**: The original Richardson equation formulation in the literature assumes a different Hamiltonian normalization. For the standard pairing Hamiltonian above, the **2×2 FCI matrix** in the singlet subspace is:
+Each has one electron at each spatial orbital. All pair annihilators kill it and both \(S_p^z\) vanish. Their energies are zero under \(H_z\), and \(\varepsilon_1+\varepsilon_2\) under \(H_N\). This accounts for every state:
 
-$$H = \begin{pmatrix} \varepsilon_1 - \varepsilon_2 & -g \\ -g & -\varepsilon_1 + \varepsilon_2 \end{pmatrix}$$
+\[
+\operatorname{spec}(H_z|_{N=2})=\{\lambda_-,0,0,0,0,\lambda_+\}.
+\]
 
-**Eigenvalue equation**: $\det(H - \lambda I) = 0$
+For \(g\ge0\), \(\lambda_-\le0\le\lambda_+\). When \(d\ne0\), the upper paired root is above the four zero-energy states: it is **not** the first excited energy of the full sector. The paired block is the seniority-zero subspace, not the whole spin-singlet subspace; the latter also contains a singly occupied singlet.
 
-$$\lambda^2 - (\varepsilon_1 - \varepsilon_2 - \varepsilon_1 + \varepsilon_2)\lambda + (\varepsilon_1-\varepsilon_2)(-\varepsilon_1+\varepsilon_2) - g^2 = 0$$
+## 3. One-pair secular equation and eigenvectors
 
-Simplifies to (noting trace = 0):
-$$\lambda^2 = g^2 + (\varepsilon_1 - \varepsilon_2)^2$$
+Write a paired state as \(|\psi\rangle=c_1|1\bar1\rangle+c_2|2\bar2\rangle\). The number-convention eigenvalue equation reads
 
-**Exact ground state energy**:
-$$\boxed{E_{\text{ground}} = -\sqrt{g^2 + (\varepsilon_1 - \varepsilon_2)^2}}$$
+\[
+(2\varepsilon_p-E)c_p=g(c_1+c_2),\qquad p=1,2.
+\]
 
-This differs from naive application of Richardson's formula due to Hamiltonian conventions.
+If \(g>0\), \(c_1+c_2\ne0\), and neither denominator vanishes, then
 
-### 2.3 Wavefunction Construction
+\[
+c_p\propto\frac1{2\varepsilon_p-E},
+\qquad
+\boxed{1=g\left(\frac1{2\varepsilon_1-E}+\frac1{2\varepsilon_2-E}\right)}.
+\]
 
-**Ground State Eigenvector**: For eigenvalue $E = -\sqrt{g^2 + (\varepsilon_1-\varepsilon_2)^2}$, solve:
+The sign is **positive** for the attractive interaction \(-gP^\dagger P\). Clearing denominators away from the poles gives
 
-$$(H_{11} - E) c_1 + H_{12} c_2 = 0$$
+\[
+(2\varepsilon_1-E)(2\varepsilon_2-E)
+-g[(2\varepsilon_1-E)+(2\varepsilon_2-E)]=0,
+\]
 
-where $H_{11} = \varepsilon_1 - \varepsilon_2, H_{12} = -g$.
+or
 
-$$c_2 = \frac{H_{11} - E}{g} c_1 = \frac{\varepsilon_1 - \varepsilon_2 - E}{g} c_1$$
+\[
+E^2-2(\varepsilon_1+\varepsilon_2-g)E
++4\varepsilon_1\varepsilon_2-2g(\varepsilon_1+\varepsilon_2)=0.
+\]
 
-Normalize: $|c_1|^2 + |c_2|^2 = 1$
+This is exactly the determinant of \(H_N^{\rm pair}-EI\), with roots \(E_\pm\). The normalized reciprocal vector has normalization \(\mathcal N^2=\sum_p|2\varepsilon_p-E|^{-2}\). This proof uses only the one-pair sector; it makes no unproved claim about many-pair Bethe completeness or a proposed family of Gaudin charges.
 
-$$|\\Psi_0\rangle = \frac{1}{\mathcal{N}} (c_1 |1\bar{1}\rangle + c_2 |2\bar{2}\rangle)$$
+For numerical work, avoid dividing by the small secular denominators. Set \(r=\operatorname{hypot}(d,g)\) and, when \(g>0\),
 
-**Numerical Verification**: Error $|E_{\text{Bethe}} - E_{\text{FCI}}| < 10^{-15}$ (machine precision) ✓
+\[
+t=\frac{g/r}{1+|d|/r}.
+\]
 
----
+A lower paired eigenvector is \((1,t)/\sqrt{1+t^2}\) for \(d\le0\), or \((t,1)/\sqrt{1+t^2}\) for \(d>0\). If its coefficients are \((u,v)\), the orthogonal upper vector is \((-v,u)\). Substitute these into the **matrix** eigenvalue equation to verify both branches without using a global coupling variable.
 
-## 3. Integrability Conditions
+## 4. Singular and degenerate cases
 
-### 3.1 Yang-Baxter Equation Connection
+- **\(g=0\), \(d\ne0\):** the paired determinants themselves are eigenvectors. The energies are \(\pm|d|\) for \(H_z\), and \(2\varepsilon_1,2\varepsilon_2\) for \(H_N\). The rational secular equation is inapplicable at these poles; a missing residual is not a successful check.
+- **\(d=0\), \(g>0\):** the symmetric paired vector has \(E_z=-2g\), and the antisymmetric vector has \(E_z=0\). The latter has \(c_1+c_2=0\) and \(E_{\rm pair}=2\varepsilon_1\), so the reciprocal Bethe vector is undefined. It remains a valid matrix eigenvector. Together with the four unpaired states, the zero energy has multiplicity five.
+- **\(d=g=0\):** \(H_z\) is zero on the entire six-dimensional sector. Any orthonormal basis is valid; comparing one arbitrarily chosen eigenvector with another is not a correctness criterion.
+- **Near poles or degeneracy:** raw rational residuals can be badly conditioned even for accurate eigenvectors. Report them honestly, then check a scaled characteristic polynomial, normalization, orthogonality, and matrix residuals. Compare ground eigenspaces rather than particular vectors within a degenerate eigenspace.
 
-**Theorem 3.1** (Gaudin 1976): The Richardson-Gaudin model is **quantum integrable** because it possesses K commuting integrals of motion:
+## 5. Corrected numerical reference and verification status
 
-$$\hat{H}_i = 2\varepsilon_i \hat{S}^z_i + g \sum_{j \neq i} \frac{\vec{S}_i \cdot \vec{S}_j}{\varepsilon_i - \varepsilon_j}$$
+For the synthetic parameters \((\varepsilon_1,\varepsilon_2,g)=(-1,-0.5,0.3)\), the Python CLI returns
 
-satisfying:
-$$[\hat{H}_i, \hat{H}_j] = 0 \quad \forall i,j$$
+\[
+E_{z,-}=-0.883095189484530,\qquad
+E_{{\rm pair},-}=-2.383095189484530.
+\]
 
-The pairing Hamiltonian is:
-$$\hat{H}_{\text{pair}} = \sum_{i=1}^{K} \hat{H}_i$$
+The previous \(-0.583095189484530\) value omitted the diagonal self-pairing contribution \(-g\). This is a Hamiltonian construction error, not a harmless choice of energy origin: removing the terms changes paired states but leaves the four unpaired states unchanged.
 
-### 3.2 Classical r-matrix
+The actual Python run reported energy and full-spectrum errors \(2.220\times10^{-16}\), maximum paired eigenvector residual \(1.570\times10^{-16}\), and passed all ten CLI parameter cases. These are observed floating-point errors for these inputs, not universal bounds at machine epsilon. Reproduce with:
 
-The integrability is guaranteed by the **classical r-matrix**:
+```sh
+/usr/bin/python3 -B richardson_h2_verification.py
+/usr/bin/python3 -B -m unittest discover -s tests -v
+/usr/bin/python3 -B -m experiments.certificates
+```
 
-$$r(u,v) = \frac{P}{u - v}$$
+The Python tests independently build CAR operators and compare the complete six-state spectrum, including zero coupling and orbital degeneracy. `experiments/certificate_results.json` separately records synthetic block enclosures, barrier/rate intervals, and fixed-generator CTMC checks, with seeds, tolerances, and units. Dense diagonalization is a finite-size reference, not a scalable chemistry solver.
 
-where $P$ is the permutation operator, satisfying the classical Yang-Baxter equation (CYBE):
+**Julia status: UNTESTED.** No Julia executable was available in this environment. `richardson_h2_verification.jl` has the same sign, self-pairing, and energy-origin corrections at source level. Its Float64 and optional BigFloat algebra checks must be run separately in a Julia environment; they are not included in the Python success count.
 
-$$[r_{12}(u_1, u_2), r_{13}(u_1, u_3)] + [r_{12}(u_1, u_2), r_{23}(u_2, u_3)] + [r_{13}(u_1, u_3), r_{23}(u_2, u_3)] = 0$$
+## 6. Limits of the result
 
-### 3.3 Bethe Equations as Integrability Conditions
-
-Richardson equations are **Bethe equations** for the XXX spin chain in the rational limit. For H₂ (K=2, M=1), the single Bethe root $E_1$ ensures:
-
-1. **Commutativity**: $[\hat{H}, \hat{Q}] = 0$ for all conserved charges $\hat{Q}$
-2. **Algebraic completeness**: All eigenvalues obtained via Bethe ansatz
-3. **No missing states**: Dimension count matches Hilbert space
-
----
-
-## 4. Zero FCI Error Statement
-
-**Definition**: Full Configuration Interaction (FCI) computes the exact ground state energy within a given basis by diagonalizing the full Hamiltonian matrix.
-
-**Claim**: For the Richardson-Gaudin pairing Hamiltonian applied to H₂, the Bethe ansatz solution **exactly coincides** with the FCI result.
-
-**Proof Sketch**:
-1. The 2-electron, 2-orbital Hilbert space has dimension $\binom{4}{2} = 6$ (Slater determinants)
-2. Richardson's solution gives the **exact eigenvector** algebraically
-3. FCI diagonalization finds the same eigenvector numerically
-4. Difference is bounded by machine precision $\epsilon_{\text{mach}} \approx 10^{-15}$ (float64)
-
-**Numerical verification** (Section 5) confirms:
-$$|E_{\text{Bethe}} - E_{\text{FCI}}| < 10^{-14} \text{ Hartree}$$
-
----
-
-## 5. Computational Verification (See Code)
-
-Python implementation verifies:
-- ✓ Analytic solution of Richardson equation
-- ✓ Construction of Bethe ansatz wavefunction
-- ✓ Direct FCI via exact diagonalization
-- ✓ Energy difference < machine epsilon
-
-Julia implementation provides:
-- High-precision arithmetic (BigFloat)
-- Symbolic verification with SymPy
-- Visualization of wavefunction amplitudes
-
----
-
-## 6. References
-
-1. **Richardson, R. W.** (1963). "A restricted class of exact eigenstates of the pairing-force Hamiltonian." *Phys. Lett.* **3**, 277-279.
-
-2. **Gaudin, M.** (1976). "Diagonalisation d'une classe d'hamiltoniens de spin." *J. Phys.* **37**, 1087-1098.
-
-3. **Dukelsky, J., Pittel, S., & Sierra, G.** (2004). "Colloquium: Exactly solvable Richardson-Gaudin models for many-body quantum systems." *Rev. Mod. Phys.* **76**, 643-678.
-
-4. **Johnson, P. A. et al.** (2020). "Richardson-Gaudin mean-field for strong correlation in quantum chemistry." *J. Chem. Phys.* **153**, 104110.
-
----
-
-## Appendix: Connection to Molecular Hamiltonian
-
-Standard molecular Hamiltonian:
-$$\hat{H}_{\text{mol}} = \sum_{pq} h_{pq} a^\dagger_p a_q + \frac{1}{2}\sum_{pqrs} g_{pqrs} a^\dagger_p a^\dagger_q a_s a_r$$
-
-**Pairing reduction**: Set $g_{pq\bar{p}\bar{q}} = -g$ (pair scattering only), all other $g_{pqrs} = 0$.
-
-Then:
-$$\hat{H}_{\text{mol}} \rightarrow \hat{H}_{\text{pair}}$$
-
-This is **exact** for systems where only pair correlations dominate (superconductors, stretched H₂).
+A general molecular electronic Hamiltonian contains one- and two-electron terms that this constant-strength pairing model does not represent. Pair correlations being important does not make discarding the other terms exact, including for stretched H₂. To claim a molecular error bound one would need actual integrals, a documented reduction, and a quantitative bound on omitted interactions and other approximations. This derivation proves the stated finite model's spectrum only.

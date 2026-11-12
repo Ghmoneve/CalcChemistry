@@ -1,26 +1,159 @@
-% Extracted from chemical_molecules_average_complexity_analysis.md
+\subsection{An enclosure theorem is not a complexity breakthrough}
+The finite-basis electronic-structure problem in the setting of
+\citet{OGorman2022} is a worst-case QMA-complete ground-energy promise
+problem. The relevant precision is an inverse-polynomial additive promise
+gap under the paper's input and scaling conventions, not a universal relative
+error guarantee for all molecular energies. Fermionic $N$-representability
+has a corresponding QMA-completeness result \citep{Liu2007}.
+These classifications concern families of encoded instances. They neither
+prove that every molecule requires exponential time nor provide a probability
+measure under which most molecules are easy. No separation of complexity
+classes is assumed as a proved theorem here.
 
-\subsection{化学分布定义}
+The block estimate reduces the \emph{verification statement} to a few scalar
+inequalities once their hypotheses are supplied. It does not reduce the cost
+of constructing those hypotheses. The active eigenproblem, the complementary
+lower bound, the coupling norm, integral generation, and verified rounding all
+contribute to the cost. An active-space dimension that is small relative to
+the full determinant space need not be small as a function of the input size.
+Moreover, a complement estimate may be cheap and so loose that the final
+barrier interval is inconclusive.
 
-定义 $\mathcal{D}_{\text{chem}}$ 包含 6 类约束：
+The same issue arises for RDM and tensor representations. The dimensions of
+an explicit $p$-RDM on antisymmetric $p$-tuples are
+$\binom Kp\times\binom Kp$. For fixed $p$, this gives a polynomial
+number of entries, but does not make exact $N$-representability easy. For
+commuting SOS variables, if the number of variables is $m$, the number of
+monomials of total degree at most $d$ is $\binom{m+d}{d}$: append a slack
+exponent to the $m$ nonnegative exponents so their sum is exactly $d$, and
+count weak compositions into $m+1$ parts. In particular, taking $m=K^4$
+and $d=3$ gives
+\[
+ \binom{K^4+3}{3}
+ =\frac{(K^4+3)(K^4+2)(K^4+1)}6=\Theta(K^{12}),
+\]
+not $O(K^6)$. This count is only for that explicitly chosen commuting
+monomial basis; a fermionic operator construction must define its own basis.
+A dimension count alone supplies neither an SDP runtime nor a convergence
+rate, conditioning estimate, or accuracy guarantee.
+
+\subsection{What an average-case statement would require}
+An average-case complexity claim needs a family of probability distributions
+$\mathcal D_n$ on finite encoded inputs, an algorithm, a success criterion,
+an accuracy target, and a cost model. Qualitative labels such as stable,
+local, or chemically typical do not specify a normalized distribution.
+Empirical success on a selected set is evidence about that set, not a proof
+of polynomial expected runtime.
+
+\begin{proposition}[A sufficient tail condition, not an established chemical law]
+\label{prop:average}
+Let $T_n\ge0$ be the runtime of a specified algorithm under a specified
+$\mathcal D_n$, where $n\ge1$. Suppose constants $C,C',c,d>0$ and
+$k\ge0$ satisfy: outside an event of probability at most $C'e^{-cn}$,
+$T_n\le Cn^k$, and on every input $T_n\le Ce^{dn}$. Then
+\[
+ \mathbb E[T_n]\le Cn^k+CC'e^{(d-c)n}.
+\]
+In particular these hypotheses imply a polynomial expectation if $c\ge d$.
+\end{proposition}
+\begin{proof}
+Let $A_n$ be the exceptional event. Split the expectation as
+$\mathbb E[T_n\boldsymbol1_{A_n^c}]+
+\mathbb E[T_n\boldsymbol1_{A_n}]$.
+The first term is at most $Cn^k\mathbb P(A_n^c)\le Cn^k$, and the
+second is at most $Ce^{dn}\mathbb P(A_n)\le CC'e^{(d-c)n}$.
+If $c\ge d$, the second bound is at most $CC'$.
+\end{proof}
+
+An exponentially small difficult subset is therefore not by itself a
+polynomial expectation theorem: the runtime on it also matters. For example,
+a runtime equal to $1$ outside an event of probability $e^{-cn}$ and to
+$e^{dn}$ on that event has expectation
+$1-e^{-cn}+e^{(d-c)n}$, which grows exponentially when $d>c$.
+No distribution or tail estimate meeting these hypotheses has been
+constructed here for surface chemistry. No percentages of easy molecules or
+timelines for overcoming an exponential cost are inferred.
+
+\subsection{A research protocol for a specified elementary step}
+The results suggest a concrete sequence of tasks with explicit stopping
+conditions. The aim is an informative interval, which may be too wide to
+rank pathways; a failed ranking is not an algorithmic or physical prediction.
+
 \begin{enumerate}
-\item 元素周期表（$Z \in \{1,\ldots,118\}$）
-\item 几何局域性（键长 0.5-10 Å，配位数 $\leq 8$）
-\item 能隙 $\Delta \geq 0.5$ eV
-\item 热力学稳定性
-\item 面积律纠缠
-\item Boltzmann 概率测度
+\item \textbf{Specify the physical question.}
+For $\mathrm{Al_2O_3}/\mathrm{MoCl_4}$, record the substrate phase and
+facet, termination and hydroxylation, slab size and boundary conditions,
+coverage, precursor charge and spin, co-reactant, temperature, and reference
+reservoirs. For CaF, first resolve the intended chemical species, precursor
+pair, and reaction stoichiometry without changing the supplied formula.
+Define which elementary steps and competing channels are to be compared.
+
+\item \textbf{Fix a reproducible finite electronic target.}
+Provide geometries, orbital basis and ordering, electron count, symmetry
+sector, Hamiltonian coefficients, nuclear terms, and units. Record how each
+geometry was obtained and what establishes a reactant minimum or a connected
+transition state. A Hamiltonian at an unverified candidate geometry supports
+only a statement about that geometry.
+
+\item \textbf{Produce independently justified endpoints.}
+Construct a normalized trial state and a bound on its expectation. Supply
+$\underline a,\underline c,\overline b$ for the selected block split,
+or a dual-feasible outer-relaxation certificate, with all feasibility and
+rounding errors accounted for. Report the cost of the complement information
+separately. Compare with full diagonalization only where the latter is
+feasible, without treating the comparison itself as a scalable method.
+
+\item \textbf{Bound every correction to the requested target.}
+Use interval subtraction for electronic differences. Add justified bounds
+for geometry, thermodynamic, environmental, and other corrections that are
+needed for the chosen barrier definition. If a continuous path maximum is
+required, supply between-sample control as in Proposition~\ref{prop:path}.
+Do not infer a free-energy or nonadiabatic error bar from electronic solver
+convergence alone.
+
+\item \textbf{Set the precision from the kinetic decision.}
+State the rate model, temperature, energy-unit convention, and positive
+prefactor interval. Use Proposition~\ref{prop:log-budget} to decide whether
+the energy precision can meet the desired rate ratio. Apply
+Corollary~\ref{cor:ranking} only when its strict separation holds; otherwise
+report an unresolved ordering and identify the dominant interval width.
+
+\item \textbf{Define the network and observable separately.}
+For a finite-state kinetic model, enumerate states, transitions, environmental
+conditions, and all generator entries. Establish a rate bound for every entry
+and use Corollary~\ref{cor:rates-generator}. A bounded state observable then
+inherits Theorem~\ref{thm:ctmc}. Any relation to accumulated deposition or
+film thickness requires its own model and error analysis. Validate physical
+inputs against independently sourced data when available.
 \end{enumerate}
 
-\subsection{平均复杂度定理}
+\subsection{Open mathematical and computational questions}
+The central open problem is a useful complementary-space lower bound whose
+construction avoids enumerating the full omitted determinant space. Candidate
+routes include decompositions into positive operators, valid RDM dual
+certificates, or special operator structure. Each route must exhibit a
+checkable inequality for the actual complement, together with its cost and
+its loss of precision. An upper estimate for that complement cannot substitute
+for the required lower bound.
 
-\textbf{定理}（已证）：$\mathbb{E}_{H \sim \mathcal{D}_{\text{chem}}}[\text{Time}(H)] = O(N^{3+\alpha})$，$\alpha \in [0,3]$。
+A second problem is to combine active-state improvement and lower-bound
+improvement adaptively. Widening an active space may improve a variational
+upper bound, but a useful algorithm must show how to maintain and evaluate
+the lower certificate as the partition changes. Localized orbitals, symmetry,
+or tensor compression can aid the search without proving a uniform rate of
+convergence or a polynomial runtime.
 
-\textbf{复杂度类分布}：
-\begin{itemize}
-\item P-Chem（85\%）：$\Delta \geq 2$ eV，$O(N^{1.5-4})$
-\item QP-Chem（10\%）：$0.5 \leq \Delta < 2$ eV，$O(N^{4-6})$
-\item Exp-Chem（< 5\%）：$\Delta < 0.5$ eV 或锥形交叉，$2^{O(N)}$
-\end{itemize}
+A third problem is validated numerical evaluation. Floating-point eigenvalues,
+SDP feasibility residuals, and rate exponentials must be enclosed with error
+bounds tight enough to preserve the desired energy and rate inequalities.
+The residual correction in Proposition~\ref{prop:dual} gives one possible
+pattern, but its spectral residual and trace bound still have to be verified
+for the concrete SDP.
 
-硬实例测度 $\leq e^{-cN}$（指数稀疏）。
+Finally, uniform geometry and path errors, a defensible thermodynamic
+correction budget, a complete physical event catalog, and a measured
+observable mapping remain unresolved for the named ALD targets. The present
+paper provides conditional implications, not solutions to these input
+problems. Its next substantive result should be a fully specified example
+where each hypothesis can be checked and where the final interval either
+supports or demonstrably fails to support a stated chemical decision.

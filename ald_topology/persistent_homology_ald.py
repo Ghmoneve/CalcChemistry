@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# ARCHIVED UNVERIFIED DEMO: reported chemistry/proof claims are withdrawn.
+# See docs/audit_numerics.md and STATUS_REPORT.md; do not use as validation.
 """
 Persistent Homology for ALD Adsorption Site Prediction
 Algorithm: Surface → Point Cloud → Persistent Diagram → Betti Numbers → Site Count

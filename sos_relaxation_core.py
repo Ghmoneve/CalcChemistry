@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# ARCHIVED UNVERIFIED DEMO: reported chemistry/proof claims are withdrawn.
+# See docs/audit_numerics.md and STATUS_REPORT.md; do not use as validation.
 """
 Tight Degree-6 SOS Relaxation for N-Representability
 Pure Python implementation - no external dependencies

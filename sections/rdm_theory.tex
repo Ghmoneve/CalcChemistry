@@ -1,30 +1,188 @@
-% Extracted from rdm_n_representability_framework.md
+\subsection{Upper bounds and the limits of residuals}
+For a normalized trial state $\psi\in\mathcal H$, the expectation
+$u=\ip{\psi}{H\psi}$ satisfies $E_0(H)\le u$. The same holds for
+$\Tr(H\Gamma)$ when $\Gamma\succeq0$ and $\Tr\Gamma=1$: in an
+eigenbasis of $H$, the diagonal entries of $\Gamma$ are nonnegative
+weights summing to one. These statements require neither an optimized state
+nor an exact representation of the ground state. They do require an
+accurately bounded expectation for the stated $H$.
 
-\subsection{变分2-RDM方法的SDP松弛层次}
+\begin{proposition}[What a residual proves]
+\label{prop:residual}
+For a normalized $\psi$, a real number $\mu$, and
+$r=\norm{(H-\mu I)\psi}$, at least one eigenvalue of $H$ lies in
+$[\mu-r,\mu+r]$. This assertion does not identify the ground eigenvalue.
+\end{proposition}
+\begin{proof}
+Let $H\phi_j=\lambda_j\phi_j$ be an orthonormal eigenbasis, and write
+$\psi=\sum_j c_j\phi_j$. Then
+\[
+ r^2=\sum_j|c_j|^2(\lambda_j-\mu)^2
+ \ge\min_j|\lambda_j-\mu|^2\sum_j|c_j|^2
+ =\min_j|\lambda_j-\mu|^2.
+\]
+Taking square roots proves the spectral-distance statement. For the claimed
+limitation, choose $H=\operatorname{diag}(-2,1)$ and $\psi=(0,1)^T$.
+Its Rayleigh quotient is $\mu=1$ and its residual is zero, although
+$E_0(H)=-2$. Thus even a vanishing residual can belong to an excited state.
+\end{proof}
 
-2-RDM 方法通过直接优化约化密度矩阵避免指数墙：
+An a posteriori theorem using a residual to bound the ground energy must
+supply additional information that selects the ground branch, such as an
+appropriate certified spectral separation. A small residual alone does not
+provide the missing lower bound on the complement in
+Theorem~\ref{thm:block}.
+
+\subsection{Outer relaxations: the direction of the inequality}
+For a density operator $\Gamma$ supported in the chosen $N$-particle
+space, define
+\[
+ \gamma_{pq}=\Tr(\Gamma a_p^\dagger a_q),\qquad
+ D_{pq,rs}=\Tr(\Gamma a_p^\dagger a_q^\dagger a_s a_r).
+\]
+Let $\mathcal D_N$ be the set of all pairs $(\gamma,D)$ so obtained.
+Keeping both matrices avoids any special case in a contraction formula at
+$N=0$ or $N=1$. The electronic energy is the affine functional
+\[
+ \mathcal E(\gamma,D)=E_{\mathrm{nuc}}+
+ \sum_{pq}h_{pq}\gamma_{pq}+\frac12\sum_{pqrs}v_{pqrs}D_{pq,rs}.
+\]
+By the density-operator variational principle,
+$E_0(H)=\min_{d\in\mathcal D_N}\mathcal E(d)$.
+The use of necessary positivity constraints to relax this representability
+condition is part of the variational RDM approach \citep{Mazziotti2012}.
+
+\begin{proposition}[Relaxation and restriction]
+\label{prop:relaxation}
+Suppose
+$\mathcal D_N\subseteq\mathcal R_{\mathrm{tight}}
+\subseteq\mathcal R_{\mathrm{loose}}$ and define
+$e_{\mathcal R}=\inf_{d\in\mathcal R}\mathcal E(d)$.
+Then
 \begin{equation}
-E = \min_{{}^2D \in \mathcal{D}_N} \langle H, {}^2D \rangle
+ e_{\mathrm{loose}}\le e_{\mathrm{tight}}\le E_0(H)\le u
+ \label{eq:relaxation}
 \end{equation}
+for every valid trial-state upper bound $u$.
+In contrast, minimization over a nonempty subset of physical states gives an
+upper bound on $E_0(H)$.
+\end{proposition}
+\begin{proof}
+Every point in the smaller feasible set is also in the larger set, so the
+infimum over the larger set cannot be greater. Applying this observation to
+the two inclusions proves the first two inequalities. The trial-state
+variational principle proves the third. For a restriction to physical
+states, each feasible energy is at least $E_0(H)$, so its infimum is also
+at least $E_0(H)$.
+\end{proof}
 
-\textbf{PQG条件}（2-positivity）：
-\begin{align}
-{}^2D &\succeq 0 \\
-{}^2Q &\succeq 0 \\
-{}^2G &\succeq 0
-\end{align}
+Here an infimum may be $-\infty$, in which case it is a valid but useless
+lower bound. Additional valid outer-relaxation constraints can only raise
+the optimum. Percentages of a correlation energy, relative errors, and
+absolute errors in energy units are distinct quantities. None can be
+converted into another without the needed reference energy and convention.
+In particular, no universal accuracy guarantee for a fixed RDM hierarchy
+level follows from \eqref{eq:relaxation}.
 
-\textbf{3-positivity gap}：文献显示对强关联体系 gap 5-10\%，3-positivity 降至 0.5-1\%（化学精度）。
+\subsection{A dual objective is a certificate only after feasibility is checked}
+Suppose an outer relaxation has the semidefinite representation
+\begin{equation}
+ e_{\mathrm{relax}}=
+ \inf\{\langle F,X\rangle:\mathcal A(X)=d,\ X\succeq0\},
+ \label{eq:sdp-primal}
+\end{equation}
+where $\langle F,X\rangle=\operatorname{Re}\Tr(F^*X)$ and
+$\mathcal A$ maps Hermitian matrices to a real vector space. An additive
+energy constant can be kept on both primal and dual sides. Define the
+adjoint by $\langle\mathcal A^*y,X\rangle=y\cdot\mathcal A(X)$.
 
-\subsection{Degree-6 SOS 松弛}
+\begin{proposition}[Weak duality and a certified residual correction]
+\label{prop:dual}
+If $F-\mathcal A^*y\succeq0$, then
+\[
+ d\cdot y\le e_{\mathrm{relax}}\le E_0(H).
+\]
+More generally, suppose all primal-feasible $X$ have
+$\Tr X\le\tau$ and a verified $\delta\ge0$ satisfies
+$F-\mathcal A^*y\succeq-\delta I$. Then
+$d\cdot y-\delta\tau\le e_{\mathrm{relax}}$.
+\end{proposition}
+\begin{proof}
+For any feasible $X$, put $S=F-\mathcal A^*y$. Then
+\[
+ \langle F,X\rangle-d\cdot y=\Tr(SX).
+\]
+If $S,X\succeq0$, this trace is nonnegative: it equals
+$\Tr(X^{1/2}SX^{1/2})$, the trace of a positive semidefinite matrix.
+Taking the infimum proves weak duality. In the second case,
+$S+\delta I\succeq0$, so
+$\Tr(SX)\ge-\delta\Tr X\ge-\delta\tau$; taking the same infimum
+proves the corrected bound. The comparison with $E_0(H)$ follows from
+the assumed outer inclusion.
+\end{proof}
 
-本文构造 degree-6 sum-of-squares 多项式松弛，gap < 1\%，复杂度 $O(K^8)$ vs $O(K^{12})$（3-positivity）。
+No strong-duality assumption is needed for this one-sided certificate.
+A solver's approximate feasible primal point supplies an upper bound on the
+relaxation optimum, not a lower bound on $E_0(H)$; if it is not
+$N$-representable it supplies no trial-state upper bound either. Even in
+$\min_{0\le x\le1}x=0$, the feasible objective $x=1/2$ is not a lower
+bound on the minimum. A raw approximate dual objective is also insufficient
+when its slack is not known to be positive semidefinite. Exact feasibility
+or a rigorously bounded correction, such as Proposition~\ref{prop:dual},
+is essential. Numerical solver residuals with unverified tolerances do not
+meet this requirement by themselves.
 
-验证结果：
-\begin{itemize}
-\item H$_4$ 正方形：gap 0.56\%
-\item N$_2$ 解离：gap 0.74\%
-\item 苯分子：gap 0.26\%
-\end{itemize}
+One can combine independent lower bounds by taking their maximum. If
+$L_{\mathrm{dual}}$ and the block endpoint $\ell$ are both justified for
+the same Hamiltonian and sector, then
+$\max(L_{\mathrm{dual}},\ell)\le E_0(H)\le u$. Applying a relaxation
+to a complementary block is permissible only when its feasible set is proved
+to contain every state in that block.
 
-平均 gap 0.52\%，达到目标。
+\subsection{Why algebraic constraints need physical inclusion proofs}
+A proposed new constraint must hold for every physical $N$-particle state.
+Testing it on selected states cannot establish this inclusion. Two exact
+examples show why apparently stronger formulas may fail.
+
+\begin{example}[The 2-RDM does not determine the 3-RDM]
+\label{ex:three-rdm}
+In six ordered spin orbitals, use the determinant convention
+$|ijk\rangle=a_i^\dagger a_j^\dagger a_k^\dagger|0\rangle$ for
+$i<j<k$. The normalized states
+\[
+ |\psi_\pm\rangle=(|123\rangle\pm|456\rangle)/\sqrt2
+\]
+have identical 1- and 2-RDMs. Indeed, a monomial with at most two annihilators
+can remove at most two of the three occupied orbitals of $|456\rangle$;
+with at most two creators it cannot turn that determinant into $|123\rangle$.
+The reverse off-diagonal matrix element also vanishes. Thus every one- and
+two-body expectation contains the same diagonal terms in the two states and
+no sign-sensitive cross term. On the other hand,
+\[
+ \langle\psi_\pm|
+ a_1^\dagger a_2^\dagger a_3^\dagger a_6a_5a_4
+ |\psi_\pm\rangle=\pm\tfrac12,
+\]
+because the operator maps $|456\rangle$ to $|123\rangle$ with positive
+sign and annihilates $|123\rangle$. Therefore no state-independent function
+of the 2-RDM can reconstruct the entire 3-RDM.
+\end{example}
+
+\begin{example}[An invalid proposed necessary inequality]
+For $|\psi\rangle=(|12\rangle+|34\rangle)/\sqrt2$, one has
+$\langle n_1\rangle=\langle n_2\rangle=1/2$ and
+$D_{12,12}=\langle n_1n_2\rangle=1/2$, by evaluating each determinant.
+Consequently the proposed inequality
+$D_{12,12}^2\le\langle n_1\rangle\langle n_2\rangle D_{12,12}$
+would require $1/4\le1/8$. It excludes a physical state and cannot define a
+sound outer relaxation of all $N$-representable data.
+\end{example}
+
+A valid operator sum-of-squares certificate is different from testing a
+polynomial at random points. If, on the specified particle sector, one proves
+$H-LI=\sum_\alpha T_\alpha^*T_\alpha$ (possibly modulo identities
+that vanish on that sector), then every normalized expectation is at least
+$L$, since each term contributes $\norm{T_\alpha\psi}^2\ge0$.
+A practical SOS relaxation must specify its operator basis, the CAR and
+particle-number identities, and a verified Gram or dual certificate. No such
+new scalable SOS hierarchy or universal convergence rate is established here.

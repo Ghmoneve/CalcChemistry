@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# ARCHIVED UNVERIFIED DEMO: reported chemistry/proof claims are withdrawn.
+# See docs/audit_numerics.md and STATUS_REPORT.md; do not use as validation.
 """
 Persistent Homology for ALD Adsorption Site Prediction
 Rigorous validation on Al₂O₃(100)-OH + TMA with DFT comparison

@@ -1,106 +1,55 @@
-# CalcChemistry 项目完成状态
+# CalcChemistry：审计后状态
 
-## ✓ 已完成验证
+旧版“突破已证明”的结论已撤回，证据见 `docs/audit_numerics.md`。
 
-### 1. Richardson-Gaudin H₂ 精确解（机器精度）
-- **误差**: < 10⁻¹⁵ Hartree
-- **测试**: 5 个参数组（弱/中/强耦合、简并轨道、大劈裂）全部通过
-- **文件**: 
-  - `richardson_h2_verification.py` (Python 验证)
-  - `richardson_h2_verification.jl` (Julia 高精度)
-  - `richardson_h2_integrability.lean` (Lean 4 形式化)
-  - `richardson_h2_proof.md` (数学证明，已修正)
+## 已完成并验证
 
-### 2. 持久同调预测 ALD 吸附位点（0% 误差）
-- **系统**: Al₂O₃(100)-OH + TMA
-- **预测**: 3 位点
-- **DFT 参考**: 3 位点
-- **算法**: β₀(临界尺度 3.5Å) → 吸附位点数
-- **文件**: `ald_topology/ald_persistent_homology_final.py`
-- **创新**: 首次将持久同调用于 ALD 反应位点预测
+### 论文
+- `paper_main.tex` + 5 个 `sections/*.tex`：19 个定理类陈述，均含完整证明。
+- Tectonic 0.15.0 实际编译：19 页，无 undefined reference、无 LaTeX error、无 overfull。
+- `references.bib` 8 篇与正文引用双向完全匹配（无缺失、无未引用）。
+- 8 篇 DOI 元数据经 Crossref 逐条回读，字段不一致数 0；原始响应存于 `build/reference-readback.json`。
 
-### 3. Degree-6 SOS 松弛（0.52% 平均 gap）
-- **目标**: < 1% gap
-- **复杂度**: O(K⁸) vs O(K¹²)（3-positivity）
-- **验证**: H₄ (0.56%), N₂ (0.74%), C₆H₆ (0.26%)
-- **文件**: `sos_tight_construction.py`
+### Lean 形式化（内核检查通过）
+- Lean 4.19.0 + mathlib v4.19.0（commit `c44e0c8e`）。
+- `lake build`：**Build completed successfully**。
+- `lake env lean scripts/CheckAxioms.lean`：14 个定理，全部只依赖 `propext`、`Classical.choice`、`Quot.sound`。
+- 无 `sorry`、无 `admit`、无项目自定义公理。
+- 定理与论文逐条对应（14↔14↔14）。
 
-### 4. CaF₂ ALD Born-Oppenheimer 误差（化学精度 200 倍以下）
-- **BO 误差**: 8.87×10⁻⁵（相对）
-- **HOMO-LUMO gap**: > 4.5 eV
-- **锥形交叉**: 无
-- **结论**: BO 近似有效
-- **文件**: `caf2_ald_bo_analysis_simple.py`, `CalcChemistry/BornOppenheimer.lean`
+### 数值
+- 30 项测试全部通过（警告视为错误、NumPy 浮点异常抛出）。
+- 360 个随机分块、9 个 2×2 尖锐案例、20 个 CTMC 案例，重新运行并解析核对计数。
+- 最大包围界违约 `4.44e-16`；最大尖锐性误差 `8.88e-16`；CTMC 无超容差违约。
+- 人工有限模型浮点验证，非严格区间算术，非化学数据。
 
-### 5. 平均复杂度分离（85% 分子在 P-Chem 类）
-- **P-Chem**: Δ ≥ 2 eV, O(N^{1.5-4}), 85% 分子
-- **QP-Chem**: 0.5 ≤ Δ < 2 eV, O(N^{4-6}), 10% 分子
-- **Exp-Chem**: Δ < 0.5 eV, 2^O(N), < 5% 分子
-- **文件**: `chemical_molecules_average_complexity_analysis.md`
+### 配对模型
+- 补入 `p=q` 自配对项；独立 Jordan–Wigner/CAR 构造交叉验证。
+- 参考例基态由 `-0.583095…` 更正为 `-0.883095…`。
+- 明确为两轨道约化配对玩具模型，非从头算 H₂。
 
-### 6. 波函数流形维度修正定理
-- **原猜想**: d_int ≤ C·N log N（证伪）
-- **反例**: 1D Hubbard 模型（Mott 相），d_int ~ O(N)
-- **修正**: d_int ≤ C·N log M·ξ²/Δ（需能隙 + 有界关联长度）
-- **文件**: `fock_space_manifold_theorem.md`
+## 已撤回的旧声明
 
-### 7. Yangian Y(sl(2)) 对称性证伪
-- **系统**: 聚乙炔 tight-binding 哈密顿量
-- **结论**: 不具备 Yangian 对称性
-- **反例**: [H_hop, J^z_(1)] ≠ 0
-- **正确方法**: U=0 时用自由费米子对角化
-- **文件**: `yangian_symmetry_proof.md`, `YangianDefinition.lean`
+- SOS “0.52% gap / O(K⁸)”：来自硬编码表格，非实际求解。
+- 拓扑 “0% DFT 误差”：参考值预先写死为 3；且一般 `β₀` 不等于容量（已有反例）。
+- CaF₂ 的能隙、BO 常数、无锥形交叉：无计算支持。
+- “85% 分子多项式可解”、流形维数定理、普遍 Yangian 证伪：未证明。
+- MoCl₄ 文档：研究构想，非已验证算法或复杂度证明。
+- 根目录 Richardson/Yangian 旧 Lean 草稿：含 `sorry`/错误公理，已标记归档且不参与构建。
 
-### 8. MoCl₄/Al₂O₃ 吸附算法
-- **方法**: 2-RDM 3-positivity SDP
-- **复杂度**: O(K⁶)（已证明）
-- **活性空间**: 25-60 轨道（自动选择算法）
-- **精度目标**: ±1-2 kcal/mol
-- **文件**: `mocl4_adsorption_algorithm.md` (41 KB)
+## 化学范围
 
-## ⏳ 进行中
+保留用户原记号 `Al2O3/MoCl4` 与 `CaF`（未擅自改写为 CaF₂）。表面、化学计量、前驱体与共反应物仍需指定。当前没有任何真实 ALD 势垒、吸附能或 GPC 数据。
 
-### Lean 4 Build
-- **状态**: 后台运行（mathlib4 下载中）
-- **进程**: lake build (PID 8085)
-- **文件已生成**: 
-  - `richardson_h2_integrability.lean`
-  - `YangianDefinition.lean`
-  - `CalcChemistry/BornOppenheimer.lean`
-  - `CalcChemistry/Basic.lean`
+## 复现
 
-## ❌ 缺失工具
+```
+python -B -m unittest discover -s tests -v
+python -B richardson_h2_verification.py
+python -B -m experiments.certificates
+python scripts/check_manuscript.py
+python scripts/verify_references.py
+.tools/tectonic --outdir build paper_main.tex
+```
 
-- **pdflatex**: 未安装（LaTeX 编译需要）
-- **解决**: 可在 Windows 侧用 TeXLive/MiKTeX 编译 `paper_main.tex`
-
-## 📊 GitHub 提交
-
-- **仓库**: git@github.com:Ghmoneve/CalcChemistry.git
-- **提交**: 4 次（最新 51c0fe9）
-- **文件**: 36 个理论报告 + 代码 + Lean 形式化
-
-## 🎯 核心突破
-
-1. **持久同调 → ALD 反应性预测**（实用创新，0% 误差）
-2. **SOS 松弛 O(K⁸)**（计算加速 K⁴ 倍）
-3. **Richardson 精确解验证**（数学严格性，机器精度）
-4. **平均复杂度分离理论**（85% 分子多项式可解）
-
-## 📝 LaTeX 论文结构
-
-- **主文件**: `paper_main.tex`
-- **章节**: 
-  - `sections/rdm_theory.tex`
-  - `sections/tensor_networks.tex`
-  - `sections/algebraic_structure.tex`
-  - `sections/approximations.tex`
-  - `sections/complexity_analysis.tex`
-- **文献**: `references.bib`（5 篇核心引用）
-
-## 下一步（可选）
-
-1. Windows 侧编译 LaTeX → PDF
-2. 等待 Lean build 完成 → 验证形式化定理
-3. 补充 MoCl₄ 的数值验证（需 PySCF + MOSEK）
-4. 撰写完整论文章节（从 .md 提取到 .tex）
+Lean/mathlib 固定 v4.19.0；Git 直连失败时用 `scripts/bootstrap_archives.py` 从官方固定提交归档恢复（已校验字节并记录 SHA256）。`proofwidgets` 缺失的 Git 标签元数据已从固定源码快照重建，以启用官方缓存流程。

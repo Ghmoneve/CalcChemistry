@@ -1,4 +1,7 @@
 /-
+ARCHIVED / NOT VERIFIED: historical draft with placeholders and invalid
+axioms. Not part of CalcChemistry.lean or the verified manuscript.
+
   Yangian Y(sl(2)) Formalization in Lean 4
   ========================================
   

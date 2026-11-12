@@ -1,5 +1,7 @@
 # 约化密度矩阵与N-representability问题的新数学框架
 
+> 审计标记：本文为早期未核验探索稿，含已发现的错误推导或无证据断言；不能作为已证明结果或计算数据引用。以 `docs/audit_numerics.md`、`STATUS_REPORT.md` 和重新核验的 `paper_main.tex` 为准。历史内容保留以便追溯。
+
 ## 摘要
 
 N-representability问题是量子多体理论的核心难题：给定低阶约化密度矩阵（reduced density matrix, RDM），何时存在与之相容的N-粒子纯态或混合态？本文系统分析变分2-RDM方法的半正定规划（semidefinite programming, SDP）松弛层次，探索代数几何工具对N-representability可行集的紧外逼近，阐明量子边际问题（quantum marginal problem）与量子信息非局域相关的深刻联系，并提出若干具体可攻击的开放问题及其对化学计算的意义。

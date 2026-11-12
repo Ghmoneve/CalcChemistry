@@ -1,323 +1,406 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage{mathrsfs}
-\usepackage{physics}
-\usepackage{hyperref}
-\usepackage{cleveref}
-\usepackage[numbers,sort&compress]{natbib}
+\setlength{\emergencystretch}{4em}
+\setlength{\hfuzz}{2pt}
 \usepackage{geometry}
 \geometry{margin=2.5cm}
-
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
-
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{example}[theorem]{Example}
-
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\TV}{TV}
+\DeclareMathOperator{\spec}{spec}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
 
-\title{Mathematical Foundations for Polynomial-Time Molecular Calculations:\\
-Bypassing the Exponential Wall in Quantum Chemistry}
-
-\author{%
-  [作者姓名] \\
-  [机构] \\
-  \texttt{[email]}
-}
-
-\date{\today}
-
+\title{Energy Certificates and Conditional Kinetic Bounds for
+Finite-Basis Surface-Reaction Models}
+\author{}
+\date{}
 \begin{document}
-
 \maketitle
 
 \begin{abstract}
-薛定谔方程的精确求解是量子化学的核心问题，但其计算复杂度随系统尺寸指数增长（QMA-complete）。近年来，扩展丘奇-图灵论题（ETH）在量子多体系统中遭到质疑，表明某些量子系统存在比预期更丰富的数学结构。本文系统探索能否利用这些结构，从数学层面构造多项式时间可解的分子薛定谔方程子类。
-
-我们从五个方向展开研究：(1) 约化密度矩阵（RDM）方法的代数几何紧逼近，将 3-positivity 松弛的复杂度降至 $O(K^8)$ 并保持化学精度；(2) 张量网络方法的几何优化，提出纠缠感知轨道排序和拓扑引导的基组选择，理论上可降低 30-50\% 计算成本；(3) 分子哈密顿量的李代数与量子群对称性分析，识别 Richardson-Gaudin 配对模型等精确可解子类；(4) Born-Oppenheimer 近似和 Nearsightedness 理论的严格误差界，明确物理近似的数学成立条件；(5) 化学分子复杂度的平均情形分析，猜想实际分子位于某个"易解"的复杂度子类。
-
-关键创新包括：基于 Sum-of-Squares 方法的 N-representability 紧外逼近、分子波函数流形的内蕴维度估计 $d_{\text{int}} \sim O(N \log N)$、持久同调在量子化学基组选择中的首次应用、以及 Howe 对偶在分子精确求解中的构造性方案。核心定理在 Lean 4 中形式化验证。
-
-虽然完全突破指数墙的普遍方法尚未找到，但我们识别出多个有前景的数学路径，并提出五个可在 1-10 年内攻克的开放问题。这些方法的组合有望将中等规模分子（50-100 原子）的精确计算推进到实用阶段。
+A computed electronic energy becomes an error certificate only when both
+sides of an interval are justified for a specified Hamiltonian. This research
+note gives a self-contained chain of conditional bounds: a finite-dimensional
+block decomposition yields a ground-energy enclosure; interval subtraction
+yields an electronic barrier enclosure; separately bounded thermodynamic and
+geometric corrections allow propagation through an assumed transition-state
+rate formula; and a finite-state Markov generator perturbation bound controls
+state probabilities and bounded observables. The block bound accepts lower
+bounds on both diagonal blocks and an upper bound on the coupling norm. Its
+proof exposes the principal computational difficulty: certifying the omitted
+space. We prove the direction of reduced-density-matrix relaxation bounds,
+distinguish dual certificates from approximate primal values, and explain why
+a small eigenvector residual need not identify a ground state. A two-level
+pairing model and a three-vertex conflict graph provide exact algebraic checks
+and a counterexample to a proposed topological occupancy rule. These are
+elementary mathematical results assembled for certificate design; no novelty
+is claimed for the inequalities. No molecular or surface benchmark, uniform
+Born--Oppenheimer error estimate, universal polynomial-time algorithm, or
+experimental growth prediction is established. The principal open task is to
+construct useful, inexpensive, rigorously evaluated inputs for one fully
+specified surface-reaction model.
 \end{abstract}
 
-\section{Introduction}
+\section{Purpose and scope}
 \label{sec:intro}
+The useful question for a reduced electronic calculation is whether it can
+exclude an error large enough to change a chemical conclusion. A trial state
+can give a low energy without supplying such an exclusion. Similarly, close
+agreement between implementations can validate shared algebra while leaving
+the physical model untested. We separate three objects: a mathematical target,
+a certificate for that target, and the additional assumptions relating the
+target to an experiment.
 
-\subsection{The Exponential Wall Problem}
+Our target is the lowest eigenvalue of a specified finite Hermitian matrix,
+usually an electronic Hamiltonian in a fixed orbital basis, particle-number
+sector, geometry, and boundary condition. Its energy interval does not by
+itself bound the continuum electronic problem, a free energy, a transition
+rate, or growth per cycle. Each passage to a different target requires an
+explicit model or an additional error bound.
 
-分子薛定谔方程的精确求解面临"维度灾难"：$N$ 个电子在 $K$ 个轨道上的希尔伯特空间维度为 $\binom{K}{N} \sim K^N / N!$，即使对 $N=50, K=100$ 的中等分子，维度已达 $10^{29}$。O'Gorman 等人 \cite{OGorman2022} 证明基态能量计算是 QMA-complete，在量子计算的最坏情形下也难以高效求解。
+Worst-case complexity results for electronic structure in a fixed basis
+\citep{OGorman2022} and for fermionic $N$-representability \citep{Liu2007}
+prevent an inference of general efficiency from the notation of chemistry or
+from replacing a wavefunction by reduced data. They do not say that every
+chemical instance is difficult. Our results make no average-case complexity
+claim. They identify sufficient information for a sound conclusion and make
+visible where obtaining that information may be expensive.
 
-然而，实际化学计算中存在若干重要观察：
-\begin{enumerate}
-\item 密度泛函理论（DFT）在 $O(N^3)$ 时间内给出合理精度（误差 1-5 kcal/mol）
-\item 耦合簇方法 CCSD(T) 在 $O(N^7)$ 时间达到"金标准"精度（$<$1 kcal/mol）
-\item 某些特殊分子（如 Richardson 配对模型）存在精确解析解
-\end{enumerate}
+Ab initio approaches to area-selective ALD motivate the need to separate
+surface-model choices, electronic accuracy, and kinetic assumptions
+\citep{Pieck2025}. The intended applications include elementary steps involving
+$\mathrm{Al_2O_3}/\mathrm{MoCl_4}$ and the user-specified target CaF. These
+names are research targets, not descriptions of completed calculations.
+CaF is left as supplied; it is not silently interpreted as
+$\mathrm{CaF_2}$. No surface structures, molecular integrals, independent DFT
+labels, or measured kinetic data for these targets are provided here.
 
-这提示存在数学结构使得"典型"化学分子比最坏情形简单得多。本文目标是系统识别和利用这些结构。
+\section{Finite-dimensional setting and block energy certificates}
+\label{sec:energy}
+\subsection{The target and the meaning of a certificate}
+Let $\mathcal H$ be a nonzero finite-dimensional complex Hilbert space and
+let $H=H^*$ on $\mathcal H$. We use inner products conjugate-linear in their
+first argument and the induced operator norm. Define
+\[
+ E_0(H)=\min_{\norm{v}=1}\ip{v}{Hv}=\lambda_{\min}(H).
+\]
+The equality follows by expanding $v$ in an orthonormal eigenbasis: its
+expectation is a convex combination of eigenvalues, and a lowest eigenvector
+attains the minimum. An energy certificate is a pair of justified real
+numbers $L,U$ with $L\le E_0(H)\le U$. A floating-point estimate of an
+endpoint is not automatically a justified endpoint.
 
-\subsection{Post-ETH Quantum Systems and Integrability}
-
-扩展丘奇-图灵论题（Eigenstate Thermalization Hypothesis, ETH）断言孤立量子系统演化后达到热平衡，丢失初态信息 \cite{Deutsch1991,Srednicki1994}。但近年发现两类反例：
-\begin{itemize}
-\item \textbf{多体局域化}（Many-Body Localization, MBL）：强无序系统中，局域化阻止热化，保留初态记忆 \cite{Nandkishore2015}
-\item \textbf{量子可积系统}：无限多守恒量约束演化，Bethe ansatz 给出精确解 \cite{Essler2005}
-\end{itemize}
-
-分子哈密顿量是否包含这些结构？如果存在，能否构造性地利用它们？
-
-\subsection{Contributions and Structure}
-
-本文贡献：
-\begin{enumerate}
-\item 系统综述约化密度矩阵方法的 SDP 松弛层次，提出代数几何紧逼近策略（\S\ref{sec:rdm}）
-\item 建立张量网络秩界与分子拓扑结构的理论联系，提出拓扑感知基组优化（\S\ref{sec:tensor}）
-\item 分类分子哈密顿量的李代数结构，构造 Richardson-Gaudin 和 Howe 对偶的可解子类（\S\ref{sec:algebra}）
-\item 给出 Born-Oppenheimer 和 Nearsightedness 的严格误差界，分析失效条件（\S\ref{sec:approximations}）
-\item 提出化学分子平均复杂度的形式化猜想（\S\ref{sec:complexity}）
-\item 在 Lean 4 中形式化核心定理（\S\ref{sec:formalization}）
-\end{enumerate}
-
-论文组织：\S\ref{sec:preliminaries} 建立数学记号；\S\ref{sec:rdm}--\S\ref{sec:complexity} 展开五大研究方向；\S\ref{sec:integration} 整合统一框架；\S\ref{sec:open} 提出开放问题；\S\ref{sec:conclusion} 总结。
-
-\section{Mathematical Preliminaries}
-\label{sec:preliminaries}
-
-\subsection{Second Quantization Formalism}
-
-考虑 $K$ 个单粒子轨道 $\{\phi_p\}_{p=1}^K$ 上的费米子系统。产生/湮灭算符 $a^\dagger_p, a_q$ 满足正则反对易关系（CAR）：
+For fermionic applications, take $K$ orthonormal spin orbitals and the
+$N$-particle sector $\bigwedge^N\C^K$, where $0\le N\le K$.
+Its dimension is $\binom K N$. One possible convention is
 \begin{equation}
-\{a_p, a^\dagger_q\} = \delta_{pq}, \quad 
-\{a_p, a_q\} = \{a^\dagger_p, a^\dagger_q\} = 0
+ H=E_{\mathrm{nuc}}I+\sum_{pq}h_{pq}a_p^\dagger a_q
+   +\frac12\sum_{pqrs}v_{pqrs}a_p^\dagger a_q^\dagger a_s a_r,
+ \label{eq:electronic}
 \end{equation}
+with coefficients chosen so that $H$ is Hermitian. The operators obey
+$\{a_p,a_q^\dagger\}=\delta_{pq}I$ and
+$\{a_p,a_q\}=\{a_p^\dagger,a_q^\dagger\}=0$.
+The coefficient convention, energy units, nuclear term, and orbital basis
+must be supplied with a numerical instance. The theorems below do not assume
+any particular form of these coefficients.
 
-分子电子哈密顿量：
+If one additionally restricts total spin or another symmetry, the target is
+the ground energy in that sector. A certificate for one sector is not a
+global ground-energy certificate unless the other sectors have been excluded
+or bounded. Across a complete direct-sum decomposition, the global ground
+energy is the minimum of the sector ground energies.
+
+\subsection{A bound using certified block data}
+Choose an orthogonal decomposition
+$\mathcal H=\mathcal H_A\oplus\mathcal H_C$ with both summands nonzero:
 \begin{equation}
-\hat{H} = \sum_{pq} h_{pq} a^\dagger_p a_q + \frac{1}{2} \sum_{pqrs} g_{pqrs} a^\dagger_p a^\dagger_q a_s a_r
-\label{eq:hamiltonian}
+ H=\begin{pmatrix} A&B\\B^*&C\end{pmatrix}.
+ \label{eq:block}
 \end{equation}
-其中 $h_{pq}$ 是单粒子积分（动能+核吸引），$g_{pqrs} = \langle pq | r^{-1}_{12} | rs \rangle$ 是双电子排斥积分。
+Thus $B:\mathcal H_C\to\mathcal H_A$. The active space may be small,
+but the complement comprises every other vector in the stated target space.
 
-\subsection{Reduced Density Matrices}
-
-$p$-粒子约化密度矩阵（$p$-RDM）定义为：
+\begin{theorem}[Block enclosure from one-sided data]
+\label{thm:block}
+Suppose real numbers $\underline a,\underline c,\overline b$ satisfy
+\[
+ A\succeq\underline a I,\qquad C\succeq\underline c I,
+ \qquad \norm B\le\overline b,\qquad \overline b\ge0.
+\]
+Let $x_0\in\mathcal H_A$ be normalized and let
+$u=\ip{x_0}{Ax_0}$, or more generally let $u$ be a certified upper bound
+on this expectation. Then
 \begin{equation}
-{}^p D_{i_1 \cdots i_p, j_1 \cdots j_p} = \text{Tr}[\Gamma \, a^\dagger_{i_1} \cdots a^\dagger_{i_p} a_{j_p} \cdots a_{j_1}]
+ \ell:=\frac{\underline a+\underline c
+       -\sqrt{(\underline c-\underline a)^2+4\overline b^2}}2
+ \ \le\ E_0(H)\ \le\ u.
+ \label{eq:block-enclosure}
 \end{equation}
-其中 $\Gamma$ 是 $N$-粒子密度算符。
-
-\textbf{N-representability 问题}：给定 ${}^p D$，何时存在 $N$-粒子态 $\Gamma$ 使之成立？
-
-\subsection{Tensor Network Representations}
-
-矩阵乘积态（MPS）参数化：
-\begin{equation}
-|\Psi\rangle = \sum_{i_1 \cdots i_L} A^{[1]}_{i_1} A^{[2]}_{i_2} \cdots A^{[L]}_{i_L} |i_1 \cdots i_L\rangle
-\end{equation}
-其中 $A^{[k]}_{i_k}$ 是 $D_{k-1} \times D_k$ 矩阵，$D_k$ 称为 bond dimension。
-
-\textbf{面积律}（Hastings 2007 \cite{Hastings2007}）：一维有能隙系统的纠缠熵满足 $S(A) \leq c |\partial A|$，保证 MPS 有效性。
-
-\subsection{Complexity Theory Basics}
-
-\begin{definition}[QMA-complete]
-问题属于 QMA（Quantum Merlin-Arthur）当且仅当存在多项式时间量子验证器，在 YES 实例上接受概率 $\geq 2/3$，NO 实例上 $\leq 1/3$。QMA-complete 是该复杂度类中最难的问题。
-\end{definition}
-
-\begin{theorem}[O'Gorman et al. 2022 \cite{OGorman2022}]
-计算分子哈密顿量 \eqref{eq:hamiltonian} 的基态能量（相对误差 $1/\text{poly}(N)$）是 QMA-complete。
+No ordering of $\underline a$ and $\underline c$ is required.
 \end{theorem}
+\begin{proof}
+Write a normalized vector as $v=(x,y)$, and put
+$s=\norm x$, $t=\norm y$. Then $s^2+t^2=1$. The hypotheses and
+Cauchy--Schwarz give
+\begin{align*}
+ \ip{v}{Hv}
+ &=\ip{x}{Ax}+\ip{y}{Cy}+2\operatorname{Re}\ip{x}{By}\\
+ &\ge\underline a s^2+\underline c t^2-2\overline b st.
+\end{align*}
+The final expression is the quadratic form of
+$M=\left(\begin{smallmatrix}\underline a&-\overline b\\
+-\overline b&\underline c\end{smallmatrix}\right)$
+on the unit vector $(s,t)$. Its characteristic polynomial is
+$(\underline a-z)(\underline c-z)-\overline b^2$; the smaller root is
+$\ell$. Expanding $(s,t)$ in an orthonormal eigenbasis of this real
+symmetric matrix gives $(s,t)M(s,t)^T\ge\ell$. Minimizing over $v$
+proves the lower bound. The vector $(x_0,0)$ is a normalized trial vector
+for $H$, with expectation $\ip{x_0}{Ax_0}\le u$. The variational
+principle proves the upper bound.
+\end{proof}
 
-\section{Reduced Density Matrix Methods and Algebraic Geometry}
+\begin{corollary}[Separated complement]
+\label{cor:gap}
+Suppose $a=\lambda_{\min}(A)$ is known exactly,
+$C\succeq cI$, $\norm B\le b$, $b\ge0$, and $c>a$. Then
+\begin{equation}
+ 0\le a-E_0(H)
+ \le\frac{\sqrt{(c-a)^2+4b^2}-(c-a)}2
+ =\frac{2b^2}{\sqrt{(c-a)^2+4b^2}+(c-a)}
+ \le\frac{b^2}{c-a}.
+ \label{eq:gap-bound}
+\end{equation}
+If $a$ is only replaced by a lower bound $\underline a$, the assertion
+$0\le\underline a-E_0(H)$ need not hold; the applicable enclosure remains
+\eqref{eq:block-enclosure} with an independently justified upper endpoint.
+\end{corollary}
+\begin{proof}
+A normalized lowest eigenvector of $A$ gives $E_0(H)\le a$.
+Theorem~\ref{thm:block} with input $(a,c,b)$ gives the middle bound by
+subtracting its lower endpoint from $a$. Rationalizing the numerator yields
+the identity. Since $c-a>0$, the denominator is at least $2(c-a)$,
+which proves the last inequality, including $b=0$.
+\end{proof}
+
+\begin{proposition}[Sharpness of the block estimate]
+\label{prop:sharp}
+For any real $a,c$ and $b\ge0$, the scalar-block matrix
+$H=\left(\begin{smallmatrix}a&-b\\-b&c\end{smallmatrix}\right)$
+attains the lower endpoint of Theorem~\ref{thm:block} with exact inputs.
+For fixed $c-a>0$, the coefficient one in the final bound
+$b^2/(c-a)$ cannot be reduced uniformly for all $b>0$.
+\end{proposition}
+\begin{proof}
+The characteristic polynomial in the preceding proof is now precisely that
+of $H$, so its smaller root is $E_0(H)$. Writing $d=c-a>0$, the ratio
+of the exact shift to $b^2/d$ is
+$2d/(\sqrt{d^2+4b^2}+d)$, which tends to one as $b$ decreases to zero.
+Any proposed smaller constant fails for sufficiently small positive $b$.
+\end{proof}
+
+When $B=0$, the lower endpoint is $\min(\underline a,\underline c)$.
+A low state in the complement remains visible. The square-root bound also
+remains valid when $c=a$ or $c<a$, where Corollary~\ref{cor:gap} cannot
+be used.
+
+\subsection{What the certificate costs}
+The theorem does not compute its hypotheses. A ground-energy approximation
+to $C$ obtained by a variational method is an upper bound on
+$\lambda_{\min}(C)$ and cannot serve as $\underline c$.
+Diagonalizing $C$ may cost essentially as much as the original calculation.
+A bound on a one-particle orbital gap is not, without a further argument,
+a lower bound on every many-electron energy in the omitted space.
+
+Crude rigorous bounds can nevertheless be useful. For example, if an explicit
+Hermitian matrix $C=(C_{ij})$ is available, then
+\begin{equation}
+ C\succeq
+ \left[\min_i\left(C_{ii}-\sum_{j\ne i}|C_{ij}|\right)\right]I.
+ \label{eq:row-bound}
+\end{equation}
+Indeed, each off-diagonal contribution obeys
+$2\operatorname{Re}(\overline y_i C_{ij}y_j)
+\ge-|C_{ij}|(|y_i|^2+|y_j|^2)$; summing over $i<j$ proves the
+quadratic-form inequality. Likewise $\norm B\le\norm B_F$, since
+Cauchy--Schwarz applied to each row gives
+$\norm{By}^2\le(\sum_{ij}|B_{ij}|^2)\norm y^2$.
+These estimates may be inexpensive for a sparse represented matrix but very
+loose, and even reading all entries may be infeasible in a large Fock space.
+A practical method must state how the matrix or operator is accessed.
+
+All scalar evaluation must preserve the one-sided inequalities. Exact
+arithmetic, outward-rounded intervals, or independently verified error bounds
+can do this. An ordinary dense eigensolver and a rounded square root provide
+numerical checks, not a rounding certificate. A cancellation-resistant identity
+is
+\[
+ \ell=\min(\underline a,\underline c)
+ -\frac{2\overline b^2}
+ {\sqrt{(\underline c-\underline a)^2+4\overline b^2}
+       +|\underline c-\underline a|},
+\]
+with the correction defined as zero when $\overline b=0$. Stability of this
+formula still does not replace outward rounding.
+
+\section{Variational states and reduced-density-matrix relaxations}
 \label{sec:rdm}
-
 \input{sections/rdm_theory}
-
-\section{Tensor Networks and Molecular Integral Geometry}
+\section{Trial-state compression and topological descriptors}
 \label{sec:tensor}
-
 \input{sections/tensor_networks}
-
-\section{Algebraic Structure and Exact Solutions}
+\section{An exactly solvable pairing check}
 \label{sec:algebra}
-
 \input{sections/algebraic_structure}
-
-\section{Rigorous Foundations of Physical Approximations}
+\section{From electronic intervals to conditional kinetic bounds}
 \label{sec:approximations}
-
 \input{sections/approximations}
-
-\section{Average-Case Complexity of Chemical Molecules}
+\section{Computational scope and unresolved tasks}
 \label{sec:complexity}
-
 \input{sections/complexity_analysis}
 
-\section{Integration: A Unified Framework}
-\label{sec:integration}
+\section{Evidence and formal verification status}
+\label{sec:formalization}
+The proofs in this manuscript are mathematical arguments over real and
+complex finite-dimensional spaces. They should be distinguished from the
+repository's numerical checks and any theorem-prover implementation.
+The pairing check builds a fermionic Hamiltonian by sequential application
+of creation and annihilation operators. An independent test constructs
+Jordan--Wigner tensor-product matrices on the full four-mode Fock space,
+checks the canonical anticommutation relations, and projects to the explicit
+two-electron sector. Comparing these constructions can detect occupation-order
+signs, omitted self-pairing terms, and an incorrect energy origin. Tests of
+normalized vectors, both paired eigenvalues, the complete sector spectrum, and
+degenerate cases are stronger than comparison of one energy alone. They remain
+tests of a toy model in floating-point arithmetic.
 
-前述五个方向并非孤立，而是相互支撑的统一理论框架的不同侧面。本节建立它们之间的联系。
+The dense block experiment evaluates small finite matrices and checks their
+enclosures against direct diagonalization. It does not demonstrate efficient
+complement certification or validated numerical rounding. The regression
+checks in \path{tests/test_audit_counterexamples.py} have also passed: they
+reproduce the distinction between component count and independence number,
+the identical 2-RDMs but different 3-RDMs in Example~\ref{ex:three-rdm},
+and the exclusion of a physical state by the invalid proposed SOS constraint.
+These are negative validation tests of mathematical claims, not chemical data
+or tests of a surface-reaction model.
 
-\subsection{The Hierarchy of Solvability}
-
-我们提出化学哈密顿量的\textbf{可解性层次}：
-
-\begin{enumerate}
-\item \textbf{精确可解}（Polynomial-time exact）\\
-  条件：Casimir 算子线性组合、Richardson-Gaudin 可积、Howe 对偶\\
-  例子：配对哈密顿量、$\mathfrak{su}(1,1)$ 振子模型\\
-  复杂度：$O(\text{poly}(K))$
-  
-\item \textbf{准精确可解}（Polynomial-time to chemical accuracy）\\
-  条件：3-positivity 充分、低纠缠 MPS、树宽度有界\\
-  例子：弱关联分子、1D/2D 共轭体系\\
-  复杂度：$O(K^6)$ (3-RDM SDP) 或 $O(K^3 D^3)$ (DMRG)
-  
-\item \textbf{结构化困难}（Structured hard）\\
-  条件：局域性 + 能隙 + Born-Oppenheimer 适用\\
-  例子：多数稳定分子\\
-  复杂度：$O(N^3)$ (DFT) 到 $O(N^7)$ (CCSD(T))
-  
-\item \textbf{最坏情形}（QMA-hard）\\
-  条件：强关联 + 高维纠缠 + 锥形交叉\\
-  例子：过渡金属簇、激发态交叉\\
-  复杂度：指数
-\end{enumerate}
-
-\subsection{Synthesis of Approaches}
-
-\begin{table}[h]
+\begin{table}[ht]
 \centering
-\caption{方法互补性矩阵}
-\begin{tabular}{l|cccc}
+\caption{Reproduced finite-model checks. All numerical references are ordinary
+floating-point computations; none is a molecular or experimental benchmark.}
+\begin{tabular}{lll}
 \hline
- & RDM & Tensor & Algebra & Approx \\
+Check & Cases & Observed result \\
 \hline
-RDM & — & 纠缠熵指导 $p$ & AGP 精确解 & 局域性$\to$低秩 \\
-Tensor & 秩界$\leftrightarrow$ RDM & — & 对称性约化 & BO 分离核电子 \\
-Algebra & Casimir$\to$对角 & 群论优化基 & — & 对称性$\to$gap \\
-Approx & 化学精度定义 & Nearsightedness & BO 能级分离 & — \\
+Python regression suite & 30 tests & All passed \\
+Random Hermitian block splits & 360 & Max. interval violation $4.44\times10^{-16}$ \\
+Sharp scalar-block cases & 9 & Max. endpoint error $8.88\times10^{-16}$ \\
+Finite CTMC comparisons & 20 & No violation above tested tolerance \\
+Pairing CLI parameter cases & 10 & All passed \\
 \hline
 \end{tabular}
+\label{tab:reproduced}
 \end{table}
+The block experiment uses dimensions two through ten, real and complex
+entries, four samples per dimension and kind, every nontrivial leading
+split, and seed 20261112. Acceptance tolerances, library versions, every
+case, and the synthetic kinetic parameters are stored in
+\path{experiments/certificate_results.json}. A nonzero rounding violation is
+reported rather than silently replaced by an exact enclosure.
 
-\textbf{协同策略}：
+Historical hard-coded SOS energy tables and hand-assigned surface reference
+counts are excluded from the evidence base. No physical accuracy, speedup, or
+independent DFT validation is inferred from them.
+
+\paragraph{Lean source mapping and build boundary.}
+The current development uses real numbers and mathlib v4.19.0. It has been
+compiled with Lean 4.19.0 and every declaration listed below was checked with
+\texttt{\#print axioms}: each depends only on the three standard Lean axioms
+\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. No
+\texttt{sorry}, no \texttt{admit} and no project-specific axiom occurs in the
+verified closure. Reproduce with \texttt{lake build} followed by
+\texttt{lake env lean scripts/CheckAxioms.lean}. Kernel acceptance certifies the
+scalar lemmas that are listed, not the physical modelling steps discussed
+below. Unless qualified otherwise, the names below are in the
+\texttt{CalcChemistry} namespace in
+\path{CalcChemistry/CertifiedTheory.lean}.
+\begin{sloppypar}
 \begin{itemize}
-\item 使用代数方法识别对称性 $\to$ 约化轨道数 $K'$
-\item 局域化轨道降低纠缠熵 $\to$ 减小 MPS bond dimension
-\item Nearsightedness 保证局域 RDM 有界秩 $\to$ 稀疏 SDP
-\item 持久同调提取拓扑特征 $\to$ 自适应基组 $\to$ 减小 $K$
+\item \path{reaction_interval} proves real interval subtraction as in
+Proposition~\ref{prop:barrier}. \path{add_error_interval} propagates an
+additive correction whose absolute value is bounded by a supplied radius.
+It assumes the correction bound; it does not derive a physical model error.
+\item \path{psd_quadratic_nonneg} is a real two-variable quadratic-form
+inequality under nonnegative diagonal and determinant conditions.
+\path{sharp_block_scalar_lower} proves the sharp square-root bound for the
+scalar quadratic form used in Theorem~\ref{thm:block}. It does not construct
+matrix blocks or prove their spectral hypotheses.
+\item \path{quadratic_gap_lower} proves the scalar inequality with
+$a-b^2/(c-a)$ under $c-a>0$. \path{normalized_block_lower} transfers it
+to a supplied energy using a normalization identity and a supplied
+quadratic-form lower bound, as in Corollary~\ref{cor:gap}.
+\item \path{ground_energy_interval} transfers a uniform lower bound and
+one trial upper bound to an abstract attained Rayleigh minimum. The existence
+and attainment of that minimum are explicit assumptions. The identification
+with a Hermitian matrix's least eigenvalue is not formalized by this theorem.
+\item \path{exponential_barrier_interval} proves the real exponential
+monotonicity used in Theorem~\ref{thm:rate}; \path{rate_interval} also
+allows an uncertain nonnegative prefactor. The strictly positive prefactor
+hypotheses in this manuscript support the further logarithmic formulas.
+Neither declaration proves the transition-state rate law itself.
+\item \path{relaxation_lower_bound} proves the order implication from an
+outer inclusion, a supplied lower bound throughout the relaxed set, and an
+attained physical energy. It does not implement an RDM SDP or verify a dual
+matrix slack. \path{certified_ranking} proves strict ordering from disjoint
+sound real intervals; the kinetic interpretation requires the rate intervals
+proved separately.
+\item \path{pairing_characteristic} proves the paired-block polynomial
+identity and \path{pairing_lower_root} proves that the lower square-root
+expression is a root. These declarations do not construct the CAR operators,
+identify the full six-state spectrum, or establish a molecular model.
+\item \path{BornOppenheimer.parameter_nonneg}, in
+\path{CalcChemistry/BornOppenheimer.lean}, proves nonnegativity of the mass
+parameter under the stated mass hypotheses. It provides no BO error estimate.
 \end{itemize}
+\end{sloppypar}
 
-\subsection{The Role of Chemical Structure}
-
-\begin{conjecture}[化学结构的多项式可解性]
-\label{conj:chemical_polynomial}
-存在可计算谓词 $\mathcal{P}(H)$ 使得：若分子哈密顿量 $H$ 满足 $\mathcal{P}(H)$ 且 $|\mathcal{P}|$ 定义的子类在"典型"化学分子中占比 $>90\%$，则 $H$ 的基态能量可在 $O(\text{poly}(N, K))$ 时间内计算到化学精度。
-
-该谓词可能包含：
-\begin{itemize}
-\item 局域性参数：键长标准偏差、最大配位数
-\item 能隙条件：$\Delta_{\text{HOMO-LUMO}} > \Delta_{\min}$
-\item 纠缠界：最大 Schmidt 秩 $\chi_{\max} < K^{\alpha}, \alpha < 1$
-\item 拓扑约束：树宽度 $\text{tw}(G_{\text{mol}}) < c \log K$
-\end{itemize}
-\end{conjecture}
-
-\section{Open Problems}
-\label{sec:open}
-
-我们识别出以下具体可攻击的开放问题：
-
-\subsection{Short-Term (1-3 years)}
-
-\begin{enumerate}
-\item \textbf{低度数 SOS 最优 gap}\\
-  问题：对 degree-6 SOS 松弛，最坏情形 gap 的紧界是多少？\\
-  意义：若 gap $< 1\%$ 对所有稳定分子成立，degree-6 SDP ($O(K^8)$) 可替代 3-positivity ($O(K^{12})$)
-  
-\item \textbf{纠缠感知轨道优化的收敛性}\\
-  问题：EAOO 算法是否总能找到局部最优？收敛速度？\\
-  意义：证明多项式迭代次数保证收敛将使其成为标准预处理步骤
-  
-\item \textbf{持久同调基组选择的数值验证}\\
-  问题：TAAB 算法在标准测试集（W4-17, G2）上的表现？\\
-  意义：若节省 $>30\%$ 基函数同时保持精度，将改变基组设计范式
-\end{enumerate}
-
-\subsection{Medium-Term (3-5 years)}
-
-\begin{enumerate}
-\setcounter{enumi}{3}
-\item \textbf{分子链 Yangian 对称性验证}\\
-  问题：共轭分子链（如聚乙炔）在单带近似下是否具有 Yangian 对称性？\\
-  意义：若成立，可用 Bethe ansatz 精确求解某些 1D 分子
-  
-\item \textbf{Howe 对偶的构造性实现}\\
-  问题：给定分子哈密顿量，能否算法化构造辅助玻色子使之嵌入 Howe 对偶？\\
-  意义：打通李代数表示论与量子化学的桥梁
-\end{enumerate}
-
-\subsection{Long-Term (5-10 years)}
-
-\begin{enumerate}
-\setcounter{enumi}{5}
-\item \textbf{平均情形复杂度的严格刻画}\\
-  问题：定义"化学分布" $\mathcal{D}_{\text{chem}}$，证明 $\mathbb{E}_{H \sim \mathcal{D}_{\text{chem}}}[\text{Time}(H)] = O(\text{poly}(N))$\\
-  意义：理论解释为何实际化学计算远比最坏情形简单
-  
-\item \textbf{量子算法加速}\\
-  问题：NISQ 设备上实现 2-RDM 空间的量子变分优化\\
-  意义：需求 $O(K^2)$ qubit 而非 $O(2^K)$，可能的指数加速
-\end{enumerate}
-
-\section{Formal Verification in Lean 4}
-\label{sec:formalization}
-
-核心定理在 Lean 4 中形式化，代码见 \texttt{CalcChemistry/} 目录。已验证定理包括：
-
-\begin{itemize}
-\item Born-Oppenheimer 误差界的抽象形式（\texttt{CalcChemistry/Basic.lean}）
-\item MPS 面积律定理的 1D 情形（计划中）
-\item N-representability 的 SDP 表示（计划中）
-\end{itemize}
+The energy and fifth-order certificate structures store soundness inequalities
+as fields supplied by the caller. Storing such an inequality does not prove
+it for a physical system. The finite-dimensional matrix-to-Rayleigh argument,
+the CTMC semigroup theorem and Duhamel proof, and a physical BO approximation
+theorem are not claimed as formalized here; they are proved on paper in the
+preceding sections and remain outside the kernel-checked closure. The exact
+declarations, the pinned Lean and mathlib versions, and the reproducible build
+that produced the axiom report are recorded in the repository status document.
 
 \section{Conclusion}
-\label{sec:conclusion}
-
-本文系统探索了从数学层面突破量子化学指数墙的五条路径：约化密度矩阵的代数几何方法、张量网络的几何优化、李代数与量子群的精确可解性、物理近似的严格化、以及平均复杂度分析。
-
-\textbf{主要发现}：
-\begin{enumerate}
-\item 虽然最坏情形是 QMA-hard，但"典型"化学分子具有丰富结构（局域性、对称性、低纠缠）
-\item 代数几何 SOS 方法可将 N-representability 松弛优化到 $O(K^8)$
-\item 拓扑数据分析首次应用于量子化学基组设计
-\item Richardson-Gaudin 和 Howe 对偶提供构造性精确解
-\end{enumerate}
-
-\textbf{展望}：完全突破指数墙的普遍方法尚未找到，但组合使用这些技术有望将 50-100 原子分子的精确计算推进到实用阶段。关键下一步是数值验证本文提出的算法，并攻克 \S\ref{sec:open} 中的开放问题。
+For a specified finite Hamiltonian, a justified complement bound and coupling
+bound turn an active calculation into a two-sided energy certificate.
+Variational trial states and dual-feasible relaxations supply complementary
+information. Barrier subtraction, monotone rate propagation, and finite-state
+Markov stability then give conditional conclusions with explicit dependence on
+energy precision, prefactor uncertainty, elapsed time, and the event catalog.
+The unresolved scientific task is to produce these inputs for a defined
+surface-reaction model and to bound the changes between that model and the
+physical target. A wide interval or an unverified hypothesis is an informative
+outcome: it identifies the missing evidence without claiming a kinetic
+prediction that the calculation cannot support.
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}
-
-\appendix
-
-\section{Lean 4 Formalization Details}
-\label{app:lean}
-
-完整 Lean 代码见 \url{https://github.com/[repository]/CalcChemistry}。
-
-\section{Computational Complexity Proofs}
-\label{app:complexity}
-
-本节给出 \S\ref{sec:complexity} 中复杂度声明的详细证明。
-
 \end{document}

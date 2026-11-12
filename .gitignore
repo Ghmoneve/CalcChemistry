@@ -2,6 +2,10 @@
 /build/
 /lake-packages/
 /.lake/
+/.tools/
+/.venv/
+# Build verification only; LaTeX source is the deliverable.
+*.pdf
 
 # LaTeX auxiliary files
 *.aux

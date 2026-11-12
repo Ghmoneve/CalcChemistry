@@ -1,5 +1,7 @@
 # Fock Space Manifold Dimension Theorem
 
+> 审计标记：本文为早期未核验探索稿，含已发现的错误推导或无证据断言；不能作为已证明结果或计算数据引用。以 `docs/audit_numerics.md`、`STATUS_REPORT.md` 和重新核验的 `paper_main.tex` 为准。历史内容保留以便追溯。
+
 ## Main Result
 
 **Theorem (Molecular Ground State Manifold Dimension)**: For a molecular system with N electrons and M orbitals (M ≥ N), the manifold of physically relevant ground states in Fock space has intrinsic dimension
