@@ -1,5 +1,7 @@
 # 项目聚焦：ALD 前驱体设计与动力学预测
 
+> 审计更正：以下是早期方案，不是已完成结果。用户原记号为 Al2O3/MoCl4 与 CaF；下文 CaF2、Ca(thd)2/HF 由先前助手未经确认引入。O(K⁶)、固定精度及GPC目标均未证明或验证。当前可信范围以 STATUS_REPORT.md 与 docs/audit_numerics.md 为准。
+
 ## 目标体系
 1. **Al₂O₃/MoCl₄**：Mo 前驱体在羟基化氧化铝表面的反应机理
 2. **CaF₂**：Ca(thd)₂ + HF 的 ALD 生长动力学

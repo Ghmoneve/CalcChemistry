@@ -1,20 +1,153 @@
-% Extracted from molecular_hamiltonian_algebraic_structure.md
+\subsection{Hamiltonian and energy origin}
+Reduced pairing models provide a useful algebraic test case in the
+Richardson--Gaudin literature \citep{Richardson1963,Dukelsky2004}.
+The following two-level calculation is derived directly and needs no general
+integrability theorem. It is a toy Hamiltonian, not an ab initio model of
+$\mathrm H_2$. No molecular integrals or nuclear repulsion are specified.
 
-\subsection{Richardson-Gaudin 精确解}
+Order the four fermionic modes as
+$(1\uparrow,1\downarrow,2\uparrow,2\downarrow)$ and restrict to two
+electrons. Put
+\[
+ P_p^\dagger=a_{p\uparrow}^\dagger a_{p\downarrow}^\dagger,
+ \quad P_p=a_{p\downarrow}a_{p\uparrow},\quad
+ n_{p\sigma}=a_{p\sigma}^\dagger a_{p\sigma},\quad p=1,2.
+\]
+For real $\varepsilon_1,\varepsilon_2$ and attractive coupling $g\ge0$,
+define
+\begin{align}
+ H_z&=\sum_{p=1}^2\varepsilon_p
+       (n_{p\uparrow}+n_{p\downarrow}-1)
+       -g\sum_{p,q=1}^2P_p^\dagger P_q,
+       \label{eq:pair-z}\\
+ H_N&=\sum_{p=1}^2\varepsilon_p
+       (n_{p\uparrow}+n_{p\downarrow})
+       -g\sum_{p,q=1}^2P_p^\dagger P_q
+     =H_z+(\varepsilon_1+\varepsilon_2)I.
+       \label{eq:pair-n}
+\end{align}
+The two conventions differ only by an energy origin, but they must not be
+mixed in a secular equation or a numerical comparison.
 
-\textbf{定理}（已验证）：H$_2$ 分子 Richardson 配对哈密顿量有解析解，FCI 误差 $< 10^{-14}$。
-
-解析形式：
+\begin{proposition}[Complete spectrum in the two-electron sector]
+\label{prop:pairing}
+Let $d=\varepsilon_1-\varepsilon_2$ and
+$\rho=\sqrt{d^2+g^2}$. In the paired basis
+$|1\overline1\rangle=P_1^\dagger|0\rangle$,
+$|2\overline2\rangle=P_2^\dagger|0\rangle$, the matrix of $H_z$ is
 \begin{equation}
-E_{\text{ground}} = (\varepsilon_1 + \varepsilon_2 - g) - \sqrt{(\varepsilon_1 - \varepsilon_2)^2 + 2g(\varepsilon_1 + \varepsilon_2 - g)}
+ H_z^{\mathrm{pair}}=
+ \begin{pmatrix}
+ \varepsilon_1-\varepsilon_2-g&-g\\
+ -g&-\varepsilon_1+\varepsilon_2-g
+ \end{pmatrix}.
+ \label{eq:pair-block}
 \end{equation}
+The complete six-dimensional sector has spectrum, with multiplicity,
+\begin{equation}
+ \{-g-\rho,\ -g+\rho,\ 0,\ 0,\ 0,\ 0\}.
+ \label{eq:pair-spectrum}
+\end{equation}
+In particular its lowest energy is $E_z^-=-g-\rho$.
+The paired energies of $H_N$ are
+\begin{equation}
+ E_N^\pm=\varepsilon_1+\varepsilon_2-g\pm\rho,
+ \label{eq:number-roots}
+\end{equation}
+and its four unpaired energies are $\varepsilon_1+\varepsilon_2$.
+\end{proposition}
+\begin{proof}
+There are $\binom42=6$ two-electron determinants. Two occupy both spins
+of a single orbital; the remaining four place one electron in each orbital.
+On $|p\overline p\rangle$, $P_q$ is zero unless $q=p$, in which case
+it gives the vacuum with positive sign. This follows directly from the CAR:
+$a_{p\downarrow}a_{p\uparrow}a_{p\uparrow}^\dagger
+ a_{p\downarrow}^\dagger|0\rangle=|0\rangle$.
+Subsequent application of $P_s^\dagger$ gives
+$|s\overline s\rangle$. Thus $\sum_{s,q}P_s^\dagger P_q$ has every
+entry equal to one in the paired basis. In particular the terms $s=q$
+contribute $-g$ to each paired diagonal; they cannot be omitted.
+The one-body term in $H_z$ is $d$ on $|1\overline1\rangle$ and
+$-d$ on $|2\overline2\rangle$. This proves \eqref{eq:pair-block}.
 
-Bethe ansatz 波函数已实现（Python/Julia），Lean 4 形式化完成。
+Every pair annihilator kills an unpaired determinant. Its occupations also
+give $n_{p\uparrow}+n_{p\downarrow}-1=0$ for each $p$, so its energy
+is zero and it is decoupled from the paired space. Finally,
+\[
+ \det(H_z^{\mathrm{pair}}-\lambda I)
+ =(d-g-\lambda)(-d-g-\lambda)-g^2
+ =(\lambda+g)^2-d^2-g^2.
+\]
+Its roots are $-g\pm\rho$. Since $\rho\ge g\ge0$, the lower root
+is at most zero and the upper root is at least zero. Comparing with the four
+unpaired zeros establishes the ground energy. Adding the scalar in
+\eqref{eq:pair-n} shifts every eigenvalue as stated.
+\end{proof}
 
-\subsection{Yangian 对称性证伪}
+The upper paired root is not generally the first excited level of the full
+sector: the unpaired zeros must also be included. When $g>0$, a normalized
+ground vector in the paired space is
+\[
+ c^- =\frac{(g,d+\rho)^T}{\sqrt{g^2+(d+\rho)^2}}.
+\]
+Indeed the first row of
+$(H_z^{\mathrm{pair}}-E_z^-I)(g,d+\rho)^T$ vanishes by cancellation,
+and the second is $-g^2+(\rho-d)(\rho+d)=0$.
+The denominator is positive for $g>0$. Its orthogonal vector
+$c^+=(-c^-_2,c^-_1)^T$ is the upper eigenvector: symmetry makes the
+orthogonal one-dimensional subspace invariant, and the trace fixes its
+eigenvalue to $-g+\rho$. For $g=0$, determinant basis vectors diagonalize
+the block. If also $d=0$, both paired energies and all unpaired energies
+coincide at zero. These cases should be handled directly rather than by
+dividing by $g$.
 
-\textbf{定理}（已证）：聚乙炔 tight-binding 哈密顿量 \textbf{不具备} Yangian Y(sl(2)) 对称性。
+\subsection{The one-pair secular equation and its excluded points}
+In the number convention,
+$H_N^{\mathrm{pair}}=\operatorname{diag}(2\varepsilon_1,
+2\varepsilon_2)-g\boldsymbol 1\boldsymbol 1^T$.
+An eigenvector $(c_1,c_2)^T$ with energy $E$ obeys
+\[
+ (2\varepsilon_p-E)c_p=g(c_1+c_2),\qquad p=1,2.
+\]
+If neither denominator vanishes, a nonzero vector must have
+$c_1+c_2\ne0$; otherwise both coefficients would be zero. Dividing and
+summing therefore gives
+\begin{equation}
+ 1=g\left(\frac{1}{2\varepsilon_1-E}
+          +\frac{1}{2\varepsilon_2-E}\right).
+ \label{eq:richardson}
+\end{equation}
+Conversely, a finite $E$ satisfying this equation away from its poles yields
+an eigenvector with coefficients proportional to
+$(2\varepsilon_p-E)^{-1}$, by substitution in the two linear equations.
+The polynomial form is
+\begin{equation}
+ (2\varepsilon_1-E)(2\varepsilon_2-E)
+ -g\bigl[(2\varepsilon_1-E)+(2\varepsilon_2-E)\bigr]=0.
+ \label{eq:pair-polynomial}
+\end{equation}
+This is the determinant equation and remains meaningful where the rational
+form is undefined. It produces exactly \eqref{eq:number-roots}.
+At $g=0$ the eigenvalues lie at poles of the rational expression. At
+$\varepsilon_1=\varepsilon_2=\varepsilon$ and $g>0$, the upper state
+$(1,-1)^T/\sqrt2$ has $E=2\varepsilon$ and zero coefficient sum;
+it too is excluded from the rational derivation. A pole is not a zero
+residual. Near a pole, the polynomial or matrix eigenvector residual is the
+appropriate numerical check, with tolerances scaled to the matrix norm.
 
-反例：$[H_{\text{hop}}, J^z_{(1)}] \neq 0$，破坏 level-1 生成元对易。
+\subsection{Relation to the energy certificate}
+The paired block is itself a scalar active/complement split with
+$a=d-g$, $c=-d-g$, and $b=g$. Its smaller eigenvalue equals the bound
+in Theorem~\ref{thm:block}, providing a sharp algebraic check. If the lower
+diagonal entry is chosen as the active block and $d\ne0$, the complementary
+diagonal lies higher and Corollary~\ref{cor:gap} also applies to this paired
+problem. To claim the ground of the full sector one must still account for
+the unpaired block; Proposition~\ref{prop:pairing} does so explicitly.
 
-正确方法：$U=0$ 时用自由费米子对角化；$U \neq 0$ 时无解析解（需 DMRG）。
+Agreement between a CAR matrix construction, the roots above, and an
+independent Jordan--Wigner construction tests this toy algebra. It supplies no
+error estimate between a molecular Coulomb Hamiltonian and a reduced pairing
+Hamiltonian. Establishing such a reduction would require specified molecular
+integrals and a certified bound on the omitted interactions. General claims
+about Yangian symmetry, Howe duality, or exact molecular solvability are not
+needed for this example and are not established here.

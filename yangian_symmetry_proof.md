@@ -1,5 +1,7 @@
 # Yangian Y(sl(2)) Symmetry in Polyacetylene Model: Proof and Refutation
 
+> 审计标记：本文为早期未核验探索稿，含已发现的错误推导或无证据断言；不能作为已证明结果或计算数据引用。以 `docs/audit_numerics.md`、`STATUS_REPORT.md` 和重新核验的 `paper_main.tex` 为准。历史内容保留以便追溯。
+
 **Date**: November 12, 2026  
 **Status**: REFUTED — Conjecture 4.3 is FALSE
 

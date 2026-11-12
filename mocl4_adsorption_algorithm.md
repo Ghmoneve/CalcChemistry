@@ -1,5 +1,7 @@
 # MoCl₄ Adsorption Energy on Al₂O₃-OH using 2-RDM 3-Positivity SDP
 
+> 审计标记：本文为早期未核验探索稿，含已发现的错误推导或无证据断言；不能作为已证明结果或计算数据引用。以 `docs/audit_numerics.md`、`STATUS_REPORT.md` 和重新核验的 `paper_main.tex` 为准。历史内容保留以便追溯。
+
 ## Algorithm Overview
 
 Calculate adsorption energy $E_{\text{ads}} = E_{\text{MoCl₄/Al₂O₃}} - E_{\text{MoCl₄}} - E_{\text{Al₂O₃}}$ using variational 2-RDM method with 3-positivity constraints to achieve chemical accuracy (~1 kcal/mol) for ALD process modeling.

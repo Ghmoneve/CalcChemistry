@@ -1,21 +1,394 @@
-% Extracted from mathematical_foundations_quantum_chemistry_approximations.md
+\subsection{Barrier intervals and an explicit error budget}
+Let $R$ and $\mathrm{TS}$ denote two specified geometries, with consistent
+stoichiometry, charge convention, and energy reference. The label
+$\mathrm{TS}$ is only a label until a saddle point and its connection to the
+reactant basin have been established. Suppose
+\[
+ L_R\le E_R\le U_R,\qquad
+ L_{\mathrm{TS}}\le E_{\mathrm{TS}}\le U_{\mathrm{TS}}.
+\]
 
-\subsection{Born-Oppenheimer 误差界}
+\begin{proposition}[Interval subtraction]
+\label{prop:barrier}
+The electronic energy difference $B_{\mathrm{el}}=E_{\mathrm{TS}}-E_R$
+satisfies
+\begin{equation}
+ L_{\mathrm{TS}}-U_R\le B_{\mathrm{el}}
+ \le U_{\mathrm{TS}}-L_R.
+ \label{eq:barrier}
+\end{equation}
+These endpoints are optimal given only the two independent intervals.
+If an additive correction $\Delta$ obeys
+$\Delta\in[\Delta_L,\Delta_U]$, then
+\begin{equation}
+ B=B_{\mathrm{el}}+\Delta\in
+ [L_{\mathrm{TS}}-U_R+\Delta_L,
+  U_{\mathrm{TS}}-L_R+\Delta_U].
+ \label{eq:corrected-barrier}
+\end{equation}
+\end{proposition}
+\begin{proof}
+The inequalities $E_{\mathrm{TS}}\ge L_{\mathrm{TS}}$ and
+$-E_R\ge-U_R$ give the lower endpoint on addition. Adding
+$E_{\mathrm{TS}}\le U_{\mathrm{TS}}$ and $-E_R\le-L_R$ gives the
+upper endpoint. The choices $(E_{\mathrm{TS}},E_R)=
+(L_{\mathrm{TS}},U_R)$ and $(U_{\mathrm{TS}},L_R)$ attain the respective
+endpoints, proving optimality without further joint information. Adding the
+bounds for $\Delta$ proves \eqref{eq:corrected-barrier}.
+\end{proof}
 
-\textbf{定理}（Combes-Duclos-Seiler 1980）：BO 近似误差 $O(\varepsilon^5)$，其中 $\varepsilon = (m_e/M_{\text{核}})^{1/4}$。
+The interval width in \eqref{eq:barrier} is
+$(U_{\mathrm{TS}}-L_{\mathrm{TS}})+(U_R-L_R)$.
+Correlated energy errors can sometimes yield a narrower difference bound,
+but their correlation must be proved. Cancellation cannot simply be assumed.
+For a free-energy barrier, $\Delta$ must include the relevant zero-point,
+thermal, entropic, environmental, and standard-state corrections with their
+own justified bounds. A negative lower endpoint is allowed algebraically;
+clipping it to zero requires a separate proof that the target barrier is
+nonnegative.
 
-\textbf{CaF$_2$ ALD 验证}：
-\begin{itemize}
-\item $\varepsilon(\text{H-F}) = 0.1547$（最坏情况）
-\item BO 误差 $8.87 \times 10^{-5}$（相对）
-\item 化学精度 200 倍以下，BO 有效
-\item 无锥形交叉（HOMO-LUMO gap > 4.5 eV）
-\end{itemize}
+\begin{lemma}[Finite-model perturbation]
+\label{lem:perturbation}
+If $H$ and $\widetilde H$ are Hermitian on the same finite space and
+$\norm{H-\widetilde H}\le\delta$, then
+$|E_0(H)-E_0(\widetilde H)|\le\delta$. Consequently, an interval
+$[L,U]$ for $E_0(\widetilde H)$ yields $[L-\delta,U+\delta]$ for
+$E_0(H)$.
+\end{lemma}
+\begin{proof}
+Every normalized $v$ satisfies
+$|\ip{v}{(H-\widetilde H)v}|\le\delta$. Inserting a lowest eigenvector
+of $\widetilde H$ into the variational principle for $H$ gives
+$E_0(H)\le E_0(\widetilde H)+\delta$. Interchanging the two matrices
+gives the reverse bound. Enlarging each interval endpoint by $\delta$
+then contains the target energy.
+\end{proof}
 
-\subsection{Nearsightedness 理论}
+This lemma can absorb rigorously bounded integral or model perturbations
+only after the spaces and energy conventions have been matched. It does not
+supply $\delta$ automatically. For a conforming finite-basis restriction of
+a continuum Hamiltonian, the variational principle gives
+$E_{\mathrm{continuum}}\le E_{\mathrm{basis}}$. A lower bound on
+$E_{\mathrm{basis}}$ therefore need not be a lower bound on
+$E_{\mathrm{continuum}}$. Basis-set, slab-size, embedding, and boundary
+errors each require a separate comparison theorem or error estimate.
 
-\textbf{条件}：能隙 $\Delta > 0$，关联长度 $\xi$ 有界。
+\subsection{Geometry, paths, and Born--Oppenheimer assumptions}
+Computing an energy at a candidate saddle does not bound the error in its
+location. If an energy surface $E(q)$ is known to be Lipschitz with constant
+$M$ on a domain and a target geometry $q_*$ is known to satisfy
+$\norm{q_*-q_0}\le r$, then $|E(q_*)-E(q_0)|\le Mr$ by the
+Lipschitz definition. Both $M$ and the location bound are additional inputs.
+A small gradient at $q_0$ alone does not establish a particular saddle or
+its connection to a reactant.
 
-密度矩阵衰减：$|\rho(r,r')| \leq C \exp(-\alpha r)$，其中 $\alpha \propto \Delta$（间接能隙）。
+\begin{proposition}[What path samples can certify]
+\label{prop:path}
+Let $E:[0,1]\to\R$ be $M$-Lipschitz. Suppose samples $s_i$ form a
+covering with radius $h$, meaning that every $s\in[0,1]$ has
+$|s-s_i|\le h$ for some $i$, and certified sample intervals satisfy
+$L_i\le E(s_i)\le U_i$. Then
+\begin{equation}
+ \max_i L_i\le\max_{s\in[0,1]} E(s)\le\max_i U_i+Mh.
+ \label{eq:path}
+\end{equation}
+Without a modulus of continuity or other control between samples, finitely
+many sampled values do not give any finite uniform upper bound.
+\end{proposition}
+\begin{proof}
+Continuity and compactness ensure the maximum exists. Each sampled value is
+at most that maximum, proving the lower bound. For any $s$, choose a
+sample within $h$. Then
+$E(s)\le E(s_i)+M|s-s_i|\le\max_i U_i+Mh$; maximizing gives the
+upper bound. For the final statement, choose a nonempty open interval
+avoiding all of the finitely many sample points. A continuous triangular
+bump supported in that interval vanishes at every sample and can have an
+arbitrarily large positive height. Adding it preserves all sampled values
+while making the maximum arbitrarily large.
+\end{proof}
 
-失效：金属（幂律衰减）、小能隙系统、临界点。
+Even a certified maximum along one path is not automatically the minimum
+barrier over all possible paths, and endpoint energies alone do not certify
+a path maximum. Likewise, finitely sampled electronic gaps do not establish
+a uniform positive gap between samples.
+
+Rigorous Born--Oppenheimer results require their own setting and hypotheses;
+for example, Hagedorn's analysis treats high-order corrections for diatomic
+Coulomb bound states \citep{Hagedorn1988}. That result is not invoked here
+as a numerical surface-reaction error bound. A mass ratio such as
+$\varepsilon=(m_e/M)^{1/4}$ is a dimensionless parameter. Even if an
+applicable theorem gives $|\delta E|\le C\varepsilon^p$ on a specified
+domain, one must bound $C$, specify energy units and the approximation order,
+and check its spectral and regularity assumptions. Evaluating
+$\varepsilon^5$ and multiplying by an assumed reaction-energy scale does
+not perform these steps.
+
+The role of electronic derivatives can be seen without any asymptotic
+approximation. For a differentiable Hermitian family $H_e(q)$ with
+differentiable normalized eigenvectors $\phi_m(q)$ and distinct energies,
+differentiation of $H_e\phi_m=E_m\phi_m$ gives
+\[
+ (\partial_q H_e)\phi_m+H_e\partial_q\phi_m
+ =(\partial_qE_m)\phi_m+E_m\partial_q\phi_m.
+\]
+Taking the inner product with $\phi_n$, $n\ne m$, and using
+orthogonality yields
+\begin{equation}
+ \ip{\phi_n}{\partial_q\phi_m}
+ =\frac{\ip{\phi_n}{(\partial_qH_e)\phi_m}}{E_m-E_n}.
+ \label{eq:derivative-coupling}
+\end{equation}
+Thus a gap alone does not determine derivative coupling; the numerator and
+its units matter. In particular, an orbital HOMO--LUMO gap at one geometry
+is not a certified many-electron gap along a reaction path. No absence of
+crossings, uniform nonadiabatic error, or CaF surface-reaction BO bound is
+proved by this manuscript.
+
+\subsection{Conditional transition-state rate intervals}
+The connection to kinetics is an assumed transition-state or activated-rate
+model motivated by transition-state theory \citep{Eyring1935}:
+\begin{equation}
+ k=A\exp(-B/\theta),\qquad \theta>0.
+ \label{eq:tst}
+\end{equation}
+Here $\theta$ has the same energy units as $B$: it may be $k_{\mathrm B}T$
+for energies per event or $RT$ for molar energies. The prefactor must have
+the rate units appropriate to the selected kinetic convention. For a
+unimolecular Eyring model it may include $k_{\mathrm B}T/h$ and a
+transmission coefficient; other conventions can require concentration or
+standard-state factors. These are model inputs, not consequences of the
+electronic theorem. The results below assume a fixed known $\theta$.
+
+\begin{theorem}[Monotone rate propagation]
+\label{thm:rate}
+Assume \eqref{eq:tst}, $B\in[L,U]$, and
+$0<A_L\le A\le A_U$. Then
+\begin{equation}
+ 0<k_L:=A_L e^{-U/\theta}\le k\le A_U e^{-L/\theta}=:k_U.
+ \label{eq:rate-interval}
+\end{equation}
+The endpoints are the extremal rates over the rectangular uncertainty set
+$[A_L,A_U]\times[L,U]$.
+\end{theorem}
+\begin{proof}
+Since $\theta>0$, the barrier inequalities give
+$-U/\theta\le-B/\theta\le-L/\theta$.
+The exponential is positive and increasing, so
+$e^{-U/\theta}\le e^{-B/\theta}\le e^{-L/\theta}$.
+Multiplication by the positive prefactor bounds proves
+\eqref{eq:rate-interval}. The parameter choices $(A_L,U)$ and $(A_U,L)$
+attain the lower and upper endpoints.
+\end{proof}
+
+No independence assumption on random variables is involved: these are
+worst-case deterministic bounds. If the prefactor and barrier are known to
+obey an additional joint constraint, the rectangular bounds remain sound
+but may cease to be sharp. A change in $\theta$ requires its own interval
+analysis; it cannot be absorbed silently into a fixed-temperature result.
+
+\begin{corollary}[Robust comparison of two channels]
+\label{cor:ranking}
+For two rates at the same $\theta$, suppose the assumed model gives a common
+positive prefactor $A$. If their barriers satisfy $U_1<L_2$, then
+$k_1>k_2$ for every permitted barrier pair. With potentially different
+positive prefactor intervals, the sufficient condition is
+\begin{equation}
+ A_{1,L}e^{-U_1/\theta}>A_{2,U}e^{-L_2/\theta},
+ \quad\text{equivalently}\quad
+ L_2-U_1>\theta\log\!\left(\frac{A_{2,U}}{A_{1,L}}\right).
+ \label{eq:robust-ranking}
+\end{equation}
+\end{corollary}
+\begin{proof}
+For the common prefactor, $B_1\le U_1<L_2\le B_2$ and the strict
+monotonic decrease of $e^{-B/\theta}$ give $k_1>k_2$.
+In the general case Theorem~\ref{thm:rate} gives
+$k_1\ge A_{1,L}e^{-U_1/\theta}$ and
+$k_2\le A_{2,U}e^{-L_2/\theta}$; the displayed strict separation
+therefore suffices. Taking logarithms of its positive sides and rearranging
+proves the equivalent condition.
+\end{proof}
+
+Touching intervals give at most a non-strict conclusion. Overlapping rate
+intervals leave the ordering unresolved by this certificate; they do not
+show that the true rates coincide. Ranking elementary rates is also distinct
+from ranking net reaction fluxes, which depend on populations and the network.
+
+\begin{proposition}[Energy precision is set by logarithmic rate uncertainty]
+\label{prop:log-budget}
+For the endpoints in \eqref{eq:rate-interval},
+\begin{equation}
+ \log(k_U/k_L)=\log(A_U/A_L)+(U-L)/\theta.
+ \label{eq:log-width}
+\end{equation}
+Consequently the interval has ratio $k_U/k_L\le F$, for $F\ge1$, if and
+only if
+$\log(A_U/A_L)+(U-L)/\theta\le\log F$.
+Alternatively, if $\widehat k=\widehat A e^{-\widehat B/\theta}$,
+$|\log(A/\widehat A)|\le\alpha$, and
+$|B-\widehat B|\le\delta$, then
+\begin{equation}
+ |\log(k/\widehat k)|\le\alpha+\delta/\theta.
+ \label{eq:log-error}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Dividing the positive endpoints gives
+$k_U/k_L=(A_U/A_L)e^{(U-L)/\theta}$; taking the logarithm proves the
+identity and the equivalence. Similarly,
+$\log(k/\widehat k)=\log(A/\widehat A)-(B-\widehat B)/\theta$,
+and the triangle inequality gives \eqref{eq:log-error}.
+\end{proof}
+
+To guarantee a multiplicative factor $F>1$ relative to $\widehat k$, a
+sufficient budget is $\alpha+\delta/\theta\le\log F$.
+If $\alpha>\log F$, energy refinement alone cannot satisfy this budget.
+For a relative error tolerance $0<\epsilon<1$, the stronger condition
+$|\log(k/\widehat k)|\le\log(1+\epsilon)$ implies
+$|k/\widehat k-1|\le\epsilon$: the ratio lies between
+$1/(1+\epsilon)$ and $1+\epsilon$, and
+$1-1/(1+\epsilon)=\epsilon/(1+\epsilon)\le\epsilon$.
+These formulas provide a target-dependent energy tolerance instead of a
+universal claim of chemical accuracy.
+
+\subsection{Finite-state kinetic stability with a complete stated generator}
+Let $S=\{1,\ldots,m\}$ be a nonempty finite state space. A row-generator
+$Q$ satisfies $Q_{ij}\ge0$ for $i\ne j$ and
+$Q_{ii}=-\sum_{j\ne i}Q_{ij}$. Row distributions evolve as
+$p(t)=p(0)e^{tQ}$. The following result compares two fully specified,
+time-homogeneous generators on the same state space. It makes no
+irreducibility or reversibility assumption.
+
+\begin{lemma}[Stochastic semigroups and contraction]
+\label{lem:markov}
+For such a generator, $P_t=e^{tQ}$ has nonnegative entries and every row
+sums to one for $t\ge0$. For any real row vector $z$,
+$\norm{zP_t}_1\le\norm z_1$.
+\end{lemma}
+\begin{proof}
+Choose a real $\nu>0$ with $\nu\ge\max_i(-Q_{ii})$ and put
+$P=I+Q/\nu$. Off-diagonal entries and diagonal entries of $P$ are
+nonnegative and its rows sum to one. Products of such matrices have the
+same properties. Since $Q=\nu(P-I)$ and $I$ commutes with $P$,
+\[
+ e^{tQ}=e^{-\nu t}\sum_{n=0}^\infty\frac{(\nu t)^n}{n!}P^n.
+\]
+The coefficients are nonnegative and sum to one. Entrywise convergence
+therefore proves the stochastic property. Finally,
+\[
+ \sum_j\left|\sum_i z_i(P_t)_{ij}\right|
+ \le\sum_i|z_i|\sum_j(P_t)_{ij}=\sum_i|z_i|,
+\]
+which is the asserted contraction.
+\end{proof}
+
+\begin{theorem}[Finite-state generator perturbation bound]
+\label{thm:ctmc}
+Let $Q,\widehat Q$ be row-generators on $S$ and define
+\begin{equation}
+ \eta=\frac12\max_i\sum_{j=1}^m|Q_{ij}-\widehat Q_{ij}|.
+ \label{eq:eta}
+\end{equation}
+The sum includes the diagonal entry. For the same initial probability
+row vector $p$, put $p_t=pe^{tQ}$ and
+$\widehat p_t=pe^{t\widehat Q}$. Then, for every $t\ge0$,
+\begin{equation}
+ \TV(p_t,\widehat p_t):=\tfrac12\norm{p_t-\widehat p_t}_1
+ \le\min(1,t\eta).
+ \label{eq:ctmc-tv}
+\end{equation}
+For any real observable $f:S\to\R$, define
+$\operatorname{range}(f)=\max_i f(i)-\min_i f(i)$. Then
+\begin{equation}
+ |p_t f-\widehat p_t f|
+ \le\operatorname{range}(f)\min(1,t\eta).
+ \label{eq:observable}
+\end{equation}
+If the initial distributions differ, the corresponding bound is
+$\min(1,\TV(p,\widehat p)+t\eta)$.
+\end{theorem}
+\begin{proof}
+All matrix exponentials are differentiable in finite dimension. For a fixed
+$t$, differentiate $F(s)=e^{sQ}e^{(t-s)\widehat Q}$ on $[0,t]$.
+Commutation of a matrix with its own exponential gives
+\[
+ F'(s)=e^{sQ}(Q-\widehat Q)e^{(t-s)\widehat Q}.
+\]
+Integrating from $0$ to $t$ yields the Duhamel identity
+\begin{equation}
+ e^{tQ}-e^{t\widehat Q}
+ =\int_0^t e^{sQ}(Q-\widehat Q)e^{(t-s)\widehat Q}\,ds.
+ \label{eq:duhamel}
+\end{equation}
+For every probability vector $v$, the triangle inequality gives
+\[
+ \norm{v(Q-\widehat Q)}_1
+ \le\sum_i v_i\sum_j|Q_{ij}-\widehat Q_{ij}|\le2\eta.
+\]
+By Lemma~\ref{lem:markov}, $pe^{sQ}$ is a probability vector, and
+right multiplication by $e^{(t-s)\widehat Q}$ is an $\ell^1$
+contraction. Left-multiplying \eqref{eq:duhamel} by $p$ and applying
+these two estimates under the integral gives
+$\norm{p_t-\widehat p_t}_1\le\int_0^t2\eta\,ds=2t\eta$.
+Two probability vectors have $\ell^1$ distance at most two, proving
+\eqref{eq:ctmc-tv}.
+
+For the observable inequality, put $z=p_t-\widehat p_t$ and
+$c=(\max_i f(i)+\min_i f(i))/2$. Since $\sum_i z_i=0$,
+\[
+ |zf|=\left|\sum_i z_i(f(i)-c)\right|
+ \le\frac{\operatorname{range}(f)}2\sum_i|z_i|
+ =\operatorname{range}(f)\TV(p_t,\widehat p_t).
+\]
+Combining with \eqref{eq:ctmc-tv} proves \eqref{eq:observable}.
+For different initial distributions, write
+\[
+ pe^{tQ}-\widehat p e^{t\widehat Q}
+ =p(e^{tQ}-e^{t\widehat Q})
+   +(p-\widehat p)e^{t\widehat Q}.
+\]
+The first term has norm at most $2t\eta$, and contraction bounds the
+second by $\norm{p-\widehat p}_1$. Division by two and the universal
+probability-distance bound complete the proof.
+\end{proof}
+
+\begin{corollary}[From individual rate intervals to a generator bound]
+\label{cor:rates-generator}
+Suppose all off-diagonal entries are specified and have validated intervals
+$Q_{ij}\in[l_{ij},u_{ij}]$ with $0\le l_{ij}\le u_{ij}$.
+Choose $\widehat Q_{ij}\in[l_{ij},u_{ij}]$ and set both diagonals by
+zero row sums. Define
+$\epsilon_{ij}=\max(\widehat Q_{ij}-l_{ij},u_{ij}-\widehat Q_{ij})$
+for $i\ne j$. Then
+\begin{equation}
+ \eta\le\max_i\sum_{j\ne i}\epsilon_{ij}.
+ \label{eq:rate-generator}
+\end{equation}
+\end{corollary}
+\begin{proof}
+Each off-diagonal difference is at most $\epsilon_{ij}$ in absolute
+value, and
+$|Q_{ii}-\widehat Q_{ii}|=
+|\sum_{j\ne i}(Q_{ij}-\widehat Q_{ij})|
+\le\sum_{j\ne i}\epsilon_{ij}$.
+The full row sum of absolute differences is therefore at most twice this
+sum. Substitution in \eqref{eq:eta} proves the claim.
+\end{proof}
+
+An entry may be the sum of several event rates; its interval must include
+all those contributions. A nominally absent transition is justified only if
+its rate is zero by the stated model or is bounded within the error budget.
+The theorem does not certify that an event catalog contains every relevant
+physical reaction. It also does not compare generators on different state
+spaces without an additional embedding or coarse-graining argument. Pulsed
+operating conditions and transport can require time-dependent generators or
+a larger model, which must be analyzed separately.
+
+A bounded terminal occupancy is an observable covered by
+\eqref{eq:observable}. Growth per cycle is not automatically such an
+observable: it may involve accumulated event counts, changing surface states,
+transport, and a conversion from deposited material to thickness. A pathwise
+count is not generally bounded by the range of a state function on $S$.
+Thus the CTMC result is a conditional finite-state stability theorem, not a
+direct growth-per-cycle guarantee. Establishing the physical network and the
+observable mapping remains a separate task.

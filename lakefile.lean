@@ -5,8 +5,7 @@ package «CalcChemistry» where
   version := v!"0.1.0"
 
 require mathlib from git
-  "https://github.com/leanprover-community/mathlib4.git"
+  "https://github.com/leanprover-community/mathlib4.git" @ "v4.19.0"
 
 @[default_target]
 lean_lib «CalcChemistry» where
-  -- add library configuration options here

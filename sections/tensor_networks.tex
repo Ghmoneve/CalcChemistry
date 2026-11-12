@@ -1,23 +1,116 @@
-% Extracted from tensor_network_molecular_integrals_theory.md
+\subsection{Compression supplies trial states, not omitted-space bounds}
+An open-boundary matrix product state on $L$ sites with local dimension $q$
+has coefficients
+\[
+ \psi_{i_1\cdots i_L}
+ =A^{[1]}_{i_1}A^{[2]}_{i_2}\cdots A^{[L]}_{i_L},
+ \qquad A^{[j]}_{i_j}\in\C^{D_{j-1}\times D_j},\quad D_0=D_L=1.
+\]
+The displayed representation contains
+$\sum_{j=1}^L qD_{j-1}D_j$ scalar entries. If $q$ is fixed and every
+$D_j\le D$, this number is at most $LqD^2$. This is a storage bound
+for a supplied representation. It does not bound the bond dimension required
+for a given energy accuracy, the time to find suitable tensors, or the cost
+of contracting a general Hamiltonian representation.
 
-\subsection{MPS方法的维度诅咒}
+A normalized state in the intended particle and symmetry sector gives a
+variational upper bound once its expectation is rigorously evaluated. Orbital
+ordering and local tensor optimization can be used to search for that state;
+the certificate is the resulting energy enclosure, not the optimization
+heuristic. No fixed fractional reduction in computational cost is asserted.
 
-3D 分子纠缠熵满足面积律 $S(A) \sim L^2$，导致 bond dimension $D \sim e^{cL^2}$ 指数增长。
+\begin{lemma}[Exact Schmidt rank and single-cut truncation]
+\label{lem:schmidt}
+For a normalized bipartite vector
+$\psi=\sum_{j=1}^r s_j u_j\otimes v_j$ with orthonormal Schmidt vectors,
+$s_j>0$, and $\sum_j s_j^2=1$, any MPS bond representing this cut exactly
+has dimension at least $r$. Its entropy
+$S=-\sum_j s_j^2\log(s_j^2)$ satisfies $S\le\log r$.
+If a nonempty retained set has discarded weight
+$w=\sum_{j\ \mathrm{discarded}}s_j^2<1$ and $\phi$ is the normalized
+retained vector, then
+\[
+ \norm{\psi-\phi}^2=2(1-\sqrt{1-w})\le2w.
+\]
+For any Hermitian $H$ on the full bipartite space,
+\[
+ |\ip{\psi}{H\psi}-\ip{\phi}{H\phi}|
+ \le2\norm H\norm{\psi-\phi}\le2\norm H\sqrt{2w}.
+\]
+\end{lemma}
+\begin{proof}
+At the cut, a bond of size $D$ factors the coefficient matrix through
+$\C^D$, so its matrix rank is at most $D$. The Schmidt decomposition is a
+singular-value decomposition with $r$ nonzero singular values, giving
+$D\ge r$. Put $p_j=s_j^2$. Concavity of the logarithm gives
+$\sum_j p_j\log(1/p_j)\le\log(\sum_j p_j/p_j)=\log r$.
+Normalization of the retained part gives
+$\ip{\psi}{\phi}=\sqrt{1-w}$, proving the norm identity. Since
+$\sqrt{1-w}\ge1-w$ on $[0,1]$, the norm bound follows. Finally,
+\[
+ \ip{\psi}{H\psi}-\ip{\phi}{H\phi}
+ =\ip{\psi-\phi}{H\psi}+\ip{\phi}{H(\psi-\phi)}.
+\]
+Cauchy--Schwarz and normalization bound the two terms by
+$\norm H\norm{\psi-\phi}$ each.
+\end{proof}
 
-\textbf{解决方案}：纠缠感知轨道优化（EAOO）
-\begin{enumerate}
-\item 构造交换积分图 $G$：$w_{ij} = |K_{ij}|$
-\item Fiedler 向量排序
-\item 梯度下降优化 $\mathcal{S}[\{|\phi_i\rangle\}] = \frac{1}{L}\sum_{k=1}^{L-1} S(A_k)$
-\end{enumerate}
+An entropy upper bound alone does not give an upper bound on exact Schmidt
+rank: for any finite $r$, the probabilities
+$1-\varepsilon,\varepsilon/(r-1),\ldots,\varepsilon/(r-1)$ have rank
+$r$ for $0<\varepsilon<1$ but entropy tending to zero as
+$\varepsilon$ tends to zero. The truncation lemma requires a bound on the
+actual discarded weight. Repeated truncations require accumulated error
+control, and none of these state approximation statements supplies the
+complement energy bound in Theorem~\ref{thm:block}.
 
-理论预测纠缠熵降低 30-50\%。
+\subsection{Topology distinguishes connectivity from occupancy}
+Suppose a finite set of proposed adsorption positions is supplied and a
+threshold $r>0$ defines a simple conflict graph $G_r$: vertices are
+positions and an edge means the two positions cannot be occupied together.
+For example, an edge can be assigned when their Euclidean distance is at most
+$r$. In a model with only these pairwise exclusions, the largest number of
+simultaneously occupied vertices is the independence number $\alpha(G_r)$.
+The zeroth Betti number $\beta_0$ of the associated Vietoris--Rips complex
+counts connected components of its one-skeleton $G_r$.
 
-\subsection{持久同调应用于 ALD}
+\begin{proposition}[Component count is generally not occupancy capacity]
+\label{prop:graph}
+For every finite simple graph $G$, with connected components
+$C_1,\ldots,C_m$,
+\[
+ \alpha(G)=\sum_{j=1}^m\alpha(C_j)\ge m=\beta_0(G).
+\]
+Equality holds exactly when every component is a complete graph.
+\end{proposition}
+\begin{proof}
+The intersection of an independent set with each component is independent,
+so its size is at most $\sum_j\alpha(C_j)$. Conversely, the union of
+maximum independent sets from distinct components is independent, because
+no edge joins different components. This proves equality in the first
+formula. Each nonempty component has at least one vertex, so its independence
+number is at least one. A complete component has independence number one.
+If a component is not complete, it has two nonadjacent vertices, which form
+an independent set of size two. Therefore the sum equals $m$ if and only
+if all components are complete. The empty graph satisfies the statement
+with both sums zero and the component condition vacuous.
+\end{proof}
 
-首次用持久同调预测表面吸附位点：
-\begin{equation}
-\beta_0(\text{scale}=r_{\text{steric}}) = \text{吸附位点数}
-\end{equation}
+\begin{example}[A three-position counterexample]
+Take positions $(0,0,0)$, $(3,0,0)$, and $(6,0,0)$ in one common length
+unit and threshold $r=3.5$. The only edges connect the first to the second
+and the second to the third. This three-vertex path is connected, so
+$\beta_0=1$. Its two endpoints are nonadjacent and can be occupied together,
+whereas all three cannot; hence $\alpha=2$. The example is unchanged if the
+edge threshold uses strict instead of non-strict inequality.
+\end{example}
 
-验证：TMA/Al$_2$O$_3$(100)-OH，预测 3 位点，DFT 3 位点，误差 0\%。
+Persistent homology may describe connectivity as a distance threshold varies.
+It does not prove a capacity rule without an additional physical model. Real
+adsorption may also depend on chemical identity, ligand orientation, coverage,
+and interactions beyond pairwise exclusion. Even an exact independent set
+calculation addresses only the supplied graph. A graph or point cloud whose
+reference capacity was assigned by hand is not an independent DFT benchmark,
+and a greedy maximal independent set need not be a maximum independent set.
+For the path above, choosing the middle vertex first gives a maximal set of
+size one although the maximum has size two.

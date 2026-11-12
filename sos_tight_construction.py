@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# ARCHIVED UNVERIFIED DEMO: reported chemistry/proof claims are withdrawn.
+# See docs/audit_numerics.md and STATUS_REPORT.md; do not use as validation.
 """
 TIGHT Degree-6 SOS Relaxation with Enhanced Constraints
 Achieves <1% gap through additional physics-motivated polynomials

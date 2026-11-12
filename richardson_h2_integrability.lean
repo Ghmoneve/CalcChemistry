@@ -1,4 +1,8 @@
 /-
+ARCHIVED / NOT VERIFIED: this historical draft contains placeholders and
+invalid axioms. It is NOT imported by CalcChemistry.lean and provides no proof
+for the current manuscript. Use CalcChemistry/CertifiedTheory.lean instead.
+
 Richardson-Gaudin Pairing Hamiltonian: Integrability Conditions
 Lean 4 formalization of exactness proof
 
