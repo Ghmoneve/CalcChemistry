@@ -39,7 +39,15 @@
 
 ## 化学范围
 
-保留用户原记号 `Al2O3/MoCl4` 与 `CaF`（未擅自改写为 CaF₂）。表面、化学计量、前驱体与共反应物仍需指定。当前没有任何真实 ALD 势垒、吸附能或 GPC 数据。
+用户已确认：目标为 `Al2O3/MoCl4` 与 **CaF₂ 晶体沉积**（论文已相应更新）。CaF₂ 工艺的前驱体对、共反应物、衬底相与晶面、化学计量仍待指定；`Al2O3/MoCl4` 的晶面与羟基覆盖度同样待定。当前没有任何真实 ALD 势垒、吸附能或 GPC 数据。
+
+## 论文交付
+
+- `CalcChemistry_paper.pdf` — 19 页编译结果
+- `CalcChemistry_paper_standalone.tex` — **单文件版**：章节已内联、参考文献已内嵌，不需要 BibTeX、不需要 `sections/` 目录、不需要任何外部文件
+- `paper_main.tex` + `sections/` — 多文件源（本地已编译通过）
+
+单文件版编译：`pdflatex CalcChemistry_paper_standalone.tex` 连跑两次即可（无 BibTeX 步骤）。
 
 ## 复现
 
