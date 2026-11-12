@@ -1,0 +1,1484 @@
+\documentclass[11pt,a4paper]{article}
+% Standalone: no \input, no BibTeX, no external files, no Unix-only packages.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\setlength{\emergencystretch}{4em}
+\setlength{\hfuzz}{2pt}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\TV}{TV}
+\DeclareMathOperator{\spec}{spec}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+
+\title{Energy Certificates and Conditional Kinetic Bounds for
+Finite-Basis Surface-Reaction Models}
+\author{}
+\date{}
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{\texttt{doi:#1}}}
+\providecommand{\path}[1]{\texttt{#1}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A computed electronic energy becomes an error certificate only when both
+sides of an interval are justified for a specified Hamiltonian. This research
+note gives a self-contained chain of conditional bounds: a finite-dimensional
+block decomposition yields a ground-energy enclosure; interval subtraction
+yields an electronic barrier enclosure; separately bounded thermodynamic and
+geometric corrections allow propagation through an assumed transition-state
+rate formula; and a finite-state Markov generator perturbation bound controls
+state probabilities and bounded observables. The block bound accepts lower
+bounds on both diagonal blocks and an upper bound on the coupling norm. Its
+proof exposes the principal computational difficulty: certifying the omitted
+space. We prove the direction of reduced-density-matrix relaxation bounds,
+distinguish dual certificates from approximate primal values, and explain why
+a small eigenvector residual need not identify a ground state. A two-level
+pairing model and a three-vertex conflict graph provide exact algebraic checks
+and a counterexample to a proposed topological occupancy rule. These are
+elementary mathematical results assembled for certificate design; no novelty
+is claimed for the inequalities. No molecular or surface benchmark, uniform
+Born--Oppenheimer error estimate, universal polynomial-time algorithm, or
+experimental growth prediction is established. The principal open task is to
+construct useful, inexpensive, rigorously evaluated inputs for one fully
+specified surface-reaction model.
+\end{abstract}
+
+\section{Purpose and scope}
+\label{sec:intro}
+The useful question for a reduced electronic calculation is whether it can
+exclude an error large enough to change a chemical conclusion. A trial state
+can give a low energy without supplying such an exclusion. Similarly, close
+agreement between implementations can validate shared algebra while leaving
+the physical model untested. We separate three objects: a mathematical target,
+a certificate for that target, and the additional assumptions relating the
+target to an experiment.
+
+Our target is the lowest eigenvalue of a specified finite Hermitian matrix,
+usually an electronic Hamiltonian in a fixed orbital basis, particle-number
+sector, geometry, and boundary condition. Its energy interval does not by
+itself bound the continuum electronic problem, a free energy, a transition
+rate, or growth per cycle. Each passage to a different target requires an
+explicit model or an additional error bound.
+
+Worst-case complexity results for electronic structure in a fixed basis
+\citep{OGorman2022} and for fermionic $N$-representability \citep{Liu2007}
+prevent an inference of general efficiency from the notation of chemistry or
+from replacing a wavefunction by reduced data. They do not say that every
+chemical instance is difficult. Our results make no average-case complexity
+claim. They identify sufficient information for a sound conclusion and make
+visible where obtaining that information may be expensive.
+
+Ab initio approaches to area-selective ALD motivate the need to separate
+surface-model choices, electronic accuracy, and kinetic assumptions
+\citep{Pieck2025}. The intended applications include elementary steps involving
+$\mathrm{Al_2O_3}/\mathrm{MoCl_4}$ and $\mathrm{CaF_2}$ crystal deposition, as
+specified by the user. These are research targets, not descriptions of
+completed calculations. No surface structures, molecular integrals, independent
+DFT labels, precursor pair, or measured kinetic data for either target are
+provided here; in particular no reaction stoichiometry for the
+$\mathrm{CaF_2}$ process has been fixed.
+
+\section{Finite-dimensional setting and block energy certificates}
+\label{sec:energy}
+\subsection{The target and the meaning of a certificate}
+Let $\mathcal H$ be a nonzero finite-dimensional complex Hilbert space and
+let $H=H^*$ on $\mathcal H$. We use inner products conjugate-linear in their
+first argument and the induced operator norm. Define
+\[
+ E_0(H)=\min_{\norm{v}=1}\ip{v}{Hv}=\lambda_{\min}(H).
+\]
+The equality follows by expanding $v$ in an orthonormal eigenbasis: its
+expectation is a convex combination of eigenvalues, and a lowest eigenvector
+attains the minimum. An energy certificate is a pair of justified real
+numbers $L,U$ with $L\le E_0(H)\le U$. A floating-point estimate of an
+endpoint is not automatically a justified endpoint.
+
+For fermionic applications, take $K$ orthonormal spin orbitals and the
+$N$-particle sector $\bigwedge^N\C^K$, where $0\le N\le K$.
+Its dimension is $\binom K N$. One possible convention is
+\begin{equation}
+ H=E_{\mathrm{nuc}}I+\sum_{pq}h_{pq}a_p^\dagger a_q
+   +\frac12\sum_{pqrs}v_{pqrs}a_p^\dagger a_q^\dagger a_s a_r,
+ \label{eq:electronic}
+\end{equation}
+with coefficients chosen so that $H$ is Hermitian. The operators obey
+$\{a_p,a_q^\dagger\}=\delta_{pq}I$ and
+$\{a_p,a_q\}=\{a_p^\dagger,a_q^\dagger\}=0$.
+The coefficient convention, energy units, nuclear term, and orbital basis
+must be supplied with a numerical instance. The theorems below do not assume
+any particular form of these coefficients.
+
+If one additionally restricts total spin or another symmetry, the target is
+the ground energy in that sector. A certificate for one sector is not a
+global ground-energy certificate unless the other sectors have been excluded
+or bounded. Across a complete direct-sum decomposition, the global ground
+energy is the minimum of the sector ground energies.
+
+\subsection{A bound using certified block data}
+Choose an orthogonal decomposition
+$\mathcal H=\mathcal H_A\oplus\mathcal H_C$ with both summands nonzero:
+\begin{equation}
+ H=\begin{pmatrix} A&B\\B^*&C\end{pmatrix}.
+ \label{eq:block}
+\end{equation}
+Thus $B:\mathcal H_C\to\mathcal H_A$. The active space may be small,
+but the complement comprises every other vector in the stated target space.
+
+\begin{theorem}[Block enclosure from one-sided data]
+\label{thm:block}
+Suppose real numbers $\underline a,\underline c,\overline b$ satisfy
+\[
+ A\succeq\underline a I,\qquad C\succeq\underline c I,
+ \qquad \norm B\le\overline b,\qquad \overline b\ge0.
+\]
+Let $x_0\in\mathcal H_A$ be normalized and let
+$u=\ip{x_0}{Ax_0}$, or more generally let $u$ be a certified upper bound
+on this expectation. Then
+\begin{equation}
+ \ell:=\frac{\underline a+\underline c
+       -\sqrt{(\underline c-\underline a)^2+4\overline b^2}}2
+ \ \le\ E_0(H)\ \le\ u.
+ \label{eq:block-enclosure}
+\end{equation}
+No ordering of $\underline a$ and $\underline c$ is required.
+\end{theorem}
+\begin{proof}
+Write a normalized vector as $v=(x,y)$, and put
+$s=\norm x$, $t=\norm y$. Then $s^2+t^2=1$. The hypotheses and
+Cauchy--Schwarz give
+\begin{align*}
+ \ip{v}{Hv}
+ &=\ip{x}{Ax}+\ip{y}{Cy}+2\operatorname{Re}\ip{x}{By}\\
+ &\ge\underline a s^2+\underline c t^2-2\overline b st.
+\end{align*}
+The final expression is the quadratic form of
+$M=\left(\begin{smallmatrix}\underline a&-\overline b\\
+-\overline b&\underline c\end{smallmatrix}\right)$
+on the unit vector $(s,t)$. Its characteristic polynomial is
+$(\underline a-z)(\underline c-z)-\overline b^2$; the smaller root is
+$\ell$. Expanding $(s,t)$ in an orthonormal eigenbasis of this real
+symmetric matrix gives $(s,t)M(s,t)^T\ge\ell$. Minimizing over $v$
+proves the lower bound. The vector $(x_0,0)$ is a normalized trial vector
+for $H$, with expectation $\ip{x_0}{Ax_0}\le u$. The variational
+principle proves the upper bound.
+\end{proof}
+
+\begin{corollary}[Separated complement]
+\label{cor:gap}
+Suppose $a=\lambda_{\min}(A)$ is known exactly,
+$C\succeq cI$, $\norm B\le b$, $b\ge0$, and $c>a$. Then
+\begin{equation}
+ 0\le a-E_0(H)
+ \le\frac{\sqrt{(c-a)^2+4b^2}-(c-a)}2
+ =\frac{2b^2}{\sqrt{(c-a)^2+4b^2}+(c-a)}
+ \le\frac{b^2}{c-a}.
+ \label{eq:gap-bound}
+\end{equation}
+If $a$ is only replaced by a lower bound $\underline a$, the assertion
+$0\le\underline a-E_0(H)$ need not hold; the applicable enclosure remains
+\eqref{eq:block-enclosure} with an independently justified upper endpoint.
+\end{corollary}
+\begin{proof}
+A normalized lowest eigenvector of $A$ gives $E_0(H)\le a$.
+Theorem~\ref{thm:block} with input $(a,c,b)$ gives the middle bound by
+subtracting its lower endpoint from $a$. Rationalizing the numerator yields
+the identity. Since $c-a>0$, the denominator is at least $2(c-a)$,
+which proves the last inequality, including $b=0$.
+\end{proof}
+
+\begin{proposition}[Sharpness of the block estimate]
+\label{prop:sharp}
+For any real $a,c$ and $b\ge0$, the scalar-block matrix
+$H=\left(\begin{smallmatrix}a&-b\\-b&c\end{smallmatrix}\right)$
+attains the lower endpoint of Theorem~\ref{thm:block} with exact inputs.
+For fixed $c-a>0$, the coefficient one in the final bound
+$b^2/(c-a)$ cannot be reduced uniformly for all $b>0$.
+\end{proposition}
+\begin{proof}
+The characteristic polynomial in the preceding proof is now precisely that
+of $H$, so its smaller root is $E_0(H)$. Writing $d=c-a>0$, the ratio
+of the exact shift to $b^2/d$ is
+$2d/(\sqrt{d^2+4b^2}+d)$, which tends to one as $b$ decreases to zero.
+Any proposed smaller constant fails for sufficiently small positive $b$.
+\end{proof}
+
+When $B=0$, the lower endpoint is $\min(\underline a,\underline c)$.
+A low state in the complement remains visible. The square-root bound also
+remains valid when $c=a$ or $c<a$, where Corollary~\ref{cor:gap} cannot
+be used.
+
+\subsection{What the certificate costs}
+The theorem does not compute its hypotheses. A ground-energy approximation
+to $C$ obtained by a variational method is an upper bound on
+$\lambda_{\min}(C)$ and cannot serve as $\underline c$.
+Diagonalizing $C$ may cost essentially as much as the original calculation.
+A bound on a one-particle orbital gap is not, without a further argument,
+a lower bound on every many-electron energy in the omitted space.
+
+Crude rigorous bounds can nevertheless be useful. For example, if an explicit
+Hermitian matrix $C=(C_{ij})$ is available, then
+\begin{equation}
+ C\succeq
+ \left[\min_i\left(C_{ii}-\sum_{j\ne i}|C_{ij}|\right)\right]I.
+ \label{eq:row-bound}
+\end{equation}
+Indeed, each off-diagonal contribution obeys
+$2\operatorname{Re}(\overline y_i C_{ij}y_j)
+\ge-|C_{ij}|(|y_i|^2+|y_j|^2)$; summing over $i<j$ proves the
+quadratic-form inequality. Likewise $\norm B\le\norm B_F$, since
+Cauchy--Schwarz applied to each row gives
+$\norm{By}^2\le(\sum_{ij}|B_{ij}|^2)\norm y^2$.
+These estimates may be inexpensive for a sparse represented matrix but very
+loose, and even reading all entries may be infeasible in a large Fock space.
+A practical method must state how the matrix or operator is accessed.
+
+All scalar evaluation must preserve the one-sided inequalities. Exact
+arithmetic, outward-rounded intervals, or independently verified error bounds
+can do this. An ordinary dense eigensolver and a rounded square root provide
+numerical checks, not a rounding certificate. A cancellation-resistant identity
+is
+\[
+ \ell=\min(\underline a,\underline c)
+ -\frac{2\overline b^2}
+ {\sqrt{(\underline c-\underline a)^2+4\overline b^2}
+       +|\underline c-\underline a|},
+\]
+with the correction defined as zero when $\overline b=0$. Stability of this
+formula still does not replace outward rounding.
+
+\section{Variational states and reduced-density-matrix relaxations}
+\label{sec:rdm}
+\subsection{Upper bounds and the limits of residuals}
+For a normalized trial state $\psi\in\mathcal H$, the expectation
+$u=\ip{\psi}{H\psi}$ satisfies $E_0(H)\le u$. The same holds for
+$\Tr(H\Gamma)$ when $\Gamma\succeq0$ and $\Tr\Gamma=1$: in an
+eigenbasis of $H$, the diagonal entries of $\Gamma$ are nonnegative
+weights summing to one. These statements require neither an optimized state
+nor an exact representation of the ground state. They do require an
+accurately bounded expectation for the stated $H$.
+
+\begin{proposition}[What a residual proves]
+\label{prop:residual}
+For a normalized $\psi$, a real number $\mu$, and
+$r=\norm{(H-\mu I)\psi}$, at least one eigenvalue of $H$ lies in
+$[\mu-r,\mu+r]$. This assertion does not identify the ground eigenvalue.
+\end{proposition}
+\begin{proof}
+Let $H\phi_j=\lambda_j\phi_j$ be an orthonormal eigenbasis, and write
+$\psi=\sum_j c_j\phi_j$. Then
+\[
+ r^2=\sum_j|c_j|^2(\lambda_j-\mu)^2
+ \ge\min_j|\lambda_j-\mu|^2\sum_j|c_j|^2
+ =\min_j|\lambda_j-\mu|^2.
+\]
+Taking square roots proves the spectral-distance statement. For the claimed
+limitation, choose $H=\operatorname{diag}(-2,1)$ and $\psi=(0,1)^T$.
+Its Rayleigh quotient is $\mu=1$ and its residual is zero, although
+$E_0(H)=-2$. Thus even a vanishing residual can belong to an excited state.
+\end{proof}
+
+An a posteriori theorem using a residual to bound the ground energy must
+supply additional information that selects the ground branch, such as an
+appropriate certified spectral separation. A small residual alone does not
+provide the missing lower bound on the complement in
+Theorem~\ref{thm:block}.
+
+\subsection{Outer relaxations: the direction of the inequality}
+For a density operator $\Gamma$ supported in the chosen $N$-particle
+space, define
+\[
+ \gamma_{pq}=\Tr(\Gamma a_p^\dagger a_q),\qquad
+ D_{pq,rs}=\Tr(\Gamma a_p^\dagger a_q^\dagger a_s a_r).
+\]
+Let $\mathcal D_N$ be the set of all pairs $(\gamma,D)$ so obtained.
+Keeping both matrices avoids any special case in a contraction formula at
+$N=0$ or $N=1$. The electronic energy is the affine functional
+\[
+ \mathcal E(\gamma,D)=E_{\mathrm{nuc}}+
+ \sum_{pq}h_{pq}\gamma_{pq}+\frac12\sum_{pqrs}v_{pqrs}D_{pq,rs}.
+\]
+By the density-operator variational principle,
+$E_0(H)=\min_{d\in\mathcal D_N}\mathcal E(d)$.
+The use of necessary positivity constraints to relax this representability
+condition is part of the variational RDM approach \citep{Mazziotti2012}.
+
+\begin{proposition}[Relaxation and restriction]
+\label{prop:relaxation}
+Suppose
+$\mathcal D_N\subseteq\mathcal R_{\mathrm{tight}}
+\subseteq\mathcal R_{\mathrm{loose}}$ and define
+$e_{\mathcal R}=\inf_{d\in\mathcal R}\mathcal E(d)$.
+Then
+\begin{equation}
+ e_{\mathrm{loose}}\le e_{\mathrm{tight}}\le E_0(H)\le u
+ \label{eq:relaxation}
+\end{equation}
+for every valid trial-state upper bound $u$.
+In contrast, minimization over a nonempty subset of physical states gives an
+upper bound on $E_0(H)$.
+\end{proposition}
+\begin{proof}
+Every point in the smaller feasible set is also in the larger set, so the
+infimum over the larger set cannot be greater. Applying this observation to
+the two inclusions proves the first two inequalities. The trial-state
+variational principle proves the third. For a restriction to physical
+states, each feasible energy is at least $E_0(H)$, so its infimum is also
+at least $E_0(H)$.
+\end{proof}
+
+Here an infimum may be $-\infty$, in which case it is a valid but useless
+lower bound. Additional valid outer-relaxation constraints can only raise
+the optimum. Percentages of a correlation energy, relative errors, and
+absolute errors in energy units are distinct quantities. None can be
+converted into another without the needed reference energy and convention.
+In particular, no universal accuracy guarantee for a fixed RDM hierarchy
+level follows from \eqref{eq:relaxation}.
+
+\subsection{A dual objective is a certificate only after feasibility is checked}
+Suppose an outer relaxation has the semidefinite representation
+\begin{equation}
+ e_{\mathrm{relax}}=
+ \inf\{\langle F,X\rangle:\mathcal A(X)=d,\ X\succeq0\},
+ \label{eq:sdp-primal}
+\end{equation}
+where $\langle F,X\rangle=\operatorname{Re}\Tr(F^*X)$ and
+$\mathcal A$ maps Hermitian matrices to a real vector space. An additive
+energy constant can be kept on both primal and dual sides. Define the
+adjoint by $\langle\mathcal A^*y,X\rangle=y\cdot\mathcal A(X)$.
+
+\begin{proposition}[Weak duality and a certified residual correction]
+\label{prop:dual}
+If $F-\mathcal A^*y\succeq0$, then
+\[
+ d\cdot y\le e_{\mathrm{relax}}\le E_0(H).
+\]
+More generally, suppose all primal-feasible $X$ have
+$\Tr X\le\tau$ and a verified $\delta\ge0$ satisfies
+$F-\mathcal A^*y\succeq-\delta I$. Then
+$d\cdot y-\delta\tau\le e_{\mathrm{relax}}$.
+\end{proposition}
+\begin{proof}
+For any feasible $X$, put $S=F-\mathcal A^*y$. Then
+\[
+ \langle F,X\rangle-d\cdot y=\Tr(SX).
+\]
+If $S,X\succeq0$, this trace is nonnegative: it equals
+$\Tr(X^{1/2}SX^{1/2})$, the trace of a positive semidefinite matrix.
+Taking the infimum proves weak duality. In the second case,
+$S+\delta I\succeq0$, so
+$\Tr(SX)\ge-\delta\Tr X\ge-\delta\tau$; taking the same infimum
+proves the corrected bound. The comparison with $E_0(H)$ follows from
+the assumed outer inclusion.
+\end{proof}
+
+No strong-duality assumption is needed for this one-sided certificate.
+A solver's approximate feasible primal point supplies an upper bound on the
+relaxation optimum, not a lower bound on $E_0(H)$; if it is not
+$N$-representable it supplies no trial-state upper bound either. Even in
+$\min_{0\le x\le1}x=0$, the feasible objective $x=1/2$ is not a lower
+bound on the minimum. A raw approximate dual objective is also insufficient
+when its slack is not known to be positive semidefinite. Exact feasibility
+or a rigorously bounded correction, such as Proposition~\ref{prop:dual},
+is essential. Numerical solver residuals with unverified tolerances do not
+meet this requirement by themselves.
+
+One can combine independent lower bounds by taking their maximum. If
+$L_{\mathrm{dual}}$ and the block endpoint $\ell$ are both justified for
+the same Hamiltonian and sector, then
+$\max(L_{\mathrm{dual}},\ell)\le E_0(H)\le u$. Applying a relaxation
+to a complementary block is permissible only when its feasible set is proved
+to contain every state in that block.
+
+\subsection{Why algebraic constraints need physical inclusion proofs}
+A proposed new constraint must hold for every physical $N$-particle state.
+Testing it on selected states cannot establish this inclusion. Two exact
+examples show why apparently stronger formulas may fail.
+
+\begin{example}[The 2-RDM does not determine the 3-RDM]
+\label{ex:three-rdm}
+In six ordered spin orbitals, use the determinant convention
+$|ijk\rangle=a_i^\dagger a_j^\dagger a_k^\dagger|0\rangle$ for
+$i<j<k$. The normalized states
+\[
+ |\psi_\pm\rangle=(|123\rangle\pm|456\rangle)/\sqrt2
+\]
+have identical 1- and 2-RDMs. Indeed, a monomial with at most two annihilators
+can remove at most two of the three occupied orbitals of $|456\rangle$;
+with at most two creators it cannot turn that determinant into $|123\rangle$.
+The reverse off-diagonal matrix element also vanishes. Thus every one- and
+two-body expectation contains the same diagonal terms in the two states and
+no sign-sensitive cross term. On the other hand,
+\[
+ \langle\psi_\pm|
+ a_1^\dagger a_2^\dagger a_3^\dagger a_6a_5a_4
+ |\psi_\pm\rangle=\pm\tfrac12,
+\]
+because the operator maps $|456\rangle$ to $|123\rangle$ with positive
+sign and annihilates $|123\rangle$. Therefore no state-independent function
+of the 2-RDM can reconstruct the entire 3-RDM.
+\end{example}
+
+\begin{example}[An invalid proposed necessary inequality]
+For $|\psi\rangle=(|12\rangle+|34\rangle)/\sqrt2$, one has
+$\langle n_1\rangle=\langle n_2\rangle=1/2$ and
+$D_{12,12}=\langle n_1n_2\rangle=1/2$, by evaluating each determinant.
+Consequently the proposed inequality
+$D_{12,12}^2\le\langle n_1\rangle\langle n_2\rangle D_{12,12}$
+would require $1/4\le1/8$. It excludes a physical state and cannot define a
+sound outer relaxation of all $N$-representable data.
+\end{example}
+
+A valid operator sum-of-squares certificate is different from testing a
+polynomial at random points. If, on the specified particle sector, one proves
+$H-LI=\sum_\alpha T_\alpha^*T_\alpha$ (possibly modulo identities
+that vanish on that sector), then every normalized expectation is at least
+$L$, since each term contributes $\norm{T_\alpha\psi}^2\ge0$.
+A practical SOS relaxation must specify its operator basis, the CAR and
+particle-number identities, and a verified Gram or dual certificate. No such
+new scalable SOS hierarchy or universal convergence rate is established here.
+
+\section{Trial-state compression and topological descriptors}
+\label{sec:tensor}
+\subsection{Compression supplies trial states, not omitted-space bounds}
+An open-boundary matrix product state on $L$ sites with local dimension $q$
+has coefficients
+\[
+ \psi_{i_1\cdots i_L}
+ =A^{[1]}_{i_1}A^{[2]}_{i_2}\cdots A^{[L]}_{i_L},
+ \qquad A^{[j]}_{i_j}\in\C^{D_{j-1}\times D_j},\quad D_0=D_L=1.
+\]
+The displayed representation contains
+$\sum_{j=1}^L qD_{j-1}D_j$ scalar entries. If $q$ is fixed and every
+$D_j\le D$, this number is at most $LqD^2$. This is a storage bound
+for a supplied representation. It does not bound the bond dimension required
+for a given energy accuracy, the time to find suitable tensors, or the cost
+of contracting a general Hamiltonian representation.
+
+A normalized state in the intended particle and symmetry sector gives a
+variational upper bound once its expectation is rigorously evaluated. Orbital
+ordering and local tensor optimization can be used to search for that state;
+the certificate is the resulting energy enclosure, not the optimization
+heuristic. No fixed fractional reduction in computational cost is asserted.
+
+\begin{lemma}[Exact Schmidt rank and single-cut truncation]
+\label{lem:schmidt}
+For a normalized bipartite vector
+$\psi=\sum_{j=1}^r s_j u_j\otimes v_j$ with orthonormal Schmidt vectors,
+$s_j>0$, and $\sum_j s_j^2=1$, any MPS bond representing this cut exactly
+has dimension at least $r$. Its entropy
+$S=-\sum_j s_j^2\log(s_j^2)$ satisfies $S\le\log r$.
+If a nonempty retained set has discarded weight
+$w=\sum_{j\ \mathrm{discarded}}s_j^2<1$ and $\phi$ is the normalized
+retained vector, then
+\[
+ \norm{\psi-\phi}^2=2(1-\sqrt{1-w})\le2w.
+\]
+For any Hermitian $H$ on the full bipartite space,
+\[
+ |\ip{\psi}{H\psi}-\ip{\phi}{H\phi}|
+ \le2\norm H\norm{\psi-\phi}\le2\norm H\sqrt{2w}.
+\]
+\end{lemma}
+\begin{proof}
+At the cut, a bond of size $D$ factors the coefficient matrix through
+$\C^D$, so its matrix rank is at most $D$. The Schmidt decomposition is a
+singular-value decomposition with $r$ nonzero singular values, giving
+$D\ge r$. Put $p_j=s_j^2$. Concavity of the logarithm gives
+$\sum_j p_j\log(1/p_j)\le\log(\sum_j p_j/p_j)=\log r$.
+Normalization of the retained part gives
+$\ip{\psi}{\phi}=\sqrt{1-w}$, proving the norm identity. Since
+$\sqrt{1-w}\ge1-w$ on $[0,1]$, the norm bound follows. Finally,
+\[
+ \ip{\psi}{H\psi}-\ip{\phi}{H\phi}
+ =\ip{\psi-\phi}{H\psi}+\ip{\phi}{H(\psi-\phi)}.
+\]
+Cauchy--Schwarz and normalization bound the two terms by
+$\norm H\norm{\psi-\phi}$ each.
+\end{proof}
+
+An entropy upper bound alone does not give an upper bound on exact Schmidt
+rank: for any finite $r$, the probabilities
+$1-\varepsilon,\varepsilon/(r-1),\ldots,\varepsilon/(r-1)$ have rank
+$r$ for $0<\varepsilon<1$ but entropy tending to zero as
+$\varepsilon$ tends to zero. The truncation lemma requires a bound on the
+actual discarded weight. Repeated truncations require accumulated error
+control, and none of these state approximation statements supplies the
+complement energy bound in Theorem~\ref{thm:block}.
+
+\subsection{Topology distinguishes connectivity from occupancy}
+Suppose a finite set of proposed adsorption positions is supplied and a
+threshold $r>0$ defines a simple conflict graph $G_r$: vertices are
+positions and an edge means the two positions cannot be occupied together.
+For example, an edge can be assigned when their Euclidean distance is at most
+$r$. In a model with only these pairwise exclusions, the largest number of
+simultaneously occupied vertices is the independence number $\alpha(G_r)$.
+The zeroth Betti number $\beta_0$ of the associated Vietoris--Rips complex
+counts connected components of its one-skeleton $G_r$.
+
+\begin{proposition}[Component count is generally not occupancy capacity]
+\label{prop:graph}
+For every finite simple graph $G$, with connected components
+$C_1,\ldots,C_m$,
+\[
+ \alpha(G)=\sum_{j=1}^m\alpha(C_j)\ge m=\beta_0(G).
+\]
+Equality holds exactly when every component is a complete graph.
+\end{proposition}
+\begin{proof}
+The intersection of an independent set with each component is independent,
+so its size is at most $\sum_j\alpha(C_j)$. Conversely, the union of
+maximum independent sets from distinct components is independent, because
+no edge joins different components. This proves equality in the first
+formula. Each nonempty component has at least one vertex, so its independence
+number is at least one. A complete component has independence number one.
+If a component is not complete, it has two nonadjacent vertices, which form
+an independent set of size two. Therefore the sum equals $m$ if and only
+if all components are complete. The empty graph satisfies the statement
+with both sums zero and the component condition vacuous.
+\end{proof}
+
+\begin{example}[A three-position counterexample]
+Take positions $(0,0,0)$, $(3,0,0)$, and $(6,0,0)$ in one common length
+unit and threshold $r=3.5$. The only edges connect the first to the second
+and the second to the third. This three-vertex path is connected, so
+$\beta_0=1$. Its two endpoints are nonadjacent and can be occupied together,
+whereas all three cannot; hence $\alpha=2$. The example is unchanged if the
+edge threshold uses strict instead of non-strict inequality.
+\end{example}
+
+Persistent homology may describe connectivity as a distance threshold varies.
+It does not prove a capacity rule without an additional physical model. Real
+adsorption may also depend on chemical identity, ligand orientation, coverage,
+and interactions beyond pairwise exclusion. Even an exact independent set
+calculation addresses only the supplied graph. A graph or point cloud whose
+reference capacity was assigned by hand is not an independent DFT benchmark,
+and a greedy maximal independent set need not be a maximum independent set.
+For the path above, choosing the middle vertex first gives a maximal set of
+size one although the maximum has size two.
+
+\section{An exactly solvable pairing check}
+\label{sec:algebra}
+\subsection{Hamiltonian and energy origin}
+Reduced pairing models provide a useful algebraic test case in the
+Richardson--Gaudin literature \citep{Richardson1963,Dukelsky2004}.
+The following two-level calculation is derived directly and needs no general
+integrability theorem. It is a toy Hamiltonian, not an ab initio model of
+$\mathrm H_2$. No molecular integrals or nuclear repulsion are specified.
+
+Order the four fermionic modes as
+$(1\uparrow,1\downarrow,2\uparrow,2\downarrow)$ and restrict to two
+electrons. Put
+\[
+ P_p^\dagger=a_{p\uparrow}^\dagger a_{p\downarrow}^\dagger,
+ \quad P_p=a_{p\downarrow}a_{p\uparrow},\quad
+ n_{p\sigma}=a_{p\sigma}^\dagger a_{p\sigma},\quad p=1,2.
+\]
+For real $\varepsilon_1,\varepsilon_2$ and attractive coupling $g\ge0$,
+define
+\begin{align}
+ H_z&=\sum_{p=1}^2\varepsilon_p
+       (n_{p\uparrow}+n_{p\downarrow}-1)
+       -g\sum_{p,q=1}^2P_p^\dagger P_q,
+       \label{eq:pair-z}\\
+ H_N&=\sum_{p=1}^2\varepsilon_p
+       (n_{p\uparrow}+n_{p\downarrow})
+       -g\sum_{p,q=1}^2P_p^\dagger P_q
+     =H_z+(\varepsilon_1+\varepsilon_2)I.
+       \label{eq:pair-n}
+\end{align}
+The two conventions differ only by an energy origin, but they must not be
+mixed in a secular equation or a numerical comparison.
+
+\begin{proposition}[Complete spectrum in the two-electron sector]
+\label{prop:pairing}
+Let $d=\varepsilon_1-\varepsilon_2$ and
+$\rho=\sqrt{d^2+g^2}$. In the paired basis
+$|1\overline1\rangle=P_1^\dagger|0\rangle$,
+$|2\overline2\rangle=P_2^\dagger|0\rangle$, the matrix of $H_z$ is
+\begin{equation}
+ H_z^{\mathrm{pair}}=
+ \begin{pmatrix}
+ \varepsilon_1-\varepsilon_2-g&-g\\
+ -g&-\varepsilon_1+\varepsilon_2-g
+ \end{pmatrix}.
+ \label{eq:pair-block}
+\end{equation}
+The complete six-dimensional sector has spectrum, with multiplicity,
+\begin{equation}
+ \{-g-\rho,\ -g+\rho,\ 0,\ 0,\ 0,\ 0\}.
+ \label{eq:pair-spectrum}
+\end{equation}
+In particular its lowest energy is $E_z^-=-g-\rho$.
+The paired energies of $H_N$ are
+\begin{equation}
+ E_N^\pm=\varepsilon_1+\varepsilon_2-g\pm\rho,
+ \label{eq:number-roots}
+\end{equation}
+and its four unpaired energies are $\varepsilon_1+\varepsilon_2$.
+\end{proposition}
+\begin{proof}
+There are $\binom42=6$ two-electron determinants. Two occupy both spins
+of a single orbital; the remaining four place one electron in each orbital.
+On $|p\overline p\rangle$, $P_q$ is zero unless $q=p$, in which case
+it gives the vacuum with positive sign. This follows directly from the CAR:
+$a_{p\downarrow}a_{p\uparrow}a_{p\uparrow}^\dagger
+ a_{p\downarrow}^\dagger|0\rangle=|0\rangle$.
+Subsequent application of $P_s^\dagger$ gives
+$|s\overline s\rangle$. Thus $\sum_{s,q}P_s^\dagger P_q$ has every
+entry equal to one in the paired basis. In particular the terms $s=q$
+contribute $-g$ to each paired diagonal; they cannot be omitted.
+The one-body term in $H_z$ is $d$ on $|1\overline1\rangle$ and
+$-d$ on $|2\overline2\rangle$. This proves \eqref{eq:pair-block}.
+
+Every pair annihilator kills an unpaired determinant. Its occupations also
+give $n_{p\uparrow}+n_{p\downarrow}-1=0$ for each $p$, so its energy
+is zero and it is decoupled from the paired space. Finally,
+\[
+ \det(H_z^{\mathrm{pair}}-\lambda I)
+ =(d-g-\lambda)(-d-g-\lambda)-g^2
+ =(\lambda+g)^2-d^2-g^2.
+\]
+Its roots are $-g\pm\rho$. Since $\rho\ge g\ge0$, the lower root
+is at most zero and the upper root is at least zero. Comparing with the four
+unpaired zeros establishes the ground energy. Adding the scalar in
+\eqref{eq:pair-n} shifts every eigenvalue as stated.
+\end{proof}
+
+The upper paired root is not generally the first excited level of the full
+sector: the unpaired zeros must also be included. When $g>0$, a normalized
+ground vector in the paired space is
+\[
+ c^- =\frac{(g,d+\rho)^T}{\sqrt{g^2+(d+\rho)^2}}.
+\]
+Indeed the first row of
+$(H_z^{\mathrm{pair}}-E_z^-I)(g,d+\rho)^T$ vanishes by cancellation,
+and the second is $-g^2+(\rho-d)(\rho+d)=0$.
+The denominator is positive for $g>0$. Its orthogonal vector
+$c^+=(-c^-_2,c^-_1)^T$ is the upper eigenvector: symmetry makes the
+orthogonal one-dimensional subspace invariant, and the trace fixes its
+eigenvalue to $-g+\rho$. For $g=0$, determinant basis vectors diagonalize
+the block. If also $d=0$, both paired energies and all unpaired energies
+coincide at zero. These cases should be handled directly rather than by
+dividing by $g$.
+
+\subsection{The one-pair secular equation and its excluded points}
+In the number convention,
+$H_N^{\mathrm{pair}}=\operatorname{diag}(2\varepsilon_1,
+2\varepsilon_2)-g\boldsymbol 1\boldsymbol 1^T$.
+An eigenvector $(c_1,c_2)^T$ with energy $E$ obeys
+\[
+ (2\varepsilon_p-E)c_p=g(c_1+c_2),\qquad p=1,2.
+\]
+If neither denominator vanishes, a nonzero vector must have
+$c_1+c_2\ne0$; otherwise both coefficients would be zero. Dividing and
+summing therefore gives
+\begin{equation}
+ 1=g\left(\frac{1}{2\varepsilon_1-E}
+          +\frac{1}{2\varepsilon_2-E}\right).
+ \label{eq:richardson}
+\end{equation}
+Conversely, a finite $E$ satisfying this equation away from its poles yields
+an eigenvector with coefficients proportional to
+$(2\varepsilon_p-E)^{-1}$, by substitution in the two linear equations.
+The polynomial form is
+\begin{equation}
+ (2\varepsilon_1-E)(2\varepsilon_2-E)
+ -g\bigl[(2\varepsilon_1-E)+(2\varepsilon_2-E)\bigr]=0.
+ \label{eq:pair-polynomial}
+\end{equation}
+This is the determinant equation and remains meaningful where the rational
+form is undefined. It produces exactly \eqref{eq:number-roots}.
+At $g=0$ the eigenvalues lie at poles of the rational expression. At
+$\varepsilon_1=\varepsilon_2=\varepsilon$ and $g>0$, the upper state
+$(1,-1)^T/\sqrt2$ has $E=2\varepsilon$ and zero coefficient sum;
+it too is excluded from the rational derivation. A pole is not a zero
+residual. Near a pole, the polynomial or matrix eigenvector residual is the
+appropriate numerical check, with tolerances scaled to the matrix norm.
+
+\subsection{Relation to the energy certificate}
+The paired block is itself a scalar active/complement split with
+$a=d-g$, $c=-d-g$, and $b=g$. Its smaller eigenvalue equals the bound
+in Theorem~\ref{thm:block}, providing a sharp algebraic check. If the lower
+diagonal entry is chosen as the active block and $d\ne0$, the complementary
+diagonal lies higher and Corollary~\ref{cor:gap} also applies to this paired
+problem. To claim the ground of the full sector one must still account for
+the unpaired block; Proposition~\ref{prop:pairing} does so explicitly.
+
+Agreement between a CAR matrix construction, the roots above, and an
+independent Jordan--Wigner construction tests this toy algebra. It supplies no
+error estimate between a molecular Coulomb Hamiltonian and a reduced pairing
+Hamiltonian. Establishing such a reduction would require specified molecular
+integrals and a certified bound on the omitted interactions. General claims
+about Yangian symmetry, Howe duality, or exact molecular solvability are not
+needed for this example and are not established here.
+
+\section{From electronic intervals to conditional kinetic bounds}
+\label{sec:approximations}
+\subsection{Barrier intervals and an explicit error budget}
+Let $R$ and $\mathrm{TS}$ denote two specified geometries, with consistent
+stoichiometry, charge convention, and energy reference. The label
+$\mathrm{TS}$ is only a label until a saddle point and its connection to the
+reactant basin have been established. Suppose
+\[
+ L_R\le E_R\le U_R,\qquad
+ L_{\mathrm{TS}}\le E_{\mathrm{TS}}\le U_{\mathrm{TS}}.
+\]
+
+\begin{proposition}[Interval subtraction]
+\label{prop:barrier}
+The electronic energy difference $B_{\mathrm{el}}=E_{\mathrm{TS}}-E_R$
+satisfies
+\begin{equation}
+ L_{\mathrm{TS}}-U_R\le B_{\mathrm{el}}
+ \le U_{\mathrm{TS}}-L_R.
+ \label{eq:barrier}
+\end{equation}
+These endpoints are optimal given only the two independent intervals.
+If an additive correction $\Delta$ obeys
+$\Delta\in[\Delta_L,\Delta_U]$, then
+\begin{equation}
+ B=B_{\mathrm{el}}+\Delta\in
+ [L_{\mathrm{TS}}-U_R+\Delta_L,
+  U_{\mathrm{TS}}-L_R+\Delta_U].
+ \label{eq:corrected-barrier}
+\end{equation}
+\end{proposition}
+\begin{proof}
+The inequalities $E_{\mathrm{TS}}\ge L_{\mathrm{TS}}$ and
+$-E_R\ge-U_R$ give the lower endpoint on addition. Adding
+$E_{\mathrm{TS}}\le U_{\mathrm{TS}}$ and $-E_R\le-L_R$ gives the
+upper endpoint. The choices $(E_{\mathrm{TS}},E_R)=
+(L_{\mathrm{TS}},U_R)$ and $(U_{\mathrm{TS}},L_R)$ attain the respective
+endpoints, proving optimality without further joint information. Adding the
+bounds for $\Delta$ proves \eqref{eq:corrected-barrier}.
+\end{proof}
+
+The interval width in \eqref{eq:barrier} is
+$(U_{\mathrm{TS}}-L_{\mathrm{TS}})+(U_R-L_R)$.
+Correlated energy errors can sometimes yield a narrower difference bound,
+but their correlation must be proved. Cancellation cannot simply be assumed.
+For a free-energy barrier, $\Delta$ must include the relevant zero-point,
+thermal, entropic, environmental, and standard-state corrections with their
+own justified bounds. A negative lower endpoint is allowed algebraically;
+clipping it to zero requires a separate proof that the target barrier is
+nonnegative.
+
+\begin{lemma}[Finite-model perturbation]
+\label{lem:perturbation}
+If $H$ and $\widetilde H$ are Hermitian on the same finite space and
+$\norm{H-\widetilde H}\le\delta$, then
+$|E_0(H)-E_0(\widetilde H)|\le\delta$. Consequently, an interval
+$[L,U]$ for $E_0(\widetilde H)$ yields $[L-\delta,U+\delta]$ for
+$E_0(H)$.
+\end{lemma}
+\begin{proof}
+Every normalized $v$ satisfies
+$|\ip{v}{(H-\widetilde H)v}|\le\delta$. Inserting a lowest eigenvector
+of $\widetilde H$ into the variational principle for $H$ gives
+$E_0(H)\le E_0(\widetilde H)+\delta$. Interchanging the two matrices
+gives the reverse bound. Enlarging each interval endpoint by $\delta$
+then contains the target energy.
+\end{proof}
+
+This lemma can absorb rigorously bounded integral or model perturbations
+only after the spaces and energy conventions have been matched. It does not
+supply $\delta$ automatically. For a conforming finite-basis restriction of
+a continuum Hamiltonian, the variational principle gives
+$E_{\mathrm{continuum}}\le E_{\mathrm{basis}}$. A lower bound on
+$E_{\mathrm{basis}}$ therefore need not be a lower bound on
+$E_{\mathrm{continuum}}$. Basis-set, slab-size, embedding, and boundary
+errors each require a separate comparison theorem or error estimate.
+
+\subsection{Geometry, paths, and Born--Oppenheimer assumptions}
+Computing an energy at a candidate saddle does not bound the error in its
+location. If an energy surface $E(q)$ is known to be Lipschitz with constant
+$M$ on a domain and a target geometry $q_*$ is known to satisfy
+$\norm{q_*-q_0}\le r$, then $|E(q_*)-E(q_0)|\le Mr$ by the
+Lipschitz definition. Both $M$ and the location bound are additional inputs.
+A small gradient at $q_0$ alone does not establish a particular saddle or
+its connection to a reactant.
+
+\begin{proposition}[What path samples can certify]
+\label{prop:path}
+Let $E:[0,1]\to\R$ be $M$-Lipschitz. Suppose samples $s_i$ form a
+covering with radius $h$, meaning that every $s\in[0,1]$ has
+$|s-s_i|\le h$ for some $i$, and certified sample intervals satisfy
+$L_i\le E(s_i)\le U_i$. Then
+\begin{equation}
+ \max_i L_i\le\max_{s\in[0,1]} E(s)\le\max_i U_i+Mh.
+ \label{eq:path}
+\end{equation}
+Without a modulus of continuity or other control between samples, finitely
+many sampled values do not give any finite uniform upper bound.
+\end{proposition}
+\begin{proof}
+Continuity and compactness ensure the maximum exists. Each sampled value is
+at most that maximum, proving the lower bound. For any $s$, choose a
+sample within $h$. Then
+$E(s)\le E(s_i)+M|s-s_i|\le\max_i U_i+Mh$; maximizing gives the
+upper bound. For the final statement, choose a nonempty open interval
+avoiding all of the finitely many sample points. A continuous triangular
+bump supported in that interval vanishes at every sample and can have an
+arbitrarily large positive height. Adding it preserves all sampled values
+while making the maximum arbitrarily large.
+\end{proof}
+
+Even a certified maximum along one path is not automatically the minimum
+barrier over all possible paths, and endpoint energies alone do not certify
+a path maximum. Likewise, finitely sampled electronic gaps do not establish
+a uniform positive gap between samples.
+
+Rigorous Born--Oppenheimer results require their own setting and hypotheses;
+for example, Hagedorn's analysis treats high-order corrections for diatomic
+Coulomb bound states \citep{Hagedorn1988}. That result is not invoked here
+as a numerical surface-reaction error bound. A mass ratio such as
+$\varepsilon=(m_e/M)^{1/4}$ is a dimensionless parameter. Even if an
+applicable theorem gives $|\delta E|\le C\varepsilon^p$ on a specified
+domain, one must bound $C$, specify energy units and the approximation order,
+and check its spectral and regularity assumptions. Evaluating
+$\varepsilon^5$ and multiplying by an assumed reaction-energy scale does
+not perform these steps.
+
+The role of electronic derivatives can be seen without any asymptotic
+approximation. For a differentiable Hermitian family $H_e(q)$ with
+differentiable normalized eigenvectors $\phi_m(q)$ and distinct energies,
+differentiation of $H_e\phi_m=E_m\phi_m$ gives
+\[
+ (\partial_q H_e)\phi_m+H_e\partial_q\phi_m
+ =(\partial_qE_m)\phi_m+E_m\partial_q\phi_m.
+\]
+Taking the inner product with $\phi_n$, $n\ne m$, and using
+orthogonality yields
+\begin{equation}
+ \ip{\phi_n}{\partial_q\phi_m}
+ =\frac{\ip{\phi_n}{(\partial_qH_e)\phi_m}}{E_m-E_n}.
+ \label{eq:derivative-coupling}
+\end{equation}
+Thus a gap alone does not determine derivative coupling; the numerator and
+its units matter. In particular, an orbital HOMO--LUMO gap at one geometry
+is not a certified many-electron gap along a reaction path. No absence of
+crossings, uniform nonadiabatic error, or CaF2 surface-reaction BO bound is
+proved by this manuscript.
+
+\subsection{Conditional transition-state rate intervals}
+The connection to kinetics is an assumed transition-state or activated-rate
+model motivated by transition-state theory \citep{Eyring1935}:
+\begin{equation}
+ k=A\exp(-B/\theta),\qquad \theta>0.
+ \label{eq:tst}
+\end{equation}
+Here $\theta$ has the same energy units as $B$: it may be $k_{\mathrm B}T$
+for energies per event or $RT$ for molar energies. The prefactor must have
+the rate units appropriate to the selected kinetic convention. For a
+unimolecular Eyring model it may include $k_{\mathrm B}T/h$ and a
+transmission coefficient; other conventions can require concentration or
+standard-state factors. These are model inputs, not consequences of the
+electronic theorem. The results below assume a fixed known $\theta$.
+
+\begin{theorem}[Monotone rate propagation]
+\label{thm:rate}
+Assume \eqref{eq:tst}, $B\in[L,U]$, and
+$0<A_L\le A\le A_U$. Then
+\begin{equation}
+ 0<k_L:=A_L e^{-U/\theta}\le k\le A_U e^{-L/\theta}=:k_U.
+ \label{eq:rate-interval}
+\end{equation}
+The endpoints are the extremal rates over the rectangular uncertainty set
+$[A_L,A_U]\times[L,U]$.
+\end{theorem}
+\begin{proof}
+Since $\theta>0$, the barrier inequalities give
+$-U/\theta\le-B/\theta\le-L/\theta$.
+The exponential is positive and increasing, so
+$e^{-U/\theta}\le e^{-B/\theta}\le e^{-L/\theta}$.
+Multiplication by the positive prefactor bounds proves
+\eqref{eq:rate-interval}. The parameter choices $(A_L,U)$ and $(A_U,L)$
+attain the lower and upper endpoints.
+\end{proof}
+
+No independence assumption on random variables is involved: these are
+worst-case deterministic bounds. If the prefactor and barrier are known to
+obey an additional joint constraint, the rectangular bounds remain sound
+but may cease to be sharp. A change in $\theta$ requires its own interval
+analysis; it cannot be absorbed silently into a fixed-temperature result.
+
+\begin{corollary}[Robust comparison of two channels]
+\label{cor:ranking}
+For two rates at the same $\theta$, suppose the assumed model gives a common
+positive prefactor $A$. If their barriers satisfy $U_1<L_2$, then
+$k_1>k_2$ for every permitted barrier pair. With potentially different
+positive prefactor intervals, the sufficient condition is
+\begin{equation}
+ A_{1,L}e^{-U_1/\theta}>A_{2,U}e^{-L_2/\theta},
+ \quad\text{equivalently}\quad
+ L_2-U_1>\theta\log\!\left(\frac{A_{2,U}}{A_{1,L}}\right).
+ \label{eq:robust-ranking}
+\end{equation}
+\end{corollary}
+\begin{proof}
+For the common prefactor, $B_1\le U_1<L_2\le B_2$ and the strict
+monotonic decrease of $e^{-B/\theta}$ give $k_1>k_2$.
+In the general case Theorem~\ref{thm:rate} gives
+$k_1\ge A_{1,L}e^{-U_1/\theta}$ and
+$k_2\le A_{2,U}e^{-L_2/\theta}$; the displayed strict separation
+therefore suffices. Taking logarithms of its positive sides and rearranging
+proves the equivalent condition.
+\end{proof}
+
+Touching intervals give at most a non-strict conclusion. Overlapping rate
+intervals leave the ordering unresolved by this certificate; they do not
+show that the true rates coincide. Ranking elementary rates is also distinct
+from ranking net reaction fluxes, which depend on populations and the network.
+
+\begin{proposition}[Energy precision is set by logarithmic rate uncertainty]
+\label{prop:log-budget}
+For the endpoints in \eqref{eq:rate-interval},
+\begin{equation}
+ \log(k_U/k_L)=\log(A_U/A_L)+(U-L)/\theta.
+ \label{eq:log-width}
+\end{equation}
+Consequently the interval has ratio $k_U/k_L\le F$, for $F\ge1$, if and
+only if
+$\log(A_U/A_L)+(U-L)/\theta\le\log F$.
+Alternatively, if $\widehat k=\widehat A e^{-\widehat B/\theta}$,
+$|\log(A/\widehat A)|\le\alpha$, and
+$|B-\widehat B|\le\delta$, then
+\begin{equation}
+ |\log(k/\widehat k)|\le\alpha+\delta/\theta.
+ \label{eq:log-error}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Dividing the positive endpoints gives
+$k_U/k_L=(A_U/A_L)e^{(U-L)/\theta}$; taking the logarithm proves the
+identity and the equivalence. Similarly,
+$\log(k/\widehat k)=\log(A/\widehat A)-(B-\widehat B)/\theta$,
+and the triangle inequality gives \eqref{eq:log-error}.
+\end{proof}
+
+To guarantee a multiplicative factor $F>1$ relative to $\widehat k$, a
+sufficient budget is $\alpha+\delta/\theta\le\log F$.
+If $\alpha>\log F$, energy refinement alone cannot satisfy this budget.
+For a relative error tolerance $0<\epsilon<1$, the stronger condition
+$|\log(k/\widehat k)|\le\log(1+\epsilon)$ implies
+$|k/\widehat k-1|\le\epsilon$: the ratio lies between
+$1/(1+\epsilon)$ and $1+\epsilon$, and
+$1-1/(1+\epsilon)=\epsilon/(1+\epsilon)\le\epsilon$.
+These formulas provide a target-dependent energy tolerance instead of a
+universal claim of chemical accuracy.
+
+\subsection{Finite-state kinetic stability with a complete stated generator}
+Let $S=\{1,\ldots,m\}$ be a nonempty finite state space. A row-generator
+$Q$ satisfies $Q_{ij}\ge0$ for $i\ne j$ and
+$Q_{ii}=-\sum_{j\ne i}Q_{ij}$. Row distributions evolve as
+$p(t)=p(0)e^{tQ}$. The following result compares two fully specified,
+time-homogeneous generators on the same state space. It makes no
+irreducibility or reversibility assumption.
+
+\begin{lemma}[Stochastic semigroups and contraction]
+\label{lem:markov}
+For such a generator, $P_t=e^{tQ}$ has nonnegative entries and every row
+sums to one for $t\ge0$. For any real row vector $z$,
+$\norm{zP_t}_1\le\norm z_1$.
+\end{lemma}
+\begin{proof}
+Choose a real $\nu>0$ with $\nu\ge\max_i(-Q_{ii})$ and put
+$P=I+Q/\nu$. Off-diagonal entries and diagonal entries of $P$ are
+nonnegative and its rows sum to one. Products of such matrices have the
+same properties. Since $Q=\nu(P-I)$ and $I$ commutes with $P$,
+\[
+ e^{tQ}=e^{-\nu t}\sum_{n=0}^\infty\frac{(\nu t)^n}{n!}P^n.
+\]
+The coefficients are nonnegative and sum to one. Entrywise convergence
+therefore proves the stochastic property. Finally,
+\[
+ \sum_j\left|\sum_i z_i(P_t)_{ij}\right|
+ \le\sum_i|z_i|\sum_j(P_t)_{ij}=\sum_i|z_i|,
+\]
+which is the asserted contraction.
+\end{proof}
+
+\begin{theorem}[Finite-state generator perturbation bound]
+\label{thm:ctmc}
+Let $Q,\widehat Q$ be row-generators on $S$ and define
+\begin{equation}
+ \eta=\frac12\max_i\sum_{j=1}^m|Q_{ij}-\widehat Q_{ij}|.
+ \label{eq:eta}
+\end{equation}
+The sum includes the diagonal entry. For the same initial probability
+row vector $p$, put $p_t=pe^{tQ}$ and
+$\widehat p_t=pe^{t\widehat Q}$. Then, for every $t\ge0$,
+\begin{equation}
+ \TV(p_t,\widehat p_t):=\tfrac12\norm{p_t-\widehat p_t}_1
+ \le\min(1,t\eta).
+ \label{eq:ctmc-tv}
+\end{equation}
+For any real observable $f:S\to\R$, define
+$\operatorname{range}(f)=\max_i f(i)-\min_i f(i)$. Then
+\begin{equation}
+ |p_t f-\widehat p_t f|
+ \le\operatorname{range}(f)\min(1,t\eta).
+ \label{eq:observable}
+\end{equation}
+If the initial distributions differ, the corresponding bound is
+$\min(1,\TV(p,\widehat p)+t\eta)$.
+\end{theorem}
+\begin{proof}
+All matrix exponentials are differentiable in finite dimension. For a fixed
+$t$, differentiate $F(s)=e^{sQ}e^{(t-s)\widehat Q}$ on $[0,t]$.
+Commutation of a matrix with its own exponential gives
+\[
+ F'(s)=e^{sQ}(Q-\widehat Q)e^{(t-s)\widehat Q}.
+\]
+Integrating from $0$ to $t$ yields the Duhamel identity
+\begin{equation}
+ e^{tQ}-e^{t\widehat Q}
+ =\int_0^t e^{sQ}(Q-\widehat Q)e^{(t-s)\widehat Q}\,ds.
+ \label{eq:duhamel}
+\end{equation}
+For every probability vector $v$, the triangle inequality gives
+\[
+ \norm{v(Q-\widehat Q)}_1
+ \le\sum_i v_i\sum_j|Q_{ij}-\widehat Q_{ij}|\le2\eta.
+\]
+By Lemma~\ref{lem:markov}, $pe^{sQ}$ is a probability vector, and
+right multiplication by $e^{(t-s)\widehat Q}$ is an $\ell^1$
+contraction. Left-multiplying \eqref{eq:duhamel} by $p$ and applying
+these two estimates under the integral gives
+$\norm{p_t-\widehat p_t}_1\le\int_0^t2\eta\,ds=2t\eta$.
+Two probability vectors have $\ell^1$ distance at most two, proving
+\eqref{eq:ctmc-tv}.
+
+For the observable inequality, put $z=p_t-\widehat p_t$ and
+$c=(\max_i f(i)+\min_i f(i))/2$. Since $\sum_i z_i=0$,
+\[
+ |zf|=\left|\sum_i z_i(f(i)-c)\right|
+ \le\frac{\operatorname{range}(f)}2\sum_i|z_i|
+ =\operatorname{range}(f)\TV(p_t,\widehat p_t).
+\]
+Combining with \eqref{eq:ctmc-tv} proves \eqref{eq:observable}.
+For different initial distributions, write
+\[
+ pe^{tQ}-\widehat p e^{t\widehat Q}
+ =p(e^{tQ}-e^{t\widehat Q})
+   +(p-\widehat p)e^{t\widehat Q}.
+\]
+The first term has norm at most $2t\eta$, and contraction bounds the
+second by $\norm{p-\widehat p}_1$. Division by two and the universal
+probability-distance bound complete the proof.
+\end{proof}
+
+\begin{corollary}[From individual rate intervals to a generator bound]
+\label{cor:rates-generator}
+Suppose all off-diagonal entries are specified and have validated intervals
+$Q_{ij}\in[l_{ij},u_{ij}]$ with $0\le l_{ij}\le u_{ij}$.
+Choose $\widehat Q_{ij}\in[l_{ij},u_{ij}]$ and set both diagonals by
+zero row sums. Define
+$\epsilon_{ij}=\max(\widehat Q_{ij}-l_{ij},u_{ij}-\widehat Q_{ij})$
+for $i\ne j$. Then
+\begin{equation}
+ \eta\le\max_i\sum_{j\ne i}\epsilon_{ij}.
+ \label{eq:rate-generator}
+\end{equation}
+\end{corollary}
+\begin{proof}
+Each off-diagonal difference is at most $\epsilon_{ij}$ in absolute
+value, and
+$|Q_{ii}-\widehat Q_{ii}|=
+|\sum_{j\ne i}(Q_{ij}-\widehat Q_{ij})|
+\le\sum_{j\ne i}\epsilon_{ij}$.
+The full row sum of absolute differences is therefore at most twice this
+sum. Substitution in \eqref{eq:eta} proves the claim.
+\end{proof}
+
+An entry may be the sum of several event rates; its interval must include
+all those contributions. A nominally absent transition is justified only if
+its rate is zero by the stated model or is bounded within the error budget.
+The theorem does not certify that an event catalog contains every relevant
+physical reaction. It also does not compare generators on different state
+spaces without an additional embedding or coarse-graining argument. Pulsed
+operating conditions and transport can require time-dependent generators or
+a larger model, which must be analyzed separately.
+
+A bounded terminal occupancy is an observable covered by
+\eqref{eq:observable}. Growth per cycle is not automatically such an
+observable: it may involve accumulated event counts, changing surface states,
+transport, and a conversion from deposited material to thickness. A pathwise
+count is not generally bounded by the range of a state function on $S$.
+Thus the CTMC result is a conditional finite-state stability theorem, not a
+direct growth-per-cycle guarantee. Establishing the physical network and the
+observable mapping remains a separate task.
+
+\section{Computational scope and unresolved tasks}
+\label{sec:complexity}
+\subsection{An enclosure theorem is not a complexity breakthrough}
+The finite-basis electronic-structure problem in the setting of
+\citet{OGorman2022} is a worst-case QMA-complete ground-energy promise
+problem. The relevant precision is an inverse-polynomial additive promise
+gap under the paper's input and scaling conventions, not a universal relative
+error guarantee for all molecular energies. Fermionic $N$-representability
+has a corresponding QMA-completeness result \citep{Liu2007}.
+These classifications concern families of encoded instances. They neither
+prove that every molecule requires exponential time nor provide a probability
+measure under which most molecules are easy. No separation of complexity
+classes is assumed as a proved theorem here.
+
+The block estimate reduces the \emph{verification statement} to a few scalar
+inequalities once their hypotheses are supplied. It does not reduce the cost
+of constructing those hypotheses. The active eigenproblem, the complementary
+lower bound, the coupling norm, integral generation, and verified rounding all
+contribute to the cost. An active-space dimension that is small relative to
+the full determinant space need not be small as a function of the input size.
+Moreover, a complement estimate may be cheap and so loose that the final
+barrier interval is inconclusive.
+
+The same issue arises for RDM and tensor representations. The dimensions of
+an explicit $p$-RDM on antisymmetric $p$-tuples are
+$\binom Kp\times\binom Kp$. For fixed $p$, this gives a polynomial
+number of entries, but does not make exact $N$-representability easy. For
+commuting SOS variables, if the number of variables is $m$, the number of
+monomials of total degree at most $d$ is $\binom{m+d}{d}$: append a slack
+exponent to the $m$ nonnegative exponents so their sum is exactly $d$, and
+count weak compositions into $m+1$ parts. In particular, taking $m=K^4$
+and $d=3$ gives
+\[
+ \binom{K^4+3}{3}
+ =\frac{(K^4+3)(K^4+2)(K^4+1)}6=\Theta(K^{12}),
+\]
+not $O(K^6)$. This count is only for that explicitly chosen commuting
+monomial basis; a fermionic operator construction must define its own basis.
+A dimension count alone supplies neither an SDP runtime nor a convergence
+rate, conditioning estimate, or accuracy guarantee.
+
+\subsection{What an average-case statement would require}
+An average-case complexity claim needs a family of probability distributions
+$\mathcal D_n$ on finite encoded inputs, an algorithm, a success criterion,
+an accuracy target, and a cost model. Qualitative labels such as stable,
+local, or chemically typical do not specify a normalized distribution.
+Empirical success on a selected set is evidence about that set, not a proof
+of polynomial expected runtime.
+
+\begin{proposition}[A sufficient tail condition, not an established chemical law]
+\label{prop:average}
+Let $T_n\ge0$ be the runtime of a specified algorithm under a specified
+$\mathcal D_n$, where $n\ge1$. Suppose constants $C,C',c,d>0$ and
+$k\ge0$ satisfy: outside an event of probability at most $C'e^{-cn}$,
+$T_n\le Cn^k$, and on every input $T_n\le Ce^{dn}$. Then
+\[
+ \mathbb E[T_n]\le Cn^k+CC'e^{(d-c)n}.
+\]
+In particular these hypotheses imply a polynomial expectation if $c\ge d$.
+\end{proposition}
+\begin{proof}
+Let $A_n$ be the exceptional event. Split the expectation as
+$\mathbb E[T_n\boldsymbol1_{A_n^c}]+
+\mathbb E[T_n\boldsymbol1_{A_n}]$.
+The first term is at most $Cn^k\mathbb P(A_n^c)\le Cn^k$, and the
+second is at most $Ce^{dn}\mathbb P(A_n)\le CC'e^{(d-c)n}$.
+If $c\ge d$, the second bound is at most $CC'$.
+\end{proof}
+
+An exponentially small difficult subset is therefore not by itself a
+polynomial expectation theorem: the runtime on it also matters. For example,
+a runtime equal to $1$ outside an event of probability $e^{-cn}$ and to
+$e^{dn}$ on that event has expectation
+$1-e^{-cn}+e^{(d-c)n}$, which grows exponentially when $d>c$.
+No distribution or tail estimate meeting these hypotheses has been
+constructed here for surface chemistry. No percentages of easy molecules or
+timelines for overcoming an exponential cost are inferred.
+
+\subsection{A research protocol for a specified elementary step}
+The results suggest a concrete sequence of tasks with explicit stopping
+conditions. The aim is an informative interval, which may be too wide to
+rank pathways; a failed ranking is not an algorithmic or physical prediction.
+
+\begin{enumerate}
+\item \textbf{Specify the physical question.}
+For $\mathrm{Al_2O_3}/\mathrm{MoCl_4}$, record the substrate phase and
+facet, termination and hydroxylation, slab size and boundary conditions,
+coverage, precursor charge and spin, co-reactant, temperature, and reference
+reservoirs. For CaF2 crystal deposition, resolve the precursor pair, the
+co-reactant, the substrate phase and facet, and the reaction stoichiometry
+before defining any elementary step.
+Define which elementary steps and competing channels are to be compared.
+
+\item \textbf{Fix a reproducible finite electronic target.}
+Provide geometries, orbital basis and ordering, electron count, symmetry
+sector, Hamiltonian coefficients, nuclear terms, and units. Record how each
+geometry was obtained and what establishes a reactant minimum or a connected
+transition state. A Hamiltonian at an unverified candidate geometry supports
+only a statement about that geometry.
+
+\item \textbf{Produce independently justified endpoints.}
+Construct a normalized trial state and a bound on its expectation. Supply
+$\underline a,\underline c,\overline b$ for the selected block split,
+or a dual-feasible outer-relaxation certificate, with all feasibility and
+rounding errors accounted for. Report the cost of the complement information
+separately. Compare with full diagonalization only where the latter is
+feasible, without treating the comparison itself as a scalable method.
+
+\item \textbf{Bound every correction to the requested target.}
+Use interval subtraction for electronic differences. Add justified bounds
+for geometry, thermodynamic, environmental, and other corrections that are
+needed for the chosen barrier definition. If a continuous path maximum is
+required, supply between-sample control as in Proposition~\ref{prop:path}.
+Do not infer a free-energy or nonadiabatic error bar from electronic solver
+convergence alone.
+
+\item \textbf{Set the precision from the kinetic decision.}
+State the rate model, temperature, energy-unit convention, and positive
+prefactor interval. Use Proposition~\ref{prop:log-budget} to decide whether
+the energy precision can meet the desired rate ratio. Apply
+Corollary~\ref{cor:ranking} only when its strict separation holds; otherwise
+report an unresolved ordering and identify the dominant interval width.
+
+\item \textbf{Define the network and observable separately.}
+For a finite-state kinetic model, enumerate states, transitions, environmental
+conditions, and all generator entries. Establish a rate bound for every entry
+and use Corollary~\ref{cor:rates-generator}. A bounded state observable then
+inherits Theorem~\ref{thm:ctmc}. Any relation to accumulated deposition or
+film thickness requires its own model and error analysis. Validate physical
+inputs against independently sourced data when available.
+\end{enumerate}
+
+\subsection{Open mathematical and computational questions}
+The central open problem is a useful complementary-space lower bound whose
+construction avoids enumerating the full omitted determinant space. Candidate
+routes include decompositions into positive operators, valid RDM dual
+certificates, or special operator structure. Each route must exhibit a
+checkable inequality for the actual complement, together with its cost and
+its loss of precision. An upper estimate for that complement cannot substitute
+for the required lower bound.
+
+A second problem is to combine active-state improvement and lower-bound
+improvement adaptively. Widening an active space may improve a variational
+upper bound, but a useful algorithm must show how to maintain and evaluate
+the lower certificate as the partition changes. Localized orbitals, symmetry,
+or tensor compression can aid the search without proving a uniform rate of
+convergence or a polynomial runtime.
+
+A third problem is validated numerical evaluation. Floating-point eigenvalues,
+SDP feasibility residuals, and rate exponentials must be enclosed with error
+bounds tight enough to preserve the desired energy and rate inequalities.
+The residual correction in Proposition~\ref{prop:dual} gives one possible
+pattern, but its spectral residual and trace bound still have to be verified
+for the concrete SDP.
+
+Finally, uniform geometry and path errors, a defensible thermodynamic
+correction budget, a complete physical event catalog, and a measured
+observable mapping remain unresolved for the named ALD targets. The present
+paper provides conditional implications, not solutions to these input
+problems. Its next substantive result should be a fully specified example
+where each hypothesis can be checked and where the final interval either
+supports or demonstrably fails to support a stated chemical decision.
+
+
+\section{Evidence and formal verification status}
+\label{sec:formalization}
+The proofs in this manuscript are mathematical arguments over real and
+complex finite-dimensional spaces. They should be distinguished from the
+repository's numerical checks and any theorem-prover implementation.
+The pairing check builds a fermionic Hamiltonian by sequential application
+of creation and annihilation operators. An independent test constructs
+Jordan--Wigner tensor-product matrices on the full four-mode Fock space,
+checks the canonical anticommutation relations, and projects to the explicit
+two-electron sector. Comparing these constructions can detect occupation-order
+signs, omitted self-pairing terms, and an incorrect energy origin. Tests of
+normalized vectors, both paired eigenvalues, the complete sector spectrum, and
+degenerate cases are stronger than comparison of one energy alone. They remain
+tests of a toy model in floating-point arithmetic.
+
+The dense block experiment evaluates small finite matrices and checks their
+enclosures against direct diagonalization. It does not demonstrate efficient
+complement certification or validated numerical rounding. The regression
+checks in \path{tests/test_audit_counterexamples.py} have also passed: they
+reproduce the distinction between component count and independence number,
+the identical 2-RDMs but different 3-RDMs in Example~\ref{ex:three-rdm},
+and the exclusion of a physical state by the invalid proposed SOS constraint.
+These are negative validation tests of mathematical claims, not chemical data
+or tests of a surface-reaction model.
+
+\begin{table}[ht]
+\centering
+\caption{Reproduced finite-model checks. All numerical references are ordinary
+floating-point computations; none is a molecular or experimental benchmark.}
+\begin{tabular}{lll}
+\hline
+Check & Cases & Observed result \\
+\hline
+Python regression suite & 30 tests & All passed \\
+Random Hermitian block splits & 360 & Max. interval violation $4.44\times10^{-16}$ \\
+Sharp scalar-block cases & 9 & Max. endpoint error $8.88\times10^{-16}$ \\
+Finite CTMC comparisons & 20 & No violation above tested tolerance \\
+Pairing CLI parameter cases & 10 & All passed \\
+\hline
+\end{tabular}
+\label{tab:reproduced}
+\end{table}
+The block experiment uses dimensions two through ten, real and complex
+entries, four samples per dimension and kind, every nontrivial leading
+split, and seed 20261112. Acceptance tolerances, library versions, every
+case, and the synthetic kinetic parameters are stored in
+\path{experiments/certificate_results.json}. A nonzero rounding violation is
+reported rather than silently replaced by an exact enclosure.
+
+Historical hard-coded SOS energy tables and hand-assigned surface reference
+counts are excluded from the evidence base. No physical accuracy, speedup, or
+independent DFT validation is inferred from them.
+
+\paragraph{Lean source mapping and build boundary.}
+The current development uses real numbers and mathlib v4.19.0. It has been
+compiled with Lean 4.19.0 and every declaration listed below was checked with
+\texttt{\#print axioms}: each depends only on the three standard Lean axioms
+\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. No
+\texttt{sorry}, no \texttt{admit} and no project-specific axiom occurs in the
+verified closure. Reproduce with \texttt{lake build} followed by
+\texttt{lake env lean scripts/CheckAxioms.lean}. Kernel acceptance certifies the
+scalar lemmas that are listed, not the physical modelling steps discussed
+below. Unless qualified otherwise, the names below are in the
+\texttt{CalcChemistry} namespace in
+\path{CalcChemistry/CertifiedTheory.lean}.
+\begin{sloppypar}
+\begin{itemize}
+\item \path{reaction_interval} proves real interval subtraction as in
+Proposition~\ref{prop:barrier}. \path{add_error_interval} propagates an
+additive correction whose absolute value is bounded by a supplied radius.
+It assumes the correction bound; it does not derive a physical model error.
+\item \path{psd_quadratic_nonneg} is a real two-variable quadratic-form
+inequality under nonnegative diagonal and determinant conditions.
+\path{sharp_block_scalar_lower} proves the sharp square-root bound for the
+scalar quadratic form used in Theorem~\ref{thm:block}. It does not construct
+matrix blocks or prove their spectral hypotheses.
+\item \path{quadratic_gap_lower} proves the scalar inequality with
+$a-b^2/(c-a)$ under $c-a>0$. \path{normalized_block_lower} transfers it
+to a supplied energy using a normalization identity and a supplied
+quadratic-form lower bound, as in Corollary~\ref{cor:gap}.
+\item \path{ground_energy_interval} transfers a uniform lower bound and
+one trial upper bound to an abstract attained Rayleigh minimum. The existence
+and attainment of that minimum are explicit assumptions. The identification
+with a Hermitian matrix's least eigenvalue is not formalized by this theorem.
+\item \path{exponential_barrier_interval} proves the real exponential
+monotonicity used in Theorem~\ref{thm:rate}; \path{rate_interval} also
+allows an uncertain nonnegative prefactor. The strictly positive prefactor
+hypotheses in this manuscript support the further logarithmic formulas.
+Neither declaration proves the transition-state rate law itself.
+\item \path{relaxation_lower_bound} proves the order implication from an
+outer inclusion, a supplied lower bound throughout the relaxed set, and an
+attained physical energy. It does not implement an RDM SDP or verify a dual
+matrix slack. \path{certified_ranking} proves strict ordering from disjoint
+sound real intervals; the kinetic interpretation requires the rate intervals
+proved separately.
+\item \path{pairing_characteristic} proves the paired-block polynomial
+identity and \path{pairing_lower_root} proves that the lower square-root
+expression is a root. These declarations do not construct the CAR operators,
+identify the full six-state spectrum, or establish a molecular model.
+\item \path{BornOppenheimer.parameter_nonneg}, in
+\path{CalcChemistry/BornOppenheimer.lean}, proves nonnegativity of the mass
+parameter under the stated mass hypotheses. It provides no BO error estimate.
+\end{itemize}
+\end{sloppypar}
+
+The energy and fifth-order certificate structures store soundness inequalities
+as fields supplied by the caller. Storing such an inequality does not prove
+it for a physical system. The finite-dimensional matrix-to-Rayleigh argument,
+the CTMC semigroup theorem and Duhamel proof, and a physical BO approximation
+theorem are not claimed as formalized here; they are proved on paper in the
+preceding sections and remain outside the kernel-checked closure. The exact
+declarations, the pinned Lean and mathlib versions, and the reproducible build
+that produced the axiom report are recorded in the repository status document.
+
+\section{Conclusion}
+For a specified finite Hamiltonian, a justified complement bound and coupling
+bound turn an active calculation into a two-sided energy certificate.
+Variational trial states and dual-feasible relaxations supply complementary
+information. Barrier subtraction, monotone rate propagation, and finite-state
+Markov stability then give conditional conclusions with explicit dependence on
+energy precision, prefactor uncertainty, elapsed time, and the event catalog.
+The unresolved scientific task is to produce these inputs for a defined
+surface-reaction model and to bound the changes between that model and the
+physical target. A wide interval or an unverified hypothesis is an informative
+outcome: it identifies the missing evidence without claiming a kinetic
+prediction that the calculation cannot support.
+
+\begin{thebibliography}{8}
+\bibitem[O'Gorman et~al.(2022)O'Gorman, Irani, Whitfield, and
+  Fefferman]{OGorman2022}
+Bryan O'Gorman, Sandy Irani, James Whitfield, and Bill Fefferman.
+\newblock Intractability of electronic structure in a fixed basis.
+\newblock \emph{PRX Quantum}, 3\penalty0 (2):\penalty0 020322, 2022.
+\newblock \doi{10.1103/PRXQuantum.3.020322}.
+\newblock URL \url{https://doi.org/10.1103/PRXQuantum.3.020322}.
+\bibitem[Liu et~al.(2007)Liu, Christandl, and Verstraete]{Liu2007}
+Yi-Kai Liu, Matthias Christandl, and F.~Verstraete.
+\newblock Quantum computational complexity of the {N}-representability problem:
+  {QMA} complete.
+\newblock \emph{Physical Review Letters}, 98\penalty0 (11):\penalty0 110503,
+  2007.
+\newblock \doi{10.1103/PhysRevLett.98.110503}.
+\newblock URL \url{https://doi.org/10.1103/PhysRevLett.98.110503}.
+\bibitem[Pieck and Tonner-Zech(2025)]{Pieck2025}
+Fabian Pieck and Ralf Tonner-Zech.
+\newblock Computational ab initio approaches for area-selective atomic layer
+  deposition: Methods, status, and perspectives.
+\newblock \emph{Chemistry of Materials}, 37\penalty0 (9):\penalty0 2979--3021,
+  2025.
+\newblock \doi{10.1021/acs.chemmater.4c03477}.
+\newblock URL \url{https://doi.org/10.1021/acs.chemmater.4c03477}.
+\bibitem[Mazziotti(2012)]{Mazziotti2012}
+David~A. Mazziotti.
+\newblock Two-electron reduced density matrix as the basic variable in
+  many-electron quantum chemistry and physics.
+\newblock \emph{Chemical Reviews}, 112\penalty0 (1):\penalty0 244--262, 2012.
+\newblock \doi{10.1021/cr2000493}.
+\newblock URL \url{https://doi.org/10.1021/cr2000493}.
+\bibitem[Richardson(1963)]{Richardson1963}
+R.~W. Richardson.
+\newblock A restricted class of exact eigenstates of the pairing-force
+  {Hamiltonian}.
+\newblock \emph{Physics Letters}, 3\penalty0 (6):\penalty0 277--279, 1963.
+\newblock \doi{10.1016/0031-9163(63)90259-2}.
+\newblock URL \url{https://doi.org/10.1016/0031-9163(63)90259-2}.
+\bibitem[Dukelsky et~al.(2004)Dukelsky, Pittel, and Sierra]{Dukelsky2004}
+J.~Dukelsky, S.~Pittel, and G.~Sierra.
+\newblock Colloquium: Exactly solvable {Richardson-Gaudin} models for many-body
+  quantum systems.
+\newblock \emph{Reviews of Modern Physics}, 76\penalty0 (3):\penalty0 643--662,
+  2004.
+\newblock \doi{10.1103/RevModPhys.76.643}.
+\newblock URL \url{https://doi.org/10.1103/RevModPhys.76.643}.
+\bibitem[Hagedorn(1988)]{Hagedorn1988}
+George~A. Hagedorn.
+\newblock High order corrections to the time-independent {Born-Oppenheimer}
+  approximation {II}: Diatomic {Coulomb} systems.
+\newblock \emph{Communications in Mathematical Physics}, 116\penalty0
+  (1):\penalty0 23--44, 1988.
+\newblock \doi{10.1007/BF01239023}.
+\newblock URL \url{https://doi.org/10.1007/BF01239023}.
+\bibitem[Eyring(1935)]{Eyring1935}
+Henry Eyring.
+\newblock The activated complex in chemical reactions.
+\newblock \emph{The Journal of Chemical Physics}, 3\penalty0 (2):\penalty0
+  107--115, 1935.
+\newblock \doi{10.1063/1.1749604}.
+\newblock URL \url{https://doi.org/10.1063/1.1749604}.
+\end{thebibliography}
+\end{document}
