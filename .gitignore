@@ -1,0 +1,33 @@
+# Lean build artifacts
+/build/
+/lake-packages/
+/.lake/
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Search results
+*_search*.json
+
+# Large data dumps
+*.h5
+*.hdf5
