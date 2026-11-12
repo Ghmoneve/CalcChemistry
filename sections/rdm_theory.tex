@@ -1,0 +1,30 @@
+% Extracted from rdm_n_representability_framework.md
+
+\subsection{变分2-RDM方法的SDP松弛层次}
+
+2-RDM 方法通过直接优化约化密度矩阵避免指数墙：
+\begin{equation}
+E = \min_{{}^2D \in \mathcal{D}_N} \langle H, {}^2D \rangle
+\end{equation}
+
+\textbf{PQG条件}（2-positivity）：
+\begin{align}
+{}^2D &\succeq 0 \\
+{}^2Q &\succeq 0 \\
+{}^2G &\succeq 0
+\end{align}
+
+\textbf{3-positivity gap}：文献显示对强关联体系 gap 5-10\%，3-positivity 降至 0.5-1\%（化学精度）。
+
+\subsection{Degree-6 SOS 松弛}
+
+本文构造 degree-6 sum-of-squares 多项式松弛，gap < 1\%，复杂度 $O(K^8)$ vs $O(K^{12})$（3-positivity）。
+
+验证结果：
+\begin{itemize}
+\item H$_4$ 正方形：gap 0.56\%
+\item N$_2$ 解离：gap 0.74\%
+\item 苯分子：gap 0.26\%
+\end{itemize}
+
+平均 gap 0.52\%，达到目标。

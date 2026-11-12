@@ -1,0 +1,29 @@
+{
+  "system": "Al2O3(100)-OH + TMA",
+  "surface": {
+    "total_atoms": 40,
+    "oh_pairs": 12
+  },
+  "topology": {
+    "betti_0": 12,
+    "betti_1": 1,
+    "betti_2": 0
+  },
+  "predictions": {
+    "steric": 10,
+    "topology": 10,
+    "combined": 10
+  },
+  "dft_reference": 3,
+  "errors_percent": {
+    "steric": 233.33333333333334,
+    "topology": 233.33333333333334,
+    "combined": 233.33333333333334
+  },
+  "best_method": "steric",
+  "validation": {
+    "criterion": "<20% error",
+    "status": "FAILED",
+    "best_error": 233.33333333333334
+  }
+}

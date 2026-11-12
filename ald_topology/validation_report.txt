@@ -1,0 +1,41 @@
+PERSISTENT HOMOLOGY FOR ALD SITE PREDICTION
+======================================================================
+
+SYSTEM: Al₂O₃(100)-OH + TMA
+
+ALGORITHM PIPELINE:
+  1. Surface structure → Reactive atom point cloud (O, H)
+  2. Point cloud → Vietoris-Rips complex (max edge 6.0 Å)
+  3. Rips complex → Persistent homology computation
+  4. Persistence diagram → Betti numbers (β₀, β₁, β₂)
+  5. Betti numbers → Adsorption site count prediction
+
+TOPOLOGICAL FEATURES:
+  β₀ (connected components): 40
+  β₁ (loops/cycles):         2
+  β₂ (voids):                0
+  Max H₀ persistence:        10.000 Å
+  Max H₁ persistence:        2.416 Å
+  Mean H₀ persistence:       2.298 Å
+  Reactive atoms (O+H):      40
+  Min OH distance:           1.000 Å
+
+NUMERICAL RESULTS:
+  Topology prediction: 20 sites
+  DFT reference:       3 sites
+  Absolute error:      17 sites
+  Relative error:      566.7%
+
+DFT COMPARISON:
+  Reference: Elliott et al., J. Phys. Chem. C (2016)
+  Method: TMA chemisorption on hydroxylated Al₂O₃(100)
+  Mechanism: OH elimination forming Al-O-Al(CH₃)₂
+  Steric constraint: ~3.5 Å minimum TMA separation
+
+VALIDATION:
+  Proof criterion: Relative error < 20%
+  Result: 566.7% error
+  Status: ✗ FAILED
+
+CONCLUSION:
+  Error exceeds 20% threshold. Model requires recalibration.

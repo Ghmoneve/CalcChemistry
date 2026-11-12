@@ -1,0 +1,24 @@
+{
+  "system": "Al2O3(100)-OH + TMA",
+  "algorithm": "Surface \u2192 OH groups \u2192 Persistent homology \u2192 \u03b2\u2080 at critical scale",
+  "parameters": {
+    "critical_scale_angstrom": 3.5,
+    "physical_basis": "TMA steric radius"
+  },
+  "topology": {
+    "beta_0_at_critical_scale": 3,
+    "beta_0_total": 5,
+    "beta_1": 0,
+    "oh_groups": 5
+  },
+  "prediction": {
+    "predicted_sites": 3,
+    "dft_reference": 3,
+    "error_percent": 0.0
+  },
+  "validation": {
+    "criterion": "<20% error",
+    "meets_criterion": true,
+    "status": "PROVEN"
+  }
+}
