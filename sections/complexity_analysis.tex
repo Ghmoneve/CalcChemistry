@@ -163,47 +163,65 @@ set has that property is unknown here, and no such estimate is claimed.
 An upper estimate for the complement cannot substitute for the required lower
 bound.
 
-\paragraph{The diagonal minimum: a negative result and a structural route.}
-We tested whether $d$ is cheap to obtain. For water in STO-3G the $S_z=0$ sector
-holds $441$ determinants, few enough to enumerate, so every candidate bound can be
-scored against the truth. The true diagonal minimum is $-104.079076$~Ha at the
-reference determinant, the next determinant lies $0.227$~Ha ($6.18$~eV) higher, and
-the full diagonal spans $54.6$~Ha.
+\paragraph{The two scalars, measured where the truth is knowable.}
+We measured $d$ and $\tau$ on water in STO-3G, whose $441$ determinants are few
+enough to diagonalise exactly. The determinant-basis Hamiltonian used for this is
+pyscf's own FCI kernel, applied to unit vectors, and the construction is checked
+against \texttt{fci.FCI} with an abort on disagreement; a first hand-built version
+was wrong by $33.8$~Ha and everything below supersedes it.
 
-The obvious cheap bound fails badly. Taking
-$d \ge E_{\mathrm{nuc}} + N\,\varepsilon_{\min}$ with $\varepsilon_{\min}$ the
-lowest orbital energy, and dropping the two-electron diagonal, gives
-$-193.21$~Ha: an error of $-89.13$~Ha, or $-2425$~eV, worse than the entire
-spectral width by a factor $1.63$. Discarding the two-electron diagonal is not a
-loss of rigour but of all usefulness, and we record it as a failed candidate rather
-than presenting it as an approximation.
-
-What does survive is structural. In this test every determinant other than the
-reference lies \emph{above} it, so the diagonal minimum is the reference
-determinant's own energy and no enumeration is needed to find it. The statement
-that makes this checkable replaces a scan over $\binom{K}{N}$ determinants by a
-scan over occupied-virtual pairs: for occupation $S$ and a single replacement
-$p\to a$,
+The exact values are
 \[
-  D(S\setminus\{p\}\cup\{a\}) - D(S)
-  = (e_a - e_p) + 2\!\!\sum_{q\in S\setminus\{p\}}\!\!(V_{aq} - V_{pq}) + R,
+d = -74.962707\ \text{Ha},\qquad
+\Delta_{\mathrm{diag}} = 0.447404\ \text{Ha}\ (12.17\ \text{eV}),\qquad
+\tau = 2.026458\ \text{Ha}\ (55.14\ \text{eV}),
 \]
-with $R$ the change in those pair sums involving neither $a$ nor $p$. The
-remainder is kept explicit, because collapsing it to zero is exactly where
-symmetry of $V$ enters and the identity above is pure algebra for any $V$
-(formalized as \path{swap_identity}). Nonnegativity of this difference for every
-reachable pair, together with connectivity of the sector, then gives
-$D(S) \le D(t)$ for every determinant $t$ by composition
-(\path{chain_does_not_lower}).
+where $\Delta_{\mathrm{diag}}$ is the gap from the lowest determinant to the next.
+Note $d - E_{\mathrm{RHF}} = 1.4\times10^{-14}$~Ha: the diagonal minimum \emph{is}
+the reference determinant's energy, because a determinant's diagonal element is by
+definition the energy of that determinant.
 
-The certificate's loss is exactly $\tau$ and nothing else:
-\path{certified_precision} states that $d-\tau$ is within $\varepsilon$ of $d$
-precisely when $\tau\le\varepsilon$, and \path{certified_exact_when_decoupled}
-that the bound is exact at $\tau=0$. The measured $0.227$~Ha gap is therefore best
-read as the budget $\tau$ must respect: if row sparsity in a real integral set
-delivers $\tau$ below that scale, the complement certificate is decisive, and if it
-does not, the certificate is sound but useless. Which of these holds is not known,
-and we do not assert either.
+Two conclusions follow, and the second is the discouraging one. First, $d$ needs no
+enumeration, provided the reference determinant is shown to be the diagonal
+minimum. Second, $\tau/\Delta_{\mathrm{diag}} = 4.53$: the off-diagonal coupling
+exceeds the diagonal gap by a factor $4.5$, so the certified bound
+$d-\tau = -76.99$~Ha lies far \emph{below} the FCI energy $-75.0120$~Ha and the
+certificate is sound but vacuous. The complement certificate constructed in
+Section~\ref{sec:worked}'s framework does not, at this level of the split, decide
+anything.
+
+The same pattern holds across the sector trend: shrinking the complement from $440$
+to $91$ determinants moves $\tau$ only from $2.026$ to $1.534$~Ha, while $d$ rises
+from $-74.52$ to $-52.52$~Ha. The binding constraint is $\tau$, and it decays far
+more slowly than $d$ grows. Cheap proxies for $\tau$ are also far from tight here:
+the Gershgorin bound gives $3.759$~Ha against a true norm of $2.026$~Ha, and the
+largest row of $O$ has $80$ of $441$ entries nonzero, so row sparsity alone would
+not close the factor-of-$4.5$ deficit.
+
+A cheap candidate for $d$ fails outright. Taking
+$d \ge E_{\mathrm{nuc}} + 2\sum_{i\le N/2}\varepsilon_i$ gives $-36.74$~Ha, an error
+of $+38.22$~Ha ($1040$~eV) and $85$ times the diagonal gap. Electron repulsion
+cannot be discarded from a diagonal bound.
+
+\paragraph{Where the reference-minimises-the-diagonal hypothesis fails.}
+The observation $d = E_{\mathrm{RHF}}$ is not universal. It holds for water, HF and
+N$_2$ in STO-3G to within $10^{-13}$~Ha, but fails for O$_2$ treated as a closed-shell
+singlet: there the diagonal minimum lies $0.054$~Ha \emph{below} the RHF energy and
+the reference determinant is only third in the diagonal spectrum, with the gap to
+the next determinant collapsing to zero. The same molecule treated as its actual
+triplet, with a restricted open-shell reference, restores $d = E_{\mathrm{ref}}$
+exactly and gives a $0.229$~Ha gap.
+
+The failure is therefore not evidence of a subtle integral property but of an
+inappropriate reference: a single-determinant closed-shell description of a
+strongly correlated open-shell ground state. Stated as a rule, the swap-based
+argument of \path{swap_identity} certifies $d$ whenever the reference is the
+lowest determinant, and the first thing to check for a new system is whether that
+holds --- a check that costs $O(n_{\mathrm{occ}}n_{\mathrm{virt}})$
+($20$ pairs against $441$ determinants for water) and that O$_2$ fails. Whether
+that failure is detectable \emph{without} the enumeration is exactly the question
+this measurement cannot answer, since detecting it here required diagonalising the
+whole sector.
 
 A second problem is to combine active-state improvement and lower-bound
 improvement adaptively. Widening an active space may improve a variational
