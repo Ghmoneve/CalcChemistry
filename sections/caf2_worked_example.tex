@@ -231,6 +231,61 @@ appears in the development. Kernel acceptance certifies the inequalities above
 given their hypotheses. It certifies nothing about the hypotheses themselves,
 which remain physical or geometric inputs.
 
+\subsection{The model reaction, and what its number does not mean}
+
+The protonation step can be computed for a truncated model. Replacing both
+di-\emph{i}-propyl groups by hydrogen gives
+\[
+\mathrm{Ca(formamidinate)_2} + 2\,\mathrm{HF}
+ \longrightarrow \mathrm{CaF_2} + 2\,\mathrm{formamidine},
+\]
+electron-balanced at $66 + 2\times10 = 38 + 2\times24$. Geometries were relaxed
+once at PBE/def2-svp with analytic gradients, all four reaching
+$\norm{\nabla E} \le 5.6\times10^{-4}$~Ha\,\AA$^{-1}$, and four
+functional/basis combinations were then evaluated at those geometries:
+
+\begin{center}
+\begin{tabular}{lc}
+\hline
+Method & $\Delta E$ (kcal\,mol$^{-1}$) \\
+\hline
+PBE/def2-svp   & $-13.37$ \\
+PBE/def2-tzvp  & $-10.34$ \\
+B3LYP/def2-svp & $-12.41$ \\
+B3LYP/def2-tzvp& $-11.25$ \\
+\hline
+spread & $3.04$ \\
+\hline
+\end{tabular}
+\end{center}
+
+The reaction is exothermic by $10.3$--$13.4$~kcal\,mol$^{-1}$ for the model, with a
+method spread of $3.0$~kcal\,mol$^{-1}$.
+
+\begin{remark}[Why this number must not be quoted as the ALD protonation energy]
+Four limitations apply, and none is a technicality.
+\begin{enumerate}
+\item \emph{Truncated ligand.} Di-\emph{i}-propyl and hydrogen differ by
+twenty-four carbon atoms. Substituent effects on a protonation energy of an
+amidine are real, and no error bar for the truncation is available here.
+\item \emph{Gas phase.} The protonation occurs on a $\mathrm{CaF_2}(111)$ surface
+with HF adsorbed at $E_{\mathrm{ads}} \in[-0.62,-0.40]$~eV, not in vacuum. Surface
+and co-adsorption effects are absent.
+\item \emph{$\Delta E$, not $\Delta G$.} No zero-point, thermal, or entropic
+correction is included, so this is not a free energy. An amidine carries two extra
+protons on its nitrogen atoms and its desorption entropy is substantial.
+\item \emph{No barrier.} A reaction energy says nothing about whether the step
+proceeds at $175$--$250$~$^\circ$C. Section~\ref{sec:worked} proved that a barrier
+cannot be bounded above by configuration sampling at all, so this number cannot be
+converted into a rate.
+\end{enumerate}
+What the calculation does establish is narrower and still useful: the
+ligand-protonation stoichiometry is thermodynamically downhill for the amidinate
+core, by of order ten kcal\,mol$^{-1}$, with a method spread small compared to the
+effect. That is consistent with the protonation mechanism inferred from the
+fluoride ALD literature and inconsistent with an endothermic step.
+\end{remark}
+
 \subsection{What remains open for this system}
 
 \begin{enumerate}

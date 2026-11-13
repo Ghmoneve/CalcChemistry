@@ -1,0 +1,20 @@
+{
+  "system": {
+    "atom": "water",
+    "basis": "sto-3g"
+  },
+  "n_determinants": 441,
+  "n_pairs": 20,
+  "rhf_energy": -74.96270660885548,
+  "fci_energy": -75.0120116338235,
+  "d_exact": -74.96270660885548,
+  "d_minus_rhf": 0.0,
+  "gap_to_next": 0.447404346745941,
+  "bound_A": -36.74037519563569,
+  "err_A": 38.22233141321979,
+  "err_A_eV": 1040.0826233072842,
+  "ratio_err_A_over_gap": 85.43129205430894,
+  "bound_B": -74.96270660885548,
+  "err_B": 0.0,
+  "withdrawn_claim": "d_bound.py reported diag_min -104.079076 Ha and a -2425 eV orbital bound; both are void because that hand-built Hamiltonian was wrong by 29.116 Ha."
+}

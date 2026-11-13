@@ -48,3 +48,48 @@
 [14:19:46]   Ca_famd2 iter  5  E=-975.583375  |g|=1.50e-01
 [14:20:19]   Ca_famd2 iter  6  E=-975.602595  |g|=1.28e-01
 [14:20:50]   Ca_famd2 iter  7  E=-975.612188  |g|=1.35e-01
+[14:21:24]   Ca_famd2 iter  8  E=-975.621597  |g|=1.29e-01
+[14:21:59]   Ca_famd2 iter  9  E=-975.632450  |g|=1.04e-01
+[14:22:31]   Ca_famd2 iter 10  E=-975.640620  |g|=1.05e-01
+[14:23:05]   Ca_famd2 iter 11  E=-975.644464  |g|=9.05e-02
+[14:23:38]   Ca_famd2 iter 12  E=-975.647517  |g|=6.21e-02
+[14:24:14]   Ca_famd2 iter 13  E=-975.649540  |g|=4.46e-02
+[14:24:46]   Ca_famd2 iter 14  E=-975.651295  |g|=5.20e-02
+[14:25:19]   Ca_famd2 iter 15  E=-975.652976  |g|=7.10e-02
+[14:25:45]   Ca_famd2 iter 16  E=-975.655577  |g|=9.04e-02
+[14:26:07]   Ca_famd2 iter 17  E=-975.658806  |g|=9.01e-02
+[14:26:38]   Ca_famd2 iter 18  E=-975.661811  |g|=5.18e-02
+[14:27:12]   Ca_famd2 iter 19  E=-975.662743  |g|=1.95e-02
+[14:27:46]   Ca_famd2 iter 20  E=-975.662878  |g|=1.03e-02
+[14:28:16]   Ca_famd2 iter 21  E=-975.662894  |g|=2.13e-03
+[14:28:45]   Ca_famd2 iter 22  E=-975.662895  |g|=5.61e-04
+[14:28:45]   Ca_famd2: E=-975.662895 Ha  |g|=5.61e-04  (716s)
+[14:28:45] STEP 2: single points across the method spread
+[14:28:54]   pbe/def2-svp formamidine: E=-149.712893 Ha (9s)
+[14:28:59]   pbe/def2-svp HF: E=-100.254100 Ha (4s)
+[14:29:05]   pbe/def2-svp CaF2: E=-876.766619 Ha (6s)
+[14:29:31]   pbe/def2-svp Ca_famd2: E=-975.662895 Ha (26s)
+[14:29:31]   pbe/def2-svp REACTION dE = -0.021311 Ha = -13.37 kcal/mol
+[14:29:47]   pbe/def2-tzvp formamidine: E=-149.887203 Ha (16s)
+[14:29:49]   pbe/def2-tzvp HF: E=-100.391286 Ha (2s)
+[14:29:59]   pbe/def2-tzvp CaF2: E=-877.106907 Ha (10s)
+[14:30:58]   pbe/def2-tzvp Ca_famd2: E=-976.082269 Ha (59s)
+[14:30:58]   pbe/def2-tzvp REACTION dE = -0.016472 Ha = -10.34 kcal/mol
+[14:31:09]   b3lyp/def2-svp formamidine: E=-149.894400 Ha (11s)
+[14:31:13]   b3lyp/def2-svp HF: E=-100.353165 Ha (5s)
+[14:31:17]   b3lyp/def2-svp CaF2: E=-877.192948 Ha (3s)
+[14:31:42]   b3lyp/def2-svp Ca_famd2: E=-976.255642 Ha (26s)
+[14:31:42]   b3lyp/def2-svp REACTION dE = -0.019776 Ha = -12.41 kcal/mol
+[14:31:55]   b3lyp/def2-tzvp formamidine: E=-150.072240 Ha (13s)
+[14:31:57]   b3lyp/def2-tzvp HF: E=-100.490400 Ha (1s)
+[14:32:00]   b3lyp/def2-tzvp CaF2: E=-877.535747 Ha (4s)
+[14:32:53]   b3lyp/def2-tzvp Ca_famd2: E=-976.681502 Ha (53s)
+[14:32:53]   b3lyp/def2-tzvp REACTION dE = -0.017925 Ha = -11.25 kcal/mol
+[14:32:53] 
+[14:32:53] SUMMARY  dE over the method spread (kcal/mol):
+[14:32:53]   pbe/def2-svp             -13.37
+[14:32:53]   pbe/def2-tzvp            -10.34
+[14:32:53]   b3lyp/def2-svp           -12.41
+[14:32:53]   b3lyp/def2-tzvp          -11.25
+[14:32:53]   spread = 3.04 kcal/mol over 4 methods
+[14:32:53] NOTE: geometry relaxed at PBE/def2-svp only; truncated ligand (i-Pr -> H).
