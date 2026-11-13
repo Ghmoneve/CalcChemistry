@@ -130,12 +130,38 @@ inputs against independently sourced data when available.
 
 \subsection{Open mathematical and computational questions}
 The central open problem is a useful complementary-space lower bound whose
-construction avoids enumerating the full omitted determinant space. Candidate
-routes include decompositions into positive operators, valid RDM dual
-certificates, or special operator structure. Each route must exhibit a
-checkable inequality for the actual complement, together with its cost and
-its loss of precision. An upper estimate for that complement cannot substitute
-for the required lower bound.
+construction avoids enumerating the full omitted determinant space. Section
+\ref{sec:worked} supplies the reduction that makes this a two-scalar problem, and
+the certificate for it is kernel-checked, but the two scalars themselves are not
+computed for any real integral set.
+
+Write the complement block as $H_C = D + O$ with $D$ diagonal and $O$ carrying the
+off-diagonal coupling. If every diagonal entry satisfies $D_i \ge d$ and the
+off-diagonal quadratic form obeys $|Q_O(x)| \le \tau\norm{x}^2$, then
+\[
+  \lambda_{\min}(H_C) \;\ge\; d - \tau .
+\]
+The chain is elementary: $d\norm{x}^2 \le \ip{x}{Dx}$ from $D_i \ge d$, and
+$-Q_O(x) \le \tau\norm{x}^2$ from the coupling bound, so the sum is at least
+$(d-\tau)\norm{x}^2$ for every $x$. This is formalized as
+\path{complement_ground_bound} with the normalized form
+\path{complement_ground_bound_normalized}, the decoupled case
+\path{complement_bound_tight_when_decoupled} showing the gap equals $\tau$ exactly,
+and \path{complement_bound_improvement} recording that tightening $\tau$ buys
+precision one-for-one with raising $d$. The ingredients are textbook; what the
+composition buys is that neither $d$ nor $\tau$ requires touching the
+complement's dimension.
+
+The open problem is therefore sharpened rather than solved. Two quantities must be
+computed for an actual molecular integral set without enumeration: a lower bound
+on the minimum diagonal determinant energy over the omitted sector, which is a
+combinatorial minimum over occupation patterns, and a bound $\tau$ on the
+off-diagonal quadratic form, whose natural route is row sparsity times coupling
+strength. If a sparsity structure gives $\tau$ growing slower than the diagonal
+gap shrinks, the bound stays informative. Whether any chemically relevant integral
+set has that property is unknown here, and no such estimate is claimed.
+An upper estimate for the complement cannot substitute for the required lower
+bound.
 
 A second problem is to combine active-state improvement and lower-bound
 improvement adaptively. Widening an active space may improve a variational
