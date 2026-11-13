@@ -186,4 +186,28 @@ theorem gpc_upper_from_ligand_footprint
   calc spacing * sigma * Asite ≤ spacing * (1 / A0) * Asite := hstep
     _ = spacing * Asite / A0 := by field_simp
 
+/-- **Falsification test.** The measured areal density `sigma` and an
+independently measured footprint `A` are jointly consistent only if
+`sigma * A ≤ 1`. When the product exceeds one, the hypothesis that steric
+occupancy by that footprint controls the cycle is refuted: no arrangement of
+these molecules can cover the surface at that density without overlap.
+
+This is the formal content of the falsifiable statement in the worked example:
+the observed `sigma` and the crystallographic footprint agree, but a future
+measurement placing the footprint below `1 / sigma` would exclude steric
+self-limitation by the intact dimer. -/
+theorem steric_falsification {sigma A : ℝ} (hsigma : 0 < sigma) (hA : 0 < A)
+    (hincons : 1 < sigma * A) : ¬ (sigma ≤ 1 / A) := by
+  intro h
+  rw [le_div_iff₀ hA] at h
+  linarith
+
+/-- The consistency direction, stated so that a numerical check has a named
+target: a footprint `A` is admissible for a measured density `sigma` exactly
+when `sigma * A ≤ 1`. -/
+theorem steric_admissible {sigma A : ℝ} (hsigma : 0 < sigma) (hA : 0 < A)
+    (hpack : sigma * A ≤ 1) : sigma ≤ 1 / A := by
+  rw [le_div_iff₀ hA]
+  linarith
+
 end CalcChemistry

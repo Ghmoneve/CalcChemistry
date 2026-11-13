@@ -1649,8 +1649,41 @@ identify the full six-state spectrum, or establish a molecular model.
 \item \path{BornOppenheimer.parameter_nonneg}, in
 \path{CalcChemistry/BornOppenheimer.lean}, proves nonnegativity of the mass
 parameter under the stated mass hypotheses. It provides no BO error estimate.
+\item \path{block_energy_certificate}, in
+\path{CalcChemistry/BarrierBounds.lean}, lifts the scalar inequality above to
+the block operator in arbitrary finite dimensions $n$ and $m$: given
+Rayleigh-quotient lower bounds $a$ and $c$ on the two diagonal blocks and a
+bound $b$ on the coupling form, every state obeys the sharp two-block inequality
+with constant $(a+c-\sqrt{(a-c)^2+4b^2})/2$. \path{block_energy_certificate_gap}
+gives the same bound in the square-root-free form $a-b^2/(c-a)$ for $c>a$, which
+is the downfolding correction quoted in practice, and
+\path{normalized_energy_lower} states it for a unit vector. The block
+hypotheses remain explicit assumptions: nothing here constructs the blocks from
+molecular integrals or certifies the omitted space.
+\item The surface-reaction certificate of Section~\ref{sec:worked} is
+formalized in \path{CalcChemistry/SurfaceReaction.lean}:
+\path{gpc_coverage_interval} and \path{coverage_gpc_interval} prove the interval
+relation between growth per cycle, layer spacing and fractional coverage;
+\path{adsorption_energy_interval} and \path{two_corrections_widen} propagate
+intervals through an energy difference and through additive corrections;
+\path{packing_bound}, \path{max_density_from_ligand_size} and
+\path{gpc_upper_from_ligand_footprint} prove the ligand-footprint design rule of
+Theorem~\ref{thm:footprint}, and \path{steric_admissible} and
+\path{steric_falsification} state it as an admissibility test together with the
+condition that would refute steric control.
+\path{barrier_lower_from_samples}, \path{barrier_upper_at_max} and
+\path{certified_barrier_interval} give the two-sided barrier interval, and
+\path{sampling_gives_no_upper_bound} is the counterexample of
+Theorem~\ref{thm:nosampling} proving that a finite sample cannot bound a barrier
+from above. \path{stays_positive} and \path{certified_negative} convert
+intervals into sign statements.
 \end{itemize}
 \end{sloppypar}
+
+This gives $33$ kernel-checked declarations in total, every one of them
+audited with \texttt{\#print axioms}. The count is of declarations, not of
+scientific content: all but the block certificate and the ligand inequalities
+are real-arithmetic plumbing, and none of them certifies a molecular energy.
 
 The energy and fifth-order certificate structures store soundness inequalities
 as fields supplied by the caller. Storing such an inequality does not prove
