@@ -1,0 +1,133 @@
+{
+  "n_determinants": 441,
+  "checks_passed": 20,
+  "checks_total": 20,
+  "failures": [],
+  "brute_force_min_sigma_max_over_20000_random_D": 2.0265821633400347,
+  "spectral_norm": 2.026457687154963,
+  "excess_above_floor": 0.00012447618507183122,
+  "brute_force_min_gershgorin_over_2000_random_scalings": 3.7103057933315817,
+  "rho_abs": 2.6270314011992655,
+  "checks": [
+    {
+      "name": "n_determinants",
+      "got": 441,
+      "reference": 441,
+      "pass": true
+    },
+    {
+      "name": "fci_energy",
+      "got": -75.01201163382366,
+      "reference": -75.01201163382366,
+      "pass": true
+    },
+    {
+      "name": "d",
+      "got": -74.96270660885546,
+      "reference": -74.96270660885546,
+      "pass": true
+    },
+    {
+      "name": "diagonal_gap",
+      "got": 0.44740434674586993,
+      "reference": 0.44740434674586993,
+      "pass": true
+    },
+    {
+      "name": "spectral_norm",
+      "got": 2.026457687154963,
+      "reference": 2.026457687154963,
+      "pass": true
+    },
+    {
+      "name": "lambda_max_O",
+      "got": 2.0264576871549638,
+      "reference": 2.0264576871549638,
+      "pass": true
+    },
+    {
+      "name": "lambda_min_O",
+      "got": -1.7502721665682204,
+      "reference": -1.7502721665682204,
+      "pass": true
+    },
+    {
+      "name": "gershgorin_raw",
+      "got": 3.758707204428789,
+      "reference": 3.758707204428789,
+      "pass": true
+    },
+    {
+      "name": "rho_abs",
+      "got": 2.6270314011992655,
+      "reference": 2.6270314011992655,
+      "pass": true
+    },
+    {
+      "name": "balanced_gershgorin",
+      "got": 2.765962038341586,
+      "reference": 2.765962038341586,
+      "pass": true
+    },
+    {
+      "name": "tau_one_sided",
+      "got": 1.7502721665682204,
+      "reference": 1.7502721665682204,
+      "pass": true
+    },
+    {
+      "name": "sound: d-tau <= E_FCI [spectral TWO-sided ||O||_2]",
+      "got": -76.98916429601042,
+      "reference": -75.01201163382366,
+      "pass": true
+    },
+    {
+      "name": "sound: d-tau <= E_FCI [spectral ONE-sided -lam_min(O)]",
+      "got": -76.71297877542368,
+      "reference": -75.01201163382366,
+      "pass": true
+    },
+    {
+      "name": "sound: d-tau <= E_FCI [Gershgorin raw]",
+      "got": -78.72141381328424,
+      "reference": -75.01201163382366,
+      "pass": true
+    },
+    {
+      "name": "sound: d-tau <= E_FCI [Gershgorin balanced (Osborne)]",
+      "got": -77.72866864719704,
+      "reference": -75.01201163382366,
+      "pass": true
+    },
+    {
+      "name": "sound: d-tau <= E_FCI [rho(|O|) absolute-value floor]",
+      "got": -77.58973801005472,
+      "reference": -75.01201163382366,
+      "pass": true
+    },
+    {
+      "name": "rayleigh within [lam_min, lam_max]",
+      "got": 0.12644645306433852,
+      "reference": 2.0264576871549638,
+      "pass": true
+    },
+    {
+      "name": "brute force: min sigma_max over 20000 random D >= rho(O)",
+      "got": 2.0265821633400347,
+      "reference": 2.026457687154963,
+      "pass": true
+    },
+    {
+      "name": "brute force: Gershgorin under scaling >= rho(|O|)",
+      "got": 3.7103057933315817,
+      "reference": 2.6270314011992655,
+      "pass": true
+    },
+    {
+      "name": "json has all stages + verdict False",
+      "got": 14.0,
+      "reference": 6.0,
+      "pass": true
+    }
+  ]
+}

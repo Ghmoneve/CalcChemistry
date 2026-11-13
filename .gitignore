@@ -35,3 +35,7 @@ __pycache__/
 # Large data dumps
 *.h5
 *.hdf5
+# Derived caches (regenerable: the FCI matrix is rebuilt by the script and
+# re-validated against fci.FCI; do not commit binaries)
+*.npy
+experiments/complement/*.partial.json
