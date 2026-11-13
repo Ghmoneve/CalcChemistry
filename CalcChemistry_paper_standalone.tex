@@ -1317,6 +1317,16 @@ data (Swanson \& Tatge, NBS Circular 539 (1953) 69--70; ICSD 52754).
 \item \emph{Precursor pair.} Bis($N,N'$-di-\emph{i}-propylformamidinato)calcium(II)
 with anhydrous HF, reported at 175--250~$^\circ$C with a growth per cycle of
 $0.3$--$0.4$~\AA/cycle \citep{Hennessy2023}.
+\item \emph{Precursor nuclearity.} The compound is a \emph{dimer} in the solid
+state and is retained in solution, with Ca$\cdots$Ca $=3.323$~\AA, $\mathrm{Ca_2C_{28}H_{60}N_8}$,
+$M=589.00$~g\,mol$^{-1}$, monoclinic $P2_1/c$, $V=3754(3)$~\AA$^3$, $Z=4$ at
+100~K \citep{Kim2016}. This matters below, because the steric footprint of a
+dimer is not that of a monomer.
+\item \emph{Adsorbate state.} Periodic DFT places HF \emph{molecularly} on
+$\mathrm{CaF_2}(111)$ without dissociation, with $E_{\mathrm{ads}}=-0.40$,
+$-0.48$ and $-0.62$~eV at 100\%, 50\% and 25\% coverage, the H hydrogen-bonded
+to a surface F \citep{Kaawar2019}. Dissociation to a surface bifluoride
+$\mathrm{FHF^-}$ is reported on $(100)$, not $(111)$.
 \item \emph{Competing routes in the literature.} $\mathrm{Ca(thd)_2}$ with
 $\mathrm{TiF_4}$ at 300--450~$^\circ$C \citep{Pilvi2007,Pilvi2008}; HF--pyridine
 as a fluorine co-reactant \citep{Lee2016}; fluorinated $\beta$-diketonates as
@@ -1324,11 +1334,31 @@ single-source precursors \citep{LoPresti2022}; the first metal-fluoride ALD
 process \citep{Ylilammi1994}.
 \end{itemize}
 
-The literature does not fix the elementary-step mechanism. Whether HF
-protonates an adsorbed amidinate, exchanges ligands, or first builds a surface
-fluorine reservoir is an open question, and no activation energy for this
-system has been measured or computed in any source consulted here. We therefore
-certify only what survives that ignorance.
+The general mechanism is better constrained than it first appears, even though
+nothing is known specifically for this precursor pair. In situ quartz-crystal
+microbalance and infrared work on $\mathrm{AlF_3}$ from $\mathrm{Al(CH_3)_3}$ and
+HF finds that the HF pulse both protonates the metal--ligand bond
+($\mathrm{HF}+\mathrm{M{-}CH_3}\to\mathrm{M{-}F}+\mathrm{CH_4}$) \emph{and}
+leaves molecular HF adsorbed as a surface fluorine reservoir whose coverage
+fixes the cycle stoichiometry \citep{Lee2015}. The same scheme is written for
+$\mathrm{ZrF_4}$ from a tetrakis(ethylmethylamido)zirconium precursor, where the
+volatile byproduct is the free amine \citep{Lee2016}. Protonating an amidinate
+likewise gives the conjugate amidine, and amidine desorption has been observed
+from a metal surface, together with re-adsorption that is a known carbon
+contamination route \citep{Ma2011}.
+
+For the present system, therefore, the expected net reaction is
+\[
+\mathrm{Ca(amd)_2} + 2\,\mathrm{HF}
+  \longrightarrow \mathrm{CaF_2} + 2\,\mathrm{Hamd},
+\]
+with $\mathrm{Hamd} = N,N'$-di-\emph{i}-propylformamidine. No in situ
+mass-balance, infrared, or mass-spectrometric study of this pair exists, and
+\emph{no measured or computed activation energy for HF reacting with any metal
+amidinate surface has been found}. The only activation energies available for
+HF fluorination concern amorphous alumina
+($0.18$--$1.14$~eV) \citep{Khumaini2025}; they are not transferable to
+$\mathrm{CaF_2}$ and are not used below.
 
 \subsection{Certified arithmetic from published growth data}
 
@@ -1401,11 +1431,36 @@ The theorem is a cap, not a prediction: it constrains what a cycle can deposit
 and says nothing about whether the cycle reaches the cap. Read backwards,
 however, it is a design rule. A ligand of footprint $A_0$ caps the growth per
 cycle at $pA_{\mathrm{site}}/A_0$, so a bulky ligand cannot produce a high
-growth rate no matter how favourable its surface chemistry. For the present
-system the observed $\sigma$ requires only $A_0\le135.8$~\AA$^2$, which is
-consistent with, but does not establish, steric self-limitation by the
-di-\emph{i}-propylformamidinate ligand. A kinetic limitation would produce the
-same observation.
+growth rate no matter how favourable its surface chemistry.
+
+Read backwards a second time, it becomes testable, because $A_0$ can be
+measured independently of any growth experiment. The crystal structure of the
+dimer \citep{Kim2016} gives a volume per dimer of
+$V=3754/4=938.5$~\AA$^3$, implying a crystal density of
+$MZ/(N_A V_{\mathrm{cell}})=1.042$~g\,cm$^{-3}$ --- a value ordinary for an
+organometallic, which is a useful check that the cell contents were read
+correctly. Treating one dimer as a sphere of that volume gives a cross-section
+of
+\[
+A_0 = \pi\left(\frac{3V}{4\pi}\right)^{2/3} = 115.9\ \text{\AA}^2
+  \quad (\text{the cube-root estimate } V^{2/3} \text{ gives } 95.9\ \text{\AA}^2),
+\]
+against the $A_0\le101.9$--$135.8$~\AA$^2$ that the measured growth per cycle
+demands. The two independent published datasets agree, both placing the dimer
+footprint at about nine times the bare Ca site area of $12.92$~\AA$^2$.
+
+\begin{remark}
+This is consistency, not proof, and the distinction is worth stating precisely.
+Agreement of two numbers is evidence that the intact dimer is the adsorbing
+species and blocks roughly eight to ten Ca sites per cycle. It does not exclude
+a kinetic limitation, which would produce the same measured growth; the crystal
+structure is measured at 100~K while deposition runs at 175--250~$^\circ$C, so
+the footprint could differ; and the model reaction below is computed for a
+truncated ligand. What the comparison does do is convert a vague appeal to
+``steric hindrance'' into a falsifiable numerical statement: if a future
+measurement placed the adsorbed footprint below about $100$~\AA$^2$, steric
+self-limitation by the intact dimer would be excluded.
+\end{remark}
 
 \subsection{Why sampling cannot certify a barrier}
 
@@ -1619,7 +1674,7 @@ physical target. A wide interval or an unverified hypothesis is an informative
 outcome: it identifies the missing evidence without claiming a kinetic
 prediction that the calculation cannot support.
 
-\begin{thebibliography}{17}
+\begin{thebibliography}{22}
 \bibitem[O'Gorman et~al.(2022)O'Gorman, Irani, Whitfield, and
   Fefferman]{OGorman2022}
 Bryan O'Gorman, Sandy Irani, James Whitfield, and Bill Fefferman.
@@ -1712,6 +1767,22 @@ John Hennessy, Robin~E. Rodríguez, William~C. West, and Erik~J. Brandon.
   (4):\penalty0 042405, 2023.
 \newblock \doi{10.1116/6.0002563}.
 \newblock URL \url{https://doi.org/10.1116/6.0002563}.
+\bibitem[Kim et~al.(2016)Kim, Yang, Powers, Davis, Lou, and Gordon]{Kim2016}
+Sang~Bok Kim, Chuanxi Yang, Tamara Powers, Luke~M. Davis, Xiabing Lou, and
+  Roy~G. Gordon.
+\newblock Synthesis of calcium({II}) amidinate precursors for atomic layer
+  deposition through a redox reaction between calcium and amidines.
+\newblock \emph{Angewandte Chemie International Edition}, 55\penalty0
+  (35):\penalty0 10228--10233, 2016.
+\newblock \doi{10.1002/anie.201602406}.
+\newblock URL \url{https://doi.org/10.1002/anie.201602406}.
+\bibitem[Kaawar and Paulus(2019)]{Kaawar2019}
+Zeinab Kaawar and Beate Paulus.
+\newblock Adsorption of hydrogen fluoride on alkaline earth fluoride surfaces:
+  A first-principles study.
+\newblock \emph{Journal of Fluorine Chemistry}, 224:\penalty0 67--72, 2019.
+\newblock \doi{10.1016/j.jfluchem.2018.09.006}.
+\newblock URL \url{https://doi.org/10.1016/j.jfluchem.2018.09.006}.
 \bibitem[Pilvi et~al.(2007)Pilvi, Arstila, Leskelä, and Ritala]{Pilvi2007}
 Tero Pilvi, Kai Arstila, Markku Leskelä, and Mikko Ritala.
 \newblock Novel {ALD} process for depositing caf 2 thin films.
@@ -1753,5 +1824,28 @@ M.~Ylilammi and T.~Ranta‐aho.
   (5):\penalty0 1278--1284, 1994.
 \newblock \doi{10.1149/1.2054910}.
 \newblock URL \url{https://doi.org/10.1149/1.2054910}.
+\bibitem[Lee et~al.(2015)Lee, DuMont, Cavanagh, and George]{Lee2015}
+Younghee Lee, Jaime~W. DuMont, Andrew~S. Cavanagh, and Steven~M. George.
+\newblock Atomic layer deposition of alf3 using trimethylaluminum and hydrogen
+  fluoride.
+\newblock \emph{The Journal of Physical Chemistry C}, 119\penalty0
+  (25):\penalty0 14185--14194, 2015.
+\newblock \doi{10.1021/acs.jpcc.5b02625}.
+\newblock URL \url{https://doi.org/10.1021/acs.jpcc.5b02625}.
+\bibitem[Ma et~al.(2011)Ma, Guo, Gordon, and Zaera]{Ma2011}
+Qiang Ma, Hansheng Guo, Roy~G. Gordon, and Francisco Zaera.
+\newblock Surface chemistry of copper(i) acetamidinates in connection with
+  atomic layer deposition ({ALD}) processes.
+\newblock \emph{Chemistry of Materials}, 23\penalty0 (14):\penalty0 3325--3334,
+  2011.
+\newblock \doi{10.1021/cm200432t}.
+\newblock URL \url{https://doi.org/10.1021/cm200432t}.
+\bibitem[Khumaini et~al.(2025)Khumaini, Cho, Kim, and Lee]{Khumaini2025}
+Khabib Khumaini, Gyejun Cho, Hye-Lee Kim, and Won-Jun Lee.
+\newblock Thermal atomic layer etching mechanism of amorphous aluminum oxide by
+  hydrogen fluoride and trimethylaluminum: First-principles study.
+\newblock \emph{Surfaces and Interfaces}, 72:\penalty0 107114, 2025.
+\newblock \doi{10.1016/j.surfin.2025.107114}.
+\newblock URL \url{https://doi.org/10.1016/j.surfin.2025.107114}.
 \end{thebibliography}
 \end{document}
