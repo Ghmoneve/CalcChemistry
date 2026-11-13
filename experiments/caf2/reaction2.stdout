@@ -1,0 +1,50 @@
+[14:11:40] STEP 1: relax each molecule once at pbe/def2-svp
+[14:11:40] relaxing formamidine ...
+[14:11:54]   formamidine iter  0  E=-149.524961  |g|=4.72e-01
+[14:12:06]   formamidine iter  1  E=-149.558994  |g|=6.07e-01
+[14:12:17]   formamidine iter  2  E=-149.613784  |g|=3.72e-01
+[14:12:30]   formamidine iter  3  E=-149.650789  |g|=2.05e-01
+[14:12:40]   formamidine iter  4  E=-149.667677  |g|=1.60e-01
+[14:12:53]   formamidine iter  5  E=-149.679533  |g|=1.38e-01
+[14:13:06]   formamidine iter  6  E=-149.690298  |g|=1.42e-01
+[14:13:16]   formamidine iter  7  E=-149.699013  |g|=1.18e-01
+[14:13:28]   formamidine iter  8  E=-149.706594  |g|=8.24e-02
+[14:13:37]   formamidine iter  9  E=-149.709682  |g|=7.12e-02
+[14:13:44]   formamidine iter 10  E=-149.710891  |g|=4.00e-02
+[14:13:48]   formamidine iter 11  E=-149.711469  |g|=2.44e-02
+[14:13:53]   formamidine iter 12  E=-149.711702  |g|=2.80e-02
+[14:14:04]   formamidine iter 13  E=-149.712030  |g|=2.82e-02
+[14:14:11]   formamidine iter 14  E=-149.712456  |g|=2.02e-02
+[14:14:25]   formamidine iter 15  E=-149.712618  |g|=1.36e-02
+[14:14:36]   formamidine iter 16  E=-149.712709  |g|=1.04e-02
+[14:14:42]   formamidine iter 17  E=-149.712769  |g|=8.99e-03
+[14:14:54]   formamidine iter 18  E=-149.712822  |g|=7.77e-03
+[14:15:06]   formamidine iter 19  E=-149.712857  |g|=5.98e-03
+[14:15:14]   formamidine iter 20  E=-149.712875  |g|=4.77e-03
+[14:15:27]   formamidine iter 21  E=-149.712885  |g|=3.55e-03
+[14:15:40]   formamidine iter 22  E=-149.712890  |g|=2.16e-03
+[14:15:51]   formamidine iter 23  E=-149.712893  |g|=1.17e-03
+[14:16:04]   formamidine iter 24  E=-149.712893  |g|=3.37e-04
+[14:16:04]   formamidine: E=-149.712893 Ha  |g|=3.37e-04  (265s)
+[14:16:04] relaxing HF ...
+[14:16:09]   HF iter  0  E=-100.253850  |g|=4.68e-02
+[14:16:11]   HF iter  1  E=-100.253977  |g|=3.07e-02
+[14:16:14]   HF iter  2  E=-100.254099  |g|=1.81e-03
+[14:16:18]   HF iter  3  E=-100.254100  |g|=7.60e-05
+[14:16:18]   HF: E=-100.254100 Ha  |g|=7.60e-05  (14s)
+[14:16:18] relaxing CaF2 ...
+[14:16:26]   CaF2 iter  0  E=-876.759821  |g|=8.14e-02
+[14:16:30]   CaF2 iter  1  E=-876.762261  |g|=6.75e-02
+[14:16:37]   CaF2 iter  2  E=-876.766118  |g|=2.77e-02
+[14:16:42]   CaF2 iter  3  E=-876.766595  |g|=5.42e-03
+[14:16:50]   CaF2 iter  4  E=-876.766619  |g|=3.42e-04
+[14:16:50]   CaF2: E=-876.766619 Ha  |g|=3.42e-04  (31s)
+[14:16:50] relaxing Ca_famd2 ...
+[14:17:20]   Ca_famd2 iter  0  E=-975.025327  |g|=1.69e+00
+[14:17:47]   Ca_famd2 iter  1  E=-975.266957  |g|=8.83e-01
+[14:18:20]   Ca_famd2 iter  2  E=-975.394725  |g|=6.04e-01
+[14:18:52]   Ca_famd2 iter  3  E=-975.488286  |g|=3.72e-01
+[14:19:24]   Ca_famd2 iter  4  E=-975.547511  |g|=2.36e-01
+[14:19:46]   Ca_famd2 iter  5  E=-975.583375  |g|=1.50e-01
+[14:20:19]   Ca_famd2 iter  6  E=-975.602595  |g|=1.28e-01
+[14:20:50]   Ca_famd2 iter  7  E=-975.612188  |g|=1.35e-01

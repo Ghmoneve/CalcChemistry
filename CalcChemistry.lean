@@ -4,3 +4,4 @@ import CalcChemistry.CertifiedTheory
 import CalcChemistry.SurfaceReaction
 import CalcChemistry.BarrierBounds
 import CalcChemistry.ComplementBound
+import CalcChemistry.DiagonalMinimum

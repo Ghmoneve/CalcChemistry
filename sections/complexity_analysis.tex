@@ -163,6 +163,48 @@ set has that property is unknown here, and no such estimate is claimed.
 An upper estimate for the complement cannot substitute for the required lower
 bound.
 
+\paragraph{The diagonal minimum: a negative result and a structural route.}
+We tested whether $d$ is cheap to obtain. For water in STO-3G the $S_z=0$ sector
+holds $441$ determinants, few enough to enumerate, so every candidate bound can be
+scored against the truth. The true diagonal minimum is $-104.079076$~Ha at the
+reference determinant, the next determinant lies $0.227$~Ha ($6.18$~eV) higher, and
+the full diagonal spans $54.6$~Ha.
+
+The obvious cheap bound fails badly. Taking
+$d \ge E_{\mathrm{nuc}} + N\,\varepsilon_{\min}$ with $\varepsilon_{\min}$ the
+lowest orbital energy, and dropping the two-electron diagonal, gives
+$-193.21$~Ha: an error of $-89.13$~Ha, or $-2425$~eV, worse than the entire
+spectral width by a factor $1.63$. Discarding the two-electron diagonal is not a
+loss of rigour but of all usefulness, and we record it as a failed candidate rather
+than presenting it as an approximation.
+
+What does survive is structural. In this test every determinant other than the
+reference lies \emph{above} it, so the diagonal minimum is the reference
+determinant's own energy and no enumeration is needed to find it. The statement
+that makes this checkable replaces a scan over $\binom{K}{N}$ determinants by a
+scan over occupied-virtual pairs: for occupation $S$ and a single replacement
+$p\to a$,
+\[
+  D(S\setminus\{p\}\cup\{a\}) - D(S)
+  = (e_a - e_p) + 2\!\!\sum_{q\in S\setminus\{p\}}\!\!(V_{aq} - V_{pq}) + R,
+\]
+with $R$ the change in those pair sums involving neither $a$ nor $p$. The
+remainder is kept explicit, because collapsing it to zero is exactly where
+symmetry of $V$ enters and the identity above is pure algebra for any $V$
+(formalized as \path{swap_identity}). Nonnegativity of this difference for every
+reachable pair, together with connectivity of the sector, then gives
+$D(S) \le D(t)$ for every determinant $t$ by composition
+(\path{chain_does_not_lower}).
+
+The certificate's loss is exactly $\tau$ and nothing else:
+\path{certified_precision} states that $d-\tau$ is within $\varepsilon$ of $d$
+precisely when $\tau\le\varepsilon$, and \path{certified_exact_when_decoupled}
+that the bound is exact at $\tau=0$. The measured $0.227$~Ha gap is therefore best
+read as the budget $\tau$ must respect: if row sparsity in a real integral set
+delivers $\tau$ below that scale, the complement certificate is decisive, and if it
+does not, the certificate is sound but useless. Which of these holds is not known,
+and we do not assert either.
+
 A second problem is to combine active-state improvement and lower-bound
 improvement adaptively. Widening an active space may improve a variational
 upper bound, but a useful algorithm must show how to maintain and evaluate
