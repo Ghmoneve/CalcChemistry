@@ -1,0 +1,46 @@
+{
+  "system": {
+    "atom": "O 0 0 0.117; H 0 0.757 -0.467; H 0 -0.757 -0.467",
+    "basis": "sto-3g",
+    "charge": 0,
+    "spin": 0
+  },
+  "rhf_energy": -74.96270660885548,
+  "rhf_converged": true,
+  "n_determinants": 441,
+  "true_diag_min": -104.07907634969212,
+  "true_diag_max": -49.45469318598305,
+  "bound_A_orbital_energy": -193.2083061022232,
+  "bound_A_error_Ha": -89.12922975253107,
+  "bound_A_error_eV": -2425.3298966035286,
+  "bound_B_sectors": [
+    {
+      "kmax": 1,
+      "n_det_in_sector": 21,
+      "d_sector_min": -104.07907634969212,
+      "excitation_energy": 0.0,
+      "gap_to_reference": 0.0
+    },
+    {
+      "kmax": 2,
+      "n_det_in_sector": 141,
+      "d_sector_min": -104.07907634969212,
+      "excitation_energy": 0.0,
+      "gap_to_reference": 0.0
+    },
+    {
+      "kmax": 3,
+      "n_det_in_sector": 341,
+      "d_sector_min": -104.07907634969212,
+      "excitation_energy": 0.0,
+      "gap_to_reference": 0.0
+    },
+    {
+      "kmax": 4,
+      "n_det_in_sector": 441,
+      "d_sector_min": -104.07907634969212,
+      "excitation_energy": 0.0,
+      "gap_to_reference": 0.0
+    }
+  ]
+}

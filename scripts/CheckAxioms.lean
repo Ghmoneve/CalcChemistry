@@ -43,3 +43,10 @@ open CalcChemistry
 #print axioms complement_bound_tight_when_decoupled
 #print axioms complement_bound_improvement
 #print axioms complement_gap_positive
+-- DiagonalMinimum
+#print axioms swap_identity
+#print axioms chain_does_not_lower
+#print axioms certified_precision
+#print axioms certified_exact_when_decoupled
+#print axioms certified_below_minimum
+#print axioms certified_below_next_determinant
