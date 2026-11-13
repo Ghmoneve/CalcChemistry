@@ -8,9 +8,11 @@ No universal polynomial-time molecular solver or validated ALD predictor has
 been established. Historical surveys and scripts are exploratory material,
 not evidence of a theorem or a chemical measurement.
 
-The user-supplied targets are Al2O3/MoCl4 and CaF. Their exact meaning, surface
+The user-supplied targets are Al2O3/MoCl5 and CaF2 crystal deposition. Their exact meaning, surface
 model, precursor/co-reactant pair, and operating conditions remain to be
-specified; CaF must not silently be replaced by CaF2.
+specified. The user confirmed both spellings directly (MoCl5 on request, and
+CaF2 crystal deposition); earlier drafts of this repository carried `CaF` and
+`MoCl4`, which were transcription errors on the user's side, now corrected.
 
 The working manuscript is `paper_main.tex` with five included sections and
 `references.bib` (eight DOI records checked against Crossref). It gives full

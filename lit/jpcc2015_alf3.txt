@@ -1,0 +1,926 @@
+Atomic Layer Deposition of AlF 3 Using Trimethylaluminum and
+Hydrogen Fluoride
+Younghee Lee, † Jaime W. DuMont, † Andrew S. Cavanagh, † and Steven M. George *,†,‡
+†Department of Chemistry and Biochemistry and ‡Department of Mechanical Engineering, University of Colorado at Boulder,
+Boulder, Colorado 80309, United States
+ABSTRACT: The atomic layer deposition (ALD) of AlF 3 was
+demonstrated using trimethylaluminum (TMA) and hydrogen ﬂuoride
+(HF). The HF source was HF-pyridine. In situ quartz crystal microbalance
+(QCM), quadrupole mass spectrometer (QMS), and Fourier transform
+infrared (FTIR) spectroscopy measurements were used to study AlF 3
+ALD. The AlF3 ALD ﬁlm growth was examined at temperatures from 75 to
+300 °C. Both the TMA and HF reactions displayed self-limiting behavior.
+The maximum mass gain per cycle (MGPC) of 44 ng/(cm 2 cycle) for AlF3
+ALD occurred at 100 °C. The MGPC values decreased at higher
+temperatures. The MGPC values were negative at T > 250 °C when TMA
+and HF were able to etch the AlF 3 ﬁlms. Film thicknesses were also
+determined using ex situ X-ray re ﬂectivity (XRR) and spectroscopic
+ellipsometry (SE) measurements. The AlF 3 ALD growth rate determined
+by the ex situ analysis was 1.43 Å/cycle at 100 °C. These ex situ
+measurements were in excellent agreement with the in situ QCM measurements. FTIR analysis monitored the growth of infrared
+absorbance from Al −F stretching vibrations at 500 −900 cm −1 during AlF 3 ALD. In addition, absorption peaks were observed
+that were consistent with AlF(CH 3)2 and HF species on the surface after the TMA and HF exposures, respectively. X-ray
+photoelectron spectroscopy (XPS) and Rutherford backscattering spectrometry (RBS) measurements revealed that the deposited
+ﬁlms were nearly stoichiometric AlF 3 with an oxygen impurity of only ∼2 at %. AlF 3 ALD may be useful for a number of
+applications such as ultraviolet optical ﬁlms, protective coatings for the electrodes of Li ion batteries, and Lewis acid catalytic
+ﬁlms.
+I. INTRODUCTION
+Aluminum ﬂuoride (AlF 3) is a dielectric material with a low
+refractive index 1,2 and wide band gap >10 eV. 3,4 AlF3 has high
+transmission at infrared (IR), ultraviolet (UV), and deep UV
+wavelengths.1,5−7 These properties make AlF 3 useful for optical
+coatings. AlF 3 has also been demonstrated as an excellent
+protective ﬁlm for Li ion batteries. 8,9 AlF3 ﬁlms enhance the
+cycling stability of anode and cathode materials 8−10 and also
+improve the thermal stability by suppressing exothermal side
+reactions.11 In addition, AlF 3 is employed as a heterogeneous
+catalyst for the production of chloro ﬂuorocarbons (CFCs) due
+to its strong Lewis acidity. 12−14
+AlF3 ﬁlms have been grown by physical vapor deposition
+techniques such as sputtering, 15,16 thermal evaporation, 3,6,17
+electron beam deposition, 1,5 and ion-assisted deposition. 18 AlF3
+ﬁlms have also been grown by atomic layer deposition (ALD).
+ALD is a technique based on sequential, self-limiting surface
+reactions that deposits extremely conformal and continuous
+thin ﬁlms with atomic level control. 19 We initially reported AlF 3
+ALD using trimethylaluminum (TMA) and HF from a HF-
+pyridine solution. 20 AlF3 ALD has also been demonstrated
+recently using a halide −halide exchange reaction with AlCl 3 and
+TiF4.21
+In this paper, the growth of AlF 3 ALD ﬁlms using TMA and
+HF as the reactants was examined using in situ quartz crystal
+microbalance (QCM), quadrupole mass spectrometer (QMS),
+and Fourier transform infrared (FTIR) spectroscopy measure-
+ments. The reactions were performed at temperatures between
+75 and 300 °C. The AlF 3 ﬁlm thickness and density were
+determined with ex situ X-ray re ﬂectivity (XRR). The AlF 3 ﬁlm
+thickness and refractive index were measured with spectro-
+scopic ellipsometry (SE). The structure of the AlF 3 ﬁlms was
+examined with grazing incidence X-ray di ﬀraction (GIXRD).
+The composition of the AlF 3 ALD ﬁlm was also determined
+with X-ray photoelectron spectroscopy (XPS) and Rutherford
+backscattering spectrometry (RBS).
+This study focuses on the fundamental growth mechanism of
+AlF3 ALD ﬁlms. These mechanistic studies are important to
+understand the basis of ALD growth rates. Too often the ALD
+community assumes that there must be an ideal “ALD window”
+where the growth rate is constant over a range of temper-
+atures.19 In reality, the ALD growth rate is always dependent on
+the underlying surface chemistry. The surface species and
+surface reactions can change with temperature and lead to
+varying ALD growth rates. This situation is particularly true for
+Received: March 18, 2015
+Revised: May 22, 2015
+Published: May 27, 2015
+Article
+pubs.acs.org/JPCC
+© 2015 American Chemical Society 14185 DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+AlF3 ALD, where etching reactions can yield negative growth
+rates at higher temperatures.
+II. EXPERIMENTAL SECTION
+A. Viscous Flow Reactor with in Situ QCM and QMS.
+The ALD reactions were performed at temperatures between
+75 and 300 °C in a viscous ﬂow ALD reactor equipped for in
+situ QCM and QMS measurements. 22,23 A mechanical pump
+(Pascal 2015SD, Alcatel) was used to maintain vacuum
+conditions in the ALD reactor. Reactants were dosed into a
+N2 carrier gas. A mass ﬂow controller (Type 1179A, MKS)
+supplied a constant N 2 carrier gas ﬂow of 150 sccm. This N 2 gas
+ﬂow resulted in a base pressure of ∼1 Torr in the reactor. A
+PID temperature controller (2604, Eurotherm) kept the reactor
+at a ﬁxed temperature within ±0.04 °C. A bakeable capacitance
+manometer (Baratron 121A, MKS) monitored pressure change
+during the reactions.
+The AlF 3 ALD reactions were performed using TMA (97%,
+Sigma-Aldrich) and HF-pyridine (70 wt % HF, Sigma-Aldrich)
+as the reactants. Pure anhydrous HF from a gas cylinder has
+also been employed recently for MgF 2 ALD.24 Use of gaseous
+HF from HF-pyridine enables the safe handling of anhydrous
+HF. HF-pyridine is a liquid at room temperature and is known
+as Olah ’s reagent. 25 HF-pyridine was transferred to a stainless
+steel bubbler in a dry N 2-ﬁlled glovebag.
+The HF-pyridine solution has an equilibrium with gaseous
+HF. Our mass spectrometer measurements have revealed that
+HF is the dominant species in the vapor pressure of HF-
+pyridine. With static exposures and no pumping on our ALD
+reactor, the vapor pressure of HF from the HF-pyridine
+solution was 90 −100 Torr at room temperature. Each AlF 3
+ALD experiment was conducted on a fresh Al 2O3 ALD ﬁlm.
+The Al 2O3 ALD ﬁlms were prepared using TMA and H 2O
+(Chromasolv for HPLC, Sigma-Aldrich). The Al 2O3 ALD ﬁlms
+were grown using at least 100 Al 2O3 ALD cycles.
+The TMA, HF-pyridine, and H 2O precursors were held at
+room temperature. Unreacted HF leaving the reactor was
+removed by bubbling the gas exhaust stream through a calcium
+oxide solution. This calcium oxide solution was located
+immediately after the mechanical pump. An activated alumina
+trap (Visi-Trap, LACO Technologies) located on the inlet of
+the mechanical pump also helped remove HF from the exhaust
+stream.
+A ﬁlm deposition monitor (Maxtek TM-400, In ﬁcon) was
+used to perform the in situ QCM measurements. The QCM
+sensors were polished, 6 MHz, AT-cut (Colorado Crystal
+Corp.) and RC-cut (Colnatec) quartz crystals with gold
+electrodes. The QCM sensor was secured in a bakeable single
+sensor head (BSH-150, In ﬁc o n )a n ds e a l e dw i t hh i g h -
+temperature epoxy (Epo-Tek H21D, Epoxy Technology).
+Deposition on the back-side of the QCM sensor was prevented
+by ﬂowing an additional 20 sccm of N 2 through the QCM
+housing.22 This additional N 2 was supplied using a bellows-
+sealed metering valve (SS-4BMG, Swagelok).
+Quadrupole mass spectrometry (QMS) was performed on
+the vapor phase species in the ALD reactor. These measure-
+ments utilized a residual gas analyzer (RGA 200, Stanford
+Research Systems). The reactant and product gases during the
+ALD reactions were sampled using an aperture with a diameter
+of 50 μm. The aperture separated the pressure in the ALD
+reactor at ∼1 Torr from the pressure in the QMS region at ∼1
+× 10−7 Torr. To maintain these pressures with a conductance
+between the two regions, the QMS region was di ﬀerentially
+pumped with a turbomolecular pump (V70LP, Varian). A dual
+thoriated/iridium (ThO 2/Ir) ﬁlament was used for electron
+emission in the ionizer of the mass spectrometer. The
+ionization energy was 70 eV. A Faraday cup was used as the
+ion detector.
+B. Fourier Transform Infrared (FTIR) Spectroscopy.
+The in situ FTIR studies were performed in a separate reactor
+equipped with an FTIR spectrometer that has been described
+previously.26 The reactor was pumped using a mechanical
+pump (TRIVAC D8B, Oerlikon Leybold Vacuum). The FTIR
+spectrometer (Nicolet 6700 FTIR, Thermo Scienti ﬁc) utilized a
+liquid-N2-cooled mercury cadmium telluride (MCT-B) detec-
+tor. Dry, CO 2-free air was employed to purge the spectrometer,
+mirror, and detector setup. Each spectrum consisted of a total
+of 100 scans at 4 cm −1 resolution from 400 to 4000 cm −1.
+The transmission FTIR measurements were performed on
+high surface area SiO 2 nanoparticles (99.5%, U.S. Research
+Nanomaterials) with an average diameter of 15 −20 nm. The
+high surface area of these nanoparticles was needed to enhance
+the number of surface species in the infrared beam. The SiO 2
+nanoparticles absorb infrared radiation between 400 and 650
+cm−1, 700 −875 cm −1, and 925 −1400 cm −1. These absorption
+regions leave available windows to observe absorbance from the
+AlF3 ALD ﬁlm. Sample preparation involved pressing the SiO 2
+nanoparticles into a tungsten grid support (Tech-Etch). 27,28
+The tungsten grids had dimensions of 2 cm × 3 cm. Each grid
+was 50 μm thick with 100 grid lines per inch.
+The tungsten grid was resistively heated using a DC power
+supply (6268B, 20 V/20 A, Hewlett-Packard). The voltage
+output of the power supply was controlled by a PID
+temperature controller (Love Controls 16B, Dwyer Instru-
+ments). A type K thermocouple was attached to the bottom of
+the tungsten grid with epoxy (Ceramabond 571, Aremco) that
+attached and electrically isolated the thermocouple.
+The AlF 3 ALD reactions were performed using sequential
+exposures of TMA (97%, Sigma-Aldrich), and HF from HF-
+pyridine (70 wt % HF, Sigma-Aldrich). The AlF 3 ALD ﬁlms
+were deposited using TMA doses with exposure times of 1.0 s
+and HF doses with exposure times of 1.0 s. These exposure
+times produced pressure transients of ∼350 mTorr above the
+base pressure for TMA and HF, respectively. A 240 s purge
+time was utilized after each reactant exposure.
+Reactants were dosed into the ﬂowing N2 carrier gas stream.
+A mass ﬂow controller supplied the constant N 2 carrier gas ﬂow
+rate of 150 sccm. This N 2 gas ﬂow resulted in a base pressure of
+∼1.650 Torr in the reactor. The TMA and HF-pyridine were
+held at room temperature. Like the HF abatement procedure
+employed during the QCM experiments, the excess HF leaving
+the reactor was removed using an activated alumina trap and by
+bubbling the gas exhaust stream through a calcium oxide
+solution.
+C. Ex Situ Film Characterization using XRR, XRD, and
+SE. For ex situ measurements, boron-doped Si (100) wafers (p-
+type, Silicon Valley Microelectronics) were used as the
+substrates. The Si wafer was cleaved into samples with
+dimensions of 2.5 cm by 2.5 cm. These samples were cleaned
+with acetone, isopropanol, and deionized water and dried with
+N2 gas.
+The ﬁlm thicknesses and the density were determined using
+ex situ XRR measurements. The XRR measurements were
+performed with a high-resolution X-ray di ﬀractometer (Bede
+D1, Jordan Valley Semiconductors) using a Cu K α (λ = 1.540
+Å) X-ray tube. The ﬁlament current was 35 mA, and the voltage
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14186
+was 40 kV. The step size and acquisition time for all the XRR
+scans were 10 arcsec and 5 s, respectively. The XRR scans were
+modeled with the Bede REFS software package (Bede REFS,
+Jordan Valley Semiconductors) to determine ﬁlm thickness,
+surface roughness, and ﬁlm density. The ﬁlm structure was
+examined by grazing incidence X-ray di ﬀraction (GIXRD)
+using the same X-ray di ﬀractometer.
+The ﬁlm thicknesses and refractive indices were measured
+using spectroscopic ellipsometry (SE). These measurements
+were performed using a spectroscopic ellipsometer (M-2000, J.
+A. Woollam) employing a spectral range from 240 to 1700 nm
+with an incidence angle of 75 °. Measurement of Ψ and Δ were
+modeled with the CompleteEASE software package (Com-
+pleteEASE, J. A. Woollam) and a Sellmier model. 29 The
+Sellmeier model is commonly used for optically transparent
+ﬁlms such as metal ﬂuoride ﬁlms.29
+D. X-ray Photoelectron Spectroscopy and Rutherford
+Backscattering Spectrum. The ﬁlm composition was
+determined by X-ray photoelectron spectroscopy (XPS). The
+XPS instrument (PHI 5600, RBD Instruments) used a
+monochromatic Al K α X-ray source (1486.6 eV). Survey
+scans were measured with a pass energy of 93.9 eV and a step
+size of 0.400 eV. Depth pro ﬁles were obtained using Ar ion
+sputtering. A pass energy of 58.7 eV and a step size of 0.250 eV
+were used for the depth pro ﬁling analysis. An electron beam
+neutralizer was employed at 17.8 mA. Data was collected with
+the Auger Scan software package (Auger Scan, RBD Instru-
+ments) and analyzed with the Casa XPS software package
+(Casa XPS, Casa Software).
+The RBS analysis was performed in the Nanofabrication
+Center at the University of Minnesota. Glassy carbon plates
+(type 2, 1 mm thick, Alfa Aesar) with dimensions of 1.2 cm ×
+1.2 cm were used as the substrates for RBS analysis. The glassy
+carbon substrates were cleaned with acetone, isopropanol, and
+deionized water and dried with N 2 gas. Initially, Al 2O3 ALD
+ﬁlms were deposited as an adhesion layer on the glassy carbon
+plates using 20 cycles of Al 2O3 ALD. The AlF 3 ﬁlms were then
+deposited using 800 AlF 3 ALD cycles at 150 °C.
+The incident 2 MeV beam of He + ions was integrated to 40
+μC of total charge per point using an ion detector positioned at
+165° relative to the incident ion beam. The backscattered ions
+were collected using a microchannel plate detection system.
+RBS spectra were acquired using a MAS 1700 pelletron tandem
+ion accelerator (5SDH) equipped with charge exchange RF
+plasma source (National Electrostatics Corporation) and RBS
+400 analytical endstation (Charles Evans & Associates). The
+data was modeled using the QUARK software package. 30
+III. RESULTS AND DISCUSSION
+A. Growth of AlF 3 Films. Figure 1 shows the QCM
+measurements of mass gain during 200 cycles of AlF 3 ALD at
+150 °C using TMA and HF. The initial layer on the QCM
+sensor was an Al 2O3 ALD ﬁlm grown with 200 cycles of Al 2O3
+ALD using TMA and H 2O as the reactants. The reaction
+sequence of one AlF 3 ALD cycle consisted of a 1 s dose of
+TMA, 30 s of N 2 purge, a 1 s dose of HF, and 30 s of N 2 purge.
+This reaction sequence is designated as (1 −30−1−30). The
+TMA and HF doses produced pressure transients of 40 and 100
+mTorr, respectively. The AlF 3 ALD growth is very linear with a
+mass gain per cycle (MGPC) of 31 ng/(cm 2 cycle). In addition,
+AlF3 ALD nucleates nearly immediately on the initial Al 2O3
+ALD surface.
+Figure 2 shows the mass gain during three sequential AlF 3
+ALD cycles at 150 °C using the reaction sequence (1 −30−1−
+30). These three cycles were the 148th, 149th, and 150th AlF 3
+ALD cycles in Figure 1. The mass gains are very distinct. The
+mass increase after the TMA exposure is ΔMTMA = 22 ng/(cm 2
+cycle). The mass increase after the HF exposure is ΔMHF =9
+ng/(cm2 cycle). The MGPC was 31 ng/(cm 2 cycle).
+Figure 3 displays the MGPC and the ΔMTMA/MGPC ratio
+during 200 cycles of AlF 3 ALD using a reaction sequence of
+(1−30−1−30). The MGPC is 31 ng/(cm 2 cycle) and consists
+of constant mass gains of ΔMTMA = 22 ng/(cm 2 cycle) and
+ΔMHF = 9 ng/(cm 2 cycle). Except for the ﬁrst 3 AlF 3 ALD
+cycles, the ΔMTMA/MGPC ratio is constant at 0.71. The
+MGPC and the ΔMTMA/MGPC ratio were nearly independent
+of the purge time. Extended purge times of 120 s slightly
+decreased the MGPC to ∼29 ng/(cm 2 cycle). However, the
+ΔMTMA/MGPC ratio remained at 0.71. The ΔMTMA/MGPC
+ratio will be used later to determine the reaction stoichiometry.
+Figure 1. Mass gain versus time during 200 AlF 3 ALD cycles with
+TMA and HF as the reactants on Al 2O3 at 150 °C using the reaction
+sequence of (1 −30−1−30).
+Figure 2. Enlargement of mass gain versus time for three sequential
+TMA and HF exposures during AlF 3 ALD in the steady-state, linear
+growth regime shown in Figure 1.
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14187
+The self-limiting behavior of the TMA and HF reactions for
+AlF3 ALD was also examined using in situ QCM experiments.
+Figure 4 (panels a and b) shows the mass gains during the
+TMA and HF exposures, respectively, at 150 °C. For each of
+these exposures, the other reactant exposure had reached
+saturation. Each minidose consisted of an exposure time of 0.5 s
+and a purge time of 30 s. Both reactions displayed self-limiting
+behavior. ΔMTMA versus minidoses of TMA reached the
+plateau of ΔMTMA = ∼22 ng/(cm 2 cycle) after one minidose.
+Similarly, ΔMHF versus minidoses of HF leveled o ﬀ at ΔMHF =
+∼9 ng/(cm 2 cycle) after one minidose.
+Figure 5 displays the ﬁlm thickness for 20, 50, 100, 200, 400,
+and 800 cycles of AlF 3 ALD on a Si wafer at 150 °Ca s
+determined by ex situ XRR and SE analysis. The thickness
+measurements from XRR and SE were nearly identical. The
+AlF3 ALD growth on the silicon wafers was linear with a growth
+rate of 1.0 Å/cycle at 150 °C. The density of these AlF 3 ALD
+ﬁlms obtained from XRR was 2.9 g/cm 3. This density is slightly
+less than the bulk density of 3.10 g/cm 3 for crystalline AlF 3.31
+AlF3 ALD ﬁlms grown using AlCl 3 and TiF 4 as the reactants
+also observed a density of 2.8 −2.9.21
+The growth rate of 1.0 Å/cycle at 150 °C obtained by the
+XRR analysis can be compared with the MGPC of 31 ng/(cm 2
+cycle) obtained by the QCM measurements. This comparison
+is possible using the density of 2.9 g/cm 3 obtained by XRR
+analysis. With the use of this density, the MGPC of 31 ng/(cm 2
+cycle) is equivalent to a growth rate of 1.1 Å/cycle. There is
+excellent agreement between the AlF 3 ALD growth rates
+determined using QCM and XRR measurements.
+Figure 6 reveals some of the gas phase species detected by
+the quadrupole mass spectrometer during AlF 3 ALD using
+sequential TMA and HF exposures at 150 °C. These mass
+spectrometry signals were recorded at the same time as the
+mass gains shown in Figure 2. The targeted gas phase species
+were the CH 4 reaction product at m/z = 16, the HF reactant at
+m/z = 20, and the pyridine species at m/z = 52. Results are
+shown for three AlF 3 ALD cycles using the reaction sequence
+(1−30−1−30).
+The mass signal at m/z = 16 in Figure 6 indicates that the
+CH4 reaction product appears during both the TMA and HF
+exposures. HF reacts with Al-CH 3* surface species to produce
+CH4. TMA also reacts with HF on the surface to produce CH 4.
+Some of the m/z = 16 mass signal is attributed to cracking
+fragments of TMA. Mass spectrometer analysis was performed
+after the TMA reaction reached saturation. This analysis
+showed that cracking of TMA could account for ∼1/3 of the
+Figure 3. (a) MGPC, ΔMTMA, and ΔMHF and (b) MTMA/MGPC ratio
+during 200 AlF 3 ALD cycles with TMA and HF as the reactants on
+Al2O3 at 150 °C.
+Figure 4. (a) ΔMTMA versus number of TMA minidoses at 150 °C
+with the HF exposure ﬁxed at 1.0 s. (b) ΔMHF versus number of HF
+minidoses at 150 °C with the TMA exposure ﬁxed at 1.0 s.
+Figure 5. Film thickness versus number of cycles for 800 AlF 3 ALD
+cycles with TMA and HF as the reactants on Si(100) at 150 °C
+determined by XRR and SE measurements.
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14188
+m/z = 16 mass signal observed in Figure 6 during TMA
+exposures.
+Figure 6 also indicates that a mass signal at m/z =2 0i s
+coincident only with the HF exposures. This mass signal is
+assigned to the HF reactant. The QMS does not detect a mass
+signal at m/z =5 2o r m/z = 79. These mass signals are the two
+largest mass cracking fragments for pyridine. 32 These results
+indicate that the HF-pyridine solution has a negligible pyridine
+vapor pressure. In contrast, the vapor pressure of pyridine at 20
+°Ci s ∼15 Torr. 33 The negligible pyridine vapor pressure is
+consistent with the stabilization of pyridine with HF in a high
+boiling point azeotrope. 34 Additional experiments with pure
+pyridine solutions clearly showed substantial mass signals at m/
+z = 52 and m/z = 79.
+Additional experiments examined the growth of AlF 3 ALD
+ﬁlms at various substrate temperatures. Separate experiments
+were conducted at each substrate temperature after allowing the
+reactor to stabilize at the desired temperature. Figure 7a shows
+the temperature dependence of the MGPC from the in situ
+QCM measurements. The MGPC can be converted to the
+growth rate in Å/cycle using the ﬁlm density of 2.9 g/cm 3
+measured by XRR. These growth rates are shown in Figure 7b.
+In addition, Figure 7b also displays the growth rates determined
+from ex situ XRR and SE measurements. The agreement
+between the in situ and ex situ measurements of the growth
+rate is very good. A maximum growth rate of 1.43 Å/cycle was
+obtained at 100 °C. A summary of the temperature-dependent
+growth rates is given in Table 1. In comparison, the AlF 3 ALD
+growth rates are obtained using AlCl 3 and TiF4 as the reactants
+varied from ∼ 3.2 Å/cycle at 160 °Ct o ∼0.3 Å/cycle at 300
+°C.21 The contrastive growth rates may be attributed to
+diﬀerent growth mechanisms.
+Both panels in Figure 7 (panels a and b) show that the AlF 3
+ALD growth rate decreases at higher temperatures. The
+progressive decrease in the AlF 3 ALD growth rate could be
+explained by the loss of surface species responsible for growth
+at higher temperature. A similar decrease in ALD growth rate
+versus temperature was observed for Al 2O3 ALD.35 In addition,
+the AlF 3 ALD growth rate becomes negative at temperatures
+>250 °C. At these higher temperatures, the TMA and HF
+exposures are able to etch the AlF 3 ALD ﬁlms. Separate
+experiments con ﬁrmed that the etching occurred during the
+TMA exposures.
+The AlF 3 etching is very intriguing and may occur by the
+reaction: AlF 3 + 2Al(CH 3)3 → 3AlF(CH3)2. In this reaction,
+TMA accepts ﬂuorine from AlF 3 to form AlF(CH 3)2. The
+−CH3 from TMA is transferred to the substrate and forms
+additional AlF(CH 3)2. At lower temperatures, AlF(CH 3)2 may
+remain on the surface and lead to AlF 3 ALD growth during the
+HF exposure. At higher temperature, AlF(CH 3)2 may desorb
+and yield AlF 3 etching during the TMA exposure. Additional
+mass spectrometry experiments are planned to con ﬁrm the
+presence of AlF(CH 3)2 in the gas phase at higher temperatures.
+This etching process is related to the thermal atomic layer
+etching (ALE) of Al 2O3 and HfO2 ﬁlms that has been observed
+using Sn(acac) 2 and HF reactants. 36,37 However, in this case,
+the etching of AlF 3 by TMA is not self-limiting. The AlF 3
+etching at 250 −300 °C is dependent on the length of the TMA
+exposure. We will report on AlF 3 ALE using Sn(acac) 2 and HF
+in a future publication.
+B. Reaction Mechanism for AlF 3 ALD. FTIR vibrational
+spectroscopy was used to monitor AlF 3 ALD and identify the
+surface species present during AlF 3 ALD. Figure 8 shows the
+growth of absorbance in the frequency range from 500 to 900
+Figure 6. Mass spectrometer signals for m/z = 16, 20, and 52 for CH 4,
+HF, and pyridine, respectively, during three AlF 3 ALD cycles at 150
+°C. These signals were recorded at the same time as the mass changes
+shown in Figure 2.
+Figure 7. (a) Mass gain per cycle (MGPC) and (b) growth rate versus
+reaction temperature using reaction sequence of (1 −30−1−30).
+Table 1. ΔMTMA, ΔMHF, MGPC, ΔMTMA/MGPC, and x for
+AlF3 ALD at di ﬀerent temperatures. MGPC, ΔMTMA, and
+ΔMHF are in units of ng/(cm 2 cycle). Growth rate is in units
+of Å/cycle.
+temperature
+(°C) MGPC
+growth
+rate ΔMTMA ΔMHF
+ΔMTMA/
+MGPC x
+75 38.7 1.27 28.3 10.4 0.73 0.67
+100 44.4 1.43 29.7 14.8 0.67 0.99
+125 38.1 1.25 26.2 12.0 0.69 0.88
+150 31.4 1.02 22.3 9.1 0.71 0.78
+175 22.7 0.74 16.7 6.0 0.73 0.67
+200 13.2 0.50 9.3 3.9 0.70 0.83
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14189
+cm−1 during AlF3 ALD cycles on SiO 2 nanoparticles at 150 °C.
+These FTIR spectra were recorded after HF exposures and are
+referenced to the FTIR spectrum of the initial SiO 2
+nanoparticles. The absorbance progressively increases versus
+number of AlF 3 ALD cycles. The growth of absorbance in the
+frequency range from 500 to 900 cm −1 is attributed to the Al −F
+stretching vibration in amorphous AlF 3. Earlier vibrational
+studies have observed the absorption of Al −F stretching
+vibrations in amorphous AlF 3 at 500 −900 cm −1.17,38−40
+Figure 8 also shows absorbance losses at 975 and 1010 cm −1
+as well as absorbance gains at 880, 920, and 930 cm −1. The
+absorbance losses at 975 and 1010 cm −1 are assigned to the
+removal of Si −OH and Si −O−Si species on the initial SiO 2
+substrate, respectively. This loss has been observed during
+reactions of TMA with silanol and siloxane surface species to
+form surface Si −O−Al(CH3)2 groups.41 The positive feature at
+930 cm −1 is attributed to the formation of Si −F bonds, while
+the positive features at 880 and 920 cm −1 are assigned to HF
+molecules that are adsorbed on the surface. 42−44
+Figure 9 shows the FTIR di ﬀerence spectra for two
+consecutive TMA and HF exposures at 150 °C. These
+diﬀerence spectra are referenced to the spectra after the
+previous reactant exposure. Figure 9a shows the di ﬀerence
+spectrum after the TMA exposure referenced to the spectrum
+after the previous HF exposure (TMA-HF). This di ﬀerence
+spectrum has been displaced for clarity in presentation. Figure
+9a reveals a prominent absorbance gain at 725 cm −1 and smaller
+absorbance gains at ∼600−650 and ∼2800−3000 cm −1. These
+positive absorbance features are all consistent with the
+vibrational features of molecular AlF(CH 3)2.45 The prominent
+absorbance feature at 725 cm −1 is assigned to the CH 3 rocking
+mode of AlF(CH 3)2.45 The absorbance feature at 600 −650
+cm−1 is attributed to the Al −F stretching mode of
+(CH3)2AlF.45 The positive features between 2800 and 3000
+cm−1 are consistent with the C −H stretches of AlF(CH 3)2.45
+The TMA exposure also results in negative features at 900
+and ∼3000−3675 cm −1 that are attributed to the removal of
+HF surface species. The negative feature at 900 cm −1 is
+assigned to an out-of-plane librational (reciprocating) HF
+mode.42 The absorbance features at ∼3000−3675 cm −1 are
+consistent with the stretching vibrations of isolated and
+hydrogen-bonded Al-(HF) * surface species absorbed on AlF 3
+surfaces, respectively. 46
+Figure 9b displays the di ﬀerence spectrum after the HF
+exposure referenced to the spectrum after the previous TMA
+exposure (HF-TMA). Most of the absorbance features that
+were added as a result of the previous TMA exposure are
+removed by the subsequent HF exposure. Negative absorbance
+features at 725 and 2800 −3000 cm −1 are consistent with the
+removal of the AlF(CH 3)2* surface species. 45 Positive
+absorbance features at 900 and ∼3000−3675 cm−1 also indicate
+that HF reabsorbs to the surface.
+The dashed lines designate zero absorbance between 500 −
+900 cm −1. The dashed lines help to illustrate that the
+absorbance gained between 500 −900 cm −1 during TMA
+exposures is greater than the absorbance that is lost between
+500−900 cm −1 during HF exposures. This overall absorbance
+gain indicates that Al −F species are added during the TMA and
+HF exposures. The bulk AlF 3 vibrational mode between 500 −
+900 cm −1 grows steadily with the number of reaction cycles as
+shown in Figure 8.
+On the basis of the results from the QCM and FTIR
+measurements, Figure 10 presents a schematic showing the
+proposed reaction mechanism for AlF 3 ALD. In reaction A,
+TMA molecules react with HF molecules adsorbed on the
+surface to yield AlF(CH 3)2 and CH 4 molecules as the reaction
+products. The AlF(CH 3)2 species remain adsorbed on the
+Figure 8. FTIR spectra vs AlF 3 ALD cycles on the initial SiO 2
+nanoparticles at 150 °C. These spectra are all referenced to the SiO 2
+nanoparticles.
+Figure 9. FTIR di ﬀerence spectra during AlF 3 ALD at 150 °C. (a)
+Diﬀerence spectrum after the TMA exposure referenced to the
+spectrum after the previous HF exposure (TMA-HF) and (b)
+diﬀerence spectrum after the HF exposure referenced to the spectrum
+after the previous TMA exposure (HF-TMA).
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14190
+surface. Note that the desorption of the AlF(CH 3)2 species
+would have led to AlF 3 etching. In reaction B, HF converts the
+adsorbed AlF(CH3)2 species to AlF 3. The AlF 3 ﬁlm is expected
+to form octahedral Al centers with bridging ﬂuorines. CH 4 is
+again a reaction product and additional HF molecules may
+remain on the surface.
+The more general surface chemistry for AlF 3 ALD can be
+expressed by
+|* +
+→| * + −
+x
+x
+(A) AlF HF Al(CH )
+AlF AlF (CH ) CHxx
+33 3
+33 3 4 (2)
+|* +
+→| |* + −
+−
+xx
+(B) AlF AlF (CH ) 3HF
+AlF AlF HF (3 )CH
+xx33 3
+33 4 (3)
+The asterisks designate the surface species. The vertical lines
+distinguish the various surface species. The parameter x
+quantiﬁes the number of HF molecules adsorbed on the
+surface relative to the number of AlF 3 species deposited during
+one AlF 3 ALD cycle. x = 1 indicates one HF per AlF 3 on the
+surface as shown in Figure 10. x = 1 is also consistent with
+AlF(CH3)2 as the adsorbed surface species in Figure 10.
+On the basis of this surface chemistry, the ΔMTMA/MGPC
+ratio can be determined by
+Δ = Δ Δ+ Δ
+=
+−·
++− =
+−·
+MM
+MM
+Mx M
+MM M
+Mx M
+M
+MGPC
+33
+TMA TMA
+TMA HF
+TMA CH
+TMA HF CH
+TMA CH
+AlF
+4
+4
+4
+3 (4)
+In eq 4, MTMA, MHF, MCH4, and MAlF3 are the molar masses of
+TMA, HF, CH 4, and AlF 3, respectively. The equation for x is
+=− Δ
+=− Δ
+⎡
+⎣⎢
+⎛
+⎝⎜ ⎞ ⎠⎟ ⎤ ⎦⎥
+⎡
+⎣⎢
+⎛
+⎝⎜ ⎞ ⎠⎟ ⎤ ⎦⎥
+x M MM M
+M
+1
+MGPC
+1
+16 72.1 84.0 MGPC
+CH
+TMA AlF
+TMA
+TMA
+4
+3
+(5)
+The ΔMTMA/MGPC ratio and x can be determined from the
+mass changes obtained by the QCM measurements. A ΔMTMA/
+MGPC ratio of 0.71 was determined from the QCM
+measurements at 150 °C shown in Figure 3. This ratio of
+0.71 is close to the ratio of 0.67 based on the proposed
+mechanism in Figure 10, where x =1 .
+The ratio varied slightly at the di ﬀerent reaction temper-
+atures. The ΔMTMA/MGPC ratios were 0.73, 0.67, 0.69, 0.71,
+0.73 and 0.70 at 75, 100, 125, 150, 175, and 200 °C,
+respectively. The corresponding x values were 0.67, 0.99, 0.88,
+0.78, 0.67, and 0.83 at 75, 100, 125, 150, 175, and 200 °C,
+respectively. These values are summarized in Table 1. An x
+value of x = 0.99 or nearly x = 1 is observed at 100 °C. The
+maximum AlF 3 ALD growth rate of 1.43 Å/cycle is also
+measured at 100 °C. x values < 1 are consistent with a mixture
+of AlF(CH 3)2 and Al(CH 3)3 on the surface after the TMA
+exposure.
+The mass changes measured during the QCM experiments
+support the existence of HF and AlF(CH 3)2 species on the
+surface after the HF and TMA exposures. A binding interaction
+is expected between HF and the AlF 3 surface. Strong
+coordination of HF on α-AlF3 and β-AlF3 surfaces has been
+predicted by density functional theory (DFT) calculations. 47,48
+AlF3 is a Lewis acid. The F in HF can act as a Lewis base.
+Together AlF 3 and HF have a strong Lewis acid −base
+interaction. TMA and AlF(CH 3)2 are also Lewis acids. The F
+in Al −F* species on the surface can act as a Lewis base. A
+strong Lewis acid −base interaction is also expected between
+Al−F* and either TMA or AlF(CH 3)2.
+C. Ex Situ AlF 3 Film Characterization. Figure 11 shows
+an X-ray photoelectron spectroscopy (XPS) sputter depth
+proﬁle of an AlF 3 ALD ﬁlm grown at 150 °C. The ﬁlm is almost
+entirely aluminum and ﬂuorine after removal of the
+adventitious surface carbon. Oxygen impurities are detected
+at ∼2 at %. The oxygen impurity may result from water that
+could be produced in the reaction of HF with metal oxide
+inside the stainless steel reactor. Carbon and nitrogen
+impurities are below the detection limit of XPS. The ratio
+between the calibrated aluminum and ﬂuorine XPS signals is
+1:2.4. The preferential sputtering of ﬂuorine may explain the
+low ﬂuorine signals. 18
+Figure 12 shows the Rutherford backscattering spectrum
+(RBS) of a ﬁlm grown using 800 AlF 3 ALD cycles at 150 °C. A
+glassy carbon substrate is used instead of a silicon wafer because
+aluminum and silicon have similar atomic masses and
+Figure 10. Proposed reaction mechanism for AlF 3 ALD using TMA
+and HF as the reactants.
+Figure 11. Sputter depth pro ﬁle of AlF 3 ﬁlm grown at 150 °C
+measured by X-ray photoelectron spectroscopy.
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14191
+overlapping RBS signals. An Al 2O3 ALD ﬁlm grown on the
+glassy carbon served as an adhesion layer. The RBS spectrum
+observed an aluminum peak at 1.1 MeV and a ﬂuorine peak
+around 0.8 MeV. The aluminum to ﬂuorine ratio is 1:2.85
+based on the peak areas. This ratio is consistent with nearly
+stoichiometric AlF 3. Carbon or nitrogen is not observed in the
+ﬁlm within the detection limits of RBS.
+Grazing incidence X-ray di ﬀraction (GIXRD) analysis
+revealed that the AlF 3 ALD ﬁlms were amorphous. The AlF 3
+ALD ﬁlms remain amorphous even after annealing at 500 °Ci n
+argon. AlF3 ALD ﬁlm roughnesses of 4 −5 Å were measured by
+XRR analysis at all the reaction temperatures. These smooth
+ﬁlms are consistent with amorphous AlF 3 ALD ﬁlms. AlF3 ﬁlms
+grown by physical vapor deposition (PVD) techniques have
+been amorphous. 6,15,17,49 AlF3 ﬁlms deposited by PVD and
+annealed at 350 °C were also amorphous. 6 In addition,
+amorphous AlF3 ALD ﬁlms were grown using AlCl 3 and TiF4 as
+the reactants except at the highest growth temperature of 340
+°C.21
+The ﬁlm density and refractive index was also measured for
+AlF3 ﬁlms grown using 200 AlF 3 ALD cycles at di ﬀerent
+temperatures. These results are presented in Figure 13. The
+ﬁlm density is nearly constant at 2.9 g/cm 3 at all reaction
+temperatures. This density is ∼94% of the bulk density of 3.1
+g/cm3 for crystalline AlF 3.31 Refractive indices of the ﬁlms
+grown at di ﬀerent reaction temperatures are also constant at n
+= 1.36. These refractive indices were measured by SE at 589 nm
+and were obtained using the Sellmeier model.
+The measured refractive index of n = 1.36 is consistent with n
+= 1.38 for bulk AlF 3 at 589 nm. 2 The measured refractive index
+of n = 1.36 is also in agreement with n = 1.36 at 580 nm from
+AlF3 ALD ﬁlms using AlCl 3 and TiF4 as the reactants 21 and n =
+1.36 at 600 nm for AlF 3 ﬁlms grown using electron beam
+techniques.1 The extinction coe ﬃcient for the AlF 3 ﬁlms is zero
+because the AlF 3 ALD ﬁlms are transparent in the range
+between 240 and 1700 nm, resulting from the wide band gap of
+>10 eV for AlF 3.3,4
+The thickness variation was measured for ﬁve samples grown
+at 150 °C in the reactor at di ﬀerent spatial locations spaced
+evenly over a length of 5.0 in. using 800 cycles of AlF 3 ALD.
+The ﬁlm thicknesses revealed good spatial uniformity within
+±1% as measured by XRR analysis. The AlF 3 ALD ﬁlms were
+also stable in air. The thickness, ﬁlm density, and ﬁlm
+roughness of AlF 3 ﬁlms did not change after storage in
+atmosphere for one month.
+AlF3 is slightly soluble in liquid water with a solubility of 0.5
+g of AlF 3 in 100 g of H 2O.31 The change of AlF 3 ALD ﬁlm
+thickness versus time during immersion in DI water was
+monitored using XRR and SE measurements. These experi-
+ments determined the etch rate of AlF 3 in liquid water at room
+temperature. The etch rate of the AlF 3 ALD ﬁlms was
+extremely constant at 10 Å/h. During the etching, the density,
+roughness, and refractive index of the AlF 3 ALD ﬁlms were
+almost constant. These results suggest that the AlF 3 etching in
+liquid water occurs by a layer-by-layer process.
+IV. CONCLUSIONS
+AlF3 ALD ﬁlms were grown over a range of temperatures from
+75 to 300 °C using TMA and HF from HF-pyridine as the
+reactants. The AlF 3 ALD was examined using in situ quartz
+crystal microbalance (QCM), quadrupole mass spectrometer
+(QMS) and Fourier transform infrared (FTIR) spectroscopy.
+The maximum mass gain per cycle (MGPC) for AlF 3 ALD of
+44 ng/(cm 2 cycle) occurred at 100 °C. The MGPC then
+decreased progressively at higher temperatures. The MGPC
+became negative at T > 250 °C. At these higher temperatures,
+the TMA and HF were able to etch the underlying AlF 3 ﬁlms.
+FTIR measurements observed an absorbance increase at
+500−900 cm −1 during AlF 3 ALD at 150 °C. This absorbance
+increase was attributed to Al −F stretching vibrations in the
+AlF3 ALD ﬁlm. The FTIR spectra also revealed AlF(CH 3)2 and
+HF species on the surface after the TMA and HF exposures,
+respectively, at 150 °C. AlF(CH 3)2 is the key reaction
+intermediate during AlF 3 ALD. AlF(CH 3)2 is ﬂuorinated by
+Figure 12. Rutherford backscattering spectrum of AlF 3 ﬁlm grown at
+150 °C using 800 AlF 3 ALD cycles on 20 cycles of Al 2O3 ALD ﬁlm on
+carbon substrate.
+Figure 13. Density and refractive index for AlF 3 ALD ﬁlms grown at
+various temperatures.
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14192
+the HF exposure and produces AlF 3 growth. HF also adsorbs
+on the growing AlF 3 ﬁlm and is available to form more
+AlF(CH3)2 during the subsequent HF exposure.
+Ex situ X-ray re ﬂectivity (XRR) and spectroscopic
+ellipsometry (SE) measurements were also employed to
+measure the AlF 3 ALD ﬁlm thicknesses. The AlF 3 ALD growth
+rate measured by XRR and SE was 1.43 Å/cycle at 100 °C. XPS
+and RBS measurements showed that the AlF 3 ALD ﬁlms were
+nearly stoichiometric AlF 3 with an oxygen impurity of only ∼2
+at %. GIXRD analysis revealed that the AlF 3 ALD ﬁlms were
+amorphous. XRR measurements indicated that the AlF 3 ALD
+were smooth. These AlF 3 ALD ﬁlms may be useful for a
+number of applications such as ultraviolet optical ﬁlms,
+protective coatings for the electrodes of Li ion batteries, and
+Lewis acid catalytic ﬁlms.
+■ AUTHOR INFORMATION
+Corresponding Author
+*E-mail: steven.george@colorado.edu.
+Notes
+The authors declare no competing ﬁnancial interest.
+■ ACKNOWLEDGMENTS
+This research was funded by the Department of Energy
+through the DOE-BATT program. Additional funding was
+provided by the National Science Foundation (CHE-1306131).
+The authors thank Dr. Greg Haugstad in the Nanofabrication
+Center at the University of Minnesota for the RBS measure-
+ments. The authors also thank Markus Neuber for the GIXRD
+measurements.
+■ REFERENCES
+(1) Pellicori, S. F.; Colton, E. Fluoride Compounds for IR Coatings.
+Thin Solid Films 1992, 209, 109 −115.
+(2) Staritzky, E.; Asprey, L. B. Aluminum Trifluoride, AlF 3. Anal.
+Chem. 1957, 29, 984 −984.
+(3) Barriere, A. S.; Lachter, A. Optical-Transitions in Disordered
+Thin-Films of Ionic Compounds MgF 2 and AlF 3 as a Function of
+Their Conditions of Preparation. Appl. Opt. 1977, 16, 2865 −2871.
+(4) Konig, D.; Scholz, R.; Zahn, D. R. T.; Ebest, G. Band Diagram of
+the AlF 3/SiO2/Si System. J. Appl. Phys. 2005, 97, 093707.
+(5) Bridou, F.; Cuniot-Ponsard, M.; Desvignes, J. M.; Richter, M.;
+Kroth, U.; Gottwald, A. Experimental Determination of Optical
+Constants of MgF 2 and AlF 3 Thin Films in the Vacuum Ultra-Violet
+Wavelength Region (60 −124 nm), and its Application to Optical
+Designs. Opt. Commun. 2010, 283, 1351 −1358.
+(6) Lee, C. C.; Liu, M. C.; Kaneko, M.; Nakahira, K.; Takano, Y.
+Characterization of AlF 3 Thin Films at 193 nm by Thermal
+Evaporation. Appl. Opt. 2005, 44, 7333 −7338.
+(7) Niisaka, S.; Saito, T.; Saito, J.; Tanaka, A.; Matsumoto, A.; Otani,
+M.; Biro, R.; Ouchi, C.; Hasegawa, M.; Suzuki, Y.; Sone, K.
+Development of Optical Coatings for 157 nm Lithography. I. Coating
+Materials. Appl. Opt. 2002, 41, 3242 −3247.
+(8) Sun, Y. K.; Lee, M. J.; Yoon, C. S.; Hassoun, J.; Amine, K.;
+Scrosati, B. The Role of AlF 3 Coatings in Improving Electrochemical
+Cycling of Li-Enriched Nickel-Manganese Oxide Electrodes for Li-Ion
+Batteries. Adv. Mater. 2012, 24, 1192 −1196.
+(9) Ding, F.; Xu, W.; Choi, D. W.; Wang, W.; Li, X. L.; Engelhard, M.
+H.; Chen, X. L.; Yang, Z. G.; Zhang, J. G. Enhanced Performance of
+Graphite Anode Materials by AlF 3 Coating for Lithium-Ion Batteries. J.
+Mater. Chem. 2012, 22, 12745 −12751.
+(10) Zheng, J. M.; Zhang, Z. R.; Wu, X. B.; Dong, Z. X.; Zhu, Z.;
+Yang, Y. The Effects of AlF 3 Coating on the Performance of
+Li[Li0.2Mn0.54Ni0.13Co0.13]O2 Positive Electrode Material for Lithium-
+Ion Battery. J. Electrochem. Soc. 2008, 155, A775 −A782.
+(11) Myung, S. T.; Lee, K. S.; Yoon, C. S.; Sun, Y. K.; Amine, K.;
+Yashiro, H. Effect of AlF 3 Coating on Thermal Behavior of Chemically
+Delithiated Li 0.35[Ni1/3Co1/3Mn1/3]O2. J. Phys. Chem. C 2010, 114,
+4710−4718.
+(12) Herron, N.; Farneth, W. E. The Design and Synthesis of
+Heterogeneous Catalyst Systems. Adv. Mater. 1996, 8, 959 −968.
+(13) Kemnitz, E.; Gross, U.; Rudiger, S.; Shekar, C. S. Amorphous
+Metal Fluorides with Extraordinary High Surface Areas. Angew. Chem.,
+Int. Ed. 2003, 42, 4251 −4254.
+(14) Kemnitz, E.; Menz, D. H. Fluorinated Metal Oxides and Metal
+Fluorides as Heterogeneous Catalysts. Prog. Solid State Chem. 1998,
+26,9 7 −153.
+(15) Taki, Y. Film Structure and Optical Constants of Magnetron-
+Sputtered Fluoride Films for Deep Ultraviolet Lithography. Vacuum
+2004, 74, 431 −435.
+(16) Iwahori, K.; Furuta, M.; Taki, Y.; Yamamura, T.; Tanaka, A.
+Optical Properties of Fluor ide Thin Films Deposited by RF
+Magnetron Sputtering. Appl. Opt. 2006, 45, 4598 −4602.
+(17) Heitmann, W. Vacuum Evaporated Films of Aluminum
+Fluoride. Thin Solid Films 1970, 5,6 1 −67.
+(18) Targove, J. D.; Bovard, B. G.; Lingg, L. J.; Macleod, H. A.
+Densification of Aluminum Fluoride Thin-Films by Ion-Assisted
+Deposition. Thin Solid Films 1988, 159, L57 −L59.
+(19) George, S. M. Atomic Layer Deposition: An Overview. Chem.
+Rev. 2010, 110, 111 −131.
+(20) Lee, Y.; Cavanagh, A. S.; George, S. M. Atomic Layer
+Deposition of AlF 3 Using Trimethylaluminum and Hydrogen
+Fluoride-Pyridine. Proceedings of the 13th International Conference on
+Atomic Layer Deposition , San Diego, California, July 28 −31, 2013.
+(21) Ma ̈ntymäki, M.; Heikkila ̈, M. J.; Puukilainen, E.; Mizohata, K.;
+Marchand, B.; Ra ̈isänen, J.; Ritala, M.; Leskela ̈, M. Atomic Layer
+Deposition of AlF 3 Thin Films Using Halide Precursors. Chem. Mater.
+2014, 27, 604 −611.
+(22) Elam, J. W.; Groner, M. D.; George, S. M. Viscous Flow Reactor
+with Quartz Crystal Microbalance for Thin Film Growth by Atomic
+Layer Deposition. Rev. Sci. Instrum. 2002, 73, 2981 −2987.
+(23) Lee, Y.; Yoon, B.; Cavanagh, A. S.; George, S. M. Molecular
+Layer Deposition of Aluminum Alkoxide Polymer Films Using
+Trimethylaluminum and Glycidol. Langmuir 2011, 27, 15155 −15164.
+(24) Hennessy, J.; Jewell, A. D.; Greer, F.; Lee, M. C.; Nikzad, S.
+Atomic Layer Deposition of Magnesium Fluoride via Bis-
+(ethylcyclopentadienyl)magnesium and Anhydrous Hydrogen Fluo-
+ride. J. Vac. Sci. Technol., A 2015, 33, 01A125.
+(25) Olah, G. A.; Nojima, M.; Kerekes, I. Synthetic Methods and
+Reactions. 2. Hydrofluorination of Alkenes, Cyclopropane and Alkynes
+with (Trialkylamine) Reagents. Synthesis (Stuttgart, Ger.) 1973, 779 −
+780.
+(26) DuMont, J. W.; George, S. M. Pyrolysis of Alucone Molecular
+Layer Deposition Films Studied Using In Situ Transmission Fourier
+Transform Infrared Spectroscopy, J. Phys. Chem. C 2015, in press,
+10.1021/jp512074n.
+(27) Ballinger, T. H.; Wong, J. C. S.; Yates, J. T. Transmission
+Infrared-Spectroscopy of High Area Solid-Surfaces: A Useful Method
+for Sample Preparation. Langmuir 1992, 8, 1676 −1678.
+(28) Ferguson, J. D.; Weimer, A. W.; George, S. M. Atomic Layer
+Deposition of Al 2O3 Films on Polyethylene Particles. Chem. Mater.
+2004, 16, 5602 −5609.
+(29) Shannon, R. D.; Shannon, R. C.; Medenbach, O.; Fischer, R. X.
+Refractive Index and Dispersion of Fluorides and Oxides. J. Phys.
+Chem. Ref. Data 2002, 31, 931 −970.
+(30) Lennard, W. N. QUARK v. 1.3, 2001, http://www.physics.uwo.
+ca/~wlennard (accessed May 21, 2015).
+(31) CRC Handbook of Chemistry and Physics , 85th ed.; Lide, D. R.,
+Ed.; CRC Press: Boca Raton, FL, 2005.
+(32) Linstrom, P. J.; Mallard, W. G. NIST Chemistry WebBook, NIST
+Standard Reference Database Number 69 , National Institute of
+Standards and Technology: Gaithersburg, MD, http://webbook.nist.
+gov (accessed May 21, 2015).
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14193
+(33) van der Meulen, P. A.; Mann, R. F. The Vapor Pressure of
+Pyridine. J. Am. Chem. Soc. 1931, 53, 451 −453.
+(34) Atkins, P. W. Physical Chemistry , 5th ed.; Oxford University
+Press: Oxford, 1994.
+(35) Ott, A. W.; Klaus, J. W.; Johnson, J. M.; George, S. M. Al 3O2
+Thin Film Growth on Si(100) using Binary Reaction Sequence
+Chemistry. Thin Solid Films 1997, 292, 135 −144.
+(36) Lee, Y.; DuMont, J. W.; George, S. M. Atomic Layer Etching of
+HfO2 Using Sequential, Self-Limiting Thermal Reactions with
+Sn(acac)2 and HF. ECS J. Solid State Sci. Technol. 2015, 4, N5013 −
+N5022.
+(37) Lee, Y.; George, S. M. Atomic Layer Etching of Al 2O3 Using
+Sequential, Self-Limiting Thermal Reactions with Sn(acac) 2 and HF.
+ACS Nano 2015, 9, 2061 −2070.
+(38) Gross, U.; Ruediger, S.; Kemnitz, E.; Brzezinka, K.-W.;
+Mukhopadhyay, S.; Bailey, C. Wander, A.; Harrison, N., Vibrational
+Analysis Study of Aluminum Trifluoride Phases. J. Phys. Chem. A 2007,
+111, 5813 −5819.
+(39) Koenig, R.; Scholz, G.; Scheurell, K.; Heidemann, D.; Buchem,
+I.; Unger, W. E. S.; Kemnitz, E. Spectroscopic Characterization of
+Crystalline AlF 3 Phases. J. Fluorine Chem. 2010, 131,9 1 −97.
+(40) Utkin, A. N.; Girichev, G. V.; Giricheva, N. I.; Khaustov, S. V.
+Structure and Vibrational Frequencies of Aluminum Trifluoride and
+Gallium Trifluoride. J. Struct. Chem. 1986, 27, 212 −215.
+(41) Kinney, J. B.; Staley, R. H. Reactions of Titanium Tetrachloride
+and Trimethylaluminum at Silica Surfaces Studied by Using Infrared
+Photo-Acoustic Spectroscopy. J. Phys. Chem. 1983, 87, 3735 −3740.
+(42) Giguere, P. A.; Zengin, N. Spectre Infrarouge de HF a L ’etat
+Cristallin. Can. J. Chem. 1958, 36, 1013 −1019.
+(43) Tse, W. S.; Anderson, A.; Torrie, B. H. Infrared Spectra of
+Crystalline HF and DF. Annu. Rep. Inst. Phys., Acad. Sin. 1981, 11,1 3−
+22.
+(44) Wang, P. F.; Ding, S. J.; Zhang, W.; Zhang, J. Y.; Wang, J. T.;
+Wei, W. L. FTIR Characterization of Fluorine Doped Silicon Dioxide
+Thin Films Deposited by Plasma Enhanced Chemical Vapor
+Deposition. Chin. Phys. Lett. 2000, 17, 912 −914.
+(45) Weidlein, J.; Krieg, V. Vibrational Spectra of Dimethyl and
+Diethyl Aluminum Fluoride. J. Organomet. Chem. 1968, 11,9 −16.
+(46) Ayotte, P.; Hebert, M.; Marchand, P. Why is Hydrofluoric Acid
+a Weak Acid? J. Chem. Phys. 2005, 123, 184501.
+(47) Bailey, C. L.; Wander, A.; Mukhopadhyay, S.; Searle, B. G.;
+Harrison, N. M. Adsorption of HF and HCl on the beta-AlF 3 (100)
+Surface. Phys. Chem. Chem. Phys. 2008, 10, 2918 −2924.
+(48) Bailey, C. L.; Mukhopadhyay, S.; Wander, A.; Searle, B. G.;
+Harrison, N. M. Structure and Stability of alpha-AlF 3 Surfaces. J. Phys.
+Chem. C 2009, 113, 4976 −4983.
+(49) Pulker, H. K. Characterization of Optical Thin Films. Appl. Opt.
+1979, 18, 1969 −1977.
+The Journal of Physical Chemistry C Article
+DOI: 10.1021/acs.jpcc.5b02625
+J. Phys. Chem. C 2015, 119, 14185 −14194
+14194

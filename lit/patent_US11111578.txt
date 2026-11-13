@@ -1,0 +1,13 @@
+# (no title)
+URL: https://r.jina.ai/https://patents.google.com/patent/US11111578B1/en
+
+Title: Sorry...
+
+URL Source: https://patents.google.com/patent/US11111578B1/en
+
+Warning: Target URL returned error 503: Service Unavailable
+
+Markdown Content:
+## We're sorry...
+
+... but your computer or network may be sending automated queries. To protect our users, we can't process your request right now.

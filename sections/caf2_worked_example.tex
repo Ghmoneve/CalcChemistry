@@ -1,0 +1,199 @@
+\section{A worked protocol for one elementary step}
+\label{sec:worked}
+
+Section~\ref{sec:intro} listed the inputs a certificate needs. This section
+supplies them for one system far enough to expose where the method is already
+informative and where it is not. Nothing below is a molecular energy
+calculation; the certified content is arithmetic on published growth data plus
+two geometric inequalities, and the negative result is proved.
+
+\subsection{System and evidence status}
+
+The target is $\mathrm{CaF_2}$ growth from a calcium amidinate and hydrogen
+fluoride on the fluorine-terminated $\mathrm{CaF_2}(111)$ cleavage plane.
+Every choice below is either taken from a cited measurement or is explicitly
+labelled as a modelling decision.
+
+\begin{itemize}
+\item \emph{Surface.} The $(111)$ plane is the natural cleavage plane and is
+F-terminated with a $(1\times1)$ unreconstructed termination
+\citep{Vogt2005,Puchin2001}. Its repeat unit along $[111]$ is a
+F--Ca--F trilayer of height $a_0/\sqrt3$ \citep{Calleja2005}.
+\item \emph{Lattice constant.} $a_0 = 5.4626$~\AA, room-temperature XRD powder
+data (Swanson \& Tatge, NBS Circular 539 (1953) 69--70; ICSD 52754).
+\item \emph{Precursor pair.} Bis($N,N'$-di-\emph{i}-propylformamidinato)calcium(II)
+with anhydrous HF, reported at 175--250~$^\circ$C with a growth per cycle of
+$0.3$--$0.4$~\AA/cycle \citep{Hennessy2023}.
+\item \emph{Competing routes in the literature.} $\mathrm{Ca(thd)_2}$ with
+$\mathrm{TiF_4}$ at 300--450~$^\circ$C \citep{Pilvi2007,Pilvi2008}; HF--pyridine
+as a fluorine co-reactant \citep{Lee2016}; fluorinated $\beta$-diketonates as
+single-source precursors \citep{LoPresti2022}; the first metal-fluoride ALD
+process \citep{Ylilammi1994}.
+\end{itemize}
+
+The literature does not fix the elementary-step mechanism. Whether HF
+protonates an adsorbed amidinate, exchanges ligands, or first builds a surface
+fluorine reservoir is an open question, and no activation energy for this
+system has been measured or computed in any source consulted here. We therefore
+certify only what survives that ignorance.
+
+\subsection{Certified arithmetic from published growth data}
+
+Two published numbers, one measured and one geometric, determine the fraction
+of a layer deposited per cycle. Let $p$ be the trilayer height and $s$ the
+growth per cycle. Writing $s = p\,c$ with $c$ the fractional coverage, an
+interval $s\in[s_1,s_2]$ with $p>0$ gives $c\in[s_1/p,\ s_2/p]$
+(Lemma~\ref{lem:coverage-lean}).
+
+\begin{lemma}[Interval coverage]
+\label{lem:coverage-lean}
+For real $p>0$ and $s=p\,c$, if $s_1\le s\le s_2$ then
+$s_1/p\le c\le s_2/p$.
+\end{lemma}
+\begin{proof}
+From $s=p\,c$ we get $c=s/p$. Since $p>0$, division by $p$ is monotone, so
+$s_1/p\le s/p\le s_2/p$.
+\end{proof}
+
+With $p=a_0/\sqrt3=3.1538$~\AA{} and $s\in[0.3,0.4]$~\AA/cycle,
+\[
+c \in \left[\frac{0.3}{3.1538},\ \frac{0.4}{3.1538}\right]
+  = [9.51\%,\ 12.68\%].
+\]
+Each cycle therefore completes about one tenth of a trilayer.
+
+On the unreconstructed F-terminated $(111)$ plane the Ca ions form a triangular
+lattice of spacing $a_0/\sqrt2$, so one Ca site occupies
+\[
+A_{\mathrm{site}} = \tfrac{\sqrt3}{2}\left(\tfrac{a_0}{\sqrt2}\right)^2
+= \tfrac{\sqrt3}{4}a_0^2 = 12.9211\ \text{\AA}^2 .
+\]
+The areal density of deposited Ca follows as
+$\sigma = c/A_{\mathrm{site}} \in [0.00736,\ 0.00982]$~\AA$^{-2}$, i.e.\ one
+deposited Ca per $101.9$--$135.8$~\AA$^2$ of surface. That is $7.9$ to $10.5$
+times the area of a bare Ca site.
+
+\begin{remark}
+This ratio is the quantitative statement that the cycle is \emph{not} limited
+by the availability of surface sites. It does not identify the limiting
+mechanism.
+\end{remark}
+
+\subsection{A geometric design rule for the ligand}
+
+The ratio above invites a purely geometric bound, which holds regardless of
+kinetics.
+
+\begin{theorem}[Footprint bound]
+\label{thm:footprint}
+Let $\sigma>0$ be the number of precursor molecules deposited per unit area and
+let $A>0$ be the area each occupies, with no overlap. Then $\sigma A\le1$, and
+if $A_0\le A$ for some ligand footprint $A_0>0$ then
+\[
+\sigma \le \frac{1}{A_0}.
+\]
+Equivalently, with growth per cycle $s = p\,\sigma A_{\mathrm{site}}$,
+\[
+s \le \frac{p\,A_{\mathrm{site}}}{A_0}.
+\]
+\end{theorem}
+\begin{proof}
+Non-overlap gives $\sigma A\le1$. Dividing by $\sigma>0$ yields
+$A\le1/\sigma$; since $A_0\le A$ and both are positive,
+$1/A\le1/A_0$, hence $\sigma\le1/A\le1/A_0$. Multiplying
+$s=p\,\sigma A_{\mathrm{site}}$ by this bound gives the second inequality.
+\end{proof}
+
+The theorem is a cap, not a prediction: it constrains what a cycle can deposit
+and says nothing about whether the cycle reaches the cap. Read backwards,
+however, it is a design rule. A ligand of footprint $A_0$ caps the growth per
+cycle at $pA_{\mathrm{site}}/A_0$, so a bulky ligand cannot produce a high
+growth rate no matter how favourable its surface chemistry. For the present
+system the observed $\sigma$ requires only $A_0\le135.8$~\AA$^2$, which is
+consistent with, but does not establish, steric self-limitation by the
+di-\emph{i}-propylformamidinate ligand. A kinetic limitation would produce the
+same observation.
+
+\subsection{Why sampling cannot certify a barrier}
+
+It is tempting to sample energies at a set of candidate configurations and read
+a barrier off their maximum. That inference is not available, and the failure
+is elementary.
+
+\begin{theorem}[No upper bound from sampling]
+\label{thm:nosampling}
+There is a configuration set $X$ with a subset $S\subseteq X$, nonempty, and an
+energy function $E:X\to\R$ such that $E=0$ on all of $S$ while
+$\max_X E = 10$. Consequently no function of the sampled values
+$\{E(x):x\in S\}$ alone bounds $\max_X E$ from above.
+\end{theorem}
+\begin{proof}
+Take $X=\{0,1,2\}$, $S=\{0,2\}$, and $E(0)=E(2)=0$, $E(1)=10$. Then
+$\max_S E = 0$ and $\max_X E = 10$, and the sampled data are identical for this
+$E$ and for the function that is identically zero, which has maximum $0$. Any
+claimed upper bound derived from the samples would therefore have to be at
+least $10$ and at most $0$.
+\end{proof}
+
+The positive direction survives: a sampled lower bound is valid at every
+configuration where it is evaluated, so its maximum over the samples is a valid
+lower bound on any barrier whose path passes through those configurations
+(Lemma~\ref{lem:sample-lower}).
+
+\begin{lemma}[Lower bound from samples]
+\label{lem:sample-lower}
+Let $L(x)\le E(x)$ for $x\in S$ and let $E_r\le U_r$. Then for every $x\in S$,
+$L(x)-U_r \le E(x)-E_r$.
+\end{lemma}
+\begin{proof}
+Immediate from $L(x)\le E(x)$ and $-U_r\le-E_r$.
+\end{proof}
+
+The asymmetry is the reason a certificate must treat the two directions
+separately. When the interval produced for a barrier is one-sided, it must be
+reported as one-sided.
+
+\subsection{Formal verification}
+
+Lemmas~\ref{lem:coverage-lean} and \ref{lem:sample-lower} and
+Theorems~\ref{thm:footprint} and \ref{thm:nosampling} are formalized in Lean~4
+against \texttt{mathlib} as \texttt{gpc\_coverage\_interval},
+\texttt{barrier\_lower\_from\_samples},
+\texttt{max\_density\_from\_ligand\_size} with
+\texttt{gpc\_upper\_from\_ligand\_footprint}, and
+\texttt{sampling\_gives\_no\_upper\_bound} respectively, together with the
+supporting interval lemmas \texttt{adsorption\_energy\_interval},
+\texttt{two\_corrections\_widen}, \texttt{coverage\_gpc\_interval},
+\texttt{packing\_bound}, \texttt{barrier\_upper\_at\_max},
+\texttt{certified\_barrier\_interval}, \texttt{stays\_positive} and
+\texttt{certified\_negative}. Each is checked with \texttt{\#print axioms} and
+depends only on \texttt{propext}, \texttt{Classical.choice} and
+\texttt{Quot.sound}; no \texttt{sorry}, \texttt{admit} or project-defined axiom
+appears in the development. Kernel acceptance certifies the inequalities above
+given their hypotheses. It certifies nothing about the hypotheses themselves,
+which remain physical or geometric inputs.
+
+\subsection{What remains open for this system}
+
+\begin{enumerate}
+\item The elementary-step mechanism and any activation energy for
+HF reacting with an adsorbed calcium amidinate on $\mathrm{CaF_2}(111)$. No
+value is available in the sources consulted, and Theorem~\ref{thm:nosampling}
+shows that a barrier can be certified from below only.
+\item The ligand footprint $A_0$ of di-\emph{i}-propylformamidinate, which
+Theorem~\ref{thm:footprint} needs in order to become a quantitative cap.
+\item Whether the observed $9.51$--$12.68\%$ coverage reflects steric
+self-limitation or kinetics. Distinguishing them requires a coverage-dependent
+measurement, not a bound.
+\item The substrate relationship, which is deliberately absent here. If growth
+continues on existing $\mathrm{CaF_2}$ the relevant surface is $\mathrm{CaF_2}$;
+the role of an underlying Si(100) is epitaxial orientation, not surface
+chemistry.
+\end{enumerate}
+
+The honest summary of this section is therefore narrow. Two published numbers
+plus a lattice constant fix the fractional coverage of a cycle and show that
+site availability is not the limiter. A kernel-checked inequality turns that
+observation into a ligand-design cap, and a kernel-checked counterexample shows
+that the barrier for the same system cannot be bounded above by any amount of
+configuration sampling. No barrier value for this system is claimed.

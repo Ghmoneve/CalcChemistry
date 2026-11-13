@@ -1,0 +1,1036 @@
+Atomic Layer Deposition of Metal Fluorides Using HF −Pyridine as
+the Fluorine Precursor
+Younghee Lee, † Huaxing Sun, † Matthias J. Young, ‡ and Steven M. George *,†,§
+†Department of Chemistry and Biochemistry, ‡Department of Chemical and Biological Engineering, and §Department of Mechanical
+Engineering, University of Colorado, Boulder, Colorado 80309, United States
+*S Supporting Information
+ABSTRACT: The atomic layer deposition (ALD) of a variety of
+metal ﬂuorides including ZrF 4, MnF 2, HfF 4, MgF 2, and ZnF 2 was
+demonstrated using HF from a HF −pyridine solution. In situ
+quartz crystal microbalance (QCM) studies were utilized to
+examine the growth of these metal ﬂuorides. ZrF 4 ALD using
+tetrakis(ethylmethylamido) zirconium and HF as the reactants was
+studied as a model system. The QCM measurements determined a
+mass gain per cycle (MGPC) of 35.5 ng/(cm 2 cycle) for ZrF4 ALD
+at 150 °C. This MGPC was equivalent to a growth rate of 0.9 Å/
+cycle at 150 °C. MnF 2, HfF 4, MgF 2, ZnF 2, and additional ZrF 4
+were also grown using bis(ethylcyclopentadienyl) manganese,
+tetrakis(dimethylamido) hafnium, bis(ethylcyclopentadienyl) mag-
+nesium, diethylzinc, and zirconium tetra- tert-butoxide as the metal
+precursors, respectively. The growth rates for MnF 2, HfF 4, MgF 2,
+ZnF2, and ZrF 4 ALD were 0.4, 0.8, 0.4, 0.7, and 0.6 Å/cycle, respectively, at 150 °C. All of these metal ﬂuoride ALD systems
+displayed self-limiting reactions. Ex situ measurements of the growth rates using X-ray re ﬂectivity and spectroscopic ellipsometry
+analysis agreed with the in situ QCM measurements. Analysis of the QCM mass changes after the individual metal precursor and
+HF exposures quanti ﬁed HF adsorption after the HF reaction. The ZrF 4 and HfF4 ﬁlms acted as strong Lewis acids and adsorbed
+an average of two HF per deposited MF y species after the HF reaction. In contrast, the MnF 2, MgF2, and ZnF 2 ﬁlms all behaved
+as weak Lewis acids and did not adsorb HF after the HF reaction. The refractive indices of the metal ﬂuoride ﬁlms were in
+agreement with previous optical measurements. Most of the metal ﬂuoride ﬁlms were crystalline as measured by X-ray di ﬀraction
+studies. The majority of the metal ﬂuoride ﬁlms also had high purity as established by X-ray photoelectron spectroscopy studies.
+This pathway for metal ﬂuoride ALD using HF −pyridine as the ﬂuorine precursor will be useful for many applications of metal
+ﬂuoride ﬁlms such as optical coatings in the ultraviolet wavelength region.
+I. INTRODUCTION
+Metal ﬂuorides are important optical coating materials because
+they have a low refractive index and high transmission at
+ultraviolet (UV) and infrared (IR) wavelengths. 1−3 Some metal
+ﬂuorides also have strong Lewis acidity and are used as
+heterogeneous catalysts for the manufacture of chloro ﬂuor-
+ocarbons (CFCs).4−6 Various metal ﬂuorides, such as AlF 3, are
+also useful protective coatings on Li ion battery electrodes. 7,8 In
+addition, metal ﬂuorides are known to be important surface
+reaction intermediates during thermal atomic layer etching
+(ALE).9−11
+Metal ﬂuoride ﬁlms can be deposited using physical vapor
+deposition (PVD) methods. These PVD methods include
+sputtering, 12,13 thermal evaporation, 14−16 electron beam
+deposition,1,17 and ion-assisted deposition. 18,19 Atomic layer
+deposition (ALD) methods can also be employed to grow
+metal ﬂuorides. ALD is a technique that deposits extremely
+conformal and continuous thin ﬁlms with atomic level control
+using sequential, self-limiting surface reactions. 20 In general,
+metal ﬂuoride ALD has been di ﬃcult because the HF precursor
+is dangerous and corrosive. Consequently, the ALD of most
+metal ﬂuorides has been performed using other ﬂuorine
+precursors than HF.
+The ﬁrst demonstration of metal ﬂuoride ALD reported
+CaF2, SrF 2, and ZnF 2 ALD using NH 4F solid as the ﬂuorine
+source.21 NH4F was delivered by sublimation at 80 °C into the
+reactor. The NH 4F decomposed to NH 3 and HF at reaction
+temperatures between 260 and 400 °C.21 The ALD of
+MgF2,22,23 LaF3,24 YF3,25 and LiF 26 has been demonstrated
+using either TiF 4 or TaF 5 as the ﬂuorine source. The ligand
+exchange between metal 2,2,6,6-tetramethyl-3,5-heptanedionate
+(M(tmhd)x) and TiF 4 or TaF 5 yields the metal ﬂuoride (MF y)
+layer and volatile Ti(tmhd) 4 or Ta(tmhd) 5 as a byproduct.
+MgF2 ALD has also been performed using anhydrous HF
+derived from a gas cylinder. 27 Hexaﬂuoroacetylacetonate as the
+Received: November 9, 2015
+Revised: February 26, 2016
+Published: March 1, 2016
+Article
+pubs.acs.org/cm
+© 2016 American Chemical Society 2022 DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+ﬂuorine source together with ozone has also been used to grow
+MgF2, CaF 2, and LaF 3 ALD ﬁlms.28
+We initially described AlF 3 ALD with trimethylaluminum
+(TMA) and HF from a HF −pyridine solution. 29,30 The HF −
+pyridine solution consists of 70% HF and 30% pyridine and is
+commonly referred to as Olah ’s reagent. 31 HF−pyridine is a
+liquid at room temperature and is in equilibrium with gaseous
+HF. Recent measurements have reported a HF vapor pressure
+of 90 −100 Torr over HF −pyridine solutions. 10 Mass
+spectrometer experiments have also not detected measurable
+pyridine in the vapor above HF −pyridine solutions.30 HF from
+HF−pyridine solutions avoids the problems of using HF from
+compressed gas cylinders and provides a safer alternative to
+anhydrous HF.
+In this paper, the ALD of various metal ﬂuorides was
+demonstrated using a variety of metal precursors and HF
+derived from HF −pyridine as the ﬂuorine precursor. The metal
+precursors, tetrakis(ethylmethylamido) zirconium, bis-
+(ethylcyclopentadienyl) manganese, tetrakis(dimethylamido)
+hafnium, bis(ethylcyclopentadienyl) magnesium, diethylzinc,
+and zirconium tetra- tert-butoxide, were employed for the ALD
+of ZrF 4, MnF 2, HfF 4, MgF 2, ZnF 2, and ZrF 4, respectively. The
+metal ﬂuoride ALD was studied using in situ quartz crystal
+microbalance (QCM) investigations at 150 °C.
+The thickness and density of metal ﬂuoride ALD ﬁlms were
+derived using ex situ X-ray re ﬂectivity (XRR) analysis. In
+addition, the ﬁlm thickness and refractive index of the metal
+ﬂuorides were obtained using spectroscopic ellipsometry (SE).
+The composition and structure of the metal ﬂuoride ALD ﬁlms
+were also determined with X-ray photoelectron spectroscopy
+(XPS) and grazing incidence X-ray di ﬀraction (GIXRD)
+analysis. These results should be useful for the growth and
+application of metal ﬂuoride ALD ﬁlms.
+II. EXPERIMENTAL SECTION
+II.I. Viscous Flow Reactor with in Situ QCM. The ALD reactions
+were conducted in a viscous ﬂow reactor containing the in situ quartz
+crystal microbalance (QCM) at 150 °C.32,33 A mechanical pump
+(Pascal 2015SD, Alcatel) provided vacuum conditions in the ALD
+reactor. The reactants were transported through the reactor using a N 2
+carrier gas. Mass ﬂow controllers (Type 1179A, MKS) delivered a
+constant N 2 carrier gas ﬂow at 150 sccm. This N 2 gas ﬂow and the
+pumping established a base pressure of ∼1 Torr in the reactor. The
+reactor was maintained at a ﬁxed temperature within ±0.04 °C using a
+PID temperature controller (2604, Eurotherm). Pressure changes were
+monitored during the reaction s using a bakeable capacitance
+manometer (Baratron 121A, MKS).
+The metal ﬂuoride ALD reactions were conducted using various
+metal precursors. These metal precursors were tetrakis-
+(ethylmethylamido) zirconium (TEMAZ, 99.99%, Sigma-Aldrich,),
+bis(ethylcyclopentadienyl) manganese (Mn(EtCp) 2, 98%, Strem),
+tetrakis(dimethylamido) hafnium (TDMAH, 99.99%, Sigma-Aldrich),
+bis(ethylcyclopentadienyl) magnesium (Mg(EtCp) 2, 98%, Strem),
+diethylzinc (DEZ, Zn 52.0%, Sigma-Aldrich), and zirconium tetra-
+tert-butoxide (ZTB, 99%, Strem). The molecular structures of the
+various metal precursors are illustrated in Figure 1 . The bubbler
+temperatures for TEMAZ, Mn(EtCp) 2, TDMAH, Mg(EtCp) 2, and
+ZTB were held at 112, 100, 67, 92, and 65 °C, respectively. The DEZ
+precursor was maintained at room temperature.
+Each metal ﬂuoride ALD experiment was performed on a fresh
+metal oxide ALD ﬁlm that was grown at 150 °C. The initial metal
+oxide ALD ﬁlms were prepared using the same metal precursors as
+employed for the metal ﬂuoride ALD. H 2O (Chromasolv for HPLC,
+Sigma-Aldrich) was used as the reactant for the metal oxide ALD.
+HF−pyridine solution (70 wt % HF, Sigma-Aldrich) was contained in
+a gold-plated stainless steel bubbler and was transferred to this bubbler
+in a dry N 2-ﬁlled glovebag. The HF −pyridine and H 2O precursors
+were at room temperature.
+The in situ QCM measurements were performed using a ﬁlm
+deposition monitor (Maxtek TM-400, In ﬁcon). The QCM sensors
+were 6 MHz, AT-cut (Colorado Crystal Corp.) quartz crystals that
+were polished and employed gold electrodes. The QCM sensor was
+contained in a bakeable single sensor head (BSH-150, In ﬁcon). The
+QCM sensor was sealed with high-temperature epoxy (Epo-Tek
+H21D, Epoxy technology). To prevent deposition on the back-side of
+the QCM sensor, an additional 20 sccm of N 2 was ﬂowed through the
+QCM housing. 32
+II.II. Ex Situ Film Characterization Using XRR, GIXRD, SE, and
+XPS. The substrates for the ex situ measurements were boron-doped
+Si(100) wafers (p-type, Silicon Valley Microelectronics). The Si wafer
+was cleaved to produce 2.5 cm by 2.5 cm samples. The sample
+cleaning procedure involved rinsing with acetone, isopropanol, and
+deionized water and then drying with N 2 gas.
+Ex situ XRR measurements determined the ﬁlm thicknesses and the
+density. A high-resolution X-ray di ﬀractometer (Bede D1, Jordan
+Valley Semiconductors) using Cu K α (λ = 1.540 Å) X-ray radiation
+was used for the XRR measurements. The step size and acquisition
+time for the XRR scans were 10 arcsec and 5 s, respectively. The Bede
+REFS software package (Bede REFS, Jordan Valley Semiconductors)
+was used to model the XRR scans to determine the ﬁlm thickness,
+surface roughness, and ﬁlm density. The same X-ray di ﬀractometer was
+employed to study the ﬁlm structure using GIXRD.
+SE was used to obtain the ﬁlm thicknesses and refractive indices.
+These measurements employed a spectroscopic ellipsometer (M-2000,
+J. A. Woollam) with a spectral range from 240 −1700 nm and an
+i n c i d e n c ea n g l eo f7 5°. The CompleteEASE software package
+(CompleteEASE, J. A. Woollam) and a Sellmier model were used to
+analyze the Ψ and Δ values.34 The Sellmeier model is commonly used
+for optically transparent ﬁlms such as metal ﬂuoride ﬁlms.34
+XPS was used to determine the ﬁlm composition. 30 The XPS
+instrument (PHI 5600) utilized a monochromatic Al K α X-ray source
+(1486.6 eV). Depth pro ﬁles were obtained using Ar ion sputtering.
+The AugerScan software package (AugerScan, RBD Instruments) was
+employed to collect the data. The CasaXPS software package
+(CasaXPS, Casa Software) was used to analyze the data.
+III. RESULTS AND DISCUSSION
+III.I. ZrF 4 ALD Using Tetrakis(e thylmethylamido)
+zirconium (TEMAZ) and HF. Figure 2 , panel a shows the
+mass gain determined by QCM measurements during 200
+cycles of ZrF 4 ALD at 150 °C using TEMAZ and HF. There
+was an initial layer of ZrO 2 on the QCM sensor grown with 200
+cycles of ZrO ALD using TEMAZ and H 2O as the reactants. 35
+The ZrF4 ALD cycle was de ﬁned by a 1 s dose of TEMAZ, 40 s
+of N 2 purge, a 1 s dose of HF, and 40 s of N 2 purge. This
+reaction sequence is designated as (1 −40−1−40). Pressure
+transients of 20 mTorr and 100 mTorr were produced by the
+TEMAZ and HF doses, respectively. The ZrF 4 ALD growth in
+Figure 1. Molecular structures of various metal precursors. The CH 2
+groups are not displayed explicitly.
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2023
+Figure 2 , panel a is linear with a mass gain per cycle (MGPC)
+of 35.5 ng/(cm 2 cycle). In addition, ZrF 4 ALD experiments
+conducted on initial Al 2O3 ALD ﬁlms showed nearly identical
+results.
+Figure 2 , panel b displays the mass gain during three
+sequential ZrF4 ALD cycles in the steady state region at 150 °C.
+These three cycles were the 98th, 99th, and 100th ZrF 4 ALD
+cycles in Figure 2 , panel a. The mass changes coinciding with
+the reactant exposures are very distinct. The mass increase after
+the TEMAZ exposure is ΔMTEMAZ = 39.2 ng/(cm 2 cycle). The
+mass change after the HF exposure is ΔMHF = −3.7 ng/(cm 2
+cycle). The MGPC is 35.5 ng/(cm 2 cycle).
+Figure 3 shows the MGPC and the ΔMTEMAZ/MGPC ratio
+during 200 cycles of ZrF 4 ALD. The MGPC is 35.5 ng/(cm 2
+cycle) and consists of constant mass gains of ΔMTEMAZ = 39.2
+ng/(cm2 cycle) and ΔMHF = −3.7 ng/(cm 2 cycle). Except for
+the ﬁrst three ZrF 4 ALD cycles, the ΔMTEMAZ/MGPC ratio is
+constant at 1.1. The reaction stoichiometry will be determined
+later using this ratio. ZrF 4 ALD nucleates almost immediately
+on the initial ZrO 2 ALD surface. The MGPC and the
+ΔMTEMAZ/MGPC ratio showed little dependence on the
+purge time. The MGPC decreased slightly to ∼33 ng/(cm 2
+cycle) after extended purge times of 120 s.
+In situ QCM experiments also examined the self-limiting
+behavior of the TEMAZ and HF reactions. The mass gains
+during the TEMAZ and HF exposures at 150 °C are shown in
+Figure 4 , panels a and b, respectively. The previous reactant
+exposure had reached saturation for each of these exposures. An
+Figure 2. (a) Mass gain versus time during 200 ZrF 4 ALD cycles with
+TEMAZ and HF as the reactants on ZrO 2 at 150 °C using a reaction
+sequence of (1 −40−1−40). (b) Enlargement of mass gain versus time
+for three sequential TEMAZ and HF exposures during ZrF 4 ALD in
+the steady-state, linear growth regime.
+Figure 3. (a) MGPC, ΔMTEMAZ, and ΔMHF and (b) ΔMTEMAZ/
+MGPC ratio during 200 ZrF 4 ALD cycles with TEMAZ and HF as the
+reactants on ZrO 2 at 150 °C.
+Figure 4. (a) ΔMTEMAZ versus number of TEMAZ minidoses with the
+HF exposure ﬁxed at 1.0 s. (b) ΔMHF versus number of HF minidoses
+with the TEMAZ exposure ﬁxed at 1.0 s.
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2024
+exposure time of 0.5 s and a purge time of 40 s de ﬁned each
+minidose. The TEMAZ and HF reactions both displayed self-
+limiting behavior. ΔMTEMAZ reached a plateau at ΔMTEMAZ =
+∼40 ng/(cm 2 cycle) after one minidose. Similarly, ΔMHF
+leveled oﬀ at ΔMHF = ∼− 5 ng/(cm2 cycle) after one minidose.
+The ﬁlm growth rate during ZrF 4 ALD was also determined
+from ex situ XRR and SE measurements. A ZrF 4 ALD ﬁlm was
+grown on a Si wafer using 400 cycles of TEMAZ and HF
+reaction at 150 °C. XRR and SE measured the thickness of the
+ZrF4 ALD ﬁlm as 342 and 337 Å, respectively. These
+thicknesses are consistent with growth rates of 0.86 Å/cycle
+and 0.84 Å/cycle, respectively.
+The MGPC of 35.5 ng/(cm 2 cycle) can be converted to a
+growth rate in Å/cycle using the ﬁlm density. XRR measured a
+ZrF4 ﬁlm density of 4.1 g/cm 3. This XRR density of 4.1 g/cm 3
+is ∼93% of the bulk density of 4.43 g/cm 3 for crystalline ZrF4.36
+This density can be used to convert the ZrF 4 ALD MGPC of
+35.5 ng/(cm2 cycle) to a growth rate of 0.87 Å/ cycle. There is
+good agreement between the in situ and ex situ measurements
+of the ZrF 4 ALD growth rate.
+SE determined a refractive index of n = 1.55 at 589 nm for
+the ZrF4 ALD ﬁlms. The measured refractive index of n = 1.55
+is consistent with previous measurements of n = 1.56 at 633 nm
+for amorphous ZrF 4,37 n = 1.59 for crystalline ZrF 4,37 and n =
+1.62 for an e-beam grown ZrF 4 ﬁlm at 600 nm. 1 The surface
+roughness of the ZrF 4 ALD ﬁlms was measured as 4 Å by XRR.
+In addition, the ZrF 4 ALD ﬁlms were stable in air. There was no
+change in the thickness, ﬁlm density, and ﬁlm roughness of the
+ZrF4 ﬁlms after exposure to atmosphere for one month.
+III.II. Reaction Mechanism and Stoichiometry for ZrF 4
+ALD. The surface chemistry for ZrF 4 ALD during the
+sequential TEMAZ and HF exposures can be de ﬁned by the
+following two reactions:
+|* +
+→| + − *
+x
+x
+(A) ZrF HF Zr(NEtMe)
+ZrF ZrF (NEtMe) HNEtM exx
+44
+44 (1)
+|+
+→| | * + −
+−
+*
+xx
+(B) ZrF ZrF (NEtMe) 4HF
+ZrF ZrF HF (4 )HNEtMe
+xx44
+44 (2)
+The asterisks identify the surface species. The vertical lines
+separate the various surface species. HF converts
+ZrFx(NEtMe)4−x to ZrF 4. HF can also adsorb on the ZrF 4
+surface. The number of HF molecules adsorbed on the ZrF 4
+surface relative to the number of ZrF 4 species deposited during
+one ZrF 4 ALD cycle is quanti ﬁed by the parameter x.
+Assuming this surface chemistry, the ΔMTEMAZ/MGPC ratio
+can be established by
+Δ = Δ Δ+ Δ
+= −
+MM
+MM
+Mx M
+M
+MGPC
+TEMAZ TEMAZ
+TEMAZ HF
+TEMAZ HNEtMe
+ZrF4 (3)
+In eq 3, MTEMAZ, MHF, MNEtMe, and MZrF4 are the molar masses
+of TEMAZ, HF, HNEtMe, and ZrF 4, respectively. The
+equation for x is
+=− Δ
+=− Δ
+⎡
+⎣⎢
+⎛
+⎝⎜ ⎞ ⎠⎟ ⎤ ⎦⎥
+⎡
+⎣⎢
+⎛
+⎝⎜ ⎞ ⎠⎟ ⎤ ⎦⎥
+x M MM M
+M
+1
+MGPC
+1
+59.1 323.6 167.2 MGPC
+HNEtMe
+TEMAZ ZrF4
+TEMAZ
+TEMAZ
+(4)
+The QCM measurements at 150 °C shown in Figure 3, panel b
+yield a ΔMTEMAZ/MGPC ratio of 1.1. This ratio of 1.1 produces
+x = 2.4 from eq 4. This x value of 2.4 indicates that there are 2.4
+HF molecules adsorbed on the ZrF 4 surface after the HF
+exposure relative to each ZrF 4 species deposited during one
+ZrF4 ALD cycle.
+The proposed reaction mechanism for ZrF 4 ALD in the
+steady state regime using TEMAZ and HF as the reactants is
+shown in Figure 5. In reaction A, Zr(NEtMe) 4 molecules react
+with HF molecules adsorbed on the ZrF 4 surface to yield
+ZrF2(NEtMe)2 and HNEtMe as reaction products. Figure 5
+shows two HF molecules per deposited ZrF 4 species during
+ZrF4 ALD. The ZrF 2(NEtMe)2 species remain adsorbed on the
+surface and HNEtMe is a volatile reaction product. In reaction
+B, HF converts the adsorbed ZrF 2(NEtMe)2 species to ZrF 4.
+HNEtMe is again a volatile reaction product, and additional HF
+molecules adsorb to the ZrF 4 surface. The adsorption of HF on
+ZrF4 is consistent with the strong Lewis acid nature of ZrF 4.38
+III.III. MnF 2 ALD Using Bis(ethylcyclopentadienyl)-
+manganese (Mn(EtCp) 2) and HF. The QCM measurements
+of mass gain during 200 cycles of MnF 2 ALD at 150 °C using
+bis(ethylcyclopentadienyl) manganese (Mn(EtCp) 2) and HF
+are displayed in Figure 6 , panel a. There was an initial layer of
+MnO on the QCM sensor grown with 200 cycles of MnO ALD
+using Mn(EtCp) 2 and H 2O as the reactants. 39 The reaction
+sequence was again (1 −40−1−40). A nucleation period was
+observed over the ﬁrst ∼40 ALD cycles.
+Figure 6 , panel b displays the mass gain during three
+sequential MnF 2 ALD cycles in the steady state regime at 150
+°C. These three cycles were the 98th, 99th, and 100th MnF 2
+ALD cycles in Figure 6 , panel a. Like the results shown in
+Figure 2 , panel b for ZrF 4 ALD, the mass changes are very
+distinct. The mass increase after the Mn(EtCp) 2 exposure is
+ΔMMn(EtCp)2 = 40.8 ng/(cm 2 cycle). The mass loss after the HF
+exposure is ΔMHF = −25.2 ng/(cm2 cycle). The MGPC is 15.6
+Figure 5. Proposed reaction mechanism for ZrF 4 ALD using TEMAZ
+and HF as the reactants.
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2025
+ng/(cm2 cycle). The ΔMMn(EtCp)2/MGPC ratio averaged from
+100 to 200 cycles of MnF 2 ALD is 2.6.
+The MnF 2 ALD growth rate was also derived from ex situ
+XRR and SE measurements. A MnF 2 ﬁlm was grown on a Si
+wafer using 400 cycles of Mn(EtCp) 2 and HF reaction at 150
+°C. XRR and SE analysis then measured MnF 2 ﬁlm thicknesses
+of 172 and 179 Å, respectively. These thicknesses were
+consistent with growth rates of 0.43 Å/cycle and 0.45 Å/
+cycle. The XRR measurements obtained a MnF 2 density of 3.8
+g/cm3. This density is ∼95% of the bulk density of 3.98 g/cm 3
+for crystalline MnF 2.36 This density can be used to convert the
+MnF2 ALD MGPC of 15.6 ng/(cm 2 cycle) to a growth rate of
+0.41 Å/cycle. This growth rate is in good agreement with the in
+situ QCM measurements.
+The surface roughness of the MnF 2 ALD ﬁlms was measured
+as 26 Å by XRR. This high surface roughness suggests that the
+MnF2 ALD ﬁlm is crystalline. SE determined a refractive index
+of n = 1.50 at 589 nm. This measured refractive index is
+consistent with the previously measured refractive index of n =
+1.47−1.50 for MnF 2 at 589 nm. 34 The MnF 2 ALD ﬁlms were
+also stable in air. Like the ZrF 4 ALD ﬁlms, the thickness, ﬁlm
+density, and ﬁlm roughness of MnF 2 ﬁlms were constant during
+storage for one month in atmosphere.
+III.IV. Reaction Mechanism and Stoichiometry for
+MnF2 ALD. The surface chemistry for MnF 2 ALD during the
+sequential Mn(EtCp) 2 and HF exposures can be expressed by
+these two reactions:
+|* +
+→| + − *
+x
+x
+(A) MnF HF Mn(EtCp)
+MnF MnF (EtCp) HCpEtxx
+22
+22 (5)
+|+
+→| | * + −
+−
+*
+xx
+(B) MnF MnF (EtCp) 2HF
+MnF MnF HF (2 )HCpEt
+xx22
+22 (6)
+The asterisks again indicate the surface species and the vertical
+lines separate the di ﬀerent surface species. HF converts
+MnFx(EtCp)2−x to MnF 2. HF can also adsorb on the MnF 2
+surface. The number of HF molecules adsorbed on the MnF 2
+surface relative to the number of MnF 2 species deposited
+during one MnF 2 ALD cycle is measured by the parameter x.
+Given this surface chemistry for MnF 2 ALD, the
+ΔMMn(EtCp)2/MGPC ratio can be derived from
+Δ
+=
+Δ
+Δ+ Δ
+=
+−
+MM
+MM
+Mx M
+M
+MGPC
+Mn(EtCp)2 Mn(EtCp)2
+Mn(EtCp)2 HF
+Mn(EtCp)2 HCpEt
+MnF2 (7)
+In eq 7 , MMn(EtCp)2, MHF, MHCpEt, and MMnF2 are the molar
+masses of Mn(EtCp) 2, HF, HCpEt, and MnF 2, respectively.
+The equation for x is
+=−
+Δ
+=−
+Δ
+⎡
+⎣
+⎢
+⎢
+⎛
+⎝
+⎜
+⎞
+⎠
+⎟
+⎤
+⎦
+⎥
+⎥
+⎡
+⎣
+⎢
+⎢
+⎛
+⎝
+⎜
+⎞
+⎠
+⎟
+⎤
+⎦
+⎥
+⎥
+x M MM
+M
+M
+1
+MGPC
+1
+94.2 241.2 92.9 MGPC
+HCpEt
+Mn(EtCp)2 MnF2
+Mn(EtCp)2
+Mn(EtCp)2
+(8)
+The QCM measurements at 150 °C yield a ΔMMn(EtCp)2/
+MGPC ratio of 2.6. This ratio of 2.6 produces x = 0 from eq 8
+and indicates that there are no HF molecules adsorbed on the
+surface relative to each MnF 2 species deposited during one
+MnF2 ALD cycle. The lack of HF adsorption is in agreement
+with MnF 2 behaving as a weak Lewis acid with negligible
+interaction between HF and the MnF 2 ﬁlm.
+Figure 7 displays the proposed reaction mechanism for MnF 2
+ALD in the steady state regime using Mn(EtCp) 2 and HF as
+the reactants. In reaction A, Mn(EtCp) 2 molecules are
+adsorbed on the MnF 2 surface. In reaction B, HF converts
+the adsorbed Mn(EtCp) 2 species to MnF 2 and HCpEt is a
+volatile reaction product. There are no HF molecules remaining
+on the MnF 2 surface after the HF exposure.
+III.V. Growth of Additional Metal Fluoride ALD Films.
+HfF4, MgF 2, ZnF 2, and additional ZrF 4 ALD ﬁlms were also
+demonstrated using the appropriate metal precursor and HF as
+the reactants. In each case, the initial layer on the QCM sensor
+was grown using the metal precursor and H 2O as the reactants.
+The reaction sequence for all of the metal ﬂuoride ALD
+systems, except ZnF 2 ALD, was (1 −40−1−40). All the metal
+ﬂuorides, except ZnF 2, showed similar nucleation on their
+corresponding metal oxides and on Al 2O3 ALD ﬁlms. The
+metal ﬂuoride ﬁlms were also stable in air. The thickness, ﬁlm
+density, and ﬁlm roughness of ﬁlms were constant during
+Figure 6. (a) Mass gain versus time during 200 MnF 2 ALD cycles with
+Mn(EtCp)2 and HF as the reactants on MnO at 150 °C using the
+reaction sequence of (1 −40−1−40). (b) Enlargement of mass gain
+versus time for three sequential Mn(EtCp) 2 and HF exposures during
+MnF2 ALD in the steady-state, linear growth regime.
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2026
+storage in atmosphere for one month. Only the ZnF 2 ALD ﬁlm
+was stored in a desiccator until the ex situ measurements
+because of its instability in air. Measurements for ZnF 2 ALD are
+presented in the Supporting Information .
+Figure 8 shows the QCM measurements of mass gain during
+200 cycles of HfF 4, ZrF4, and MgF 2 ALD at 150 °C. The initial
+layer on the QCM sensor was the corresponding metal oxide
+ALD ﬁlm grown with 200 cycles of ALD using the metal
+precursor and H 2O as the reactants. 35,40,41 Figure 8 reveals that
+the ALD of these three metal ﬂuorides is linear versus the
+sequential metal precursor and HF exposures except for a brief
+nucleation period over the ﬁrst ∼10−12 ALD cycles for ZrF 4
+and MgF 2 ALD.
+Figure 9 shows the mass gain during three sequential ALD
+cycles for HfF4, ZrF4, and MgF2 ALD in the steady state regions
+at 150 °C. These three cycles were in the linear regimes of the
+ALD growth displayed in Figure 8 . The mass gains are very
+distinct for each metal ﬂuoride. The mass changes after the
+metal precursor and HF exposures are summarized in Table 1 .
+The MGPCs are also given in Table 1. The mass change during
+the metal precursor exposure divided by the MGPC de ﬁnes the
+ΔMTDMAH/MGPC, ΔMZTB/MGPC, and ΔMMg(EtCp)2/MGPC
+ratios. These ratios are also included in Table 1 .
+The ratios determine the x values that quantify the number
+of HF molecules adsorbed on the surface relative to the number
+of metal ﬂuoride species deposited during one ALD cycle. By
+using similar equations as given by eqs 4 and 8 for ZrF 4 ALD
+and MnF2 ALD, respectively, x values of 2.2, 2.0, and 0.1 can be
+determined for HfF 4, ZrF4, and MgF 2 ALD, respectively. The x
+values of 2.2 and 2.0 indicate that there are 2.2 and 2.0 HF
+Figure 7. Proposed reaction mechanism for MnF 2 ALD using
+Mn(EtCp)2 and HF as the reactants.
+Figure 8. Mass gain versus time during 200 cycles of: (a) HfF 4 ALD;
+(b) ZrF 4 ALD; and (c) MgF 2 ALD at 150 °C using the reaction
+sequence of (1 −40−1−40).
+Figure 9. Enlargement of mass gain versus time for three sequential
+metal precursor and HF exposures in the steady-state, linear growth
+regime at 150 °C during: (a) HfF 4 ALD; (b) ZrF 4 ALD; and (c) MgF 2
+ALD.
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2027
+molecules adsorbed on the HfF 4 and ZrF4 surfaces, respectively,
+relative to each metal ﬂuoride species deposited during one
+ALD cycle. This behavior is consistent with HfF 4 and ZrF 4
+acting as strong Lewis acids. In contrast, the x value of 0.1
+indicates that there is only 0.1 HF molecule adsorbed on the
+MgF2 surface relative to each MgF 2 deposited during one MgF 2
+ALD cycle. This behavior is in agreement with MgF 2 acting as a
+weak Lewis acid.
+Metal ﬂuoride ALD ﬁlms were also grown on Si wafers using
+400 cycles of metal precursor and HF at 150 °C. XRR and SE
+measurements of the ﬁlm thicknesses are consistent with
+growth rates of 0.8, 0.6, and 0.4 Å/cycle for HfF 4, ZrF 4, and
+MgF2 ALD, respectively. These growth rates are in good
+agreement with the growth rates determined by the MGPCs
+and ﬁlm densities. The ﬁlm densities determined from XRR
+analysis are summarized in Table 1 . These densities are ∼96%,
+∼106%, and ∼98% of the bulk densities of HfF 4, ZrF 4, and
+MgF2.36
+SE analysis also determined refractive indices of n = 1.55, n =
+1.62, and n = 1.40 at 589 nm for the HfF 4, ZrF 4, and MgF 2
+ALD ﬁlms. The HfF 4 refractive index of n = 1.55 at 589 nm is
+in good agreement with previous measurements of n = 1.57 at
+600 nm for e-beam evaporated HfF 4 ﬁlm,2 n = 1.59 at 600 nm
+for sputtered HfF 4 ﬁlms,42 and n = 1.62 at 600 nm for e-beam
+grown HfF4 ﬁlms.1 The ZrF4 refractive index of n = 1.62 at 589
+nm is fairly consistent with n = 1.56 measured for amorphous
+ZrF4 at 633 nm,37 n = 1.59 for crystalline ZrF 4 at 600 nm,37 and
+n = 1.62 at 600 nm for ZrF 4 ﬁlms grown by e-beam
+evaporation.1 The MgF 2 refractive index of n = 1.40 at 589
+nm is consistent with refractive indices for MgF 2 of n = 1.37 −
+1.38 at 589 nm 34 and n = 1.38 at 600 nm for MgF 2 ﬁlms grown
+by sputtering. 42
+Surface roughnesses were also derived from the XRR
+analysis. The surface roughness of the HfF 4 ALD ﬁlms was
+measured as 5 Å. The surface roughness of the ZrF 4 ﬁlms was
+measured as 4 Å. The surface roughness of the MgF 2 ﬁlms was
+measured as 12 Å. This larger surface roughness may result
+from a higher degree of crystallinity in the MgF 2 ALD ﬁlm.
+III.VI. Lewis Acid Strength of Metal Fluorides Based
+on HF Adsorption. Table 1 summarizes the growth rates,
+ratios, and x values for the various metal ﬂuorides. The results
+for AlF 3 and LiF from other studies are also included in Table
+1.30,43 The x values give the number of HF molecules adsorbed
+on the surface relative to each MF y species deposited during
+one MF y ALD cycle. The x values divide the metal ﬂuorides
+into two main groups. High x values of x = 2.0 −2.4 are
+obtained for HfF 4 and ZrF4. These surfaces act as strong Lewis
+acids and adsorb HF. Lower x values of x ≈ 0 are obtained for
+MnF2, MgF2, and ZnF 2. These surfaces act as weak Lewis acids
+and do not adsorb HF.
+This classi ﬁcation of metal ﬂuorides into two categories
+based on their x values is consistent with the Lewis acid
+properties of the various metal ﬂuorides. ZrF 4 and HfF 4 are
+both polymeric solids with eight-coordinate metal centers that
+are known to form the monoclinic crystal structure. 38,44 ZrF4
+and HfF 4 are known to display strong Lewis acid properties.
+Investigations of ZrF 4 and HfF4 complexes with neutral O- and
+N-donor ligands have revealed that the large metal Zr and Hf
+centers can produce up to eight-coordination without
+diﬃculty.38 A variety of ligands, such as dimethyl sulfoxide
+and 2,2′-bipyridyl, were also explored and shown to yield stable
+complexes with ZrF 4 and HfF 4. These complexes were
+consistent with the Zr and Hf centers acting as Lewis acids
+by accepting electron pairs from the ligands. 38
+HF is a ﬂuorinating agent where the ﬂuorine in HF acts as an
+anion. The Lewis acidity of ZrF 4 and HfF 4 can be viewed in
+terms of their ability to adsorb HF by interacting with the F −
+anion. Evidence for F − interaction with ZrF 4 is obtained from
+studies of molten salt chemistry. In molten salts, ZrF 4 forms the
+ZrF6 2− anion by accepting two F − anions by the reaction ZrF 4 +
+2F− → ZrF6 2−.45 In addition, ZrF 4 is expected to be a Lewis
+acid because ZrO 2 is known to be an acidic oxide and acts as an
+oxide ion acceptor. 46 HfF4 has also been categorized as a Lewis
+acid based on its facility to catalyze the isomerization of
+methylpentane to 2,2-dimethyl pentane and n-hexane and the
+simultaneous deprotonation of carbonium ion intermedi-
+ates.47,48
+In contrast, MnF 2, MgF2, and ZnF 2 have lower values of x ≈
+0 and do not adsorb HF. MnF 2, MgF 2, and ZnF 2 are all
+diﬂuorides that form the rutile crystal structure. These
+diﬂuorides are known to display weak Lewis acid properties.
+Infrared studies of CO adsorption on MgF 2 reveal the presence
+of medium or weak Lewis acid sites from magnesium atoms on
+the MgF 2 surface.49 Pyrrole adsorption experiments also are
+consistent with the existence of weak basic sites from the
+ﬂuorine atoms on the MgF 2 surface. 49 Similar infrared
+investigations of CO adsorption on ZnF 2 reveal that the
+Lewis acidity is even weaker at the Zn 2+ sites on ZnF 2 surfaces
+compared with the Lewis acid sites on MgF 2 surfaces.50
+The metals in MnF 2, MgF 2, and ZnF 2 have low electro-
+negativities and are more likely to donate the F − anion than
+accept the F− anion. Viewed in terms of the metal oxides, MnO,
+MgO, and ZnO are all basic oxides and act as oxide ion
+donors.46 The corresponding MnF 2, MgF 2, and ZnF 2 metal
+ﬂuorides would be expected to act as F − ion donors rather than
+F− ion acceptors. The low Lewis acidity of MnF 2, MgF 2, and
+ZnF2 leads to their negligible interaction with HF.
+Table 1. Mass Changes, Growth Rates, Ratios, Number of HF per Metal Fluoride, and Lewis Acidity for the Various Metal
+Fluorides
+metal
+ﬂuoride
+metal precursor
+(MP)
+MGPC
+(ng/(cm2 cycle)) ΔMMP (ng/(cm2 cycle)) ΔMHF (ng/(cm2 cycle)) growth rate at 150 °C (Å/cycle) ratio number of HF per MFy Lewis acidity
+ZrF4 TEMAZ 35.5 39.2 −3.7 0.9 1.1 2.4 strong
+HfF4 TDMAH 57.2 58.4 −1.2 0.8 1.0 2.2 strong
+ZrF4 ZTB 29.8 42.0 −12.2 0.6 1.4 2.0 strong
+AlF3 TMA 31.4 22.3 9.1 1.0 0.7 0.8 strong
+MnF2 Mn(EtCp)2 15.6 40.8 −25.2 0.4 2.6 0 weak
+MgF2 Mg(EtCp)2 12.3 39.5 −27.2 0.4 3.2 0.1 weak
+ZnF2 DEZ 33.5 41.4 −7.9 0.7 1.2 0 weak
+LiF LiHMDS 12.2 67.6 −55.4 0.5 5.6 0.1 Lewis
+base
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2028
+The abilities of AlF 3 and LiF to adsorb HF are also consistent
+with their Lewis acid strengths. An x value of x = 0.8 was
+measured earlier during AlF 3 ALD studies. 30 This x value is
+consistent with the Lewis acid nature of AlF 3. AlF 3 can adsorb
+HF because AlF 3 can act as an F − ion acceptor. Gaseous AlF 3 is
+a very strong Lewis acid. 51 Solid AlF3 also has strong Lewis acid
+sites when AlF 3 is in the β-AlF3 phase.6,52,53 An x value of x =
+0.1 was also measured during LiF ALD studies. This x value is
+consistent with the Lewis base nature of LiF. 54 LiF does not
+adsorb HF because LiF would rather act as a F − ion donor.
+III.VII. Ex Situ Film Characterization Using SE, XRD,
+and XPS. Figure 10 shows the refractive indices of the metal
+ﬂuoride ALD ﬁlms in the spectral range between 240 and 1700
+nm. Figure 10 includes the refractive indices of AlF 3 and LiF.
+The refractive indices measured at 589 nm are summarized in
+Table 2. Most of these refractive indices are consistent with the
+bulk refractive indices reported in the literature as mentioned
+earlier. The refractive indices of n = 1.55 for the ZrF 4 ALD ﬁlm
+and n = 1.55 for the HfF 4 ALD ﬁlm were obtained using the
+TEMAZ and TDMAH precursors, respectively. ZrF 4 ALD ﬁlms
+grown using the ZTB precursor have a higher refractive index n
+= 1.62 attributed to the ∼10% oxygen impurity as discussed
+below.
+GIXRD analysis indicated that most of the metal ﬂuoride
+ALD ﬁlms have crystalline structures. The metal ﬂuorides
+yielding an amorphous ﬁlm structure were ZnF 2 and AlF3. The
+amorphous structure of ZrF 4 using ZTB as the precursor
+probably resulted from the oxygen impurity in the ZrF 4 ﬁlm.
+ZrF4 using TEMAZ as the precursor yielded a crystalline
+structure consistent with the monoclinic phase as given by the
+Joint Committee on Powder Di ﬀraction Standards (JCPDS)
+ﬁle no. 33 −1480. A broad peak at 23 ° with a full width at half-
+maximum (FWHM) of 7 ° corresponds to the overlap of the
+ZrF4 (1̅21) and ZrF 4 (2̅11) peaks. Another broad peak at 50 °
+was consistent with the ZrF 4 (024) peak.
+HfF4 using TEMAH as the precursor also displayed a
+crystalline structure consistent with the monoclinic phase
+(JCPDS # 79−1040). A very similar broad feature at 23 ° was
+observed that corresponded to the overlap of the HfF 4 (021)
+and HfF 4 (111) peaks. A broad HfF 4 (5̅31) peak was also
+observed at 50 °. These broad peaks suggested that ZrF 4 and
+HfF4 have nanocrystalline structure, which leads to wide
+diﬀraction peaks as predicted by the Scherrer equation.
+MnF2 ﬁlm has a crystalline structure consistent with the
+tetragonal phase (JCPDS # 88−2143). The MnF 2 (110), MnF 2
+(101), MnF 2 (211), and MnF 2 (220) peaks were located at
+25.8°, 32.8 °, 50.6 °, and 53.2 °, respectively. MgF 2 has a crystal
+structure consistent with the tetragonal phase (JCPDS # 72−
+2231). The MgF 2 (110), MgF 2 (111), MgF 2 (211), and MgF 2
+(301) peaks were located at 27.5 °, 40.7 °, 53.5 °, and 68.4 °,
+respectively. The LiF ﬁlm has a crystalline structure consistent
+with the cubic phase (JCPDS # 04−0857). The LiF (111), LiF
+(200), and LiF (220) peaks were located at 38.4 °, 44.8 °, and
+65.3°, respectively. The crystalline structures of the metal
+ﬂuoride ﬁlms are summarized in Table 2 .
+XPS sputter depth-pro ﬁling revealed the impurity levels in
+the metal ﬂuoride ﬁlms. The XPS results indicate that most of
+the metal ﬂuoride ALD ﬁlms have very low levels of impurities.
+Sputter depth-pro ﬁles for the ZrF 4 and HfF 4 ALD ﬁlms are
+shown in Figure 11, panels a and b, respectively. The ZrF 4 ALD
+ﬁlm was deposited using TEMAZ as the metal precursor. After
+sputtering into the depth of the metal ﬂuoride ﬁlms, HfF 4 and
+Figure 10. Refractive indices for metal ﬂuoride ALD ﬁlms grown at
+wavelengths between 240 and 1700 nm. These refractive indices were
+obtained from SE using the Sellmeier model.
+Table 2. Densities, Refractive Indices, Crystalline Structures, and Impurities for the Various Metal Fluorides. The JCPDS File
+Numbers Are Given for the Crystal Structures
+metal ﬂuoride density (g/cm 3) refractive index crystal structure impurities by XPS
+ZrF4 (TEMAZ) 4.1 1.55 monoclinic 1.1 at.% O, 3.4 at.% C
+(33−1480)
+HfF4 6.8 1.55 monoclinic no O, C, or N
+(79−1040)
+ZrF4 (ZTB) 4.7 1.62 amorphous 10 at% O, no C
+AlF3 2.9 1.36 amorphous 2.1 at% O, no C
+MnF2 3.8 1.50 tetragonal 0.8 at% O, no C
+(88−2143)
+MgF2 3.1 1.40 tetragonal 1.0 at% O, no C
+(72−2231)
+ZnF2 4.9 1.49 amorphous no O or C
+LiF 2.6 1.37 cubic no O, C, N, or Si
+(04−0857)
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2029
+ZnF2 had no detectable O or C impurities above the XPS
+detection limit of ∼0.2 at.%. The MnF 2 and MgF 2 ﬁlms had
+very low O impurities of ≤1.0 at.% and no measurable C
+impurities. The ZrF 4 ﬁlm grown using TEMAZ had a larger C
+impurity of 3.4 at.% and a low O impurity of 1.1 at.%. The
+impurities in the metal ﬂuoride ALD ﬁlms are summarized in
+Table 2 .
+The ratios between the zirconium and ﬂuorine XPS signals in
+Figure 11, panel a and the hafnium and ﬂuorine XPS signals in
+Figure 11 , panel b indicate ﬂuorine de ﬁciencies. Fluorine
+deﬁcient metal ﬂuorides have been observed previously in XPS
+studies of AlF 3 and LiF ALD ﬁlms.29,30,43 However, Rutherford
+backscattering spectra (RBS) have con ﬁrmed that the AlF 3
+ALD ﬁlms were stoichiometric even though the XPS results
+were showing ﬂuorine de ﬁciencies. 29,30 The preferential
+sputtering of ﬂuorine may explain the low ﬂuorine XPS
+signals.18,19,30,55
+The higher levels of oxygen at the surface of the ZrF 4 ﬁlm in
+Figure 11, panel a may indicate the interaction of the ZrF 4 ﬁlm
+with moisture. 56 The ZrF 4 ALD ﬁlm grown using ZTB as the
+metal precursor had a high O impurity level of ∼10 at.%. This
+high oxygen impurity level is attributed to some incorporation
+of the alkoxide ligand from ZTB into the ZrF 4 ALD ﬁlm. In
+contrast, the ZrF 4 ALD ﬁlms grown using TEMAZ as the metal
+precursor had a lower O impurity of only 1.1 at.%.
+IV. CONCLUSIONS
+Various metal ﬂuorides were grown using ALD techniques with
+HF−pyridine as the HF source. The metal ﬂuorides were ZrF 4,
+MnF2, HfF 4, MgF 2, and ZnF 2. The growth of these metal
+ﬂuorides was monitored using in situ QCM measurements.
+ZrF4 ALD using tetrakis(ethylmethylamido) zirconium and HF
+displayed a MGPC of 35.5 ng/(cm 2 cycle) at 150 °C. This
+MGPC was equivalent to growth rate of 0.9 Å/cycle. MnF 2,
+HfF4, MgF 2, ZnF 2, and additional ZrF 4 were also grown and
+displayed growth rates of 0.4, 0.8, 0.4, 0.7, and 0.6 Å/cycle,
+respectively, at 150 °C. Nearly all of the ex situ measurements
+of the growth rates using XRR and SE analysis were in
+agreement with the in situ QCM measurements. All of these
+metal ﬂuoride ALD systems displayed self-limiting reactions.
+The mass changes measured by the QCM after the individual
+metal precursor and HF exposures were able to quantify HF
+adsorption on the metal ﬂuoride surface after the HF reaction.
+The ZrF 4 and HfF 4 ﬁlms adsorbed an average of two HF per
+deposited MF y species after the HF reaction. This behavior is
+consistent with ZrF 4 and HfF 4 acting as strong Lewis acids. In
+comparison, the MnF 2, MgF 2, and ZnF 2 ﬁlms did not adsorb
+HF after the HF reaction. This behavior is consistent with
+MnF2, MgF 2, and ZnF 2 behaving as weak Lewis acids.
+The metal ﬂuoride ALD ﬁlms displayed refractive indices
+that were consistent with previous measurements. XRD studies
+revealed that the majority of the metal ﬂuorides were
+crystalline. XPS investigations showed that most of the metal
+ﬂuorides had high purity. Metal ﬂuoride ALD using HF −
+pyridine as the HF source will be useful for many applications
+of metal ﬂuorides as optical ﬁlms, protective coatings for Li ion
+battery electrodes and catalysts.
+■ ASSOCIATED CONTENT
+*S Supporting Information
+The Supporting Information is available free of charge on the
+ACS Publications website at DOI: 10.1021/acs.chemma-
+ter.5b04360.
+QCM measurements of ZnF 2 ALD using diethylzinc and
+HF; QCM, XRR, and SE measurements of growth rate
+for ZnF 2 ALD; surface roughness and refractive index of
+ZnF2 ALD ﬁlms ( PDF)
+■ AUTHOR INFORMATION
+Corresponding Author
+*E-mail: steven.george@colorado.edu.
+Notes
+The authors declare no competing ﬁnancial interest.
+■ ACKNOWLEDGMENTS
+The National Science Foundation (CHE-1306131) funded this
+research. The Department of Energy through the DOE-BATT
+program provided additional personnel support for Y.L.
+■ REFERENCES
+(1) Pellicori, S. F.; Colton, E. Fluoride Compounds for IR Coatings.
+Thin Solid Films 1992, 209, 109 −115.
+(2) Traylor Kruschwitz, J. D.; Pawlewicz, W. T. Optical and
+Durability Properties of Infrared Transmitting Thin Films. Appl. Opt.
+1997, 36, 2157 −2159.
+Figure 11. XPS sputter depth-pro ﬁles for (a) ZrF 4 ALD ﬁlms grown
+using 400 ALD cycles with TEMAZ as the metal precursor and (b)
+HfF4 ALD ﬁlms grown using 400 ALD cycles with TDMAH as the
+metal precursor.
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2030
+(3) Niisaka, S.; Saito, T.; Saito, J.; Tanaka, A.; Matsumoto, A.; Otani,
+M.; Biro, R.; Ouchi, C.; Hasegawa, M.; Suzuki, Y.; Sone, K.
+Development of Optical Coatings for 157-nm Lithography. I. Coating
+Materials. Appl. Opt. 2002, 41, 3242 −3247.
+(4) Herron, N.; Farneth, W. E. The Design and Synthesis of
+Heterogeneous Catalyst Systems. Adv. Mater. 1996, 8, 959 −968.
+(5) Kemnitz, E.; Gross, U.; Rudiger, S.; Shekar, C. S. Amorphous
+Metal Fluorides with Extraordinary High Surface Areas. Angew. Chem.,
+Int. Ed. 2003, 42, 4251 −4254.
+(6) Kemnitz, E.; Menz, D. H. Fluorinated Metal Oxides and Metal
+Fluorides as Heterogeneous Catalysts. Prog. Solid State Chem. 1998,
+26,9 7 −153.
+(7) Ding, F.; Xu, W.; Choi, D. W.; Wang, W.; Li, X. L.; Engelhard, M.
+H.; Chen, X. L.; Yang, Z. G.; Zhang, J. G. Enhanced Performance of
+Graphite Anode Materials by AlF 3 Coating for Lithium-Ion Batteries. J.
+Mater. Chem. 2012, 22, 12745 −12751.
+(8) Sun, Y. K.; Lee, M. J.; Yoon, C. S.; Hassoun, J.; Amine, K.;
+Scrosati, B. The Role of AlF 3 Coatings in Improving Electrochemical
+Cycling of Li-Enriched Nickel-Manganese Oxide Electrodes for Li-Ion
+Batteries. Adv. Mater. 2012, 24, 1192 −1196.
+(9) Lee, Y.; DuMont, J. W.; George, S. M. Mechanism of Thermal
+Al2O3 Atomic Layer Etching Using Sequential Reactions with
+Sn(acac)2 and HF. Chem. Mater. 2015, 27, 3648 −3657.
+(10) Lee, Y.; DuMont, J. W.; George, S. M. Atomic Layer Etching of
+HfO2 Using Sequential, Self-Limiting Thermal Reactions with
+Sn(acac)2 and HF. ECS J. Solid State Sci. Technol. 2015, 4, N5013 −
+N5022.
+(11) Lee, Y.; George, S. M. Atomic Layer Etching of Al 2O3 Using
+Sequential, Self-Limiting Thermal Reactions with Sn(acac) 2 and
+Hydrogen Fluoride. ACS Nano 2015, 9, 2061 −2070.
+(12) Taki, Y. Film Structure and Optical Constants of Magnetron-
+Sputtered Fluoride Films for Deep Ultraviolet Lithography. Vacuum
+2004, 74, 431 −435.
+(13) Iwahori, K.; Furuta, M.; Taki, Y.; Yamamura, T.; Tanaka, A.
+Optical Properties of Fluoride Thin Films Deposited by RF
+Magnetron Sputtering. Appl. Opt. 2006, 45, 4598 −4602.
+(14) Heitmann, W. Vacuum Evaporated Films of Aluminum
+Fluoride. Thin Solid Films 1970, 5,6 1 −67.
+(15) Lee, C. C.; Liu, M. C.; Kaneko, M.; Nakahira, K.; Takano, Y.
+Characterization of AlF 3 Thin Films at 193 nm by Thermal
+Evaporation. Appl. Opt. 2005, 44, 7333 −7338.
+(16) Barriere, A. S.; Lachter, A. Optical Transitions in Disordered
+Thin Films of Ionic Compounds MgF 2 and AlF 3 as a Function of
+Their Conditions of Preparation. Appl. Opt. 1977, 16, 2865 −2871.
+(17) Bridou, F.; Cuniot-Ponsard, M.; Desvignes, J. M.; Richter, M.;
+Kroth, U.; Gottwald, A. Experimental Determination of Optical
+Constants of MgF 2 and AlF 3 Thin Films in the Vacuum Ultra-Violet
+Wavelength Region (60 −124 nm), and its Application to Optical
+Designs. Opt. Commun. 2010, 283, 1351 −1358.
+(18) Schink, H.; Kolbe, J.; Zimmermann, F.; Ristau, D.; Welling, H.
+″Reactive Ion-Beam-Sputtering of Fluoride Coatings for the UV/VUV
+Range″. Proc. SPIE 1990, 327 −338.
+(19) Targove, J. D.; Bovard, B. G.; Lingg, L. J.; Angus Macleod, H.
+Densification of Aluminum Fluoride Thin-Films by Ion-Assisted
+Deposition. Thin Solid Films 1988, 159, L57 −L59.
+(20) George, S. M. Atomic Layer Deposition: An Overview. Chem.
+Rev. 2010, 110, 111 −131.
+(21) Ylilammi, M.; Rantaaho, T. Metal Fluoride Thin Films Prepared
+by Atomic Layer Deposition. J. Electrochem. Soc. 1994, 141, 1278 −
+1284.
+(22) Pilvi, T.; Hatanpaa, T.; Puukilainen, E.; Arstila, K.; Bischoff, M.;
+Kaiser, U.; Kaiser, N.; Leskela, M.; Ritala, M. Study of a Novel ALD
+Process for Depositing MgF 2 Thin Films. J. Mater. Chem. 2007, 17,
+5077−5083.
+(23) Pilvi, T.; Puukilainen, E.; Kreissig, U.; Leskela, M.; Ritala, M.
+Atomic Layer Deposition of MgF 2 Thin Films Using TaF 5 as a Novel
+Fluorine Source. Chem. Mater. 2008, 20, 5023 −5028.
+(24) Pilvi, T.; Puukilainen, E.; Arstila, K.; Leskela, M.; Ritala, M.
+Atomic Layer Deposition of LaF 3 Thin Films Using La(thd) 3 and TiF4
+as Precursors. Chem. Vap. Deposition 2008, 14,8 5 −91.
+(25) Pilvi, T.; Puukilainen, E.; Munnik, F.; Leskela, M.; Ritala, M.
+ALD of YF3 Thin Films from TiF 4 and Y(thd)3 Precursors. Chem. Vap.
+Deposition 2009, 15,2 7 −32.
+(26) Mantymaki, M.; Hamalainen, J.; Puukilainen, E.; Munnik, F.;
+Ritala, M.; Leskela, M. Atomic Layer Deposition of LiF Thin Films
+from Li(thd) and TiF 4 Precursors. Chem. Vap. Deposition 2013, 19,
+111−116.
+(27) Hennessy, J.; Jewell, A. D.; Greer, F.; Lee, M. C.; Nikzad, S.
+Atomic Layer Deposition of Magnesium Fluoride via Bis-
+(ethylcyclopentadienyl)magnesium and Anhydrous Hydrogen Fluo-
+ride. J. Vac. Sci. Technol., A 2015, 33, 01A125.
+(28) Putkonen, M.; Szeghalmi, A.; Pippel, E.; Knez, M. Atomic Layer
+Deposition of Metal Fluorides through Oxide Chemistry. J. Mater.
+Chem. 2011, 21, 14461 −14465.
+(29) Lee, Y.; Cavanagh, A. S.; George, S. M. Atomic Layer Deposition
+of AlF 3 Using Trimethylaluminum and Hydrogen Fluoride-Pyridine , 13th
+International Conference on Atomic Layer Deposition (ALD2013),
+San Diego, California, July 28 −31, 2013.
+(30) Lee, Y.; DuMont, J. W.; Cavanagh, A. S.; George, S. M. Atomic
+Layer Deposition of AlF 3 Using Trimethylaluminum and Hydrogen
+Fluoride. J. Phys. Chem. C 2015, 119, 14185 −14194.
+(31) Olah, G. A.; Nojima, M.; Kerekes, I. Synthetic Methods and
+Reactions 0.2. Hydrofluorination of Alkenes, Cyclopropane and
+Alkynes with (Trialkylamine) Reagents. Synthesis 1973, 1973, 779 −
+780.
+(32) Elam, J. W.; Groner, M. D.; George, S. M. Viscous Flow Reactor
+with Quartz Crystal Microbalance for Thin Film Growth by Atomic
+Layer Deposition. Rev. Sci. Instrum. 2002, 73, 2981 −2987.
+(33) Lee, Y.; Yoon, B.; Cavanagh, A. S.; George, S. M. Molecular
+Layer Deposition of Aluminum Alkoxide Polymer Films Using
+Trimethylaluminum and Glycidol. Langmuir 2011, 27, 15155 −15164.
+(34) Shannon, R. D.; Shannon, R. C.; Medenbach, O.; Fischer, R. X.
+Refractive Index and Dispersion of Fluorides and Oxides. J. Phys.
+Chem. Ref. Data 2002, 31, 931 −970.
+(35) Hausmann, D. M.; Kim, E.; Becker, J.; Gordon, R. G. Atomic
+Layer Deposition of Hafnium and Zirconium Oxides Using Metal
+Amide Precursors. Chem. Mater. 2002, 14, 4350 −4358.
+(36) CRC Handbook of Chemistry and Physics , 85th ed.; Lide, D. R.,
+Ed., CRC Press: Boca Raton, FL, 2005.
+(37) Almeida, R. M.; Morais, P. J. Preparation and Characterization
+of Amorphous ZrF 4 Thin Films. J. Non-Cryst. Solids 1995, 184,9 3−97.
+(38) Benjamin, S. L.; Levason, W.; Pugh, D.; Reid, G.; Zhang, W. J.
+Preparation and Structures of Coordination Complexes of the Very
+Hard Lewis Acids ZrF 4 and HfF 4. Dalton Trans. 2012, 41, 12548 −
+12557.
+(39) Burton, B. B.; Fabreguette, F. H.; George, S. M. Atomic Layer
+Deposition of MnO Using Bis(ethylcyclopentadienyl) Manganese and
+H2O. Thin Solid Films 2009, 517, 5658 −5665.
+(40) Burton, B. B.; Goldstein, D. N.; George, S. M. Atomic Layer
+Deposition of MgO Using Bis(ethylcyclopentadienyl)magnesium and
+H2O. J. Phys. Chem. C 2009, 113, 1939 −1946.
+(41) Kukli, K.; Ritala, M.; Leskela, M. Low Temperature Deposition
+of Zirconium Oxide-Based Nanocrystalline Films by Alternate Supply
+of Zr[OC(CH 3)3]4 and H 2O. Chem. Vap. Deposition 2000, 6, 297 −
+302.
+(42) Martin, P. M.; Olsen, L. C.; Johnston, J. W.; Depoy, D. M.
+Investigation of Sputtered HfF 4 Films and Application to Interference
+Filters for Thermophotovoltaics. Thin Solid Films 2002, 420-421,8 −
+12.
+(43) Lee, Y.; Piper, D. M.; Cavanagh, A. S.; Young, M. J.; Lee, S.-H.;
+George, S. M. Atomic Layer Deposition of Lithium Ion Conducting (AlF 3)
+(LiF)x Alloys Using Trimethylaluminum, Lithium Hexamethyldisilazide
+and Hydrogen Fluoride-Pyridine , 14th International Conference on
+Atomic Layer Deposition (ALD2014), Kyoto, Japan, June 15 −18,
+2014.
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2031
+(44) Papiernik, R.; Mercurio, D.; Frit, B. The Structure of Zirconium
+Tetrafluoride, Alpha-ZrF 4. Acta Crystallogr., Sect. B: Struct. Crystallogr.
+Cryst. Chem. 1982, 38, 2347 −2353.
+(45) Srikharan, K.; Allen, T. R. Chapter 12 on “Corrosion in Molten
+Salts” in Molten Salts Chemistry: From Lab to Applications ; Lantelme, F.,
+Groult, H., Eds.; Elsevier, Inc.: Burlington, MA, 2013.
+(46) Smith, D. W. An Acidity Scale for Binary Oxides. J. Chem. Educ.
+1987, 64, 480 −482.
+(47) Kramer, G. M. Ranking Strong Acids via a Selectivity Parameter.
+1. J. Org. Chem. 1975, 40, 298 −302.
+(48) Kramer, G. M. Ranking Strong Acids via a Selectivity Parameter.
+2. J. Org. Chem. 1975, 40, 302 −307.
+(49) Wuttke, S.; Vimont, A.; Lavalley, J.-C.; Daturi, M.; Kemnitz, E.
+Infrared Investigation of the Acid and Basic Properties of a Sol-Gel
+Prepared MgF 2. J. Phys. Chem. C 2010, 114, 5113 −5120.
+(50) Guo, Y.; Wuttke, S.; Vimont, A.; Daturi, M.; Lavalley, J. C.;
+Teinz, K.; Kemnitz, E. Novel Sol-Gel Prepared Zinc Fluoride:
+Synthesis, Characterisation and Acid-Base Sites Analysis. J. Mater.
+Chem. 2012, 22, 14587 −14593.
+(51) Christe, K. O.; Dixon, D. A.; McLemore, D.; Wilson, W. W.;
+Sheehy, J. A.; Boatz, J. A. On a Quantitative Scale for Lewis Acidity
+and Recent Progress in Polynitrogen Chemistry. J. Fluorine Chem.
+2000, 101, 151 −153.
+(52) Krahl, T.; Vimont, A.; Eltanany, G.; Daturi, M.; Kemnitz, E.
+Determination of the Acidity of High Surface AlF 3 by IR Spectroscopy
+of Adsorbed CO Probe Molecules. J. Phys. Chem. C 2007, 111,
+18317−18325.
+(53) Wander, A.; Bailey, C. L.; Searle, B. G.; Mukhopadhyay, S.;
+Harrison, N. M. Identification of Possible Lewis Acid Sites on the
+Beta-AlF3(100) Surface: An ab initio Total Energy Study. Phys. Chem.
+Chem. Phys. 2005, 7, 3989 −3993.
+(54) Haupin, W. Chemical and Physical Properties of the Hall-
+Heroult Electrolyte. In Molten Salt Chemistry: An Introduction and
+Selected Applications, NATO Science Series C ; Mamantov, G., Marassi,
+R., Eds.; D. Reidel Publishing Company: Dordrecht, Holland, 1987;
+Vol. 202.
+(55) Allen, T. H.; Lehan, J. P.; McIntyre, L. C., Jr. Ion Beam
+Sputtered Metal Fluorides. Proc. SPIE 1990, 277 −290.
+( 5 6 )W a t e r s ,T .N .S o m eI n v e s t i g a t i o n si nt h eZ i r c o n i u m
+Tetrafluoride-Water System. J. Inorg. Nucl. Chem. 1960, 15, 320 −328.
+Chemistry of Materials Article
+DOI: 10.1021/acs.chemmater.5b04360
+Chem. Mater. 2016, 28, 2022 −2032
+2032
