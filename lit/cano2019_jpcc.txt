@@ -1,0 +1,1307 @@
+Effect of HF Pressure on Thermal Al2O3 Atomic Layer Etch Rates and
+Al2O3 Fluorination
+
+Published as part of The Journal of Physical Chemistry virtual special issue “Hanna Reisler Festschrift”.
+
+Austin M. Cano, Amy E. Marquardt, Jaime W. DuMont, and Steven M. George*
+
+Department of Chemistry, University of Colorado, Boulder, Colorado 80309-0215, United States
+
+ABSTRACT: Thermal Al2O3 atomic layer etching (ALE) can be
+accomplished using sequential fluorination and ligand-exchange
+reactions. HF can be employed as the fluorination reactant, and
+Al(CH3)3 can be utilized as the metal precursor for ligand exchange.
+This study explored the effect of HF pressure on the Al2O3 etch rates
+and Al2O3 fluorination. Different HF pressures ranging from 0.07 to 9.0
+Torr were employed for Al2O3 fluorination. Using ex situ spectroscopic
+ellipsometry (SE) measurements, the Al2O3 etch rates increased with
+HF pressures and then leveled out at the highest HF pressures. Al2O3
+etch rates of 0.6, 1.6, 2.0, 2.4, and 2.5 Å/cycle were obtained at 300 °C
+for HF pressures of 0.17, 0.5, 1.0, 5.0, and 8.0 Torr, respectively. The
+thicknesses of the corresponding fluoride layers were also measured
+using X-ray photoelectron spectroscopy (XPS). Assuming an Al2OF4
+layer on the Al2O3 surface, the fluoride thicknesses increased with HF
+pressures and reached saturation values at the highest HF pressures. Fluoride thicknesses of 2.0, 3.5, 5.2, and 5.5 Å were
+obtained for HF pressures of 0.15, 1.0, 4.0, and 8.0 Torr, respectively. There was an excellent correlation between the Al2O3
+etch rates and fluoride layer thicknesses versus HF pressure. In addition, in situ Fourier transform infrared spectroscopy (FTIR)
+vibrational studies were used to characterize the time dependence and magnitude of the Al2O3 fluorination. These FTIR studies
+observed the fluorination of Al2O3 to AlF3 or AlOxFy by monitoring the infrared absorbance from the Al−O and Al−F
+stretching vibrations. The time dependence of the Al2O3 fluorination was explained in terms of rapid fluorination of the Al2O3
+surface for initial HF exposures and slower fluorination into the Al2O3 near surface region that levels off at longer HF exposure
+times. Fluorination into the Al2O3 near surface region was described by parabolic law behavior. The self-limiting fluorination of
+Al2O3 suggests that the fluoride layer on the Al2O3 surface acts as a diffusion barrier to slow the fluorination of the underlying
+Al2O3 bulk. For equal fluorination times, higher HF pressures achieve larger fluoride thicknesses.
+
+I. INTRODUCTION
+
+Atomic layer etching (ALE) is based on sequential, self-
+limiting surface reactions that can remove material from
+surfaces with atomic layer control.1 Some ALE methods are
+based on plasma techniques that utilize sequential surface
+modification and removal reactions.1 The surface modification
+can involve surface chlorination or oxidation. The removal is
+accomplished with ions or energetic neutral atoms to obtain
+etching. These plasma ALE processes can achieve anisotropic
+etching. Examples of plasma ALE include Si,2−4 Ge,5 GaAs,6
+
+SiO2,7,8 HfO2,9 Si3N4,10 graphite,11 and polymer12 ALE.
+Other ALE methods are based on thermal chemistry.13
+
+These thermal ALE processes are also performed using surface
+modification and removal reactions. The surface modification
+can be accomplished by surface fluorination or oxidation. For
+thermal ALE, the removal reaction is a thermal reaction such as
+ligand-exchange13,14 or fluorination to a volatile fluoride.15
+
+These thermal ALE processes can achieve isotropic etching.
+Examples of thermal ALE include Al2O3,13,16−19 HfO2,20,21
+
+SiO2,22 ZnO,23 TiO2,24 WO3,25 W,25,26 TiN,15 and AlN27 ALE.
+
+Many thermal ALE processes are based on sequential
+fluorination and ligand-exchange reactions.13,14 In this etching
+process for a metal oxide, the surface of the metal oxide is first
+fluorinated to form a thin metal fluoride layer on the metal
+oxide.13,18 Subsequently, the thin metal fluoride layer is
+removed with a ligand-exchange reaction.13,18 During this
+ligand-exchange reaction, a metal precursor accepts fluorine
+from the metal fluoride and concurrently transfers one of its
+ligands to the metal fluoride. The ligand-exchange reaction can
+produce reaction products from the metal fluoride that desorb
+into the gas phase. The sequential application of fluorination
+and ligand-exchange reactions progressively removes the metal
+oxide. This thermal ALE is viewed as the reverse of atomic
+layer deposition (ALD).28,29
+
+Thermal Al2O3 ALE using HF and Al(CH3)3 as the reactants
+is an example of thermal ALE using fluorination and ligand
+exchange.16,19 HF is known to fluorinate Al2O3 to form an AlF3
+
+Received:
+January 5, 2019
+Revised:
+March 21, 2019
+Published: March 28, 2019
+
+Article
+
+pubs.acs.org/JPCC
+Cite This: J. Phys. Chem. C 2019, 123, 10346−10355
+
+© 2019 American Chemical Society
+10346
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+
+Downloaded via UNIV OF COLORADO BOULDER on May 3, 2019 at 20:20:28 (UTC). 
+
+See https://pubs.acs.org/sharingguidelines for options on how to legitimately share published articles. 
+
+
+or AlFxOy layer on the Al2O3 surface.16,19 The Al(CH3)3 then
+undergoes a ligand-exchange reaction with the fluorinated
+layer. Al(CH3)3 accepts fluorine from the fluorinated layer and
+donates methyl ligands to the surface. This ligand-exchange
+reaction allows the Al in the fluorinated Al2O3 layer to desorb
+as a volatile product. Recent quadrupole mass spectrometer
+studies have identified the etch product as AlF(CH3)2.30 This
+etch product either appears as a dimer with itself (AlF(CH3)2·
+AlF(CH3)2) or with Al(CH3)3 (AlF(CH3)2·Al(CH3)3).30
+
+This study explored the effect of the HF pressure on the
+Al2O3 etch rate during thermal Al2O3 ALE and the Al2O3
+fluorination. The Al2O3 etch rates were determined using
+spectroscopic ellipsometry (SE) measurements. The fluoride
+layer thicknesses were measured using X-ray photoelectron
+spectroscopy (XPS). The time dependence and magnitude of
+the fluorination of Al2O3 were also examined using Fourier
+transform infrared (FTIR) vibrational studies. These studies
+help to understand HF fluorination of Al2O3 during Al2O3 ALE
+and the effect of the fluorination thickness on the Al2O3 etch
+rate.
+This study also complements previous theoretical and
+experimental examinations of the fluorination of Al2O3. Earlier
+theoretical investigations have studied the fluorination of α-
+Al2O3 by HF using density functional theory (DFT)
+methods.31,32 Recent theoretical investigations have also
+examined the fluorination of Θ-Al2O3 surfaces by HF and
+compared the fluorination to measured etch rates during Al2O3
+ALE.33 Many experimental studies have also explored the
+fluorination of Al2O3 because of the effect of fluorination on
+heterogeneous catalysis.34,35 Fluorination is known to create
+strong Lewis acid sites that are important in a variety of
+reactions.
+
+II. EXPERIMENTAL SECTION
+
+II.A. Viscous and Static Flow Reactor. The ALD and
+ALE reactions were performed in a hot-walled, viscous, and
+static flow reactor.36 A proportional-integral-derivative (PID)
+temperature controller (2604, Eurotherm) maintained the
+reactor temperatures of 200, 250, and 300 °C. The
+temperature was controlled to within ±0.04 °C of the set
+point. A bakeable capacitance manometer (Baratron 660A,
+MKS) monitored the reactor pressure.
+ALD and ALE reactions were completed under static
+conditions in the reactor. Al2O3 ALD films were grown using
+sequential exposures of trimethylaluminum (TMA, 97%
+Sigma-Aldrich) and H2O (Chromasolv for HPLC, Sigma-
+Aldrich) at 300 °C. Al2O3 ALE was performed using sequential
+exposures of HF derived from HF-pyridine (70 wt % HF,
+Sigma-Aldrich) and TMA as the reactants. A gold-plated
+stainless steel bubbler was used to contain the HF-pyridine and
+prevent corrosion. Ultra high purity (UHP) N2 gas was used to
+purge the reactor between reactant exposures during ALD and
+ALE. UHP N2 was delivered to the reactor via a mass flow
+controller at a flow rate of 200 sccm that produced a N2
+pressure of 1.0 Torr. The TMA, H2O, and HF-pyridine
+precursors were all maintained at room temperature.
+Static dosing was used for the ALD and ALE reactions.
+Before the precursors entered the reactor, the N2 gas flow was
+stopped and the reactor was pumped down to the base
+pressure of ∼30 mTorr. The reactor was then isolated from the
+mechanical pump and the reactant valves opened to allow the
+pressure to reach a partial pressure between 0.07 and 9.0 Torr.
+The reactant valves were closed after reaching the desired
+
+pressure. The pressures were held statically for 20 s for the
+ALD or ALE reactions. Viscous N2 gas flows then purged the
+reactor for 20 s. Subsequently, the chamber was filled with N2
+with the gate valve closed and then the chamber was pumped
+down to the base pressure. This purging and pumping
+sequence after the reactant exposures was employed for both
+ALD and ALE reactions.
+Al2O3 ALD films were grown on Si coupons using 200 Al2O3
+ALD cycles and used as the substrates. Si(100) wafers
+(University Wafers) were cut into 1 cm × 1 cm coupons
+using a diamond scribe prior to the Al2O3 ALD. The Al2O3
+film thicknesses were characterized using spectroscopic
+ellipsometery (SE). The initial Al2O3 ALD film thicknesses
+were between 18 and 20 nm.
+II.B. Ex Situ Film Characterization Using Ellipsometry
+and XPS. The thickness of the Al2O3 film after ALD and ALE
+was measured using a spectroscopic ellipsometer (M-2000, J.
+A. Woollam). The spectroscopic ellipsometer had a spectral
+range from 240 to 1700 nm and utilized an incidence angle of
+70°. The Ψ and Δ parameters were analyzed using a Cauchy
+model with the CompleteEASE software package (J. A.
+Woollam).
+X-ray photoelectron spectroscopy (XPS) (PHI 5600, RBD
+Instruments) measured the film composition. A monochro-
+matic Al Kα X-ray source (1486.6 eV) was used to collect
+survey scans with a pass energy of 93.9 eV and a step size of
+0.400 eV. Auger Scan software package (Auger Scan, RBD
+Instruments) was employed to collect the data. Casa XPS
+software (Casa XPS, Casa Software) determined the surface
+concentrations using the peak areas for the C 1s, O 1s, Al 2p,
+and F 1s XPS signals and the corresponding sensitivity factors.
+All peak energies were calibrated to the adventitious C 1s peak
+centered at 284.8 eV.
+II.C. In Situ Fourier Transform Infrared (FTIR) Spec-
+troscopy. The fluorination of Al2O3 ALD films at 300 °C
+during sequential exposures of HF derived from HF-pyridine
+was studied using in situ FTIR spectroscopy. The in situ FTIR
+studies were performed in a reactor equipped with an FTIR
+spectrometer that has been described previously.37 The FTIR
+experiments employed high surface area Si nanoparticles
+(>98%, US Research Nanomaterials) with an average diameter
+of 20−30 nm.
+The Si nanoparticles were mechanically pressed into a
+tungsten grid to facilitate the transmission FTIR measure-
+ments. The tungsten grid was 2 × 3 cm2, 50 μm thick, with 100
+grid lines per inch. The tungsten grid was resistively heated
+using a DC power supply (6268B, 20V/20A, Hewlett-
+Packard). The voltage output of the power supply was
+controlled by a PID temperature controller (Love Controls
+16B, Dwyer Instruments). A type K thermocouple was
+attached at the bottom of the tungsten grid with epoxy
+(Ceramabond 571, Aremco). The epoxy also electrically
+isolated the thermocouple from the tungsten grid.
+The Al2O3 film was grown using Al2O3 ALD using TMA and
+H2O. Both the TMA and H2O precursors were maintained at
+room temperature. Subsequently, the tungsten grid was
+resistively heated to 300 °C and the Al2O3 ALD coating was
+exposed to HF at various pressures before recording the
+absorbance changes. The gold-coated bubbler for HF-pyridine
+was maintained at room temperature.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10347
+
+
+III. RESULTS AND DISCUSSION
+
+III.A. Spectroscopic Ellipsometry Measurements of
+Thermal Al2O3 ALE. The Al2O3 ALD films were etched using
+HF and TMA at different reactant exposures and different
+temperatures. Both the HF and TMA reactants were at the
+same pressure. Figure 1 shows the Al2O3 thickness change after
+
+20 ALE cycles using exposures of 20 s for HF and TMA
+followed by purging after each reactant exposure. The initial
+Al2O3 ALD film thickness was between 180 and 200 Å.
+
+Figure 1 reveals that the Al2O3 thickness change after 20
+ALE cycles is larger at both higher temperatures and higher HF
+pressures. The Al2O3 thickness changes vary more rapidly at
+the lower HF pressures. The Al2O3 thickness change after 20
+ALE cycles begins to reach saturation values at the higher HF
+pressures. The Al2O3 thickness changes after 20 ALE cycles are
+larger at the higher temperatures in this saturation regime.
+
+Figure 2 displays the Al2O3 etch rates corresponding to the
+Al2O3 thickness changes after 20 ALE cycles in Figure 1. The
+etch rates were calculated from the difference in the Al2O3 film
+thickness before and after ALE divided by the 20 ALE cycles.
+The Al2O3 etch rates are higher at higher reactant pressures.
+The higher temperatures also display higher Al2O3 etch rates.
+Similar results have been obtained earlier for the Al2O3 etch
+rate versus HF exposure and substrate temperature.17 Figure 2
+shows that the etch rates reach nearly self-limiting values at
+higher HF pressures. The Al2O3 etch rates are approximately
+1.45, 2.30, and 2.50 Å/cycle at 200, 250, and 300 °C at higher
+HF pressures between 6 and 8 Torr.
+The saturation behavior observed in Figures 1 and 2
+suggests that the HF fluorination of Al2O3 reaches self-limiting
+fluoride thicknesses at higher HF pressures. This behavior is
+similar to the oxidation of silicon surfaces. For the same
+oxidation time during silicon oxidation, higher silicon oxide
+thicknesses are observed at higher O2 pressures.38,39 In
+addition, the silicon oxidation rates are progressively reduced
+at longer oxidation times in accordance with parabolic rate law
+behavior.39 This silicon oxidation behavior is described by
+
+Deal−Grove oxidation kinetics.40 A model for Al2O3
+fluorination will be described later in section III.D.
+III.B. XPS Measurement of Al2O3 Fluorination. XPS
+analysis was used to characterize the fluorination of Al2O3.
+Al2O3 ALD films on Si wafers were exposed to HF exposures
+for 30 s at HF pressures of 0.15, 1.0, 4.0, and 8.0 Torr at 300
+°C. After the HF exposures, the samples were immediately
+transferred to the XPS chamber to minimize atmospheric
+exposure. High resolution scans were recorded that included
+the Al 2p, O 1s, F 1s, and C 1s XPS peaks. The XPS spectra
+were then evaluated using analysis software (CasaXPS) to
+determine the surface composition.
+
+Figure 3 shows the atomic percentages from the Al 2p, O 1s,
+and F 1s peaks after the HF exposures for 30 s at HF pressures
+of 0, 0.15, 1.0, 4.0, and 8.0 Torr at 300 °C. Figure 3 reveals that
+the oxygen percentage decreases and the fluorine percentage
+increases at the higher HF pressures. In contrast, the aluminum
+percentage remains nearly constant for the various HF
+pressures. The loss of oxygen and the gain of fluorine are in
+agreement with the fluorination reaction to produce AlF3 or
+AlFxOy. The reaction for AlF3 production is Al2O3 + 6HF →
+2AlF3 + 3H2O. The reaction for AlFxOy production is Al2O3 +
+zHF →2AlO(6−z)/4Fz/2 + (z/2)H2O.
+The Al 2p XPS core-level spectrum of an initial Al2O3 ALD
+film is displayed in Figure 4a. The initial Al2O3 ALD film
+grown on a Si wafer is consistent with pristine Al2O3 with a
+peak at 74.3 eV and a full width at half-maximum (fwhm) of
+2.0 eV. This peak serves as a calibration reference for the
+fluorinated Al2O3 samples. An Al2O3 ALD film after exposure
+to HF pressure for 30 s at 4.0 Torr at 300 °C is shown in
+Figure 4b.
+The fluorination of Al2O3 leads to the growth of a higher
+energy shoulder in Figure 4b at a binding energy of 75.5 eV.
+This binding energy is lower than the reported binding
+energies of 77.3 and 77.5 eV for α-AlF3 and β-AlF3.41 A
+binding energy for Al 2p that is intermediate between 74.3 eV
+for Al2O3 and 77.3−77.5 eV for AlF3 is consistent with an
+aluminum oxyfluoride.41,42 This aluminum oxyfluoride layer is
+
+Figure 1. Al2O3 thickness change after 20 Al2O3 ALE cycles versus
+reactant pressure at 200, 250, and 300 °C.
+
+Figure 2. Al2O3 etch rate determined from results in Figure 1 versus
+reactant pressure at 200, 250, and 300 °C.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10348
+
+
+consistent with recent theoretical calculations of the aluminum
+fluoride layer on the surface of Θ-Al2O3 after HF exposures.33
+
+HF exposure to Θ-Al2O3 produced a dissociated F coverage of
+7.1 ± 0.3 F/nm2 after saturation HF exposures.33 This F
+
+coverage is consistent with 1.5 F atoms bound to each surface
+Al atom.33
+
+Some Al 2p XPS peak intensity also shifts to lower energies.
+Fitting of this shoulder at lower energy requires the addition of
+a small XPS peak at 72.3 eV. An Al 2p XPS peak at 72.3 eV is
+consistent with metallic aluminum.42,43 This apparent reduc-
+tion may result from the presence of H2 in the HF. The H2 is
+formed when HF is in contact with the stainless-steel walls of
+the gas lines for extended times. Mass spectrometer experi-
+ments confirmed that HF slowly reacts with the stainless-steel
+walls and produces H2. This H2 could then lead to the
+reduction of Al2O3, AlOxFy, or AlOH species during the initial
+HF exposure at 300 °C. However, this explanation is
+speculative because thermochemical calculations indicate that
+H2 reduction of Al2O3, AlF3, or Al(OH)3 is not favorable.
+III.C. Determination of Fluoride Layer Thickness. The
+thickness of the fluoride layer was also determined using XPS
+measurements. The sample was assumed to have a uniform
+layered structure composed of an Al2O3 substrate, an
+aluminum fluoride layer of varying thickness, and a 6 Å thick
+adventitious carbon layer at the sample−air interface.44 The
+XPS results in Figure 4b indicate that the fluoride layer is an
+aluminum oxyfluoride. However, the exact composition of the
+aluminum oxyfluoride is not known. This XPS analysis
+considered fluoride layers with compositions of AlF3, Al2OF4,
+and AlOF. The analysis assuming an aluminum oxyfluoride
+with a composition of Al2OF4 is given below.
+The XPS electrons are derived from the C, Al, F, and O in
+the three layers. XPS quantification requires analysis of the
+attenuation of photoelectron propagation in their source layers.
+In addition, the photoelectron propagation is also attenuated
+by each layer that covers the source layer.45,46 For example, the
+C signal is derived from the top adventitious carbon layer.44
+
+The C photoelectrons will be attenuated by propagation in the
+carbon layer according to exp[−t/λC], where t is the thickness
+of the carbon layer at the source of the C photoelectron and λC
+= 30.2 Å is the inelastic mean free path (IMFP) of the C XPS
+photoelectron at 1202 eV in the carbon layer.47
+
+The C XPS signal is proportional to ρc, the carbon number
+density in the carbon layer times the integral of exp[−t/λC]
+from 0 to 6 Å.44 This integral describes the effect of
+attenuation by the carbon layer on all of the C XPS electrons
+from various thicknesses in the carbon layer. The intensity of
+the C XPS signal is
+
+∫
+ρ
+=
+λ
+−
+I
+t
+e
+d
+t
+C
+C
+0
+
+6
+/ C
+
+(1)
+
+The fluorine signal is derived from F in the Al2OF4 layer
+under the carbon layer. The F signal is proportional to ρF,Al2OF4,
+the fluorine number density in the Al2OF4 layer, times the
+integral of exp[−t/λF] from 0 to tF, the thickness of the Al2OF4
+layer. This integral describes the effect of attenuation by the
+Al2OF4 layer on the F XPS electrons. λF = 27.1 Å is the
+inelastic mean free path (IMFP) for the F XPS electrons at 801
+eV.47 The F XPS electrons are then attenuated by the overlying
+carbon layer. The intensity of the F XPS signal is
+
+∫
+ρ
+=
+λ
+λ
+−
+−
+I
+t
+e
+e
+d
+t
+t
+F
+F,Al OF
+6/
+
+0
+
+/
+
+2
+4
+
+F
+F
+F
+
+(2)
+
+The aluminum signal is derived from Al in the Al2O3 and Al
+in the Al2OF4 layer under the carbon layer. For the Al in the
+Al2O3 layer, the Al signal is proportional to ρAl,Al2O3 the
+
+Figure 3. XPS measurement of atomic percent (atom %) of Al2O3
+ALD film after HF exposures at various HF pressures for 30 s at 300
+°C.
+
+Figure 4. High resolution scan of the Al 2p XPS peak for (a) initial
+Al2O3 ALD film and (b) Al2O3 ALD film after HF exposure for 30 s at
+4 Torr and 300 °C.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10349
+
+
+aluminum number density in the Al2O3 layer times the integral
+of exp[−t/λAl,Al2O3] from 0 to ∞. For the Al in the Al2OF4
+layer, the Al signal is proportional to ρAl,Al2OF4, the aluminum
+number density in the Al2OF4 layer times the integral of
+exp[−t/λAl,Al2OF4] from 0 to tF, the thickness of the Al2OF4
+layer. λAl,Al2O3 = λAl,Al2OF4 = 27.7 Å is the inelastic mean free path
+(IMFP) of the Al XPS electrons at 1412 eV.48 The intensity of
+the Al XPS signal is
+
+∫
+
+∫
+
+ρ
+ρ
+=
++
+λ
+λ
+λ
+λ
+
+λ
+
+−
+−
+−
+−
+
+∞
+−
+
+I
+t
+
+t
+
+e
+e
+d
+e
+e
+
+e
+d
+
+t
+t
+t
+
+t
+
+Al
+Al,Al OF
+6/
+
+0
+
+/
+Al,Al O
+6/
+/
+
+0
+
+/
+
+2
+4
+
+Al
+F
+Al
+
+2
+3
+
+Al
+F
+Al
+
+Al
+
+(3)
+
+Lastly, the oxygen signal is derived from O in the Al2O3 layer
+under the carbon and Al2OF4 layers. λO = 20.5 Å is the inelastic
+mean free path (IMFP) for the O XPS electrons at 956 eV.48
+
+Following a similar treatment, the intensity of the O XPS signal
+is
+
+∫
+∫
+
+∫
+
+ρ
+ρ
+
+ρ
+
+=
++
+
++
+
+λ
+λ
+λ
+
+λ
+λ
+λ
+
+−
+−
+−
+
+−
+−
+∞
+−
+
+I
+t
+e
+d
+e
+e
+
+e
+e
+e
+
+t
+t
+t
+
+t
+t
+
+O
+O,C
+0
+
+6
+/
+O,Al OF
+6/
+
+0
+
+/
+
+O,Al O
+6/
+/
+
+0
+
+/
+
+O
+
+2
+4
+
+O
+F
+
+O
+
+2
+3
+
+O
+F
+O
+O
+
+(4)
+
+The total XPS signal is the sum of all of the individual XPS
+electrons produced by the Al2O3, Al2OF4, and carbon layers
+and their attenuation during propagation. The thickness of the
+Al2OF4 layer was determined by varying tF and determining the
+tF value that was consistent with the observed C, Al, F, and O
+XPS signals. The number density for carbon in the adventitious
+carbon was 5 × 1022 cm−3. The number densities for Al, F, and
+O in the Al2OF4 layer were 2.5 × 1022, 4.9 × 1022, and 1.2 ×
+1022 cm−3, respectively. The number densities for Al and O in
+the Al2O3 substrate were 3.66 × 1022 and 5.5 × 1022 cm−3,
+respectively.
+The thickness of the Al2OF4 layer as a function of HF
+pressure determined by the XPS measurements is displayed in
+Figure 5. The Al2OF4 fluoride layer thicknesses were 2.0, 3.5,
+5.2, and 5.5 Å for HF pressures of 0.15, 1.0, 4.0, and 8.0 Torr,
+respectively. XPS analysis assuming fluoride layers with
+compositions of AlF3 and AlOF yielded fluoride thicknesses
+with a similar functional form versus HF pressure to the results
+shown in Figure 5. However, the absolute fluoride thicknesses
+varied for the different aluminum fluorides. At an HF pressure
+of 8 Torr, the fluoride thicknesses were 4.5, 5.5, and 10.2 Å
+when the aluminum fluoride layer was assumed to be AlF3,
+Al2OF4, and AlOF, respectively.
+
+Figure 5 also compares the fluoride layer thicknesses with
+the Al2O3 etch rates obtained at the same HF pressures. The
+TMA pressure during the Al2O3 ALE was equivalent to the HF
+pressure. Figure 5 shows that there is excellent correspondence
+between the fluoride layer thicknesses and the Al2O3 etch rates.
+This correlation argues that the ligand-exchange reaction
+between TMA and the aluminum fluoride layer during Al2O3
+ALE is removing Al2O3 at a rate that is proportional to the
+aluminum fluoride thickness.
+
+Figure 6 shows the Al2O3 etch rate versus the fluoride layer
+thickness for reactant pressures between 0 and 8.0 Torr. The
+reactant pressures correspond to both the HF and TMA
+pressures during Al2O3 ALE. Higher reactant pressures
+increase both the fluoride layer thickness and the Al2O3 etch
+rate. The linear relationship between the etch rate and fluoride
+
+layer again indicates that the etch rate is proportional to the
+thickness of the fluoride layer.
+III.D. FTIR Spectroscopy Measurements of Al2O3
+Fluorination. FTIR spectroscopy was also used to monitor
+the fluorination of Al2O3. These fluorination experiments could
+be performed in situ without atmospheric exposures after the
+fluorination. Figure 7 shows the original Al2O3 ALD film and
+the same Al2O3 ALD film after subsequent consecutive HF
+exposures at 0.5 Torr under static conditions with the gate
+valve closed to the pump. The HF pressure was held for 15 s
+before purging the reactor. Results are displayed after 2, 4, 6, 8,
+and 10 HF exposures.
+
+Figure 5. Comparison of fluoride thickness and etch rate during
+Al2O3 ALE versus reactant pressure. Fluoride thickness was measured
+by XPS analysis assuming a composition of Al2OF4 after HF exposure
+for 30 s at 300 °C. Etch rate was measured for Al2O3 ALE at 300 °C
+using reactant exposures of 30 s at various reactant pressures.
+
+Figure 6. Correlation of etch rate for Al2O3 ALE and fluoride
+thickness assuming a composition of Al2OF4 for various reactant
+pressures.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10350
+
+
+The absorbance peak at 850 cm−1 corresponds with the Al−
+O stretching vibration in Al2O3.49 The absorbance peak at 700
+cm−1 corresponds to the Al−F stretching vibration in AlF3 or
+AlFxOy.16 The absorbance progressively converts between Al−
+O stretching vibrations to Al−F stretching vibrations versus
+the consecutive HF exposures. The absorbance for the Al−O
+stretching vibration is reduced and the absorbance for the Al−
+F stretching vibrations is increased versus HF exposures. These
+results are consistent with the conversion of Al2O3 to AlF3 or
+AlOxFy by the reactions Al2O3 + 6HF →2AlF3 + 3H2O or
+Al2O3 + zHF →2AlO(6−z)/4Fz/2 + (z/2)H2O.
+An apparent isosbestic point exists in Figure 7 between the
+absorbance peaks for the Al−O and Al−F stretching vibrations.
+The isosbestic point occurs at 779 cm−1. This isosbestic point
+argues for direct conversion of the aluminum oxide to
+aluminum fluoride. The Al−O and Al−F vibrations act nearly
+separately and independently of each other as the Al2O3 film is
+progressively fluorinated.
+
+Figure 8 shows the difference spectra versus sequential HF
+exposures at 0.5 Torr and 300 °C for 15 s. The results are
+shown after 1, 2, 4, 6, 8, and 10 HF exposures. These difference
+spectra are all referenced to the initial Al2O3 ALD film on the
+silicon particles. The absorbance loss for the Al−O stretching
+vibration is centered at 850 cm−1, and the absorbance gain for
+the Al−F stretching vibration is centered at 700 cm−1. The
+isosbestic point between the gain and loss of the absorbance
+peaks again occurs at 779 cm−1.
+Difference spectra facilitate the determination of the
+integrated absorbance change of the Al−O and Al−F
+stretching vibrations versus HF exposure. Figure 9 shows the
+integrated absorbance change of the Al−O and Al−F
+stretching vibrations. The integrated absorbance changes
+were defined from the difference spectra displayed in Figure
+8. Integration was performed from the isosbestic point to 1100
+cm−1 for the Al−O stretching vibration and from 500 to the
+isosbestic point for the Al−F stretching vibration. There is a
+correlation between the loss of absorbance for the Al−O
+
+stretching vibration and gain of absorbance for the Al−F
+stretching vibrations with HF exposure. Similar behavior was
+observed in Figure 3 when monitoring the XPS O 1s and F 1s
+peaks.
+The conversion of aluminum oxide to aluminum fluoride is
+also dependent on the HF pressure. Figure 10 shows the initial
+spectrum for Al2O3 obtained after 15 cycles of Al2O3 ALD at
+155 °C referenced to the Si particles. The spectra are also
+shown for the Al2O3 ALD film after static HF exposures at 0.5
+and 4.0 Torr, respectively. The spectra were recorded after six
+HF exposures for 15 s at both pressures at 300 °C. After the six
+HF exposures, the spectra have nearly reached saturation levels
+where the absorbance changes become negligible with
+subsequent HF exposures. The results in Figure 10 indicate
+
+Figure 7. Absorbance for Al−O and Al−F stretching vibrations
+during fluorination of Al2O3 by HF pressure at 300 °C. Consecutive
+HF exposures were defined by a HF pressure of 0.5 Torr for 15 s.
+
+Figure 8. Difference spectra showing the absorbance of Al−O and
+Al−F stretching vibrations during fluorination of Al2O3 by HF at 300
+°C. Consecutive HF exposures were defined by a HF pressure of 0.5
+Torr for 15 s.
+
+Figure 9. Integrated absorbance change for Al−F and Al−O
+stretching vibrations versus HF exposures at 300 °C determined
+from the difference spectra in Figure 8. Each HF exposure was defined
+by a HF pressure of 0.5 Torr for 15 s.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10351
+
+
+that the HF pressure increases the saturation level for the
+fluorination of Al2O3.
+
+Figure 11 shows the difference spectra versus sequential HF
+exposures for 15 s at 4 Torr and 300 °C. The results are shown
+
+after 1, 2, 5, 10, and 20 HF exposures. The absorbance loss for
+the Al−O stretching vibration is centered at 940 cm−1, and the
+absorbance gain for the Al−F stretching vibration is peaked at
+760 cm−1. The absorbance changes at 4 Torr in Figure 11 are
+larger than the absorbance changes at 0.5 Torr in Figure 8. In
+
+addition, the frequencies of the absorbance loss and gain are
+shifted to higher frequencies at HF pressures of 4 Torr.
+The higher frequencies for the absorbance loss and gain at
+HF pressures of 4 Torr may be related to the vibrations lost
+and gained versus HF pressure. At low HF pressures of 0.5
+Torr, the fluoride thickness is ∼2.5 Å according to Figure 5
+and fluorination is more confined to the Al2O3 surface region.
+At higher HF pressures of 4 Torr, the fluoride thickness is ∼5.2
+Å according to Figure 5 and the fluorination occurs deeper into
+the Al2O3 bulk. Al−O bonds in the surface region that are lost
+during fluorination may have lower frequencies than the Al−O
+bonds located further into the Al2O3 bulk. Likewise, the Al−F
+bonds formed in the surface region may have lower frequencies
+than the Al−F bonds that are formed deeper into the Al2O3
+bulk. As a result of these frequency shifts with HF pressure, the
+isosbestic points were also dependent on HF pressure. The
+isosbestic points were 779, 836, 840, and 842 cm−1 for HF
+pressures of 0.5, 1.0, 4.0, and 8.0 Torr, respectively.
+
+Figure 12 shows the integrated absorbance change of the
+Al−F stretching vibration as a function of HF exposures for HF
+
+pressures of 0.5, 1.0, 4.0, and 8.0 Torr. This integrated
+absorbance change was defined from 500 cm−1 to the
+isosbestic point for the difference spectra at various HF
+pressures. The integrated absorbance change initially increases
+rapidly for the first several HF exposures. The integrated
+absorbance change then begins to level off after multiple HF
+exposures. The saturation levels are dependent on the HF
+pressure. Higher HF pressures produce larger integrated
+absorbance changes for the Al−F stretching vibrations.
+
+Figure 13 shows the integrated absorbance change for the
+Al−F stretching vibration as a function of HF exposure in units
+of Torr s. These results illustrate that HF exposure defines the
+initial integrated absorbance change independent of the actual
+HF pressure. This regime is associated with the fluorination of
+the Al2O3 surface. At an integrated absorbance change >10
+cm−1, the integrated absorbance change is somewhat depend-
+
+Figure 10. Absorbance for Al−O and Al−F stretching vibrations
+during the fluorination of Al2O3 by HF at 300 °C. HF exposures were
+defined by HF pressures of 0.5 Torr and then 4.0 Torr for 15 s.
+
+Figure 11. Difference spectra showing absorbance of Al−O and Al−F
+stretching vibrations during fluorination of Al2O3 by HF at 300 °C.
+Consecutive HF exposures were defined by a HF pressure of 4.0 Torr
+for 15 s.
+
+Figure 12. Integrated absorbance change for Al−F stretching
+vibrations during fluorination of Al2O3 by HF at 300 °C. HF pressure
+was varied from 0.5 to 8.0 Torr. Each HF exposure was performed for
+15 s.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10352
+
+
+ent on the HF pressure. HF exposures obtained using higher
+HF pressures have slightly higher integrated absorbance
+changes.
+III.E. Mechanism for Fluorination of Al2O3. The results
+in Figures 12 and 13 suggest a mechanism for Al2O3
+fluorination based on rapid fluorination of the Al2O3 surface
+and then slower fluorination of the near surface region. The
+Al2O3 surface is fluorinated on the basis of site availability
+consistent with Langmuir adsorption. The rate of surface
+fluorination is expected to follow Langmuir adsorption kinetics
+given by dΘ/dt = b(1 −Θs), where b is a rate constant that is
+proportional to HF pressure and Θs is the saturated fluorine
+coverage. Integration of this rate equation predicts that Θ(t) =
+Θs[1 −exp(−bt)].
+In comparison, fluorination of the near surface region is
+expected to produce a fluoride thickness, x, that grows
+according to dx/dt = k/x. k is a constant that is dependent on
+the HF pressure, k = k0P. The inverse dependence of dx/dt on
+x is consistent with a fluoride thickness that acts as a diffusion
+barrier for subsequent fluorination. Integration of this rate
+equation yields x(t)2 = 2kt. This equation is known as the
+parabolic law.50
+
+Mathematically combining the surface and near surface
+fluorination rates into one composite expression is difficult. An
+approximation that allows for derivation of a composite
+solution assumes that the surface fluorination rate can be
+treated as dx/dt = ck/x(exp(−t/τ)), where c is a constant and
+τ is inversely proportional to the HF pressure, τ = τ0/P.
+Integration of this rate equation yields x(t)2 = ckτ[1 −exp(−t/
+τ)]. This integrated rate equation is similar in form to the
+integration of the Langmuir adsorption rate expression.
+However, the square of the fluoride thickness is present
+instead of the linear fluorine coverage.
+Treating the surface fluorination as dx/dt = ck/x(exp(−t/
+τ)) leads to a composite expression for the surface and near
+surface fluorination rates:
+
+=
+[
++
+]
+τ
+−
+x
+t
+k
+x
+c
+d
+d
+1
+e t/
+
+(5)
+
+After rearrangement, the integrals can be written as
+
+∫
+∫
+′
+′ =
+−
+′
+τ
+−′
+x
+x
+k
+c
+t
+d
+(1
+e
+) d
+x
+t
+t
+
+0
+0
+
+/
+
+(6)
+
+Solving these integrals then leads to the expression for the
+fluoride thickness, x,
+
+=
++
+−
+τ
+−
+x t
+kt
+M
+( )
+2
+(1
+e
+)
+t
+2
+/
+(7)
+
+where M = 2kcτ. The pressure dependence for x(t)2 given by
+eq 7 can then be highlighted by substituting for k = k0P and τ =
+τ0/P. These substitutions yield
+
+=
++
+−
+τ
+−
+x t
+k P t
+M
+( )
+(
+)
+(1
+e
+)
+Pt
+2
+0
+/ 0
+(8)
+
+Assuming that the Al−F integrated absorbance change
+measures the Al2O3 fluorination, eq 8 can be used to fit the
+experimental results. Figure 14 shows the fits for x(t)2 in eq 8
+
+to the square of the Al−F integrated absorbance change for HF
+pressures of 0.5, 1.0, 4.0, and 8.0 Torr. These fits used constant
+values of k0 = 0.2 (cm−1)2/(Torr s), M = 340 (cm−1)2, and τ0 =
+144(Torr s) for all of the HF pressures. k0 and M have units of
+(cm−1)2 because x(t)2 in eq 8 was fit to the Al−F integrated
+absorbance change in units of (cm−1)2.
+The x(t)2 fits are in approximate agreement with the
+experimental data for the square of the Al−F integrated
+absorbance change for the various HF pressures. Equation 8 is
+close to capturing the pressure dependence in the surface and
+near surface fluorination rates of Al2O3. The initial fluorination
+of the Al2O3 surface is faster at the higher HF pressures. In
+addition, the magnitude of fluorination of the Al2O3 near
+surface region is also dependent on the HF pressure and
+displays the linear increase expected from the parabolic law.
+This mechanism for the fluorination of Al2O3 is similar to
+the mechanism for silicon oxidation.40,51 For both systems,
+
+Figure 13. Integrated absorbance change for Al−F stretching
+vibrations versus HF exposure in units of Torr s during the
+fluorination of Al2O3 by HF at 300 °C. HF pressure was varied
+from 0.5 to 8.0 Torr.
+
+Figure 14. Comparison of x(t)2 given by eq 8 for square of fluoride
+thickness versus time for different HF pressures to square of Al−F
+integrated absorbance change versus HF exposure time at different
+HF pressures.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10353
+
+
+there are rapid surface kinetics followed by slower parabolic
+law kinetics for the near surface region. The surface kinetics
+can be understood in terms of surface site availability. The
+kinetics for the near surface region can be described according
+to transport through a growing diffusion barrier on the surface.
+Higher pressures provide a larger coverage gradient for
+transport through the surface diffusion barrier.
+
+IV. CONCLUSIONS
+
+Thermal Al2O3 ALE can be achieved using a fluorination and
+ligand-exchange mechanism with HF and TMA as the
+reactants. This study explored the effect of HF pressure on
+the Al2O3 etching rate and Al2O3 fluorination. Using ex situ SE
+measurements, the Al2O3 etch rates at different temperatures
+were observed to increase with HF pressures and then level out
+at higher HF pressures. At 300 °C, Al2O3 etch rates of 0.6, 1.6,
+2.0, 2.4, and 2.5 Å/cycle were measured for HF pressures of
+0.17, 0.5, 1.0, 5.0, and 8.0 Torr, respectively. Assuming an
+Al2OF4 layer on the Al2O3 surface, the estimated fluoride
+thicknesses on Al2O3 also increased with HF pressures and
+reached saturation values at higher HF pressures. Fluoride
+thicknesses on Al2O3 of 2.0, 3.5, 5.2, and 5.5 Å were obtained
+for HF pressures of 0.15, 1.0, 4.0, and 8.0 Torr, respectively, at
+300 °C. There was a very good correlation between the Al2O3
+etch rates and the fluoride layer thicknesses versus HF
+pressure.
+The time dependence and magnitude of the Al2O3
+fluorination were also analyzed using in situ FTIR vibrational
+studies by monitoring the infrared absorbance from the Al−O
+and Al−F stretching vibrations. The time dependence of the
+Al2O3 fluorination was understood by a mechanism involving
+the rapid fluorination of the Al2O3 surface at initial HF
+exposures and slower fluorination into the Al2O3 near surface
+region that begins to level off at longer HF exposure times. The
+pressure dependence of the Al2O3 fluorination was explained
+by facile adsorption on the initial available sites on the Al2O3
+surface. This rapid fluorination is followed by slower diffusion
+into the near surface region of Al2O3 where the fluoride layer
+serves as a diffusion barrier to subsequent fluorination.
+The fluoride layer acts as a diffusion barrier and yields
+parabolic law behavior. The higher HF pressures provide a
+higher coverage gradient for transport through the diffusion
+barrier and yield larger fluoride thicknesses for equal
+fluorination times. A kinetic model was developed that
+combined the rates of surface and near surface fluorination.
+The integration of the combined kinetic rate law yielded a
+solution for the fluoride thickness versus time as a function of
+HF pressure. This solution for the square of the fluoride
+thickness was in good agreement with the experimental results
+for the square of the Al−F integrated absorbance change for
+the various HF pressures.
+■AUTHOR INFORMATION
+
+Corresponding Author
+*E-mail: Steven.George@Colorado.edu.
+
+ORCID
+Steven M. George: 0000-0003-0253-9184
+
+Notes
+The authors declare no competing financial interest.
+
+■ACKNOWLEDGMENTS
+This research was funded by the National Science Foundation
+(CHE-1609554). The authors thank Dr. Huaxing Sun for
+recording the XPS results.
+■REFERENCES
+
+(1) Kanarik, K. J.; Lill, T.; Hudson, E. A.; Sriraman, S.; Tan, S.;
+Marks, J.; Vahedi, V.; Gottscho, R. A. Overview of Atomic Layer
+Etching in the Semiconductor Industry. J. Vac. Sci. Technol., A 2015,
+33, 020802.
+(2) Matsuura, T.; Murota, J.; Sawada, Y.; Ohmi, T. Self-Limited
+Layer-by-Layer Etching of Si by Alternated Chlorine Adsorption and
+Ar+ Ion Irradiation. Appl. Phys. Lett. 1993, 63, 2803−2805.
+(3) Park, S. D.; Lee, D. H.; Yeom, G. Y. Atomic Layer Etching of
+Si(100) and Si(111) Using Cl2 and Ar Neutral Beam. Electrochem.
+Solid-State Lett. 2005, 8, C106−C109.
+(4) Sakaue, H.; Iseda, S.; Asami, K.; Yamamoto, J.; Hirose, M.;
+Horiike, Y. Atomic Layer Controlled Digital Etching of Silicon. Jpn. J.
+Appl. Phys. 1 1990, 29, 2648−2652.
+(5) Sugiyama, T.; Matsuura, T.; Murota, J. Atomic-Layer Etching of
+Ge Using an Ultraclean ECR Plasma. Appl. Surf. Sci. 1997, 112, 187−
+190.
+(6) Lim, W. S.; Park, S. D.; Park, B. J.; Yeom, G. Y. Atomic Layer
+Etching of (100)/(111) GaAs with Chlorine and Low Angle Forward
+Reflected Ne Neutral Beam. Surf. Coat. Technol. 2008, 202, 5701−
+5704.
+(7) Metzler, D.; Bruce, R. L.; Engelmann, S.; Joseph, E. A.; Oehrlein,
+G. S. Fluorocarbon Assisted Atomic Layer Etching of SiO2 Using
+Cyclic Ar/C4F8 Plasma. J. Vac. Sci. Technol., A 2014, 32, 020603.
+(8) Metzler, D.; Li, C.; Engelmann, S.; Bruce, R. L.; Joseph, E. A.;
+Oehrlein, G. S. Fluorocarbon Assisted Atomic Layer Etching of SiO2
+and Si Using Cyclic Ar/C4F8 and Ar/CHF3 Plasma. J. Vac. Sci.
+Technol., A 2016, 34, 01b101.
+(9) Park, J. B.; Lim, W. S.; Park, B. J.; Park, I. H.; Kim, Y. W.; Yeom,
+G. Y. Atomic Layer Etching of Ultra-Thin HfO2 Film for Gate Oxide
+in MOSFET Sevices. J. Phys. D: Appl. Phys. 2009, 42, 055202.
+(10) Li, C.; Metzler, D.; Lai, C. S.; Hudson, E. A.; Oehrlein, G. S.
+Fluorocarbon Based Atomic Layer Etching of Si3N4 and Etching
+Selectivity of SiO2 Over Si3N4. J. Vac. Sci. Technol., A 2016, 34,
+041307.
+(11) Kim, Y. Y.; Lim, W. S.; Park, J. B.; Yeom, G. Y. Layer by Layer
+Etching of the Highly Oriented Pyrolythic Graphite by Using Atomic
+Layer Etching. J. Electrochem. Soc. 2011, 158, D710−D714.
+(12) Vogli, E.; Metzler, D.; Oehrlein, G. S. Feasibility of Atomic
+Layer Etching of Polymer Material Based on Sequential O2 Exposure
+and Ar Low-Pressure Plasma-Etching. Appl. Phys. Lett. 2013, 102,
+253105.
+(13) Lee, Y.; George, S. M. Atomic Layer Etching of Al2O3 Using
+Sequential, Self-Limiting Thermal Reactions with Sn(acac)2 and HF.
+ACS Nano 2015, 9, 2061−2070.
+(14) George, S. M.; Lee, Y. Prospects for Thermal Atomic Layer
+Etching Using Sequential, Self-Limiting Fluorination and Ligand-
+Exchange Reactions. ACS Nano 2016, 10, 4889−4894.
+(15) Lee, Y.; George, S. M. Thermal Atomic Layer Etching of
+Titanium Nitride Using Sequential, Self-Limiting Reactions: Oxida-
+tion to TiO2 and Fluorination to Volatile TiF4. Chem. Mater. 2017,
+29, 8202−8210.
+(16) DuMont, J. W.; George, S. M. Competition Between Al2O3
+Atomic Layer Etching and AlF3 Atomic Layer Deposition Using
+Sequential Exposures of Trimethylaluminum and Hydrogen Fluoride.
+J. Chem. Phys. 2017, 146, 052819.
+(17) Hennessy, J.; Moore, C. S.; Balasubramanian, K.; Jewell, A. D.;
+France, K.; Nikzad, S. Enhanced Atomic Layer Etching of Native
+Aluminum Oxide for Ultraviolet Optical Applications. J. Vac. Sci.
+Technol., A 2017, 35, 041512.
+(18) Lee, Y.; DuMont, J. W.; George, S. M. Mechanism of Thermal
+Al2O3 Atomic Layer Etching Using Sequential Reactions with
+Sn(acac)2 and HF. Chem. Mater. 2015, 27, 3648−3657.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10354
+
+
+(19) Lee, Y.; DuMont, J. W.; George, S. M. Trimethylaluminum as
+the Metal Precursor for the Atomic Layer Etching of Al2O3 Using
+Sequential, Self-Limiting Thermal Reactions. Chem. Mater. 2016, 28,
+2994−3003.
+(20) Lee, Y.; DuMont, J. W.; George, S. M. Atomic Layer Etching of
+HfO2 Using Sequential, Self-Limiting Thermal Reactions with
+Sn(acac)2 and HF. ECS J. Solid State Sci. Technol. 2015, 4, N5013−
+N5022.
+(21) Lee, Y.; George, S. M. Thermal Atomic Layer Etching of HfO2
+Using HF for Fluorination and TiCl4 for Ligand-Exchange. J. Vac. Sci.
+Technol., A 2018, 36, 061504.
+(22) DuMont, J. W.; Marquardt, A. E.; Cano, A. M.; George, S. M.
+Thermal Atomic Layer Etching of SiO2 by a ″Conversion-Etch″
+Mechanism Using Sequential Reactions of Trimethylaluminum and
+Hydrogen Fluoride. ACS Appl. Mater. Interfaces 2017, 9, 10296−
+10307.
+(23) Zywotko, D. R.; George, S. M. Thermal Atomic Layer Etching
+of ZnO by a ″Conversion-Etch″ Mechanism Using Sequential
+Exposures of Hydrogen Fluoride and Trimethylaluminum. Chem.
+Mater. 2017, 29, 1183−1191.
+(24) Lemaire, P. C.; Parsons, G. N. Thermal Selective Vapor Etching
+of TiO2: Chemical Vapor Etching via WF6 and Self-Limiting Atomic
+Layer Etching Using WF6 and BCl3. Chem. Mater. 2017, 29, 6653−
+6665.
+(25) Johnson, N. R.; George, S. M. WO3 and W Thermal Atomic
+Layer Etching Using ″Conversion-Fluorination″ and ″Oxidation-
+Conversion-Fluorination″ Mechanisms. ACS Appl. Mater. Interfaces
+2017, 9, 34435−34447.
+(26) Xie, W. Y.; Lemaire, P. C.; Parsons, G. N. Thermally Driven
+Self-Limiting Atomic Layer Etching of Metallic Tungsten Using WF6
+and O2. ACS Appl. Mater. Interfaces 2018, 10, 9147−9154.
+(27) Johnson, N. R.; Sun, H. X.; Sharma, K.; George, S. M. Thermal
+Atomic Layer Etching of Crystalline Aluminum Nitride Using
+Sequential, Self-limiting Hydrogen Fluoride and Sn(acac)2 Reactions
+and Enhancement by H2 and Ar Plasmas. J. Vac. Sci. Technol., A 2016,
+34, 050603.
+(28) Faraz, T.; Roozeboom, F.; Knoops, H. C. M.; Kessels, W. M.
+M. Atomic Layer Etching: What Can We Learn from Atomic Layer
+Deposition? ECS J. Solid State Sci. Technol. 2015, 4, N5023−N5032.
+(29) George, S. M. Atomic Layer Deposition: An Overview. Chem.
+Rev. 2010, 110, 111−131.
+(30) Clancey, J. W.; George, S. M. In Situ Mass Spectrometer
+Studies of Volatile Etch Products During Al2O3 Atomic Layer Etching
+Using HF and Trimethylaluminum, 4th International Atomic Layer
+Etching Workshop, Denver, Colorado, Poster Presentation, July 15−17,
+2017, Denver, Colorado.
+(31) Quan, J. L.; Teng, B. T.; Wen, X. D.; Zhao, Y.; Liu, R.; Luo, M.
+F. Hydrogen Fluoride Adsorption and Reaction on the alpha-
+Al2O3(0001) Surface: A Density Functional Theory Study. J. Chem.
+Phys. 2012, 136, 114701.
+(32) Wirth, J.; Schacht, J.; Saalfrank, P.; Paulus, B. Fluorination of
+the Hydroxylated alpha-Al2O3 (0001) and Its Implications for Water
+Adsorption: A Theoretical Study. J. Phys. Chem. C 2016, 120, 9713−
+9718.
+(33) Kondati Natarajan, S. K.; Elliott, S. D. Modeling the Chemical
+Mechanism of the Thermal Atomic Layer Etch of Aluminum Oxide: A
+Density Functional Theory Study of Reactions during HF Exposure.
+Chem. Mater. 2018, 30, 5912−5922.
+(34) Bendada, A.; Webb, G.; Winfield, J. M. Fluorination of Gamma-
+Alumina by Sulphur Tetrafluoride, Thionyl Fluoride, Carbonyl
+Fluoride or Anhydrous Hydrogen Fluoride: A Radiotracer Study.
+Eur. J. Solid State Inorg. Chem. 1996, 33, 907−916.
+(35) Kemnitz, E.; Menz, D. H. Fluorinated Metal Oxides and Metal
+Fluorides as Heterogeneous Catalysts. Prog. Solid State Chem. 1998,
+26, 97−153.
+(36) Elam, J. W.; Groner, M. D.; George, S. M. Viscous Flow
+Reactor with Quartz Crystal Microbalance for Thin Film Growth by
+Atomic Layer Deposition. Rev. Sci. Instrum. 2002, 73, 2981−2987.
+
+(37) DuMont, J. W.; George, S. M. Pyrolysis of Alucone Molecular
+Layer Deposition Films Studied Using In Situ Transmission Fourier
+Transform Infrared Spectroscopy. J. Phys. Chem. C 2015, 119,
+14603−14612.
+(38) Hess, D. W.; Deal, B. E. Kinetics of Thermal Oxidation of
+Silicon in O2-N2 Mixtures at 1200 C. J. Electrochem. Soc. 1975, 122,
+579−581.
+(39) Kamigaki, Y.; Itoh, Y. Thermal Oxidation of Silicon in Various
+Oxygen Partial Pressures Diluted by Nitrogen. J. Appl. Phys. 1977, 48,
+2891−2896.
+(40) Deal, B. E.; Grove, A. S. General Relationship for Thermal
+Oxidation of Silicon. J. Appl. Phys. 1965, 36, 3770−3778.
+(41) Böse, O.; Kemnitz, E.; Lippitz, A.; Unger, W. E. S. C 1s and Au
+4f(7/2) Referenced XPS Binding Energy Data Obtained with
+Different Aluminium Oxides, Hydroxides and Fluorides. Fresenius' J.
+Anal. Chem. 1997, 358, 175−179.
+(42) Roodenko, K.; Halls, M. D.; Gogte, Y.; Seitz, O.; Veyan, J. F.;
+Chabal, Y. J. Nature of Hydrophilic Aluminum Fluoride and
+Oxyaluminum Fluoride Surfaces Resulting from XeF2 Treatment of
+Al and Al2O3. J. Phys. Chem. C 2011, 115, 21351−21357.
+(43) Moulder, J. F.; Stickle, W. F.; Sobol, P. E.; Bomben, K. D.
+Handbook of X-ray Photoelectron Spectroscopy; Perkin-Elmer Corpo-
+ration, Physical Electronics Division: Eden Praire, MN, 1992.
+(44) Mangolini, F.; McClimon, J. B.; Rose, F.; Carpick, R. W.
+Accounting for Nanometer-Thick Adventitious Carbon Contami-
+nation in X-Ray Absorption Spectra of Carbon-Based Materials. Anal.
+Chem. 2014, 86, 12258−12265.
+(45) Fadley, C. S.; Baird, R. J.; Siekhaus, W.; Novakov, T.;
+Bergstrom, S. A. Surface Analysis and Angular Distributions in X-ray
+Photoelectron Spectroscopy. J. Electron Spectrosc. Relat. Phenom. 1974,
+4, 93−137.
+(46) McCafferty, E.; Wightman, J. P. An X-ray Photoelectron
+Spectroscopy Sputter Profile Study of the Native Air-Formed Oxide
+Film on Titanium. Appl. Surf. Sci. 1999, 143, 92−100.
+(47) Seah, M. P.; Dench, W. A. Quantitative Electron Spectroscopy
+of Surfaces: A Standard Data Base for Electron Inelastic Mean Free
+Paths in Solids. Surf. Interface Anal. 1979, 1, 2−11.
+(48) Tanuma, S.; Powell, C. J.; Penn, D. R. Calculations of Electron
+Inelastic Mean Free Paths for 31 Materials. Surf. Interface Anal. 1988,
+11, 577−589.
+(49) Ferguson, J. D.; Weimer, A. W.; George, S. M. Atomic Layer
+Deposition of Ultrathin and Conformal Al2O3 films on BN Particles.
+Thin Solid Films 2000, 371, 95−104.
+(50) Jost, W. Diffusion in Solids, Liquids, Gases; Academic Press Inc.
+Publishers: New York, 1952.
+(51) Massoud, H. Z.; Plummer, J. D.; Irene, E. A. Thermal-
+Oxidation of Silicon in Dry Oxygen Growth-Rate Enhancement in the
+Thin Regime 0.1. Experimental Results. J. Electrochem. Soc. 1985, 132,
+2685−2693.
+
+The Journal of Physical Chemistry C
+Article
+
+DOI: 10.1021/acs.jpcc.9b00124
+J. Phys. Chem. C 2019, 123, 10346−10355
+10355
+

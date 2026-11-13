@@ -72,7 +72,7 @@ If the prefactor is uncertain, it needs an interval too; multiplying an electron
 
 ## 5. Application boundary for ALD
 
-For Al2O3/MoCl4, a future calculation must specify: surface polymorph and facet, hydroxyl termination, slab thickness and boundary conditions, MoCl4 charge and spin state, co-reactant, coverage, temperature, and a reproducible electronic-structure Hamiltonian. For CaF, the notation and reaction stoichiometry must be specified; the project must not silently replace CaF by CaF2.
+For Al2O3/MoCl5, a future calculation must specify: surface polymorph and facet, hydroxyl termination, slab thickness and boundary conditions, MoCl5 charge and spin state, co-reactant, coverage, temperature, and a reproducible electronic-structure Hamiltonian. The user has confirmed the formula is MoCl5 and that the target is CaF2 crystal deposition; the earlier `MoCl4` and `CaF` were transcription errors on the user's side.
 
 The certificate can then compare competing pathways only if each pathway receives a sound interval. It cannot certify a pathway from a hand-written geometry, a hard-coded DFT reference, or a guessed HOMO-LUMO gap.
 

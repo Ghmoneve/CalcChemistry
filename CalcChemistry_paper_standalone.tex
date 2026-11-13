@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-% Standalone: no \input, no BibTeX, no external files, no Unix-only packages.
+% Standalone: no \input, no BibTeX, no external files.
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -90,7 +90,7 @@ visible where obtaining that information may be expensive.
 Ab initio approaches to area-selective ALD motivate the need to separate
 surface-model choices, electronic accuracy, and kinetic assumptions
 \citep{Pieck2025}. The intended applications include elementary steps involving
-$\mathrm{Al_2O_3}/\mathrm{MoCl_4}$ and $\mathrm{CaF_2}$ crystal deposition, as
+$\mathrm{Al_2O_3}/\mathrm{MoCl_5}$ and $\mathrm{CaF_2}$ crystal deposition, as
 specified by the user. These are research targets, not descriptions of
 completed calculations. No surface structures, molecular integrals, independent
 DFT labels, precursor pair, or measured kinetic data for either target are
@@ -1213,7 +1213,7 @@ rank pathways; a failed ranking is not an algorithmic or physical prediction.
 
 \begin{enumerate}
 \item \textbf{Specify the physical question.}
-For $\mathrm{Al_2O_3}/\mathrm{MoCl_4}$, record the substrate phase and
+For $\mathrm{Al_2O_3}/\mathrm{MoCl_5}$, record the substrate phase and
 facet, termination and hydroxylation, slab size and boundary conditions,
 coverage, precursor charge and spin, co-reactant, temperature, and reference
 reservoirs. For CaF2 crystal deposition, resolve the precursor pair, the
@@ -1290,6 +1290,206 @@ paper provides conditional implications, not solutions to these input
 problems. Its next substantive result should be a fully specified example
 where each hypothesis can be checked and where the final interval either
 supports or demonstrably fails to support a stated chemical decision.
+
+\section{A worked protocol for one elementary step}
+\label{sec:worked}
+
+Section~\ref{sec:intro} listed the inputs a certificate needs. This section
+supplies them for one system far enough to expose where the method is already
+informative and where it is not. Nothing below is a molecular energy
+calculation; the certified content is arithmetic on published growth data plus
+two geometric inequalities, and the negative result is proved.
+
+\subsection{System and evidence status}
+
+The target is $\mathrm{CaF_2}$ growth from a calcium amidinate and hydrogen
+fluoride on the fluorine-terminated $\mathrm{CaF_2}(111)$ cleavage plane.
+Every choice below is either taken from a cited measurement or is explicitly
+labelled as a modelling decision.
+
+\begin{itemize}
+\item \emph{Surface.} The $(111)$ plane is the natural cleavage plane and is
+F-terminated with a $(1\times1)$ unreconstructed termination
+\citep{Vogt2005,Puchin2001}. Its repeat unit along $[111]$ is a
+F--Ca--F trilayer of height $a_0/\sqrt3$ \citep{Calleja2005}.
+\item \emph{Lattice constant.} $a_0 = 5.4626$~\AA, room-temperature XRD powder
+data (Swanson \& Tatge, NBS Circular 539 (1953) 69--70; ICSD 52754).
+\item \emph{Precursor pair.} Bis($N,N'$-di-\emph{i}-propylformamidinato)calcium(II)
+with anhydrous HF, reported at 175--250~$^\circ$C with a growth per cycle of
+$0.3$--$0.4$~\AA/cycle \citep{Hennessy2023}.
+\item \emph{Competing routes in the literature.} $\mathrm{Ca(thd)_2}$ with
+$\mathrm{TiF_4}$ at 300--450~$^\circ$C \citep{Pilvi2007,Pilvi2008}; HF--pyridine
+as a fluorine co-reactant \citep{Lee2016}; fluorinated $\beta$-diketonates as
+single-source precursors \citep{LoPresti2022}; the first metal-fluoride ALD
+process \citep{Ylilammi1994}.
+\end{itemize}
+
+The literature does not fix the elementary-step mechanism. Whether HF
+protonates an adsorbed amidinate, exchanges ligands, or first builds a surface
+fluorine reservoir is an open question, and no activation energy for this
+system has been measured or computed in any source consulted here. We therefore
+certify only what survives that ignorance.
+
+\subsection{Certified arithmetic from published growth data}
+
+Two published numbers, one measured and one geometric, determine the fraction
+of a layer deposited per cycle. Let $p$ be the trilayer height and $s$ the
+growth per cycle. Writing $s = p\,c$ with $c$ the fractional coverage, an
+interval $s\in[s_1,s_2]$ with $p>0$ gives $c\in[s_1/p,\ s_2/p]$
+(Lemma~\ref{lem:coverage-lean}).
+
+\begin{lemma}[Interval coverage]
+\label{lem:coverage-lean}
+For real $p>0$ and $s=p\,c$, if $s_1\le s\le s_2$ then
+$s_1/p\le c\le s_2/p$.
+\end{lemma}
+\begin{proof}
+From $s=p\,c$ we get $c=s/p$. Since $p>0$, division by $p$ is monotone, so
+$s_1/p\le s/p\le s_2/p$.
+\end{proof}
+
+With $p=a_0/\sqrt3=3.1538$~\AA{} and $s\in[0.3,0.4]$~\AA/cycle,
+\[
+c \in \left[\frac{0.3}{3.1538},\ \frac{0.4}{3.1538}\right]
+  = [9.51\%,\ 12.68\%].
+\]
+Each cycle therefore completes about one tenth of a trilayer.
+
+On the unreconstructed F-terminated $(111)$ plane the Ca ions form a triangular
+lattice of spacing $a_0/\sqrt2$, so one Ca site occupies
+\[
+A_{\mathrm{site}} = \tfrac{\sqrt3}{2}\left(\tfrac{a_0}{\sqrt2}\right)^2
+= \tfrac{\sqrt3}{4}a_0^2 = 12.9211\ \text{\AA}^2 .
+\]
+The areal density of deposited Ca follows as
+$\sigma = c/A_{\mathrm{site}} \in [0.00736,\ 0.00982]$~\AA$^{-2}$, i.e.\ one
+deposited Ca per $101.9$--$135.8$~\AA$^2$ of surface. That is $7.9$ to $10.5$
+times the area of a bare Ca site.
+
+\begin{remark}
+This ratio is the quantitative statement that the cycle is \emph{not} limited
+by the availability of surface sites. It does not identify the limiting
+mechanism.
+\end{remark}
+
+\subsection{A geometric design rule for the ligand}
+
+The ratio above invites a purely geometric bound, which holds regardless of
+kinetics.
+
+\begin{theorem}[Footprint bound]
+\label{thm:footprint}
+Let $\sigma>0$ be the number of precursor molecules deposited per unit area and
+let $A>0$ be the area each occupies, with no overlap. Then $\sigma A\le1$, and
+if $A_0\le A$ for some ligand footprint $A_0>0$ then
+\[
+\sigma \le \frac{1}{A_0}.
+\]
+Equivalently, with growth per cycle $s = p\,\sigma A_{\mathrm{site}}$,
+\[
+s \le \frac{p\,A_{\mathrm{site}}}{A_0}.
+\]
+\end{theorem}
+\begin{proof}
+Non-overlap gives $\sigma A\le1$. Dividing by $\sigma>0$ yields
+$A\le1/\sigma$; since $A_0\le A$ and both are positive,
+$1/A\le1/A_0$, hence $\sigma\le1/A\le1/A_0$. Multiplying
+$s=p\,\sigma A_{\mathrm{site}}$ by this bound gives the second inequality.
+\end{proof}
+
+The theorem is a cap, not a prediction: it constrains what a cycle can deposit
+and says nothing about whether the cycle reaches the cap. Read backwards,
+however, it is a design rule. A ligand of footprint $A_0$ caps the growth per
+cycle at $pA_{\mathrm{site}}/A_0$, so a bulky ligand cannot produce a high
+growth rate no matter how favourable its surface chemistry. For the present
+system the observed $\sigma$ requires only $A_0\le135.8$~\AA$^2$, which is
+consistent with, but does not establish, steric self-limitation by the
+di-\emph{i}-propylformamidinate ligand. A kinetic limitation would produce the
+same observation.
+
+\subsection{Why sampling cannot certify a barrier}
+
+It is tempting to sample energies at a set of candidate configurations and read
+a barrier off their maximum. That inference is not available, and the failure
+is elementary.
+
+\begin{theorem}[No upper bound from sampling]
+\label{thm:nosampling}
+There is a configuration set $X$ with a subset $S\subseteq X$, nonempty, and an
+energy function $E:X\to\R$ such that $E=0$ on all of $S$ while
+$\max_X E = 10$. Consequently no function of the sampled values
+$\{E(x):x\in S\}$ alone bounds $\max_X E$ from above.
+\end{theorem}
+\begin{proof}
+Take $X=\{0,1,2\}$, $S=\{0,2\}$, and $E(0)=E(2)=0$, $E(1)=10$. Then
+$\max_S E = 0$ and $\max_X E = 10$, and the sampled data are identical for this
+$E$ and for the function that is identically zero, which has maximum $0$. Any
+claimed upper bound derived from the samples would therefore have to be at
+least $10$ and at most $0$.
+\end{proof}
+
+The positive direction survives: a sampled lower bound is valid at every
+configuration where it is evaluated, so its maximum over the samples is a valid
+lower bound on any barrier whose path passes through those configurations
+(Lemma~\ref{lem:sample-lower}).
+
+\begin{lemma}[Lower bound from samples]
+\label{lem:sample-lower}
+Let $L(x)\le E(x)$ for $x\in S$ and let $E_r\le U_r$. Then for every $x\in S$,
+$L(x)-U_r \le E(x)-E_r$.
+\end{lemma}
+\begin{proof}
+Immediate from $L(x)\le E(x)$ and $-U_r\le-E_r$.
+\end{proof}
+
+The asymmetry is the reason a certificate must treat the two directions
+separately. When the interval produced for a barrier is one-sided, it must be
+reported as one-sided.
+
+\subsection{Formal verification}
+
+Lemmas~\ref{lem:coverage-lean} and \ref{lem:sample-lower} and
+Theorems~\ref{thm:footprint} and \ref{thm:nosampling} are formalized in Lean~4
+against \texttt{mathlib} as \texttt{gpc\_coverage\_interval},
+\texttt{barrier\_lower\_from\_samples},
+\texttt{max\_density\_from\_ligand\_size} with
+\texttt{gpc\_upper\_from\_ligand\_footprint}, and
+\texttt{sampling\_gives\_no\_upper\_bound} respectively, together with the
+supporting interval lemmas \texttt{adsorption\_energy\_interval},
+\texttt{two\_corrections\_widen}, \texttt{coverage\_gpc\_interval},
+\texttt{packing\_bound}, \texttt{barrier\_upper\_at\_max},
+\texttt{certified\_barrier\_interval}, \texttt{stays\_positive} and
+\texttt{certified\_negative}. Each is checked with \texttt{\#print axioms} and
+depends only on \texttt{propext}, \texttt{Classical.choice} and
+\texttt{Quot.sound}; no \texttt{sorry}, \texttt{admit} or project-defined axiom
+appears in the development. Kernel acceptance certifies the inequalities above
+given their hypotheses. It certifies nothing about the hypotheses themselves,
+which remain physical or geometric inputs.
+
+\subsection{What remains open for this system}
+
+\begin{enumerate}
+\item The elementary-step mechanism and any activation energy for
+HF reacting with an adsorbed calcium amidinate on $\mathrm{CaF_2}(111)$. No
+value is available in the sources consulted, and Theorem~\ref{thm:nosampling}
+shows that a barrier can be certified from below only.
+\item The ligand footprint $A_0$ of di-\emph{i}-propylformamidinate, which
+Theorem~\ref{thm:footprint} needs in order to become a quantitative cap.
+\item Whether the observed $9.51$--$12.68\%$ coverage reflects steric
+self-limitation or kinetics. Distinguishing them requires a coverage-dependent
+measurement, not a bound.
+\item The substrate relationship, which is deliberately absent here. If growth
+continues on existing $\mathrm{CaF_2}$ the relevant surface is $\mathrm{CaF_2}$;
+the role of an underlying Si(100) is epitaxial orientation, not surface
+chemistry.
+\end{enumerate}
+
+The honest summary of this section is therefore narrow. Two published numbers
+plus a lattice constant fix the fractional coverage of a cycle and show that
+site availability is not the limiter. A kernel-checked inequality turns that
+observation into a ligand-design cap, and a kernel-checked counterexample shows
+that the barrier for the same system cannot be bounded above by any amount of
+configuration sampling. No barrier value for this system is claimed.
 
 
 \section{Evidence and formal verification status}
@@ -1419,7 +1619,7 @@ physical target. A wide interval or an unverified hypothesis is an informative
 outcome: it identifies the missing evidence without claiming a kinetic
 prediction that the calculation cannot support.
 
-\begin{thebibliography}{8}
+\begin{thebibliography}{17}
 \bibitem[O'Gorman et~al.(2022)O'Gorman, Irani, Whitfield, and
   Fefferman]{OGorman2022}
 Bryan O'Gorman, Sandy Irani, James Whitfield, and Bill Fefferman.
@@ -1480,5 +1680,78 @@ Henry Eyring.
   107--115, 1935.
 \newblock \doi{10.1063/1.1749604}.
 \newblock URL \url{https://doi.org/10.1063/1.1749604}.
+\bibitem[Vogt et~al.(2005)Vogt, Henning, and Weiss]{Vogt2005}
+J.~Vogt, J.~Henning, and H.~Weiss.
+\newblock The structure of caf2(111) and baf2(111) single crystal surfaces: A
+  tensor low energy electron diffraction study.
+\newblock \emph{Surface Science}, 578\penalty0 (1-3):\penalty0 57--70, 2005.
+\newblock \doi{10.1016/j.susc.2005.01.011}.
+\newblock URL \url{https://doi.org/10.1016/j.susc.2005.01.011}.
+\bibitem[Puchin et~al.(2001)Puchin, Puchina, Huisinga, and
+  Reichling]{Puchin2001}
+V~E Puchin, A~V Puchina, M~Huisinga, and M~Reichling.
+\newblock Theoretical modelling of steps on the caf2(111) surface.
+\newblock \emph{Journal of Physics: Condensed Matter}, 13\penalty0
+  (10):\penalty0 2081--2094, 2001.
+\newblock \doi{10.1088/0953-8984/13/10/304}.
+\newblock URL \url{https://doi.org/10.1088/0953-8984/13/10/304}.
+\bibitem[Calleja et~al.(2005)Calleja, Hinarejos, Vázquez~de Parga, Suturin,
+  Sokolov, and Miranda]{Calleja2005}
+F.~Calleja, J.J. Hinarejos, A.L. Vázquez~de Parga, S.M. Suturin, N.S. Sokolov,
+  and R.~Miranda.
+\newblock Epitaxial growth of caf2(111) on cu(111) visualized by {STM}.
+\newblock \emph{Surface Science}, 582\penalty0 (1-3):\penalty0 14--20, 2005.
+\newblock \doi{10.1016/j.susc.2005.03.003}.
+\newblock URL \url{https://doi.org/10.1016/j.susc.2005.03.003}.
+\bibitem[Hennessy et~al.(2023)Hennessy, Rodríguez, West, and
+  Brandon]{Hennessy2023}
+John Hennessy, Robin~E. Rodríguez, William~C. West, and Erik~J. Brandon.
+\newblock Atomic layer deposition of calcium fluoride for barrier coating
+  applications.
+\newblock \emph{Journal of Vacuum Science \& Technology A}, 41\penalty0
+  (4):\penalty0 042405, 2023.
+\newblock \doi{10.1116/6.0002563}.
+\newblock URL \url{https://doi.org/10.1116/6.0002563}.
+\bibitem[Pilvi et~al.(2007)Pilvi, Arstila, Leskelä, and Ritala]{Pilvi2007}
+Tero Pilvi, Kai Arstila, Markku Leskelä, and Mikko Ritala.
+\newblock Novel {ALD} process for depositing caf 2 thin films.
+\newblock \emph{Chemistry of Materials}, 19\penalty0 (14):\penalty0 3387--3392,
+  2007.
+\newblock \doi{10.1021/cm0629412}.
+\newblock URL \url{https://doi.org/10.1021/cm0629412}.
+\bibitem[Pilvi et~al.(2008)Pilvi, Ritala, Leskelä, Bischoff, Kaiser, and
+  Kaiser]{Pilvi2008}
+Tero Pilvi, Mikko Ritala, Markku Leskelä, Martin Bischoff, Ute Kaiser, and
+  Norbert Kaiser.
+\newblock Atomic layer deposition process with tif\_4 as a precursor for
+  depositing metal fluoride thin films.
+\newblock \emph{Applied Optics}, 47\penalty0 (13):\penalty0 C271, 2008.
+\newblock \doi{10.1364/AO.47.00C271}.
+\newblock URL \url{https://doi.org/10.1364/AO.47.00C271}.
+\bibitem[Lee et~al.(2016)Lee, Sun, Young, and George]{Lee2016}
+Younghee Lee, Huaxing Sun, Matthias~J. Young, and Steven~M. George.
+\newblock Atomic layer deposition of metal fluorides using {HF}–pyridine as
+  the fluorine precursor.
+\newblock \emph{Chemistry of Materials}, 28\penalty0 (7):\penalty0 2022--2032,
+  2016.
+\newblock \doi{10.1021/acs.chemmater.5b04360}.
+\newblock URL \url{https://doi.org/10.1021/acs.chemmater.5b04360}.
+\bibitem[Lo~Presti et~al.(2022)Lo~Presti, Pellegrino, and
+  Malandrino]{LoPresti2022}
+Francesca Lo~Presti, Anna~L. Pellegrino, and Graziella Malandrino.
+\newblock Journey of a molecule from the solid to the gas phase and vice versa
+  : direct estimation of vapor pressure of alkaline-earth metalorganic
+  precursors for atmospheric pressure vapor phase deposition of fluoride films.
+\newblock \emph{Dalton Transactions}, 51\penalty0 (18):\penalty0 7352--7362,
+  2022.
+\newblock \doi{10.1039/d2dt00479h}.
+\newblock URL \url{https://doi.org/10.1039/d2dt00479h}.
+\bibitem[Ylilammi and Ranta‐aho(1994)]{Ylilammi1994}
+M.~Ylilammi and T.~Ranta‐aho.
+\newblock Metal fluoride thin films prepared by atomic layer deposition.
+\newblock \emph{Journal of The Electrochemical Society}, 141\penalty0
+  (5):\penalty0 1278--1284, 1994.
+\newblock \doi{10.1149/1.2054910}.
+\newblock URL \url{https://doi.org/10.1149/1.2054910}.
 \end{thebibliography}
 \end{document}
