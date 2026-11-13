@@ -36,3 +36,10 @@ open CalcChemistry
 #print axioms block_energy_certificate
 #print axioms block_energy_certificate_gap
 #print axioms normalized_energy_lower
+-- ComplementBound
+#print axioms diagForm_lower
+#print axioms complement_ground_bound
+#print axioms complement_ground_bound_normalized
+#print axioms complement_bound_tight_when_decoupled
+#print axioms complement_bound_improvement
+#print axioms complement_gap_positive
