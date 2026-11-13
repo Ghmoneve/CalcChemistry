@@ -1,0 +1,266 @@
+{
+  "system": {
+    "atom": "O 0 0 0.117; H 0 0.757 -0.467; H 0 -0.757 -0.467",
+    "basis": "sto-3g",
+    "sector": "S_z = 0"
+  },
+  "n_determinants": 441,
+  "rhf_energy": -74.96270660885543,
+  "fci_energy": -75.01201163382366,
+  "d": -74.96270660885546,
+  "diagonal_gap": 0.44740434674586993,
+  "d_equals_rhf": true,
+  "baseline": {
+    "spectral_norm": 2.026457687154963,
+    "spectral_radius": 2.0264576871549638,
+    "lambda_max": 2.0264576871549638,
+    "lambda_min": -1.7502721665682204,
+    "norm_minus_radius": -8.881784197001252e-16,
+    "frobenius": 11.534234816775035,
+    "max_row_2norm": 1.0900108478538002,
+    "gershgorin_raw": 3.758707204428789
+  },
+  "balancing": {
+    "sigma_at_zero": 2.026457687154963,
+    "grad_norm_at_zero": 7.055669380823634e-16,
+    "curvature_min": 0.011350196338355545,
+    "curvature_median": 0.02376321273089843,
+    "curvature_max": 0.061292915631838696,
+    "curvature_all_positive": true,
+    "best_found": 2.0264576871549638,
+    "improvement": -8.881784197001252e-16,
+    "starts": [
+      {
+        "sigma_start": 2.046129988466893,
+        "sigma_final": 2.0264577308777665,
+        "nit": 400,
+        "gauge_residual": 0.8422133549471411,
+        "grad_norm_final": 5.6312854784881305e-06,
+        "sigma_path": [
+          2.046129988466893,
+          2.0264801872292932,
+          2.0264649278962183,
+          2.026460757228859,
+          2.026459023220827,
+          2.026458292374406,
+          2.026457957983716,
+          2.0264578386500163,
+          2.0264578045059363,
+          2.0264577706207367,
+          2.026457756018625,
+          2.026457743497046,
+          2.0264577338014615
+        ]
+      },
+      {
+        "sigma_start": 2.2837481678720732,
+        "sigma_final": 2.026459063857053,
+        "nit": 400,
+        "gauge_residual": 3.6072541290562934,
+        "grad_norm_final": 4.543617366775679e-05,
+        "sigma_path": [
+          2.2837481678720732,
+          2.027028096309415,
+          2.0265872662811515,
+          2.026508306058756,
+          2.0264804466828767,
+          2.0264681093390506,
+          2.0264639709449934,
+          2.026462216118075,
+          2.0264612243763236,
+          2.0264604954596313,
+          2.026459874642959,
+          2.026459475831595,
+          2.026459189476059
+        ]
+      },
+      {
+        "sigma_start": 4.569636210044155,
+        "sigma_final": 3.3235005711830468,
+        "nit": 9,
+        "gauge_residual": 10.348654779212426,
+        "grad_norm_final": 1.758854294531934,
+        "sigma_path": [
+          4.569636210044155,
+          3.5387486976356937,
+          3.661384122408807,
+          3.5011978045823327,
+          3.5212362161654447,
+          3.480200040251803,
+          4.104447790374508,
+          3.870205057189095,
+          3.323584318017211,
+          3.323500679934134,
+          3.323500571324571,
+          3.3235005711832306,
+          3.3235005711830574,
+          3.3235005711830468
+        ]
+      },
+      {
+        "sigma_start": 26.971136595037716,
+        "sigma_final": 8.13750861706849,
+        "nit": 12,
+        "gauge_residual": 18.739883059472664,
+        "grad_norm_final": 4.204072052178674,
+        "sigma_path": [
+          26.971136595037716,
+          17.637117197592755,
+          12.139136257435418,
+          11.505695602699193,
+          10.184751377392827,
+          8.568627337727987,
+          8.336706426225629,
+          8.204171753773556,
+          8.137508617068496,
+          8.176108576710673,
+          8.137607329693314,
+          8.1375088839169,
+          8.137508617789967,
+          8.137508617070438,
+          8.137508617068498,
+          8.137508617068496,
+          8.137508617068491
+        ]
+      },
+      {
+        "sigma_start": 2075.972363746173,
+        "sigma_final": 144.90302355079092,
+        "nit": 19,
+        "gauge_residual": 37.12816090307291,
+        "grad_norm_final": 105.42005983628707,
+        "sigma_path": [
+          2075.972363746173,
+          640.5509922824037,
+          429.4608038967929,
+          310.0992179352191,
+          207.74369508324133,
+          193.13478805574246,
+          146.36564316454403,
+          144.90302355079092,
+          294.67965938200456,
+          144.9040156643714,
+          144.90302459588128,
+          144.9030235518931,
+          144.90302355079197,
+          144.90302355079083,
+          144.90302355079095,
+          144.90302355079092
+        ]
+      },
+      {
+        "sigma_start": 2.0264576871549638,
+        "sigma_final": 2.0264576871549638,
+        "nit": 0,
+        "gauge_residual": 0.0,
+        "grad_norm_final": 2.5873203475713146e-16,
+        "sigma_path": [
+          2.0264576871549638
+        ]
+      }
+    ],
+    "theorem_floor": 2.0264576871549638,
+    "rho_attained": 2.026457687154963,
+    "directional_argmin_t_max_abs": 2.664141467921351e-07,
+    "directional_min_dev_from_floor": 3.552713678800501e-15,
+    "directional_none_below_floor": true,
+    "n_starts_stalled_above_floor": 3
+  },
+  "gershgorin": {
+    "raw": 3.758707204428789,
+    "rho_abs": 2.6270314011992655,
+    "sign_scaling_value": 3.758707204428789,
+    "sign_scaling_delta": 0.0,
+    "sign_scaling_is_vacuous": true,
+    "invalid_signed_sum": {
+      "value": 0.7476008736000962,
+      "is_a_valid_bound": false,
+      "why": "Gershgorin sums |S_ij| and |eps_i eps_j| = 1, so sign flips cancel only in a quantity with no spectral content; undercutting rho(O) proves it is not a bound.",
+      "counterexample_lambda_max": 2.6270314011992655,
+      "understatement_factor": 3.5139490789366135
+    },
+    "balanced_gershgorin": 2.765962038341586,
+    "osborne_iters": 1118,
+    "osborne_spread": 2.131909083258949,
+    "best_valid": 2.6270314011992655,
+    "improvement_vs_raw": 1.1316758032295233
+  },
+  "invariance": {
+    "n_eig_below_gap": 87,
+    "tau_one_sided": 1.7502721665682204,
+    "n_eig_below_minus_tau_one": 0,
+    "similarity_max_eig_dev": 2.7533531010703882e-14,
+    "similarity_max_imag": 0.0,
+    "congruence_inertia_violations": 0,
+    "certificate_rows": [
+      {
+        "tau_kind": "spectral TWO-sided ||O||_2",
+        "label": "$\\lVert O\\rVert_2$ (two-sided)",
+        "tau": 2.026457687154963,
+        "d_minus_tau": -76.98916429601042,
+        "err_vs_fci": -1.9771526621867537,
+        "tau_over_gap": 4.529365219390707,
+        "beats_gap": false
+      },
+      {
+        "tau_kind": "spectral ONE-sided -lam_min(O)",
+        "label": "$-\\lambda_{\\min}(O)$ (one-sided, sharp)",
+        "tau": 1.7502721665682204,
+        "d_minus_tau": -76.71297877542368,
+        "err_vs_fci": -1.7009671416000174,
+        "tau_over_gap": 3.9120589223117053,
+        "beats_gap": false
+      },
+      {
+        "tau_kind": "Gershgorin raw",
+        "label": "Gershgorin raw (row sums)",
+        "tau": 3.758707204428789,
+        "d_minus_tau": -78.72141381328424,
+        "err_vs_fci": -3.7094021794605823,
+        "tau_over_gap": 8.401141454630908,
+        "beats_gap": false
+      },
+      {
+        "tau_kind": "Gershgorin balanced (Osborne)",
+        "label": "Gershgorin balanced (Osborne)",
+        "tau": 2.765962038341586,
+        "d_minus_tau": -77.72866864719704,
+        "err_vs_fci": -2.7166570133733785,
+        "tau_over_gap": 6.182242212127366,
+        "beats_gap": false
+      },
+      {
+        "tau_kind": "rho(|O|) absolute-value floor",
+        "label": "$\\rho(\\lvert O\\rvert)$ absolute-value floor",
+        "tau": 2.6270314011992655,
+        "d_minus_tau": -77.58973801005472,
+        "err_vs_fci": -2.5777263762310554,
+        "tau_over_gap": 5.871716312786396,
+        "beats_gap": false
+      }
+    ]
+  },
+  "verdict": {
+    "non_vacuous_achievable": false,
+    "any_transform_helps": false,
+    "spectral_infimum": 2.0264576871549638,
+    "tau_one_sided_sharp": 1.7502721665682204,
+    "one_sided_deficit_factor": 3.9120589223117053,
+    "best_tau_any": 1.7502721665682204,
+    "gap": 0.44740434674586993,
+    "deficit_factor": 4.529365219390709,
+    "n_eigenvalues_of_O_below_minus_gap": 87,
+    "over_insurance_factor": 41.10042918468706,
+    "one_sided_over_insurance": 35.49885975510373,
+    "taus": {
+      "spectral_norm_before": 2.026457687154963,
+      "spectral_norm_after_balancing": 2.0264576871549638,
+      "spectral_one_sided_sharp": 1.7502721665682204,
+      "gershgorin_raw": 3.758707204428789,
+      "gershgorin_balanced": 2.765962038341586,
+      "rho_abs_floor": 2.6270314011992655
+    }
+  },
+  "runtime_s": 37.908475399017334,
+  "timestamp": "2026-11-13 15:42:28"
+}

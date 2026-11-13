@@ -132,8 +132,12 @@ inputs against independently sourced data when available.
 The central open problem is a useful complementary-space lower bound whose
 construction avoids enumerating the full omitted determinant space. Section
 \ref{sec:worked} supplies the reduction that makes this a two-scalar problem, and
-the certificate for it is kernel-checked, but the two scalars themselves are not
-computed for any real integral set.
+the certificate for it is kernel-checked. Both scalars are now measured for water
+in STO-3G, and the measurement is what closes the block route rather than merely
+obstructing it: $\tau$ is pinned at $\norm{O}_2$ by similarity invariance and
+exceeds the diagonal gap by a factor near four. The single-reference Schur step
+replaces that route and reaches $0.86$~kcal\,mol$^{-1}$, conditional on one
+positive-definiteness hypothesis that the cheapest spectral tool does not certify.
 
 Write the complement block as $H_C = D + O$ with $D$ diagonal and $O$ carrying the
 off-diagonal coupling. If every diagonal entry satisfies $D_i \ge d$ and the
@@ -173,30 +177,93 @@ was wrong by $33.8$~Ha and everything below supersedes it.
 The exact values are
 \[
 d = -74.962707\ \text{Ha},\qquad
-\Delta_{\mathrm{diag}} = 0.447404\ \text{Ha}\ (12.17\ \text{eV}),\qquad
-\tau = 2.026458\ \text{Ha}\ (55.14\ \text{eV}),
+\Delta_{\mathrm{diag}} = 0.447404\ \text{Ha}\ (12.17\ \text{eV}),
+\]
+and the coupling constant is
+\[
+\tau_{\text{two-sided}} = \norm{O}_2 = 2.026458\ \text{Ha}\ (55.14\ \text{eV}),
+\qquad
+\tau_{\text{one-sided}} = -\lambda_{\min}(O) = 1.750272\ \text{Ha},
 \]
 where $\Delta_{\mathrm{diag}}$ is the gap from the lowest determinant to the next.
 Note $d - E_{\mathrm{RHF}} = 1.4\times10^{-14}$~Ha: the diagonal minimum \emph{is}
 the reference determinant's energy, because a determinant's diagonal element is by
-definition the energy of that determinant.
+definition the energy of that determinant. Of the two constants a signed
+quadratic-form certificate would use the one-sided value, which is the sharper;
+quoting only $2.026458$ overstates the deficit by a factor $1.16$.
 
-Two conclusions follow, and the second is the discouraging one. First, $d$ needs no
-enumeration, provided the reference determinant is shown to be the diagonal
-minimum. Second, $\tau/\Delta_{\mathrm{diag}} = 4.53$: the off-diagonal coupling
-exceeds the diagonal gap by a factor $4.5$, so the certified bound
+Three conclusions follow. First, $d$ needs no enumeration, provided the reference
+determinant is shown to be the diagonal minimum. Second,
+$\tau/\Delta_{\mathrm{diag}} = 4.53$ (or $3.91$ one-sided): the off-diagonal
+coupling exceeds the diagonal gap by a factor near four, so the certified bound
 $d-\tau = -76.99$~Ha lies far \emph{below} the FCI energy $-75.0120$~Ha and the
-certificate is sound but vacuous. The complement certificate constructed in
-Section~\ref{sec:worked}'s framework does not, at this level of the split, decide
-anything.
+certificate is sound but vacuous. Third, and this is what closes the route rather
+than merely obstructing it, \emph{no change of basis can lower $\tau$}.
 
-The same pattern holds across the sector trend: shrinking the complement from $440$
-to $91$ determinants moves $\tau$ only from $2.026$ to $1.534$~Ha, while $d$ rises
-from $-74.52$ to $-52.52$~Ha. The binding constraint is $\tau$, and it decays far
-more slowly than $d$ grows. Cheap proxies for $\tau$ are also far from tight here:
-the Gershgorin bound gives $3.759$~Ha against a true norm of $2.026$~Ha, and the
-largest row of $O$ has $80$ of $441$ entries nonzero, so row sparsity alone would
-not close the factor-of-$4.5$ deficit.
+\paragraph{Why the block route is closed, not merely hard.}
+A diagonal similarity $SOS^{-1}$ preserves the spectrum, and a symmetric matrix has
+2-norm equal to its spectral radius, so
+\[
+  \inf_{S=\operatorname{diag}(s)>0}\norm{SOS^{-1}}_2 = \norm{O}_2 .
+\]
+A search over $20\,000$ random scalings confirms it: every attempt was worse
+(minimum $59.33$~Ha) and none fell below $\norm{O}_2$. Sign information cannot help
+either, because the quadratic form is controlled through $|O|$
+(\path{abs_quadform_le_absO}), which discards all sign cancellation at the first
+step, and $O$ has no usable gauge anyway: $9536$ entries are positive and $8452$
+negative. Low rank is also excluded, $O$ having full rank $441$ with slowly decaying
+singular values $2.03,1.76,1.75,1.70,\dots$, and $87$ of its eigenvalues lie below
+$-\Delta_{\mathrm{diag}}$, so the negative part is not a small perturbation. The
+weighted Collatz--Wielandt family (\path{quadform_le_diag_scaled}) is likewise
+stated for $|O|$ and inherits the same floor.
+
+Cheap proxies for $\tau$ are far from tight: the Gershgorin bound gives
+$3.759$~Ha against a true norm of $2.026$~Ha, and the largest row of $O$ has $80$ of
+$441$ entries nonzero, so row sparsity alone would not close the factor-of-$4.5$
+deficit.
+
+\paragraph{The residual route reaches the same wall from the other side.}
+Temple's inequality
+\[
+  \lambda_{\min}\ \ge\ \langle\psi|H|\psi\rangle
+   - \frac{\norm{(H-\langle H\rangle)\psi}^{2}}{\beta-\langle\psi|H|\psi\rangle}
+\]
+requires $\beta$ to be a strict lower bound on the second eigenvalue. Supplying the
+\emph{true} $\lambda_2$, which is not available in practice, gives a bound within
+$5.37$~kcal\,mol$^{-1}$ at a $200$-dimensional trial space, $231$ times tighter than
+the operator-norm certificate. But the only computable bound at hand, Gershgorin,
+gives $-75.983$~Ha, below the ground state, so the hypothesis fails and the bound
+does not exist. The method relocates the difficulty from bounding $\norm{O}$ to
+certifying a spectral gap.
+
+\paragraph{A single-reference Schur step does better, and needs one hypothesis.}
+Splitting about the reference determinant, $H = \begin{pmatrix} d & b^T\\
+b & H_r\end{pmatrix}$, the Schur determinant identity makes $\lambda$ an
+eigenvalue exactly when $\lambda = g(\lambda)$ with
+\[
+  g(\lambda) = d - b^T (H_r-\lambda I)^{-1} b ,
+\]
+defined for $\lambda<\lambda_{\min}(H_r)$. Evaluating at the Rayleigh upper bound
+$\lambda_1\le d$ gives
+\[
+  g(d) = -75.01338150\ \text{Ha}
+  \quad\text{against}\quad
+  E_{\mathrm{FCI}} = -75.01201163\ \text{Ha},
+\]
+a gap of $0.860$~kcal\,mol$^{-1}$ rather than $1241$: a factor $1443$ improvement,
+using one row of the Hamiltonian and one linear solve. Here
+$H_r-dI$ has smallest eigenvalue $0.349986$~Ha, so the required shift is positive
+definite.
+
+The single hypothesis is $d < \lambda_{\min}(H_r)$, and it is exactly where the
+route is not yet closed. Gershgorin does not certify it even though it is true: the
+smallest Gershgorin bound on $H_r-dI$ is $-1.0207$, and $389$ of the $440$ rows are
+diagonally dominant while $51$ are not. The failure is local rather than global,
+which suggests that a refined treatment of those rows, or a positive-definiteness
+test with a certificate, could close the argument. We have not done that, so the
+Schur value is reported as a numerical candidate and not as a theorem; the
+corresponding Lean module was attempted, found to contain only interval identities
+with the analytic content in its hypotheses, and withdrawn rather than counted.
 
 A cheap candidate for $d$ fails outright. Taking
 $d \ge E_{\mathrm{nuc}} + 2\sum_{i\le N/2}\varepsilon_i$ gives $-36.74$~Ha, an error
