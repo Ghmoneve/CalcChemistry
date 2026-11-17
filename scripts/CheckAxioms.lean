@@ -1,6 +1,9 @@
 import CalcChemistry
 open CalcChemistry
--- CertifiedTheory
+-- Basic  (0)
+-- BornOppenheimer  (1)
+#print axioms BornOppenheimer.parameter_nonneg
+-- CertifiedTheory  (13)
 #print axioms reaction_interval
 #print axioms add_error_interval
 #print axioms psd_quadratic_nonneg
@@ -14,7 +17,7 @@ open CalcChemistry
 #print axioms certified_ranking
 #print axioms pairing_characteristic
 #print axioms pairing_lower_root
--- SurfaceReaction
+-- SurfaceReaction  (17)
 #print axioms adsorption_energy_interval
 #print axioms adsorption_with_correction
 #print axioms gpc_coverage_interval
@@ -32,21 +35,34 @@ open CalcChemistry
 #print axioms gpc_upper_from_ligand_footprint
 #print axioms steric_falsification
 #print axioms steric_admissible
--- BarrierBounds
+-- BarrierBounds  (3)
 #print axioms block_energy_certificate
 #print axioms block_energy_certificate_gap
 #print axioms normalized_energy_lower
--- ComplementBound
+-- ComplementBound  (6)
 #print axioms diagForm_lower
 #print axioms complement_ground_bound
 #print axioms complement_ground_bound_normalized
 #print axioms complement_bound_tight_when_decoupled
 #print axioms complement_bound_improvement
 #print axioms complement_gap_positive
--- DiagonalMinimum
+-- DiagonalMinimum  (6)
 #print axioms swap_identity
 #print axioms chain_does_not_lower
 #print axioms certified_precision
 #print axioms certified_exact_when_decoupled
 #print axioms certified_below_minimum
 #print axioms certified_below_next_determinant
+-- TauSignStructure  (7)
+#print axioms abs_quadform_le_absO
+#print axioms two_mul_abs_le_weighted
+#print axioms quadform_le_diag_scaled
+#print axioms quadform_le_rowsum
+#print axioms posOrthant_gain
+#print axioms two_by_two_scaling_cannot_help
+#print axioms certificate_shortfall
+-- SchurStep  (4)
+#print axioms two_abs_mul_le
+#print axioms schur_block_bound_shifted
+#print axioms schur_block_bound
+#print axioms schur_zero_coupling_exact

@@ -44,20 +44,37 @@ block decomposition yields a ground-energy enclosure; interval subtraction
 yields an electronic barrier enclosure; separately bounded thermodynamic and
 geometric corrections allow propagation through an assumed transition-state
 rate formula; and a finite-state Markov generator perturbation bound controls
-state probabilities and bounded observables. The block bound accepts lower
-bounds on both diagonal blocks and an upper bound on the coupling norm. Its
-proof exposes the principal computational difficulty: certifying the omitted
-space. We prove the direction of reduced-density-matrix relaxation bounds,
-distinguish dual certificates from approximate primal values, and explain why
-a small eigenvector residual need not identify a ground state. A two-level
-pairing model and a three-vertex conflict graph provide exact algebraic checks
-and a counterexample to a proposed topological occupancy rule. These are
-elementary mathematical results assembled for certificate design; no novelty
-is claimed for the inequalities. No molecular or surface benchmark, uniform
+state probabilities and bounded observables.
+
+We then report what happens when the first link is measured rather than assumed.
+On water in STO-3G, where all $441$ determinants can be diagonalised exactly, the
+block certificate needs a coupling constant of $1.75$--$2.03$~Ha to resolve a
+correlation energy of $0.049$~Ha, and the resulting bound sits $1241$~kcal\,mol$^{-1}$
+below the truth. That is not a failure of optimisation: for a symmetric operator a
+similarity transform preserves the spectrum, so no change of basis can lower the
+constant, and neither sign structure nor low rank nor diagonal weighting escapes
+it. A single-reference Schur step avoids the constant entirely and, once a Cholesky
+factorisation certifies one positive-definiteness hypothesis, yields a rigorous
+bound $0.860$~kcal\,mol$^{-1}$ from the exact answer. It costs $O(n^3)$, the same
+order as diagonalisation, so this is a gain in quality rather than in complexity,
+and the exponential wall is untouched.
+
+We prove the direction of reduced-density-matrix relaxation bounds, distinguish
+dual certificates from approximate primal values, and explain why a small
+eigenvector residual need not identify a ground state. A two-level pairing model
+and a three-vertex conflict graph provide exact algebraic checks and a
+counterexample to a proposed topological occupancy rule. For $\mathrm{CaF_2}$ we
+compute a gas-phase model reaction between verified minima and report a
+$3.4$~kcal\,mol$^{-1}$ method spread, while stating that a flat bending potential in
+$\mathrm{CaF_2}$ leaves a systematic uncertainty of comparable size.
+
+These are elementary mathematical results assembled for certificate design; no
+novelty is claimed for the inequalities. No molecular or surface benchmark, uniform
 Born--Oppenheimer error estimate, universal polynomial-time algorithm, or
 experimental growth prediction is established. The principal open task is to
 construct useful, inexpensive, rigorously evaluated inputs for one fully
-specified surface-reaction model.
+specified surface-reaction model, and the blocking obstacle is now identified
+precisely: bounding the Schur scalar without forming the omitted block.
 \end{abstract}
 
 \section{Purpose and scope}
@@ -89,11 +106,18 @@ Ab initio approaches to area-selective ALD motivate the need to separate
 surface-model choices, electronic accuracy, and kinetic assumptions
 \citep{Pieck2025}. The intended applications include elementary steps involving
 $\mathrm{Al_2O_3}/\mathrm{MoCl_5}$ and $\mathrm{CaF_2}$ crystal deposition, as
-specified by the user. These are research targets, not descriptions of
-completed calculations. No surface structures, molecular integrals, independent
-DFT labels, precursor pair, or measured kinetic data for either target are
-provided here; in particular no reaction stoichiometry for the
-$\mathrm{CaF_2}$ process has been fixed.
+specified by the user.
+
+The two targets are not in the same state, and the difference matters for what
+this note claims. For $\mathrm{Al_2O_3}/\mathrm{MoCl_5}$ nothing is fixed: no
+surface phase or facet, no coverage, no precursor charge, no elementary step, and
+no molecular integrals. For $\mathrm{CaF_2}$ the precursor pair and the
+stoichiometry are now taken from published process work rather than assumed
+\citep{Hennessy2023}, and a gas-phase model reaction is computed at verified
+geometry minima (Section~\ref{sec:worked}). That is a model reaction on a
+truncated ligand, not a surface calculation: no surface structure, no periodic
+integrals, and no measured kinetic data are supplied for either target, and none
+of the $\mathrm{CaF_2}$ numbers is a growth prediction.
 
 \section{Finite-dimensional setting and block energy certificates}
 \label{sec:energy}
@@ -343,8 +367,8 @@ verified closure. Reproduce with \texttt{lake build} followed by
 \texttt{lake env lean scripts/CheckAxioms.lean}. Kernel acceptance certifies the
 scalar lemmas that are listed, not the physical modelling steps discussed
 below. Unless qualified otherwise, the names below are in the
-\texttt{CalcChemistry} namespace in
-\path{CalcChemistry/CertifiedTheory.lean}.
+\texttt{CalcChemistry} namespace; the module is named in each item, and the
+declarations are spread over nine files rather than one.
 \begin{sloppypar}
 \begin{itemize}
 \item \path{reaction_interval} proves real interval subtraction as in
@@ -410,13 +434,52 @@ condition that would refute steric control.
 Theorem~\ref{thm:nosampling} proving that a finite sample cannot bound a barrier
 from above. \path{stays_positive} and \path{certified_negative} convert
 intervals into sign statements.
+\item The complement certificate which Section~\ref{sec:worked} reduces to two
+scalars is formalized in \path{CalcChemistry/ComplementBound.lean}:
+\path{complement_ground_bound} proves $\lambda_{\min}\ge d-\tau$ from a
+diagonal lower bound and a coupling bound,
+\path{complement_ground_bound_normalized} states the unit-vector form,
+\path{complement_bound_tight_when_decoupled} shows the gap is exactly $\tau$ when
+the coupling vanishes, and \path{complement_bound_improvement} records that
+tightening $\tau$ buys precision one-for-one. What is \emph{not} formalized is the
+hard part: no bound on $\tau$ is derived, and the measurements in
+Section~\ref{sec:complexity} show that no change of basis can supply one.
+\item \path{CalcChemistry/DiagonalMinimum.lean} formalizes the diagonal-minimum
+argument: \path{swap_identity} and \path{diagForm_lower} show that a
+single-particle excitation raises the diagonal element, so a lower bound on the
+diagonal minimum can be certified by inspecting pair excitations rather than the
+whole sector. \path{complement_gap_positive} states the resulting sign condition
+with the strictness needed, since the non-strict form is false at equality.
+\item \path{CalcChemistry/TauSignStructure.lean} formalizes why the coupling
+constant cannot be lowered by a change of basis. \path{abs_quadform_le_absO}
+shows the quadratic form is controlled through $\abs{O}$, which discards all sign
+cancellation at the first step; \path{quadform_le_diag_scaled} and
+\path{quadform_le_rowsum} give the weighted Collatz--Wielandt family, and since
+they are stated for $\abs{O}$ they inherit the same floor;
+\path{two_by_two_scaling_cannot_help} is the kernel-checked core of the
+similarity no-go, witnessed in dimension two. The general statement
+$\inf_S\norm{SOS^{-1}}_2=\norm{O}_2$ for symmetric $O$ needs the spectral theorem
+for normal matrices, which this project's mathlib cache does not carry, and is
+argued on paper and checked numerically instead.
+\item \path{CalcChemistry/SchurStep.lean} formalizes the replacement.
+\path{schur_block_bound_shifted} proves that for a block form
+$d x^2+2x\ip{b}{w}+\ip{Aw}{w}$, one scalar inequality
+$\ip{b}{w}^2\le s(\ip{Aw}{w}-\lambda\norm{w}^2)$ for every $w$ and $\lambda\le d$
+imply the bound $(\lambda-s)(x^2+\norm{w}^2)$; the proof turns the coupling term
+into a quadratic penalty by a scaled AM-GM. \path{schur_block_bound} is the
+$\lambda=d$ case used in the measurement, \path{two_abs_mul_le} is the AM-GM
+itself, and \path{schur_zero_coupling_exact} records that the loss is exactly
+$s$ when the reference is decoupled. All hypotheses are used by the proofs.
 \end{itemize}
 \end{sloppypar}
 
-This gives $33$ kernel-checked declarations in total, every one of them
+This gives $57$ kernel-checked declarations in total, every one of them
 audited with \texttt{\#print axioms}. The count is of declarations, not of
-scientific content: all but the block certificate and the ligand inequalities
-are real-arithmetic plumbing, and none of them certifies a molecular energy.
+scientific content. Most are real-arithmetic plumbing; the substantive ones are
+the block certificate, the ligand inequalities, the similarity no-go of
+\path{TauSignStructure}, and the Schur step, and even those establish only that
+\emph{given} the stated scalar and positivity hypotheses the bounds follow. None of
+them certifies a molecular energy, and none constructs an integral set.
 
 The energy and fifth-order certificate structures store soundness inequalities
 as fields supplied by the caller. Storing such an inequality does not prove
@@ -434,11 +497,30 @@ Variational trial states and dual-feasible relaxations supply complementary
 information. Barrier subtraction, monotone rate propagation, and finite-state
 Markov stability then give conditional conclusions with explicit dependence on
 energy precision, prefactor uncertainty, elapsed time, and the event catalog.
-The unresolved scientific task is to produce these inputs for a defined
-surface-reaction model and to bound the changes between that model and the
-physical target. A wide interval or an unverified hypothesis is an informative
-outcome: it identifies the missing evidence without claiming a kinetic
-prediction that the calculation cannot support.
+
+The step that decides whether any of this is usable is the complement bound, and
+measuring it on a system small enough to diagonalise exactly settles its fate. The
+block certificate is not merely loose on water in STO-3G; it is closed. Its
+coupling constant is pinned at the off-diagonal $2$-norm, a similarity transform
+preserves the spectrum, and sign structure, low rank and diagonal weighting all
+fail to escape that floor. Replacing it with a single-reference Schur step and
+certifying the one positive-definiteness hypothesis by a Cholesky factorisation
+gives a rigorous bound $0.860$~kcal\,mol$^{-1}$ from the exact answer, at $O(n^3)$
+cost. The accuracy is what a chemist would want; the cost is not what the
+certificate programme needed, and we prefer to say so than to present the
+improvement as progress on complexity.
+
+The unresolved scientific task is therefore narrower and better posed than when we
+began. It is to bound the Schur scalar without forming the omitted block --- a
+quadratic form $\ip{b}{f(A)b}$ with $f(t)=1/t$, in principle reachable by Lanczos
+tridiagonalisation and Gauss--Radau quadrature, except that quadrature needs a node
+below the spectrum and so returns the same demand one level down. On the chemical
+side the task is to carry the $\mathrm{CaF_2}$ model reaction from a truncated
+gas-phase ligand to a specified surface, and to resolve the flat bending potential
+that currently contributes an uncertainty as large as the method spread. A wide
+interval or an unverified hypothesis is an informative outcome: it identifies the
+missing evidence without claiming a kinetic prediction that the calculation cannot
+support.
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}

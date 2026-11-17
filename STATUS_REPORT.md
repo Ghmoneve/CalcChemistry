@@ -10,7 +10,7 @@
 主稿 `paper_main.tex` + 6 个 `sections/*.tex`，**25 页**。
 
 - Tectonic 0.15.0 实际编译：主文档与单文件版各 25 页，**均无 undefined reference、无致命 TeX 错误**。
-- `references.bib` **26 条**，其中 **24 条经正文引用**（另 2 条未引用：Atosuo2024、Chan2010）。
+- `references.bib` **28 条**，**全部经正文引用**，每条 DOI 均经 Crossref 核验。
 - 全部新文献由 `scripts/add_refs.py` **从 Crossref 元数据程序化生成**，无一手写条目；原始响应存于 `build/added-refs-readback.json`。
 - 一条命令复现两版 PDF：`python3 scripts/build_paper.py`（改 tex 后必须运行）。
 
@@ -40,7 +40,7 @@
 
 - Lean 4.19.0 + mathlib v4.19.0（commit `c44e0c8e`）。
 - `lake build`：**Build completed successfully**。
-- **33 个声明**，全部经 `#print axioms` 检查，**只依赖 `propext`、`Classical.choice`、`Quot.sound`**。
+- **57 个声明**（9 个模块），全部经 `#print axioms` 检查，**只依赖 `propext`、`Classical.choice`、`Quot.sound`**。
 - 全仓 Lean 源码**无 `sorry`、无 `admit`、无自定义公理**。
 
 文件与内容：
@@ -52,7 +52,7 @@
 | `CalcChemistry/SurfaceReaction.lean` | 覆盖度区间、吸附能区间、**配体足迹判据**、**证伪条件**、两层势垒区间、**采样无上界反例** |
 | `CalcChemistry/BornOppenheimer.lean` | 质量参数非负（仅算术，不含 BO 定理） |
 
-论文 §Evidence and formal verification status 逐条映射全部 33 个声明，并明确写出：
+论文 §Evidence and formal verification status 逐条映射全部 57 个声明，并明确写出：
 **数量是声明数而非科学内容**，除分块证书与配体不等式外均为实算术管线，无一条认证分子能量。
 
 ---
@@ -125,7 +125,7 @@ python3 scripts/check_manuscript.py      # 静态检查
 python3 scripts/verify.py                # 六门统一验证（旧门）
 export PATH="$PWD/.tools/lean-4.19.0/bin:$PATH"
 lake build                               # Lean 全量构建
-lake env lean scripts/CheckAxioms.lean   # 33 个声明的公理审计
+lake env lean scripts/CheckAxioms.lean   # 57 个声明的公理审计
 python3 experiments/caf2/gpc_coverage.py        # 覆盖度换算
 python3 experiments/caf2/steric_crosscheck.py   # 立体足迹交叉核验
 ```

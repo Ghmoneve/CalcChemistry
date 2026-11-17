@@ -47,20 +47,37 @@ block decomposition yields a ground-energy enclosure; interval subtraction
 yields an electronic barrier enclosure; separately bounded thermodynamic and
 geometric corrections allow propagation through an assumed transition-state
 rate formula; and a finite-state Markov generator perturbation bound controls
-state probabilities and bounded observables. The block bound accepts lower
-bounds on both diagonal blocks and an upper bound on the coupling norm. Its
-proof exposes the principal computational difficulty: certifying the omitted
-space. We prove the direction of reduced-density-matrix relaxation bounds,
-distinguish dual certificates from approximate primal values, and explain why
-a small eigenvector residual need not identify a ground state. A two-level
-pairing model and a three-vertex conflict graph provide exact algebraic checks
-and a counterexample to a proposed topological occupancy rule. These are
-elementary mathematical results assembled for certificate design; no novelty
-is claimed for the inequalities. No molecular or surface benchmark, uniform
+state probabilities and bounded observables.
+
+We then report what happens when the first link is measured rather than assumed.
+On water in STO-3G, where all $441$ determinants can be diagonalised exactly, the
+block certificate needs a coupling constant of $1.75$--$2.03$~Ha to resolve a
+correlation energy of $0.049$~Ha, and the resulting bound sits $1241$~kcal\,mol$^{-1}$
+below the truth. That is not a failure of optimisation: for a symmetric operator a
+similarity transform preserves the spectrum, so no change of basis can lower the
+constant, and neither sign structure nor low rank nor diagonal weighting escapes
+it. A single-reference Schur step avoids the constant entirely and, once a Cholesky
+factorisation certifies one positive-definiteness hypothesis, yields a rigorous
+bound $0.860$~kcal\,mol$^{-1}$ from the exact answer. It costs $O(n^3)$, the same
+order as diagonalisation, so this is a gain in quality rather than in complexity,
+and the exponential wall is untouched.
+
+We prove the direction of reduced-density-matrix relaxation bounds, distinguish
+dual certificates from approximate primal values, and explain why a small
+eigenvector residual need not identify a ground state. A two-level pairing model
+and a three-vertex conflict graph provide exact algebraic checks and a
+counterexample to a proposed topological occupancy rule. For $\mathrm{CaF_2}$ we
+compute a gas-phase model reaction between verified minima and report a
+$3.4$~kcal\,mol$^{-1}$ method spread, while stating that a flat bending potential in
+$\mathrm{CaF_2}$ leaves a systematic uncertainty of comparable size.
+
+These are elementary mathematical results assembled for certificate design; no
+novelty is claimed for the inequalities. No molecular or surface benchmark, uniform
 Born--Oppenheimer error estimate, universal polynomial-time algorithm, or
 experimental growth prediction is established. The principal open task is to
 construct useful, inexpensive, rigorously evaluated inputs for one fully
-specified surface-reaction model.
+specified surface-reaction model, and the blocking obstacle is now identified
+precisely: bounding the Schur scalar without forming the omitted block.
 \end{abstract}
 
 \section{Purpose and scope}
@@ -92,11 +109,18 @@ Ab initio approaches to area-selective ALD motivate the need to separate
 surface-model choices, electronic accuracy, and kinetic assumptions
 \citep{Pieck2025}. The intended applications include elementary steps involving
 $\mathrm{Al_2O_3}/\mathrm{MoCl_5}$ and $\mathrm{CaF_2}$ crystal deposition, as
-specified by the user. These are research targets, not descriptions of
-completed calculations. No surface structures, molecular integrals, independent
-DFT labels, precursor pair, or measured kinetic data for either target are
-provided here; in particular no reaction stoichiometry for the
-$\mathrm{CaF_2}$ process has been fixed.
+specified by the user.
+
+The two targets are not in the same state, and the difference matters for what
+this note claims. For $\mathrm{Al_2O_3}/\mathrm{MoCl_5}$ nothing is fixed: no
+surface phase or facet, no coverage, no precursor charge, no elementary step, and
+no molecular integrals. For $\mathrm{CaF_2}$ the precursor pair and the
+stoichiometry are now taken from published process work rather than assumed
+\citep{Hennessy2023}, and a gas-phase model reaction is computed at verified
+geometry minima (Section~\ref{sec:worked}). That is a model reaction on a
+truncated ligand, not a surface calculation: no surface structure, no periodic
+integrals, and no measured kinetic data are supplied for either target, and none
+of the $\mathrm{CaF_2}$ numbers is a growth prediction.
 
 \section{Finite-dimensional setting and block energy certificates}
 \label{sec:energy}
@@ -1289,16 +1313,31 @@ precision one-for-one with raising $d$. The ingredients are textbook; what the
 composition buys is that neither $d$ nor $\tau$ requires touching the
 complement's dimension.
 
-The open problem is therefore sharpened rather than solved. Two quantities must be
-computed for an actual molecular integral set without enumeration: a lower bound
-on the minimum diagonal determinant energy over the omitted sector, which is a
-combinatorial minimum over occupation patterns, and a bound $\tau$ on the
-off-diagonal quadratic form, whose natural route is row sparsity times coupling
-strength. If a sparsity structure gives $\tau$ growing slower than the diagonal
-gap shrinks, the bound stays informative. Whether any chemically relevant integral
-set has that property is unknown here, and no such estimate is claimed.
-An upper estimate for the complement cannot substitute for the required lower
-bound.
+The open problem is therefore not sharpened but split: one half is solved and the
+other half is closed.
+
+The solved half is $d$. A lower bound on the minimum diagonal determinant energy
+over the omitted sector is a combinatorial question, and it does not require
+enumeration: a single-particle excitation provably raises the diagonal element, so
+inspecting pair excitations suffices. This is formalized as \path{swap_identity} and
+\path{diagForm_lower}, and measured for water, where the diagonal minimum is the
+reference determinant and the remaining $440$ lie at least $0.227$~Ha higher. The
+hypothesis can fail --- it does for O$_2$ described as a closed-shell singlet, where
+an inappropriate reference pushes the diagonal minimum below the RHF energy --- and
+detecting that failure here required the enumeration it was meant to avoid, which is
+the honest limit of the result.
+
+The closed half is $\tau$. It is not that no cheap estimate was found; it is that no
+estimate can exist. For symmetric $O$ a similarity transform preserves the spectrum
+and the $2$-norm equals the spectral radius, so no change of basis lowers $\tau$
+below $\norm{O}_2$; sign structure cannot help because the quadratic form is
+controlled through $\abs{O}$, and low rank and diagonal weighting fail on the
+measured matrix as well. The measurements are in the paragraphs below.
+
+What remains is the Schur scalar, and its difficulty has a different character: it
+is not a bound that is too loose but a quantity whose construction requires the
+block being avoided. Any upper estimate for the complement still cannot substitute
+for the required lower bound.
 
 \paragraph{The two scalars, measured where the truth is knowable.}
 We measured $d$ and $\tau$ on water in STO-3G, whose $441$ determinants are few
@@ -1544,7 +1583,10 @@ $\mathrm{CaF_{2.17}}$ with under 5~at\% oxygen \citep{Putkonen2011}. The same
 work reports the reverse order, oxide growth from a non-fluorinated
 $\beta$-diketonate followed by fluorination with Hhfac and $\mathrm{O_3}$,
 which it judges more feasible and which leaves oxygen below the 2~at\%
-detection limit. A review of the field is \citet{Atosuo2024}.
+detection limit. The volatility of such fluorinated diketonates, and the
+solid--gas equilibrium governing precursor transport, are non-trivial in their
+own right \citep{LoPresti2022}. Reviews of the field are
+\citep{Atosuo2024,Hennessy2017}.
 \end{itemize}
 
 The general mechanism is better constrained than it first appears, even though
@@ -1577,17 +1619,17 @@ $\mathrm{CaF_2}$ and are not used below.
 
 Two published numbers, one measured and one geometric, determine the fraction
 of a layer deposited per cycle. Let $p$ be the trilayer height and $s$ the
-growth per cycle. Writing $s = p\,c$ with $c$ the fractional coverage, an
-interval $s\in[s_1,s_2]$ with $p>0$ gives $c\in[s_1/p,\ s_2/p]$
+growth per cycle. Writing $s = p\,\theta$ with $\theta$ the fractional coverage, an
+interval $s\in[s_1,s_2]$ with $p>0$ gives $\theta\in[s_1/p,\ s_2/p]$
 (Lemma~\ref{lem:coverage-lean}).
 
 \begin{lemma}[Interval coverage]
 \label{lem:coverage-lean}
-For real $p>0$ and $s=p\,c$, if $s_1\le s\le s_2$ then
-$s_1/p\le c\le s_2/p$.
+For real $p>0$ and $s=p\,\theta$, if $s_1\le s\le s_2$ then
+$s_1/p\le \theta\le s_2/p$.
 \end{lemma}
 \begin{proof}
-From $s=p\,c$ we get $c=s/p$. Since $p>0$, division by $p$ is monotone, so
+From $s=p\,\theta$ we get $\theta=s/p$. Since $p>0$, division by $p$ is monotone, so
 $s_1/p\le s/p\le s_2/p$.
 \end{proof}
 
@@ -1605,7 +1647,7 @@ A_{\mathrm{site}} = \tfrac{\sqrt3}{2}\left(\tfrac{a_0}{\sqrt2}\right)^2
 = \tfrac{\sqrt3}{4}a_0^2 = 12.9211\ \text{\AA}^2 .
 \]
 The areal density of deposited Ca follows as
-$\sigma = c/A_{\mathrm{site}} \in [0.00736,\ 0.00982]$~\AA$^{-2}$, i.e.\ one
+$\sigma = \theta/A_{\mathrm{site}} \in [0.00736,\ 0.00982]$~\AA$^{-2}$, i.e.\ one
 deposited Ca per $101.9$--$135.8$~\AA$^2$ of surface. That is $7.9$ to $10.5$
 times the area of a bare Ca site.
 
@@ -1839,16 +1881,33 @@ chemistry. The orientation question is not vacuous: the epitaxial literature
 reports $\mathrm{CaF_2}$ growth overwhelmingly on Si(111), where the lattice
 mismatch is only $0.6\%$ at room temperature and $1.6\%$ at $600$~$^\circ$C
 \citep{Pilvi2007}, and reports $\mathrm{CaF_2}$-(110) rather than (100) on
-Si(001). A Si(100) substrate therefore does not inherit the (111) orientation
+Si(001); epitaxial overgrowth restricted to (111) orientations is likewise
+documented on the fluoride side \citep{Chan2010}. A Si(100) substrate therefore
+does not inherit the (111) orientation
 result, and we do not assume it does.
+\item The bending potential of gas-phase $\mathrm{CaF_2}$, which we could not
+settle. Every DFT level tried makes the linear geometry a saddle with an imaginary
+bend, and the computed minimum is bent; but gas-phase $\mathrm{CaF_2}$ is
+conventionally linear, so we do not know whether the computed bending is physical
+or an artefact of a very flat potential. This contributes an uncertainty to the
+model reaction energy of about the same size as the method spread, and it is the
+single largest unresolved item on the electronic side.
 \end{enumerate}
 
-The honest summary of this section is therefore narrow. Two published numbers
-plus a lattice constant fix the fractional coverage of a cycle and show that
-site availability is not the limiter. A kernel-checked inequality turns that
-observation into a ligand-design cap, and a kernel-checked counterexample shows
-that the barrier for the same system cannot be bounded above by any amount of
+The honest summary of this section is therefore narrow and two-part. On the process
+side, two published numbers plus a lattice constant fix the fractional coverage of
+a cycle and show that site availability is not the limiter; a kernel-checked
+inequality turns that into a ligand-design cap, and a kernel-checked counterexample
+shows that the barrier for the same system cannot be bounded above by any amount of
 configuration sampling. No barrier value for this system is claimed.
+
+On the electronic side, one number now exists: the model protonation reaction is
+exothermic by $8.1$--$11.6$~kcal\,mol$^{-1}$ at verified geometry minima, with a
+$3.4$~kcal\,mol$^{-1}$ method spread and a comparable uncertainty from the flat
+bending potential. It is a number about a truncated ligand in vacuum, and the
+remark above lists four reasons it is not the ALD protonation energy. What it does
+establish is that the arithmetic of the certificate chain can be carried through a
+real integral set, and what it exposes is which input is missing next.
 
 
 \section{Evidence and formal verification status}
@@ -1914,8 +1973,8 @@ verified closure. Reproduce with \texttt{lake build} followed by
 \texttt{lake env lean scripts/CheckAxioms.lean}. Kernel acceptance certifies the
 scalar lemmas that are listed, not the physical modelling steps discussed
 below. Unless qualified otherwise, the names below are in the
-\texttt{CalcChemistry} namespace in
-\path{CalcChemistry/CertifiedTheory.lean}.
+\texttt{CalcChemistry} namespace; the module is named in each item, and the
+declarations are spread over nine files rather than one.
 \begin{sloppypar}
 \begin{itemize}
 \item \path{reaction_interval} proves real interval subtraction as in
@@ -1981,13 +2040,52 @@ condition that would refute steric control.
 Theorem~\ref{thm:nosampling} proving that a finite sample cannot bound a barrier
 from above. \path{stays_positive} and \path{certified_negative} convert
 intervals into sign statements.
+\item The complement certificate which Section~\ref{sec:worked} reduces to two
+scalars is formalized in \path{CalcChemistry/ComplementBound.lean}:
+\path{complement_ground_bound} proves $\lambda_{\min}\ge d-\tau$ from a
+diagonal lower bound and a coupling bound,
+\path{complement_ground_bound_normalized} states the unit-vector form,
+\path{complement_bound_tight_when_decoupled} shows the gap is exactly $\tau$ when
+the coupling vanishes, and \path{complement_bound_improvement} records that
+tightening $\tau$ buys precision one-for-one. What is \emph{not} formalized is the
+hard part: no bound on $\tau$ is derived, and the measurements in
+Section~\ref{sec:complexity} show that no change of basis can supply one.
+\item \path{CalcChemistry/DiagonalMinimum.lean} formalizes the diagonal-minimum
+argument: \path{swap_identity} and \path{diagForm_lower} show that a
+single-particle excitation raises the diagonal element, so a lower bound on the
+diagonal minimum can be certified by inspecting pair excitations rather than the
+whole sector. \path{complement_gap_positive} states the resulting sign condition
+with the strictness needed, since the non-strict form is false at equality.
+\item \path{CalcChemistry/TauSignStructure.lean} formalizes why the coupling
+constant cannot be lowered by a change of basis. \path{abs_quadform_le_absO}
+shows the quadratic form is controlled through $\abs{O}$, which discards all sign
+cancellation at the first step; \path{quadform_le_diag_scaled} and
+\path{quadform_le_rowsum} give the weighted Collatz--Wielandt family, and since
+they are stated for $\abs{O}$ they inherit the same floor;
+\path{two_by_two_scaling_cannot_help} is the kernel-checked core of the
+similarity no-go, witnessed in dimension two. The general statement
+$\inf_S\norm{SOS^{-1}}_2=\norm{O}_2$ for symmetric $O$ needs the spectral theorem
+for normal matrices, which this project's mathlib cache does not carry, and is
+argued on paper and checked numerically instead.
+\item \path{CalcChemistry/SchurStep.lean} formalizes the replacement.
+\path{schur_block_bound_shifted} proves that for a block form
+$d x^2+2x\ip{b}{w}+\ip{Aw}{w}$, one scalar inequality
+$\ip{b}{w}^2\le s(\ip{Aw}{w}-\lambda\norm{w}^2)$ for every $w$ and $\lambda\le d$
+imply the bound $(\lambda-s)(x^2+\norm{w}^2)$; the proof turns the coupling term
+into a quadratic penalty by a scaled AM-GM. \path{schur_block_bound} is the
+$\lambda=d$ case used in the measurement, \path{two_abs_mul_le} is the AM-GM
+itself, and \path{schur_zero_coupling_exact} records that the loss is exactly
+$s$ when the reference is decoupled. All hypotheses are used by the proofs.
 \end{itemize}
 \end{sloppypar}
 
-This gives $33$ kernel-checked declarations in total, every one of them
+This gives $57$ kernel-checked declarations in total, every one of them
 audited with \texttt{\#print axioms}. The count is of declarations, not of
-scientific content: all but the block certificate and the ligand inequalities
-are real-arithmetic plumbing, and none of them certifies a molecular energy.
+scientific content. Most are real-arithmetic plumbing; the substantive ones are
+the block certificate, the ligand inequalities, the similarity no-go of
+\path{TauSignStructure}, and the Schur step, and even those establish only that
+\emph{given} the stated scalar and positivity hypotheses the bounds follow. None of
+them certifies a molecular energy, and none constructs an integral set.
 
 The energy and fifth-order certificate structures store soundness inequalities
 as fields supplied by the caller. Storing such an inequality does not prove
@@ -2005,13 +2103,32 @@ Variational trial states and dual-feasible relaxations supply complementary
 information. Barrier subtraction, monotone rate propagation, and finite-state
 Markov stability then give conditional conclusions with explicit dependence on
 energy precision, prefactor uncertainty, elapsed time, and the event catalog.
-The unresolved scientific task is to produce these inputs for a defined
-surface-reaction model and to bound the changes between that model and the
-physical target. A wide interval or an unverified hypothesis is an informative
-outcome: it identifies the missing evidence without claiming a kinetic
-prediction that the calculation cannot support.
 
-\begin{thebibliography}{25}
+The step that decides whether any of this is usable is the complement bound, and
+measuring it on a system small enough to diagonalise exactly settles its fate. The
+block certificate is not merely loose on water in STO-3G; it is closed. Its
+coupling constant is pinned at the off-diagonal $2$-norm, a similarity transform
+preserves the spectrum, and sign structure, low rank and diagonal weighting all
+fail to escape that floor. Replacing it with a single-reference Schur step and
+certifying the one positive-definiteness hypothesis by a Cholesky factorisation
+gives a rigorous bound $0.860$~kcal\,mol$^{-1}$ from the exact answer, at $O(n^3)$
+cost. The accuracy is what a chemist would want; the cost is not what the
+certificate programme needed, and we prefer to say so than to present the
+improvement as progress on complexity.
+
+The unresolved scientific task is therefore narrower and better posed than when we
+began. It is to bound the Schur scalar without forming the omitted block --- a
+quadratic form $\ip{b}{f(A)b}$ with $f(t)=1/t$, in principle reachable by Lanczos
+tridiagonalisation and Gauss--Radau quadrature, except that quadrature needs a node
+below the spectrum and so returns the same demand one level down. On the chemical
+side the task is to carry the $\mathrm{CaF_2}$ model reaction from a truncated
+gas-phase ligand to a specified surface, and to resolve the flat bending potential
+that currently contributes an uncertainty as large as the method spread. A wide
+interval or an unverified hypothesis is an informative outcome: it identifies the
+missing evidence without claiming a kinetic prediction that the calculation cannot
+support.
+
+\begin{thebibliography}{28}
 \bibitem[O'Gorman et~al.(2022)O'Gorman, Irani, Whitfield, and
   Fefferman]{OGorman2022}
 Bryan O'Gorman, Sandy Irani, James Whitfield, and Bill Fefferman.
@@ -2035,6 +2152,15 @@ Fabian Pieck and Ralf Tonner-Zech.
   2025.
 \newblock \doi{10.1021/acs.chemmater.4c03477}.
 \newblock URL \url{https://doi.org/10.1021/acs.chemmater.4c03477}.
+\bibitem[Hennessy et~al.(2023)Hennessy, Rodríguez, West, and
+  Brandon]{Hennessy2023}
+John Hennessy, Robin~E. Rodríguez, William~C. West, and Erik~J. Brandon.
+\newblock Atomic layer deposition of calcium fluoride for barrier coating
+  applications.
+\newblock \emph{Journal of Vacuum Science \& Technology A}, 41\penalty0
+  (4):\penalty0 042405, 2023.
+\newblock \doi{10.1116/6.0002563}.
+\newblock URL \url{https://doi.org/10.1116/6.0002563}.
 \bibitem[Mazziotti(2012)]{Mazziotti2012}
 David~A. Mazziotti.
 \newblock Two-electron reduced density matrix as the basic variable in
@@ -2110,15 +2236,6 @@ Zeinab Kaawar, Stefan Mahn, Erhard Kemnitz, and Beate Paulus.
 \newblock \emph{Molecules}, 22\penalty0 (4):\penalty0 663, 2017.
 \newblock \doi{10.3390/molecules22040663}.
 \newblock URL \url{https://doi.org/10.3390/molecules22040663}.
-\bibitem[Hennessy et~al.(2023)Hennessy, Rodríguez, West, and
-  Brandon]{Hennessy2023}
-John Hennessy, Robin~E. Rodríguez, William~C. West, and Erik~J. Brandon.
-\newblock Atomic layer deposition of calcium fluoride for barrier coating
-  applications.
-\newblock \emph{Journal of Vacuum Science \& Technology A}, 41\penalty0
-  (4):\penalty0 042405, 2023.
-\newblock \doi{10.1116/6.0002563}.
-\newblock URL \url{https://doi.org/10.1116/6.0002563}.
 \bibitem[Kim et~al.(2016)Kim, Yang, Powers, Davis, Lou, and Gordon]{Kim2016}
 Sang~Bok Kim, Chuanxi Yang, Tamara Powers, Luke~M. Davis, Xiabing Lou, and
   Roy~G. Gordon.
@@ -2174,6 +2291,16 @@ Matti Putkonen, Adriana Szeghalmi, Eckhard Pippel, and Mato Knez.
   14461, 2011.
 \newblock \doi{10.1039/c1jm11825k}.
 \newblock URL \url{https://doi.org/10.1039/c1jm11825k}.
+\bibitem[Lo~Presti et~al.(2022)Lo~Presti, Pellegrino, and
+  Malandrino]{LoPresti2022}
+Francesca Lo~Presti, Anna~L. Pellegrino, and Graziella Malandrino.
+\newblock Journey of a molecule from the solid to the gas phase and vice versa
+  : direct estimation of vapor pressure of alkaline-earth metalorganic
+  precursors for atmospheric pressure vapor phase deposition of fluoride films.
+\newblock \emph{Dalton Transactions}, 51\penalty0 (18):\penalty0 7352--7362,
+  2022.
+\newblock \doi{10.1039/d2dt00479h}.
+\newblock URL \url{https://doi.org/10.1039/d2dt00479h}.
 \bibitem[Atosuo et~al.(2024)Atosuo, Mäntymäki, and Ritala]{Atosuo2024}
 Elisa Atosuo, Miia Mäntymäki, and Mikko Ritala.
 \newblock {ALD} of metal fluorides–potential applications and current state.
@@ -2181,6 +2308,13 @@ Elisa Atosuo, Miia Mäntymäki, and Mikko Ritala.
   2400372, 2024.
 \newblock \doi{10.1002/admi.202400372}.
 \newblock URL \url{https://doi.org/10.1002/admi.202400372}.
+\bibitem[Hennessy et~al.(2017)Hennessy, Jewell, and Nikzad]{Hennessy2017}
+John Hennessy, April Jewell, and Shouleh Nikzad.
+\newblock (invited) {ALD} metal fluorides for ultraviolet filter and reflective
+  coating applications.
+\newblock \emph{ECS Transactions}, 80\penalty0 (3):\penalty0 107--118, 2017.
+\newblock \doi{10.1149/08003.0107ecst}.
+\newblock URL \url{https://doi.org/10.1149/08003.0107ecst}.
 \bibitem[Lee et~al.(2015)Lee, DuMont, Cavanagh, and George]{Lee2015}
 Younghee Lee, Jaime~W. DuMont, Andrew~S. Cavanagh, and Steven~M. George.
 \newblock Atomic layer deposition of alf3 using trimethylaluminum and hydrogen
@@ -2204,5 +2338,12 @@ Khabib Khumaini, Gyejun Cho, Hye-Lee Kim, and Won-Jun Lee.
 \newblock \emph{Surfaces and Interfaces}, 72:\penalty0 107114, 2025.
 \newblock \doi{10.1016/j.surfin.2025.107114}.
 \newblock URL \url{https://doi.org/10.1016/j.surfin.2025.107114}.
+\bibitem[Chan et~al.(2010)Chan, Gaire, Lu, Wang, and Zhang]{Chan2010}
+T.-L. Chan, C.~Gaire, T.-M. Lu, G.-C. Wang, and S.B. Zhang.
+\newblock Type b epitaxy of ge on caf2(111) surface.
+\newblock \emph{Surface Science}, 604\penalty0 (19-20):\penalty0 1645--1648,
+  2010.
+\newblock \doi{10.1016/j.susc.2010.06.008}.
+\newblock URL \url{https://doi.org/10.1016/j.susc.2010.06.008}.
 \end{thebibliography}
 \end{document}

@@ -49,7 +49,10 @@ $\mathrm{CaF_{2.17}}$ with under 5~at\% oxygen \citep{Putkonen2011}. The same
 work reports the reverse order, oxide growth from a non-fluorinated
 $\beta$-diketonate followed by fluorination with Hhfac and $\mathrm{O_3}$,
 which it judges more feasible and which leaves oxygen below the 2~at\%
-detection limit. A review of the field is \citet{Atosuo2024}.
+detection limit. The volatility of such fluorinated diketonates, and the
+solid--gas equilibrium governing precursor transport, are non-trivial in their
+own right \citep{LoPresti2022}. Reviews of the field are
+\citep{Atosuo2024,Hennessy2017}.
 \end{itemize}
 
 The general mechanism is better constrained than it first appears, even though
@@ -82,17 +85,17 @@ $\mathrm{CaF_2}$ and are not used below.
 
 Two published numbers, one measured and one geometric, determine the fraction
 of a layer deposited per cycle. Let $p$ be the trilayer height and $s$ the
-growth per cycle. Writing $s = p\,c$ with $c$ the fractional coverage, an
-interval $s\in[s_1,s_2]$ with $p>0$ gives $c\in[s_1/p,\ s_2/p]$
+growth per cycle. Writing $s = p\,\theta$ with $\theta$ the fractional coverage, an
+interval $s\in[s_1,s_2]$ with $p>0$ gives $\theta\in[s_1/p,\ s_2/p]$
 (Lemma~\ref{lem:coverage-lean}).
 
 \begin{lemma}[Interval coverage]
 \label{lem:coverage-lean}
-For real $p>0$ and $s=p\,c$, if $s_1\le s\le s_2$ then
-$s_1/p\le c\le s_2/p$.
+For real $p>0$ and $s=p\,\theta$, if $s_1\le s\le s_2$ then
+$s_1/p\le \theta\le s_2/p$.
 \end{lemma}
 \begin{proof}
-From $s=p\,c$ we get $c=s/p$. Since $p>0$, division by $p$ is monotone, so
+From $s=p\,\theta$ we get $\theta=s/p$. Since $p>0$, division by $p$ is monotone, so
 $s_1/p\le s/p\le s_2/p$.
 \end{proof}
 
@@ -110,7 +113,7 @@ A_{\mathrm{site}} = \tfrac{\sqrt3}{2}\left(\tfrac{a_0}{\sqrt2}\right)^2
 = \tfrac{\sqrt3}{4}a_0^2 = 12.9211\ \text{\AA}^2 .
 \]
 The areal density of deposited Ca follows as
-$\sigma = c/A_{\mathrm{site}} \in [0.00736,\ 0.00982]$~\AA$^{-2}$, i.e.\ one
+$\sigma = \theta/A_{\mathrm{site}} \in [0.00736,\ 0.00982]$~\AA$^{-2}$, i.e.\ one
 deposited Ca per $101.9$--$135.8$~\AA$^2$ of surface. That is $7.9$ to $10.5$
 times the area of a bare Ca site.
 
@@ -344,13 +347,30 @@ chemistry. The orientation question is not vacuous: the epitaxial literature
 reports $\mathrm{CaF_2}$ growth overwhelmingly on Si(111), where the lattice
 mismatch is only $0.6\%$ at room temperature and $1.6\%$ at $600$~$^\circ$C
 \citep{Pilvi2007}, and reports $\mathrm{CaF_2}$-(110) rather than (100) on
-Si(001). A Si(100) substrate therefore does not inherit the (111) orientation
+Si(001); epitaxial overgrowth restricted to (111) orientations is likewise
+documented on the fluoride side \citep{Chan2010}. A Si(100) substrate therefore
+does not inherit the (111) orientation
 result, and we do not assume it does.
+\item The bending potential of gas-phase $\mathrm{CaF_2}$, which we could not
+settle. Every DFT level tried makes the linear geometry a saddle with an imaginary
+bend, and the computed minimum is bent; but gas-phase $\mathrm{CaF_2}$ is
+conventionally linear, so we do not know whether the computed bending is physical
+or an artefact of a very flat potential. This contributes an uncertainty to the
+model reaction energy of about the same size as the method spread, and it is the
+single largest unresolved item on the electronic side.
 \end{enumerate}
 
-The honest summary of this section is therefore narrow. Two published numbers
-plus a lattice constant fix the fractional coverage of a cycle and show that
-site availability is not the limiter. A kernel-checked inequality turns that
-observation into a ligand-design cap, and a kernel-checked counterexample shows
-that the barrier for the same system cannot be bounded above by any amount of
+The honest summary of this section is therefore narrow and two-part. On the process
+side, two published numbers plus a lattice constant fix the fractional coverage of
+a cycle and show that site availability is not the limiter; a kernel-checked
+inequality turns that into a ligand-design cap, and a kernel-checked counterexample
+shows that the barrier for the same system cannot be bounded above by any amount of
 configuration sampling. No barrier value for this system is claimed.
+
+On the electronic side, one number now exists: the model protonation reaction is
+exothermic by $8.1$--$11.6$~kcal\,mol$^{-1}$ at verified geometry minima, with a
+$3.4$~kcal\,mol$^{-1}$ method spread and a comparable uncertainty from the flat
+bending potential. It is a number about a truncated ligand in vacuum, and the
+remark above lists four reasons it is not the ALD protonation energy. What it does
+establish is that the arithmetic of the certificate chain can be carried through a
+real integral set, and what it exposes is which input is missing next.

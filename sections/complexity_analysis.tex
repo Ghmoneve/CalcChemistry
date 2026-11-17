@@ -156,16 +156,31 @@ precision one-for-one with raising $d$. The ingredients are textbook; what the
 composition buys is that neither $d$ nor $\tau$ requires touching the
 complement's dimension.
 
-The open problem is therefore sharpened rather than solved. Two quantities must be
-computed for an actual molecular integral set without enumeration: a lower bound
-on the minimum diagonal determinant energy over the omitted sector, which is a
-combinatorial minimum over occupation patterns, and a bound $\tau$ on the
-off-diagonal quadratic form, whose natural route is row sparsity times coupling
-strength. If a sparsity structure gives $\tau$ growing slower than the diagonal
-gap shrinks, the bound stays informative. Whether any chemically relevant integral
-set has that property is unknown here, and no such estimate is claimed.
-An upper estimate for the complement cannot substitute for the required lower
-bound.
+The open problem is therefore not sharpened but split: one half is solved and the
+other half is closed.
+
+The solved half is $d$. A lower bound on the minimum diagonal determinant energy
+over the omitted sector is a combinatorial question, and it does not require
+enumeration: a single-particle excitation provably raises the diagonal element, so
+inspecting pair excitations suffices. This is formalized as \path{swap_identity} and
+\path{diagForm_lower}, and measured for water, where the diagonal minimum is the
+reference determinant and the remaining $440$ lie at least $0.227$~Ha higher. The
+hypothesis can fail --- it does for O$_2$ described as a closed-shell singlet, where
+an inappropriate reference pushes the diagonal minimum below the RHF energy --- and
+detecting that failure here required the enumeration it was meant to avoid, which is
+the honest limit of the result.
+
+The closed half is $\tau$. It is not that no cheap estimate was found; it is that no
+estimate can exist. For symmetric $O$ a similarity transform preserves the spectrum
+and the $2$-norm equals the spectral radius, so no change of basis lowers $\tau$
+below $\norm{O}_2$; sign structure cannot help because the quadratic form is
+controlled through $\abs{O}$, and low rank and diagonal weighting fail on the
+measured matrix as well. The measurements are in the paragraphs below.
+
+What remains is the Schur scalar, and its difficulty has a different character: it
+is not a bound that is too loose but a quantity whose construction requires the
+block being avoided. Any upper estimate for the complement still cannot substitute
+for the required lower bound.
 
 \paragraph{The two scalars, measured where the truth is knowable.}
 We measured $d$ and $\tau$ on water in STO-3G, whose $441$ determinants are few
