@@ -1,0 +1,14 @@
+[14:27:24] frequency analysis at pbe/def2-svp, grid level 4
+[14:27:24] formamidine: 7 atoms, 21 coordinates ...
+[14:27:45]   -> 21 vibrational modes, 1 imaginary, lowest real -0.0 cm^-1  (21s)
+[14:27:45]   !! NOT A MINIMUM: [-245.3765074651141]
+[14:27:45] HF: 2 atoms, 6 coordinates ...
+[14:27:46]   -> 2 vibrational modes, 0 imaginary, lowest real -0.0 cm^-1  (1s)
+[14:27:46] CaF2: 3 atoms, 9 coordinates ...
+[14:27:58]   -> 8 vibrational modes, 2 imaginary, lowest real -0.0 cm^-1  (11s)
+[14:27:58]   !! NOT A MINIMUM: [-103.52548004765383, -103.52548002481589]
+[14:27:58] Ca_famd2: 13 atoms, 39 coordinates ...
+[14:31:24]   -> 39 vibrational modes, 1 imaginary, lowest real -0.0 cm^-1  (206s)
+[14:31:24]   !! NOT A MINIMUM: [-74.52712940569604]
+[14:31:24] 
+[14:31:24] VERDICT: not all minima -> ['formamidine', 'CaF2', 'Ca_famd2']

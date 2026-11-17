@@ -1,0 +1,23 @@
+[14:44:47] resuming from reoptimized.json: ['formamidine']
+[14:44:47] re-optimising at pbe/def2-svp, gtol 1e-5, up to 3 saddle escapes
+[14:44:47] formamidine: already a verified minimum, reusing
+[14:44:47] HF: 2 atoms
+[14:44:48]   HF round 1: E=-100.254100 |g|=1.76e-06 imag=0  (1s)
+[14:44:48]   HF: MINIMUM reached
+[14:44:48] CaF2: 3 atoms
+[14:49:50]   CaF2 round 1: E=-876.769614 |g|=3.01e-02 imag=0  (302s)
+[14:49:50]   CaF2: MINIMUM reached
+[14:49:50] Ca_famd2: 13 atoms
+[14:56:39]   Ca_famd2 round 1: E=-975.662876 |g|=5.96e-06 imag=1 [-74.1] (409s)
+[15:13:58]   Ca_famd2 round 2: E=-975.669223 |g|=8.90e-06 imag=0  (1039s)
+[15:13:58]   Ca_famd2: MINIMUM reached
+[15:13:58] 
+[15:13:58] all species are verified minima
+[15:13:58] reaction dE = -11.55 kcal/mol at pbe/def2-svp
+[15:13:58] single points at the re-optimised geometries
+[15:14:06]   pbe/def2-svp: dE = -11.55 kcal/mol
+[15:14:42]   pbe/def2-tzvp: dE = -8.14 kcal/mol
+[15:14:52]   b3lyp/def2-svp: dE = -9.88 kcal/mol
+[15:15:28]   b3lyp/def2-tzvp: dE = -8.45 kcal/mol
+[15:15:28] spread across four levels = 3.41 kcal/mol
+[15:15:28] written /mnt/e/CalcChemistry/experiments/caf2/reoptimized.json

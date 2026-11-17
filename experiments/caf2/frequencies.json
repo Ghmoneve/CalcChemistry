@@ -1,0 +1,65 @@
+{
+  "formamidine": {
+    "natm": 7,
+    "n_projected": 6,
+    "n_vibrational": 21,
+    "imaginary_count": 1,
+    "imaginary_cm": [
+      -245.3765074651141
+    ],
+    "lowest_real_cm": -4.995421476406056e-05,
+    "highest_cm": 3684.725966952424,
+    "is_minimum": false,
+    "E_recheck": -149.71289313243778,
+    "E_stored": -149.7128929046429,
+    "E_diff_Ha": -2.2779488517699065e-07,
+    "sec": 21.4
+  },
+  "HF": {
+    "natm": 2,
+    "n_projected": 5,
+    "n_vibrational": 2,
+    "imaginary_count": 0,
+    "imaginary_cm": [],
+    "lowest_real_cm": -9.574033319950103e-06,
+    "highest_cm": 3981.9451502497227,
+    "is_minimum": true,
+    "E_recheck": -100.25409967548984,
+    "E_stored": -100.25409982909191,
+    "E_diff_Ha": 1.536020732828547e-07,
+    "sec": 0.7
+  },
+  "CaF2": {
+    "natm": 3,
+    "n_projected": 5,
+    "n_vibrational": 8,
+    "imaginary_count": 2,
+    "imaginary_cm": [
+      -103.52548004765383,
+      -103.52548002481589
+    ],
+    "lowest_real_cm": -1.659984877064949e-06,
+    "highest_cm": 637.0738818732266,
+    "is_minimum": false,
+    "E_recheck": -876.7666406110245,
+    "E_stored": -876.766619466649,
+    "E_diff_Ha": -2.1144375523363124e-05,
+    "sec": 11.4
+  },
+  "Ca_famd2": {
+    "natm": 13,
+    "n_projected": 6,
+    "n_vibrational": 39,
+    "imaginary_count": 1,
+    "imaginary_cm": [
+      -74.52712940569604
+    ],
+    "lowest_real_cm": -5.468209262037831e-05,
+    "highest_cm": 3539.466851996483,
+    "is_minimum": false,
+    "E_recheck": -975.662876048099,
+    "E_stored": -975.6628949777166,
+    "E_diff_Ha": 1.8929617681351374e-05,
+    "sec": 206.2
+  }
+}

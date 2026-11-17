@@ -247,28 +247,59 @@ di-\emph{i}-propyl groups by hydrogen gives
 \mathrm{Ca(formamidinate)_2} + 2\,\mathrm{HF}
  \longrightarrow \mathrm{CaF_2} + 2\,\mathrm{formamidine},
 \]
-electron-balanced at $66 + 2\times10 = 38 + 2\times24$. Geometries were relaxed
-once at PBE/def2-svp with analytic gradients, all four reaching
-$\norm{\nabla E} \le 5.6\times10^{-4}$~Ha\,\AA$^{-1}$, and four
-functional/basis combinations were then evaluated at those geometries:
+electron-balanced at $66 + 2\times10 = 38 + 2\times24$. Each species was relaxed
+until the analytic Hessian had \emph{no imaginary frequency}, which is a stronger
+requirement than a small gradient: a vanishing gradient is satisfied by saddle
+points as well as minima, and three of the four species were in fact at saddles
+when only the gradient was checked (formamidine $-246.8$, $\mathrm{CaF_2}$ $-103.5$,
+$\mathrm{Ca(famd)_2}$ $-74.1$~cm$^{-1}$). Displacing along the imaginary mode and
+re-relaxing removed them; the reported energies are at verified minima, with final
+gradients of $1.8\times10^{-6}$ to $9.4\times10^{-6}$~Ha\,\AA$^{-1}$ except for
+$\mathrm{CaF_2}$, discussed below. Frequencies were obtained from the analytic
+Hessian with translations and rotations projected out, and the conversion was
+checked against known spectra (HF $4213.7$~cm$^{-1}$; H$_2$O at $1540.3$,
+$3918.7$, $4036.1$~cm$^{-1}$).
+
+Four functional/basis combinations were evaluated at those minima:
 
 \begin{center}
 \begin{tabular}{lc}
 \hline
 Method & $\Delta E$ (kcal\,mol$^{-1}$) \\
 \hline
-PBE/def2-svp   & $-13.37$ \\
-PBE/def2-tzvp  & $-10.34$ \\
-B3LYP/def2-svp & $-12.41$ \\
-B3LYP/def2-tzvp& $-11.25$ \\
+PBE/def2-svp   & $-11.55$ \\
+PBE/def2-tzvp  & $-8.14$ \\
+B3LYP/def2-svp & $-9.88$ \\
+B3LYP/def2-tzvp& $-8.45$ \\
 \hline
-spread & $3.04$ \\
+spread & $3.41$ \\
 \hline
 \end{tabular}
 \end{center}
 
-The reaction is exothermic by $10.3$--$13.4$~kcal\,mol$^{-1}$ for the model, with a
-method spread of $3.0$~kcal\,mol$^{-1}$.
+The reaction is exothermic by $8.1$--$11.6$~kcal\,mol$^{-1}$ for the model, with a
+method spread of $3.4$~kcal\,mol$^{-1}$. Replacing the saddle geometries by true
+minima raised $\Delta E$ by $1.8$--$2.8$~kcal\,mol$^{-1}$ depending on method, so
+the shift from the correction is comparable to the method spread itself. The earlier
+values, obtained without a Hessian, are withdrawn.
+
+\paragraph{One geometry is not fully converged, and it matters.}
+$\mathrm{CaF_2}$ was re-optimised from a bent start because the linear structure is
+a saddle: an explicit angle scan at PBE/def2-svp puts the minimum near $140^\circ$,
+$2.06$~kcal\,mol$^{-1}$ below linear, and the imaginary bend survives at
+PBE/def2-tzvp ($-154.6$), B3LYP/def2-svp ($-91.5$) and B3LYP/def2-tzvp
+($-143.3$~cm$^{-1}$), so it is not a basis artefact. The re-optimised structure is
+bent at $128.2^\circ$ with Ca--F $=1.9915$ and $1.9927$~\AA, and its gradient norm
+is $3.0\times10^{-2}$~Ha\,\AA$^{-1}$: the Hessian has no imaginary mode but the
+geometry is not tightly converged, because the bending potential is extremely flat.
+
+This is a known failure mode rather than a finding. Gas-phase $\mathrm{CaF_2}$ is
+conventionally linear, and the very flat bending potentials of the heavier
+alkaline-earth dihalides are hard for DFT. We therefore do not claim a bent
+equilibrium; we record that the computed surface prefers bending at every level
+tried, that the resulting energy lies $1.9$~kcal\,mol$^{-1}$ below the linear point,
+and that this is a systematic uncertainty in $\Delta E$ of the same order as the
+method spread.
 
 \begin{remark}[Why this number must not be quoted as the ALD protonation energy]
 Four limitations apply, and none is a technicality.
