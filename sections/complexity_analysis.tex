@@ -270,6 +270,107 @@ using one row of the Hamiltonian and one linear solve. Here
 $H_r-dI$ has smallest eigenvalue $0.349986$~Ha, so the required shift is positive
 definite.
 
+\subsection{The Schur certificate, stated and proved}
+\label{sec:schur-proof}
+
+The numbers above are meaningless without the three statements that produce them.
+All three are elementary; we give them because the chain is the contribution, and
+because each has a hypothesis that can fail silently.
+
+\begin{proposition}[Single-reference Schur bound]
+\label{prop:schur}
+Let $H\in\R^{n\times n}$ be symmetric, partitioned as
+$H=\begin{pmatrix} d & b^\top\\ b & H_r\end{pmatrix}$ with $d\in\R$,
+$b\in\R^{n-1}$ and $H_r$ symmetric of order $n-1$. Suppose
+$A := H_r - dI \succ 0$. Then
+\[
+  \lambda_{\min}(H) \;\ge\; d - b^\top A^{-1} b .
+\]
+\end{proposition}
+\begin{proof}
+Let $s := b^\top A^{-1}b \ge 0$. It suffices to show $H-(d-s)I \succeq 0$, since then
+every eigenvalue of $H$ is at least $d-s$. Expanding,
+\[
+  H-(d-s)I \;=\;
+  \begin{pmatrix} s & b^\top\\ b & A+sI\end{pmatrix}.
+\]
+If $s>0$, the Schur complement of the leading $1\times1$ block is
+$A+sI - s^{-1}bb^\top$, and a symmetric block matrix with positive leading entry is
+positive semidefinite exactly when its Schur complement is. Because $A\succ0$ the
+Cauchy--Schwarz inequality in the $A$-inner product gives, for every $w$,
+\[
+  \langle b,w\rangle^{2}
+  = \langle A^{-1/2}b,\,A^{1/2}w\rangle^{2}
+  \;\le\; \|A^{-1/2}b\|^{2}\,\|A^{1/2}w\|^{2}
+  = s\,\langle Aw,w\rangle,
+\]
+that is $bb^\top \preceq sA$. Hence
+$A+sI-s^{-1}bb^\top \succeq A+sI-A = sI \succ 0$. If $s=0$ then $b=0$ by
+$A\succ0$, and the claim reduces to $H_r\succ dI$, which is the hypothesis.
+\end{proof}
+
+The hypothesis $A\succ0$ is the only thing that can fail, and it is not decorative:
+without it $A^{-1}$ need not exist and $s$ need not be a lower bound of anything.
+
+\begin{lemma}[Verified Cholesky bound on the shift]
+\label{lem:cholesky}
+Let $A\in\R^{m\times m}$ be symmetric and let $L$ be any real matrix with
+$E := A-LL^\top$. Then
+\[
+  \lambda_{\min}(A) \;\ge\; \sigma_{\min}(L)^{2} - \|E\|_2
+  \;\ge\; \sigma_{\min}(L)^{2} - \|E\|_F ,
+\]
+and if $L$ is invertible, $\sigma_{\min}(L)=1/\|L^{-1}\|_2 \ge 1/(\sqrt m\,\|L^{-1}\|_\infty)$.
+\end{lemma}
+\begin{proof}
+Weyl's inequality gives $\lambda_k(A+B)\ge \lambda_k(A)+\lambda_{\min}(B)$ for
+symmetric $A,B$. Taking $A=LL^\top$ and $B=E$,
+\[
+  \lambda_{\min}(A) \;\ge\; \lambda_{\min}(LL^\top) - \|E\|_2
+  \;=\; \sigma_{\min}(L)^{2} - \|E\|_2 ,
+\]
+using that the singular values of $L$ are the square roots of the eigenvalues of
+$LL^\top$. Since $\|E\|_2\le\|E\|_F$ the stated form follows. For invertible $L$,
+$\sigma_{\min}(L)=1/\|L^{-1}\|_2$, and $\|M\|_2\le\sqrt m\,\|M\|_\infty$.
+\end{proof}
+
+Nothing in Lemma~\ref{lem:cholesky} assumes $A\succ0$: that is what it decides.
+Floating-point dependence enters only through $\|E\|_F$, which is computed as
+$\|A-\mathrm{fl}(LL^\top)\|_F$ plus an explicit rounding term
+$m\,u\,\bigl\|\,\abs{L}\abs{L}^\top\bigr\|_F/(1-mu)$ with $u=2^{-53}$, so the bound
+is not a heuristic.
+
+\begin{lemma}[Bracketing the Schur scalar]
+\label{lem:bracket}
+Let $A\succ0$ be symmetric with $\lambda_{\min}(A)\ge\delta>0$, let $b$ be given and
+let $\hat y$ be any approximation with residual $r=b-A\hat y$. Then
+\[
+  \abs{\,b^\top A^{-1}b - b^\top\hat y\,} \;\le\; \|b\|\,\|r\|/\delta .
+\]
+\end{lemma}
+\begin{proof}
+With $y=A^{-1}b$ exact, $y-\hat y=A^{-1}(b-A\hat y)=A^{-1}r$, so
+$b^\top A^{-1}b-b^\top\hat y=b^\top A^{-1}r$, and
+$\abs{b^\top A^{-1}r}\le\|b\|\,\|A^{-1}r\|\le\|b\|\,\|r\|/\lambda_{\min}(A)\le
+\|b\|\,\|r\|/\delta$.
+\end{proof}
+
+\begin{remark}[When the Schur bound improves on the block bound]
+\label{rem:schur-vs-block}
+The block certificate gives $d-\|O\|_2$; Proposition~\ref{prop:schur} gives
+$d-b^\top A^{-1}b$ using one row of $O$ rather than all of it. Since $b$ is a column
+of $O$ we have $\|b\|\le\|O\|_2$, and since $b^\top A^{-1}b\le\|b\|^{2}/\lambda_{\min}(A)$
+a sufficient condition for the Schur bound to be the better one is
+$\|b\|<\lambda_{\min}(H_r-dI)$. On water this holds, but only just:
+$\|b\|=0.3179$ against $\lambda_{\min}(A)=0.3500$.
+The condition is very pessimistic. It bounds the scalar by
+$\|b\|^{2}/\lambda_{\min}(A)=0.2886$~Ha, whereas the actual value is
+$0.050675$~Ha, a factor $5.7$ smaller, because $b$ overlaps mostly with high-lying
+eigenvectors of $A$. This is why the certified computation needs the linear solve
+rather than a norm estimate, and it is also why the sufficient condition being
+marginal did not prevent a $40$-fold improvement in the bound.
+\end{remark}
+
 \paragraph{Certifying the shift.}
 The single hypothesis is $d < \lambda_{\min}(H_r)$, and it is certified here without
 computing an eigenvalue. Gershgorin cannot do it --- and cannot ever do it, since it
