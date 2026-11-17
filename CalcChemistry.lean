@@ -6,3 +6,4 @@ import CalcChemistry.BarrierBounds
 import CalcChemistry.ComplementBound
 import CalcChemistry.DiagonalMinimum
 import CalcChemistry.TauSignStructure
+import CalcChemistry.SchurStep
