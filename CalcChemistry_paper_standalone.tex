@@ -24,6 +24,7 @@
 \DeclareMathOperator{\TV}{TV}
 \DeclareMathOperator{\spec}{spec}
 \newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
 \newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
@@ -1387,15 +1388,63 @@ using one row of the Hamiltonian and one linear solve. Here
 $H_r-dI$ has smallest eigenvalue $0.349986$~Ha, so the required shift is positive
 definite.
 
-The single hypothesis is $d < \lambda_{\min}(H_r)$, and it is exactly where the
-route is not yet closed. Gershgorin does not certify it even though it is true: the
-smallest Gershgorin bound on $H_r-dI$ is $-1.0207$, and $389$ of the $440$ rows are
-diagonally dominant while $51$ are not. The failure is local rather than global,
-which suggests that a refined treatment of those rows, or a positive-definiteness
-test with a certificate, could close the argument. We have not done that, so the
-Schur value is reported as a numerical candidate and not as a theorem; the
-corresponding Lean module was attempted, found to contain only interval identities
-with the analytic content in its hypotheses, and withdrawn rather than counted.
+\paragraph{Certifying the shift.}
+The single hypothesis is $d < \lambda_{\min}(H_r)$, and it is certified here without
+computing an eigenvalue. Gershgorin cannot do it --- and cannot ever do it, since it
+tests diagonal dominance, a sufficient condition, while $A = H_r-dI$ has smallest
+diagonal $0.447$~Ha against a largest row coupling of $1.380$~Ha. Diagonal dominance
+therefore fails structurally, for $51$ of $440$ rows. Neither reordering nor
+weighting repairs it, and we measured all of them: the Gershgorin bound is
+$-1.0207$ under every one of four orderings, because it is a per-row quantity that
+permutation merely relabels, and the best diagonal weighting gives $-0.7075$.
+Block diagonal dominance fails by a wider margin, and monotonically worse as blocks
+are refined: with $2$ blocks the in-block gap is $0.361$ against an off-block norm
+of $0.903$, and with $44$ blocks it is $0.413$ against $1.831$, so the coupling
+exceeds the gap by a factor of two to five at every scale. The determinant-basis
+matrix has no local structure for these criteria to exploit.
+
+A verified Cholesky factorisation does. For an approximate factor $L$ one has
+$A = LL^\top + E$ with $\norm{E}_2 \le \norm{E}_F$, so by Weyl's inequality
+\[
+  \lambda_{\min}(A) \;\ge\; \lambda_{\min}(LL^\top) - \norm{E}_F
+  \;=\; \sigma_{\min}(L)^2 - \norm{E}_F,
+\]
+and $\sigma_{\min}(L) = 1/\norm{L^{-1}}_2 \ge 1/(\sqrt n\,\norm{L^{-1}}_\infty)$,
+which needs only two triangular solves and one residual. Measured on water,
+$\norm{A-LL^\top}_F = 5.19\times10^{-14}$ and the rounding bound on forming
+$LL^\top$ is $1.97\times10^{-11}$, giving $\sigma_{\min}(L)^2 \ge 7.43\times10^{-4}$:
+strictly positive, hence $A \succ 0$. The certified bound is $471$ times looser than
+the true $\lambda_{\min}(A) = 0.349986$, and that is immaterial --- positivity is all
+the argument consumes.
+
+With $\lambda_{\min}(A) \ge \delta > 0$ in hand, any approximate solve $\hat y$ with
+residual $r = b - A\hat y$ brackets the scalar through $y - \hat y = A^{-1}r$:
+\[
+  b^\top A^{-1}b = b^\top\hat y + b^\top A^{-1}r,
+  \qquad
+  \abs{b^\top A^{-1}r} \le \norm{b}\norm{r}/\delta .
+\]
+Measured: $b^\top A^{-1}b = 5.067489\times10^{-2} \pm 1.82\times10^{-12}$, so
+\[
+  \lambda_1 \;\ge\; d - b^\top A^{-1}b \;=\; -75.01338150\ \text{Ha}
+\]
+is a certified lower bound at $0.860$~kcal\,mol$^{-1}$ from $E_{\mathrm{FCI}}$.
+The bound is now rigorous rather than numerical.
+
+\paragraph{What this certificate does not buy.}
+It is rigorous and it is not cheaper. The Cholesky factorisation needs the whole
+$440\times440$ block, at $O(n^3)$ work --- the same asymptotic order as exact
+diagonalisation, with a smaller constant and no eigenvectors. The gain is in
+\emph{quality}, not in cost: an unusable certificate at $1241$~kcal\,mol$^{-1}$
+becomes a usable one at $0.86$, and the object that must be supplied is now named
+precisely (the sign of $\lambda_{\min}(A)$ and one scalar $b^\top A^{-1}b$) instead
+of being hidden in a norm. The exponential wall is untouched. Bounding
+$b^\top A^{-1}b$ without forming $A$ is the obvious next target --- it is a
+quadratic form $b^\top f(A)b$ with $f(t)=1/t$, accessible to Lanczos
+tridiagonalisation and Gauss--Radau quadrature in $O(k\,\mathrm{nnz})$ --- but
+Gauss--Radau needs a node placed below the spectrum, so it returns the same
+requirement one level down. Whether that requirement can be met by an a posteriori
+Ritz bound rather than by a factorisation is open here.
 
 A cheap candidate for $d$ fails outright. Taking
 $d \ge E_{\mathrm{nuc}} + 2\sum_{i\le N/2}\varepsilon_i$ gives $-36.74$~Ha, an error

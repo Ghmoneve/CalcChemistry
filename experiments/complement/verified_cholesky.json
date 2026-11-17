@@ -1,0 +1,23 @@
+{
+  "d": -74.96270660885547,
+  "E_FCI": -75.0120116338235,
+  "pd_certificate": {
+    "n": 440,
+    "eps_observed_fro": 5.184778364185e-14,
+    "eps_rounding_bound": 1.9729424164282166e-11,
+    "eps_total": 1.9781271947924017e-11,
+    "Linv_inf": 1.749266854349293,
+    "sigma_min_L_lower_bound": 0.027253205732302898,
+    "delta_certified": 0.0007427372029059555,
+    "certified_positive_definite": true,
+    "true_lambda_min": 0.34998616240074654
+  },
+  "bAb_bound": {
+    "lo": 0.05067488629449533,
+    "centre": 0.05067488629631957,
+    "hi": 0.050674886298143804,
+    "radius": 1.824235191137181e-12
+  },
+  "schur_bound_certified": -75.01338149515361,
+  "slack_vs_fci_kcal": -0.8596009627932704
+}
