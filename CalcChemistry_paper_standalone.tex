@@ -67,9 +67,11 @@ dual certificates from approximate primal values, and explain why a small
 eigenvector residual need not identify a ground state. A two-level pairing model
 and a three-vertex conflict graph provide exact algebraic checks and a
 counterexample to a proposed topological occupancy rule. For $\mathrm{CaF_2}$ we
-compute a gas-phase model reaction between verified minima and report a
-$3.4$~kcal\,mol$^{-1}$ method spread, while stating that a flat bending potential in
-$\mathrm{CaF_2}$ leaves a systematic uncertainty of comparable size.
+compute a gas-phase model reaction between verified minima across eight
+functional/basis levels and two treatments of the product, reporting a bracket of
+$5.7$--$12.0$~kcal\,mol$^{-1}$ rather than a single number, and we withdraw an
+earlier claim that $\mathrm{CaF_2}$ is conventionally linear: it is quasilinear, and
+what our basis overestimates is the well depth, not the bending.
 
 These are elementary mathematical results assembled for certificate design; no
 novelty is claimed for the inequalities. No molecular or surface benchmark, uniform
@@ -1790,53 +1792,114 @@ requirement than a small gradient: a vanishing gradient is satisfied by saddle
 points as well as minima, and three of the four species were in fact at saddles
 when only the gradient was checked (formamidine $-246.8$, $\mathrm{CaF_2}$ $-103.5$,
 $\mathrm{Ca(famd)_2}$ $-74.1$~cm$^{-1}$). Displacing along the imaginary mode and
-re-relaxing removed them; the reported energies are at verified minima, with final
-gradients of $1.8\times10^{-6}$ to $9.4\times10^{-6}$~Ha\,\AA$^{-1}$ except for
-$\mathrm{CaF_2}$, discussed below. Frequencies were obtained from the analytic
+re-relaxing removed them. The reported energies are at geometries converged on the
+rotation- and translation-projected gradient, which reaches
+$4.5\times10^{-7}$ to $6.9\times10^{-5}$~Ha\,\AA$^{-1}$ for formamidine, HF and
+$\mathrm{Ca(famd)_2}$, and $2.9\times10^{-4}$ for $\mathrm{CaF_2}$, whose bend is too
+soft to do better. Frequencies were obtained from the analytic
 Hessian with translations and rotations projected out, and the conversion was
 checked against known spectra (HF $4213.7$~cm$^{-1}$; H$_2$O at $1540.3$,
 $3918.7$, $4036.1$~cm$^{-1}$).
 
-Four functional/basis combinations were evaluated at those minima:
+Eight functional/basis combinations were evaluated at those minima, and
+$\mathrm{CaF_2}$ was treated twice: at its unconstrained minimum and constrained to
+$D_{\infty h}$ with only the bond length relaxed. The pair brackets a systematic
+error that the spread alone does not see.
 
 \begin{center}
-\begin{tabular}{lc}
+\begin{tabular}{lcc}
 \hline
-Method & $\Delta E$ (kcal\,mol$^{-1}$) \\
+Method & $\Delta E$ bent (kcal\,mol$^{-1}$) & $\Delta E$ linear \\
 \hline
-PBE/def2-svp   & $-11.55$ \\
-PBE/def2-tzvp  & $-8.14$ \\
-B3LYP/def2-svp & $-9.88$ \\
-B3LYP/def2-tzvp& $-8.45$ \\
+PBE/def2-svp     & $-11.95$ & $-9.69$ \\
+PBE/def2-tzvp    & $-8.17$  & $-7.02$ \\
+PBE/def2-svpd    & $-6.05$  & $-5.69$ \\
+PBE/def2-tzvpd   & $-7.05$  & $-6.18$ \\
+B3LYP/def2-svp   & $-10.45$ & $-8.98$ \\
+B3LYP/def2-tzvp  & $-8.59$  & $-8.19$ \\
+B3LYP/def2-svpd  & $-7.11$  & $-7.40$ \\
+B3LYP/def2-tzvpd & $-8.16$  & $-8.04$ \\
 \hline
-spread & $3.41$ \\
+spread & $5.90$ & $4.00$ \\
 \hline
 \end{tabular}
 \end{center}
 
-The reaction is exothermic by $8.1$--$11.6$~kcal\,mol$^{-1}$ for the model, with a
-method spread of $3.4$~kcal\,mol$^{-1}$. Replacing the saddle geometries by true
-minima raised $\Delta E$ by $1.8$--$2.8$~kcal\,mol$^{-1}$ depending on method, so
-the shift from the correction is comparable to the method spread itself. The earlier
-values, obtained without a Hessian, are withdrawn.
+The model reaction is exothermic throughout: the full bracket is
+$5.7$--$12.0$~kcal\,mol$^{-1}$, with a method spread of $5.9$ on the bent treatment
+and $4.0$ on the linear one. Two systematic effects are visible and neither is a
+method spread. First, diffuse functions matter by $4$--$6$~kcal\,mol$^{-1}$: the
+four $d$-augmented bases give $-6.1$ to $-8.2$, the four non-augmented $-8.2$ to
+$-12.0$. That is expected for a species as polar as $\mathrm{CaF_2}$ and it is why
+the augmented levels are the ones to trust. Second, the bent-versus-linear choice is
+worth $0.1$--$2.3$~kcal\,mol$^{-1}$ depending on level, and it does not shrink with
+basis quality, because it tracks the barrier to linearity rather than the
+completeness of the one-electron space.
 
-\paragraph{One geometry is not fully converged, and it matters.}
-$\mathrm{CaF_2}$ was re-optimised from a bent start because the linear structure is
-a saddle: an explicit angle scan at PBE/def2-svp puts the minimum near $140^\circ$,
-$2.06$~kcal\,mol$^{-1}$ below linear, and the imaginary bend survives at
-PBE/def2-tzvp ($-154.6$), B3LYP/def2-svp ($-91.5$) and B3LYP/def2-tzvp
-($-143.3$~cm$^{-1}$), so it is not a basis artefact. The re-optimised structure is
-bent at $128.2^\circ$ with Ca--F $=1.9915$ and $1.9927$~\AA, and its gradient norm
-is $3.0\times10^{-2}$~Ha\,\AA$^{-1}$: the Hessian has no imaginary mode but the
-geometry is not tightly converged, because the bending potential is extremely flat.
+We therefore report the reaction energy as a bracket rather than a number:
+$-6$ to $-8$~kcal\,mol$^{-1}$ at the levels we consider adequate
+(B3LYP/def2-svpd, B3LYP/def2-tzvpd, PBE/def2-tzvpd), widening to $-5.7$ to
+$-12.0$ if the non-augmented levels are admitted. Earlier values from this project,
+$-13.4$ to $-10.3$ and then $-11.6$ to $-8.1$, were obtained at saddle-point
+geometries and with a basis that over-bends $\mathrm{CaF_2}$ by an order of
+magnitude in the barrier; both are withdrawn.
 
-This is a known failure mode rather than a finding. Gas-phase $\mathrm{CaF_2}$ is
-conventionally linear, and the very flat bending potentials of the heavier
-alkaline-earth dihalides are hard for DFT. We therefore do not claim a bent
-equilibrium; we record that the computed surface prefers bending at every level
-tried, that the resulting energy lies $1.9$~kcal\,mol$^{-1}$ below the linear point,
-and that this is a systematic uncertainty in $\Delta E$ of the same order as the
-method spread.
+A remark on what the spread does \emph{not} measure. The $\mathrm{CaF_2}$ error
+discussed in the previous paragraph is common to all eight levels, so it does not
+appear in the $5.9$ or the $4.0$. The spread is a lower bound on the uncertainty,
+not an estimate of it.
+
+\paragraph{The bending potential, and a premise we had to withdraw.}
+$\mathrm{CaF_2}$ was re-optimised from a bent start; the linear structure is a
+saddle, with an imaginary bend at PBE/def2-svp ($-103.5$~cm$^{-1}$), PBE/def2-tzvp
+($-154.6$), B3LYP/def2-svp ($-91.5$) and B3LYP/def2-tzvp ($-143.3$~cm$^{-1}$). The
+imaginary bend is not a basis artefact, and it is not a grid artefact either: the
+harmonic eigenvalue converges from grid level $4$ onward ($-103.5$, $-102.4$,
+$-102.8$, $-102.5$~cm$^{-1}$ at levels $4$--$7$), matching an unpruned $(150,770)$
+reference to $0.01$~cm$^{-1}$. At coarser levels the sign is not trustworthy
+(levels $1$ and $2$ give $+185$ and $+414$~cm$^{-1}$).
+
+We had written that gas-phase $\mathrm{CaF_2}$ is conventionally linear and that
+the computed bending is therefore likely an artefact. \emph{That premise is wrong
+and is withdrawn.} $\mathrm{CaF_2}$ is quasilinear: a bent equilibrium at
+$\theta_e = 154.3^\circ$ behind a barrier of only $54$~cm$^{-1}$
+($0.15$~kcal\,mol$^{-1}$) at linearity, with a variational $\nu_2$ of
+$9$~cm$^{-1}$ \citep{Koput2004}; CCSD(T) gives $157^\circ$ \citep{Vasiliu2010}, and
+a recent CCSD(T)/CASPT2 study classifies $\mathrm{CaF_2}$ as quasilinear at most
+temperatures and highly fluxional \citep{Romeu2025}. Molecular-beam electric
+deflection establishes a permanent dipole, hence bending on the experimental
+timescale \citep{Wharton1963}. No gas-phase angle has been determined: the
+frequently quoted $\approx145^\circ$ is a matrix-isolation value that moves by more
+than $20^\circ$ between Ar and Kr \citep{Calder1969}.
+
+So the sign of our result is right and its magnitude is not. The \emph{well depth}
+is the artefact, not the bending. PBE and B3LYP are reported to over-bend these
+systems \citep{Donald2006}, and the barrier we compute is basis-sensitive by nearly
+an order of magnitude: $2.19$~kcal\,mol$^{-1}$ at PBE/def2-svp, $1.14$ at
+def2-tzvp, $0.50$ at def2-svpd, $0.87$ at def2-tzvpd, $1.52$ at B3LYP/def2-svp and
+$0.29$ at B3LYP/def2-tzvpd, against the $0.15$ of \citet{Koput2004}. The
+oscillation tracks the Ca $d$ manifold, which def2-svp supplies as $[2d]$ with no
+$f$ functions, while converged studies use four to six largely uncontracted $d$
+sets; the bending mechanism is $3p$ core--valence mixing into the fluoride
+valence space \citep{Romeu2025}, so a thin $d$ manifold hits exactly the physics
+responsible.
+
+Two internal checks say the $128.2^\circ$ structure we previously reported should
+not be quoted at all. Its gradient norm was $3.0\times10^{-2}$~Ha\,\AA$^{-1}$ ---
+not, as we first supposed, a spurious rigid-body force, since switching on the
+grid-response term moves the net force from $3.5\times10^{-5}$ to $10^{-14}$ while
+leaving the norm unchanged. It was a genuine failure of the optimiser, which was
+seeded with $0.3\,I$, roughly $740$ times too stiff along a mode of curvature
+$4.1\times10^{-4}$, so no secant pair ever carried bending character. And its
+geometry is inconsistent with its own Hessian: a quartic well of that curvature and
+$2.06$~kcal\,mol$^{-1}$ depth bottoms at $\approx161^\circ$, while a
+$128^\circ$ minimum of that depth would need an imaginary frequency near
+$54$~cm$^{-1}$. The angle, the depth and the imaginary frequency cannot all come
+from one smooth potential.
+
+The reaction energy is therefore reported twice below, once with $\mathrm{CaF_2}$
+at its unconstrained minimum and once constrained to $D_{\infty h}$, which brackets
+the treatment.
 
 \begin{remark}[Why this number must not be quoted as the ALD protonation energy]
 Four limitations apply, and none is a technicality.
@@ -1885,13 +1948,13 @@ Si(001); epitaxial overgrowth restricted to (111) orientations is likewise
 documented on the fluoride side \citep{Chan2010}. A Si(100) substrate therefore
 does not inherit the (111) orientation
 result, and we do not assume it does.
-\item The bending potential of gas-phase $\mathrm{CaF_2}$, which we could not
-settle. Every DFT level tried makes the linear geometry a saddle with an imaginary
-bend, and the computed minimum is bent; but gas-phase $\mathrm{CaF_2}$ is
-conventionally linear, so we do not know whether the computed bending is physical
-or an artefact of a very flat potential. This contributes an uncertainty to the
-model reaction energy of about the same size as the method spread, and it is the
-single largest unresolved item on the electronic side.
+\item The quantitative bending potential of gas-phase $\mathrm{CaF_2}$. That the
+linear geometry is a saddle is settled: it is quasilinear, and the CCSD(T) barrier
+is $0.15$~kcal\,mol$^{-1}$ \citep{Koput2004}. What is not settled is how much of
+our computed $2.19$ (PBE/def2-svp) is basis error. Diffuse and higher-$d$ bases
+bring it to $0.29$--$0.87$ depending on functional and level, still above the
+reference, and a CCSD(T) focal-point optimisation of the three-atom molecule is the
+one calculation that would close it. That is affordable and not done here.
 \end{enumerate}
 
 The honest summary of this section is therefore narrow and two-part. On the process
@@ -1901,13 +1964,13 @@ inequality turns that into a ligand-design cap, and a kernel-checked counterexam
 shows that the barrier for the same system cannot be bounded above by any amount of
 configuration sampling. No barrier value for this system is claimed.
 
-On the electronic side, one number now exists: the model protonation reaction is
-exothermic by $8.1$--$11.6$~kcal\,mol$^{-1}$ at verified geometry minima, with a
-$3.4$~kcal\,mol$^{-1}$ method spread and a comparable uncertainty from the flat
-bending potential. It is a number about a truncated ligand in vacuum, and the
-remark above lists four reasons it is not the ALD protonation energy. What it does
-establish is that the arithmetic of the certificate chain can be carried through a
-real integral set, and what it exposes is which input is missing next.
+On the electronic side, one result now exists: the model protonation reaction is
+exothermic by $5.7$--$12.0$~kcal\,mol$^{-1}$ across eight levels and two
+$\mathrm{CaF_2}$ treatments, narrowing to $-6$ to $-8$ at the four levels we
+consider adequate. It is a bracket, not a number, and the remark above lists four
+reasons it is not the ALD protonation energy. What it does establish is that the
+arithmetic of the certificate chain can be carried through a real integral set at
+verified minima, and what it exposes is which input is missing next.
 
 
 \section{Evidence and formal verification status}
@@ -2128,7 +2191,7 @@ interval or an unverified hypothesis is an informative outcome: it identifies th
 missing evidence without claiming a kinetic prediction that the calculation cannot
 support.
 
-\begin{thebibliography}{28}
+\begin{thebibliography}{34}
 \bibitem[O'Gorman et~al.(2022)O'Gorman, Irani, Whitfield, and
   Fefferman]{OGorman2022}
 Bryan O'Gorman, Sandy Irani, James Whitfield, and Bill Fefferman.
@@ -2338,6 +2401,54 @@ Khabib Khumaini, Gyejun Cho, Hye-Lee Kim, and Won-Jun Lee.
 \newblock \emph{Surfaces and Interfaces}, 72:\penalty0 107114, 2025.
 \newblock \doi{10.1016/j.surfin.2025.107114}.
 \newblock URL \url{https://doi.org/10.1016/j.surfin.2025.107114}.
+\bibitem[Koput and Roszczak(2004)]{Koput2004}
+Jacek Koput and Agnieszka Roszczak.
+\newblock Caf2 as a quasilinear molecule: the vibrational−rotational energy
+  levels predicted by ab initio quantum chemistry approach.
+\newblock \emph{The Journal of Physical Chemistry A}, 108\penalty0
+  (42):\penalty0 9267--9273, 2004.
+\newblock \doi{10.1021/jp046682k}.
+\newblock URL \url{https://doi.org/10.1021/jp046682k}.
+\bibitem[Vasiliu et~al.(2010)Vasiliu, Feller, Gole, and Dixon]{Vasiliu2010}
+Monica Vasiliu, David Feller, James~L. Gole, and David~A. Dixon.
+\newblock Structures and heats of formation of simple alkaline earth metal
+  compounds: Fluorides, chlorides, oxides, and hydroxides for be, mg, and ca.
+\newblock \emph{The Journal of Physical Chemistry A}, 114\penalty0
+  (34):\penalty0 9349--9358, 2010.
+\newblock \doi{10.1021/jp1050657}.
+\newblock URL \url{https://doi.org/10.1021/jp1050657}.
+\bibitem[Romeu and Dixon(2025)]{Romeu2025}
+João Gabriel~Farias Romeu and David~A. Dixon.
+\newblock When core orbitals act as valence orbitals: Linear and bent
+  geometries of {MX} 2 for x a halogen and m an alkaline earth.
+\newblock \emph{Journal of the American Chemical Society}, 148\penalty0
+  (1):\penalty0 828--836, 2025.
+\newblock \doi{10.1021/jacs.5c16443}.
+\newblock URL \url{https://doi.org/10.1021/jacs.5c16443}.
+\bibitem[Wharton et~al.(1963)Wharton, Berg, and Klemperer]{Wharton1963}
+L.~Wharton, R.~A. Berg, and W.~Klemperer.
+\newblock Geometry of the alkaline-earth dihalides.
+\newblock \emph{The Journal of Chemical Physics}, 39\penalty0 (8):\penalty0
+  2023--2031, 1963.
+\newblock \doi{10.1063/1.1734577}.
+\newblock URL \url{https://doi.org/10.1063/1.1734577}.
+\bibitem[Calder et~al.(1969)Calder, Mann, Seshadri, Allavena, and
+  White]{Calder1969}
+V.~Calder, D.~E. Mann, K.~S. Seshadri, M.~Allavena, and David White.
+\newblock Geometry and vibrational spectra of alkaline-earth dihalides. {II}.
+  caf2, srf2, and baf2.
+\newblock \emph{The Journal of Chemical Physics}, 51\penalty0 (5):\penalty0
+  2093--2099, 1969.
+\newblock \doi{10.1063/1.1672304}.
+\newblock URL \url{https://doi.org/10.1063/1.1672304}.
+\bibitem[Donald and Hoffmann(2006)]{Donald2006}
+Kelling~J. Donald and Roald Hoffmann.
+\newblock Solid memory: Structural preferences in group 2 dihalide monomers,
+  dimers, and solids.
+\newblock \emph{Journal of the American Chemical Society}, 128\penalty0
+  (34):\penalty0 11236--11249, 2006.
+\newblock \doi{10.1021/ja062817j}.
+\newblock URL \url{https://doi.org/10.1021/ja062817j}.
 \bibitem[Chan et~al.(2010)Chan, Gaire, Lu, Wang, and Zhang]{Chan2010}
 T.-L. Chan, C.~Gaire, T.-M. Lu, G.-C. Wang, and S.B. Zhang.
 \newblock Type b epitaxy of ge on caf2(111) surface.

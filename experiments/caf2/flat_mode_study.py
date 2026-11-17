@@ -27,6 +27,7 @@ BOHR = 0.52917721092
 CONV = 5140.02            # cm^-1 per sqrt(Ha/(bohr^2 amu))
 HARTREE2KCAL = 627.5094740631
 ZS = [20, 9, 9]
+FLAGS: dict = {}
 
 
 # ---------------------------------------------------------------- geometry ---
@@ -55,13 +56,15 @@ def build(x, basis='def2-svp', charge=0, spin=0):
                  verbose=0)
 
 
-def scf(x, xc='pbe', basis='def2-svp', grid=4, conv_tol=1e-11):
+def scf(x, xc='pbe', basis='def2-svp', grid=4, conv_tol=1e-11, prune='default'):
     mol = build(x, basis)
     attempts = []
     for damp, init in ((0.0, None), (0.3, None), (0.0, 'atom'), (0.5, 'atom')):
         mf = dft.RKS(mol)
         mf.xc = xc
         mf.grids.level = grid
+        if prune != 'default':
+            mf.grids.prune = prune
         mf.conv_tol = conv_tol
         if damp:
             mf.damp = damp
@@ -79,8 +82,13 @@ def scf(x, xc='pbe', basis='def2-svp', grid=4, conv_tol=1e-11):
 
 
 def energy_grad(x, **kw):
+    if FLAGS.get('noprune'):
+        kw['prune'] = None
     e, mf = scf(x, **kw)
-    g = mf.nuc_grad_method().kernel().reshape(-1) / BOHR   # Ha/Angstrom
+    gm = mf.nuc_grad_method()
+    if FLAGS.get('resp'):
+        gm.grid_response = True
+    g = gm.kernel().reshape(-1) / BOHR   # Ha/Angstrom
     return e, g, mf
 
 
@@ -208,19 +216,23 @@ def cmd_bfgs():
     for it in range(60):
         e, g, mf = energy_grad(x)
         gnorm = float(np.linalg.norm(g))
-        m = modes(x)
         P, nnull, bv, sq = projector(mf.mol, x)
         # B_k eigenvalues inside the internal space
         hi = P @ hinv @ P
         wB = np.linalg.eigvalsh(hi)
         wB = wB[np.argsort(-np.abs(wB))][: 9 - nnull]
-        # decomposition of g onto normal modes of the *true* Hessian
-        comp = (P @ g) @ m['vecs']
+        if it % 5 == 0:
+            m = modes(x)
+            comp = (P @ g) @ m['vecs']
+            Heig = [float(v) for v in np.sort(m['w'])]
+            gmode = [float(v) for v in comp]
+        else:
+            Heig, gmode = [], []
         traj.append(dict(it=it, E=e, gnorm=gnorm, ang=angle_of(x),
                          r=bonds_of(x),
                          B_eig=[float(v) for v in np.sort(wB)],
-                         H_eig=[float(v) for v in np.sort(m['w'])],
-                         g_mode=[float(v) for v in comp],
+                         H_eig=Heig,
+                         g_mode=gmode,
                          g_internal=float(np.linalg.norm(P @ g)),
                          step=0.0))
         say(f'it {it:3d} E {e:.8f} |g| {gnorm:.3e} theta {angle_of(x):.2f} '
@@ -277,6 +289,235 @@ def _bfgs_run(x0, hinv0, max_iter=60, cap=0.08, gtol=1e-5, tag='run'):
         xp, gp = x.copy(), g.copy()
         x = x + step.reshape(3, 3)
     return traj, x, e, gnorm
+
+
+def cmd_gridresp():
+    """Is the residual gradient the missing grid-response term?
+
+    PySCF's RKS gradient defaults to grid_response=False and its RKS Hessian
+    refuses grid_response altogether, so with atom-centred grids the analytic
+    derivative is not the derivative of the energy that is being minimised.
+    """
+    x = geom(134.254, 1.97039)          # the geometry the seeded BFGS froze at
+    out = {}
+    for resp in (False, True):
+        for noprune in (False, True):
+            for lvl in (3, 4, 6):
+                FLAGS['resp'] = resp
+                FLAGS['noprune'] = noprune
+                try:
+                    e, g, mf = energy_grad(x, grid=lvl)
+                except Exception as exc:                 # noqa: BLE001
+                    say(f'resp={resp} noprune={noprune} lvl={lvl} FAILED {exc}')
+                    continue
+                P, nnull, bv, sq = projector(mf.mol, x)
+                k = dict(resp=resp, noprune=noprune, level=lvl, E=e,
+                         gnorm=float(np.linalg.norm(g)),
+                         g_internal=float(np.linalg.norm(P @ g)),
+                         net_force=float(np.linalg.norm(g.reshape(3, 3).sum(0))))
+                out[f'{resp}_{noprune}_{lvl}'] = k
+                say(f"resp={resp:d} noprune={noprune:d} lvl={lvl}: "
+                    f"|g| {k['gnorm']:.3e}  |Pg| {k['g_internal']:.3e}  "
+                    f"|netF| {k['net_force']:.3e}")
+    FLAGS['resp'] = False
+    FLAGS['noprune'] = False
+    # finite-difference check: does grid_response make g the true derivative?
+    h = 0.005
+    for resp in (False, True):
+        FLAGS['resp'] = resp
+        e, g, mf = energy_grad(x, grid=4)
+        gfd = np.zeros((3, 3))
+        for i in range(3):
+            for a in range(3):
+                xp, xm = x.copy(), x.copy()
+                xp[i, a] += h
+                xm[i, a] -= h
+                ep, _ = scf(xp, grid=4)
+                em, _ = scf(xm, grid=4)
+                gfd[i, a] = (ep - em) / (2 * h)
+        d = np.linalg.norm(gfd.reshape(-1) - g.reshape(-1))
+        out[f'fd_check_{resp}'] = float(d)
+        say(f'FD check resp={resp}: |g_FD - g_analytic| = {d:.3e} '
+            f'(|g| = {np.linalg.norm(g):.3e})')
+    FLAGS['resp'] = False
+    dump('gridresp', out)
+
+
+def cmd_noise():
+    """How much of the residual gradient is quadrature noise?
+
+    (a) analytic vs finite-difference gradient on the *same* grid  -> consistency
+    (b) finite-difference dE/dtheta on grid 4 vs grid 6            -> grid-induced
+        shift of the bending force, i.e. the roughness of the PES the
+        optimiser is walking on.
+    """
+    x0 = geom(134.2)
+    out = {}
+    for lvl in (3, 4, 6):
+        e, g, mf = energy_grad(x0, grid=lvl)
+        out[f'g_analytic_{lvl}'] = g.tolist()
+        out[f'gnorm_{lvl}'] = float(np.linalg.norm(g))
+        out[f'E_{lvl}'] = e
+        say(f'grid {lvl}: E {e:.10f} |g| {np.linalg.norm(g):.3e}')
+    # (a) finite-difference gradient at fixed grid, h = 0.005 Angstrom
+    h = 0.005
+    for lvl in (4, 6):
+        gfd = np.zeros((3, 3))
+        for i in range(3):
+            for a in range(3):
+                xp, xm = x0.copy(), x0.copy()
+                xp[i, a] += h
+                xm[i, a] -= h
+                ep, _ = scf(xp, grid=lvl)
+                em, _ = scf(xm, grid=lvl)
+                gfd[i, a] = (ep - em) / (2 * h)
+        g = np.array(out[f'g_analytic_{lvl}']).reshape(3, 3)
+        d = gfd.reshape(-1) - g.reshape(-1)
+        out[f'gfd_{lvl}'] = gfd.reshape(-1).tolist()
+        out[f'gfd_vs_analytic_{lvl}'] = float(np.linalg.norm(d))
+        say(f'grid {lvl}: |g_FD - g_analytic| = {np.linalg.norm(d):.3e} '
+            f'(|g| = {np.linalg.norm(g):.3e})')
+    # (b) numerical dE/dtheta with a fixed bond length
+    for lvl in (4, 6):
+        vals = []
+        for th in (133.7, 134.2, 134.7):
+            e, _ = scf(geom(th), grid=lvl)
+            vals.append(e)
+        d = (vals[2] - vals[0]) / np.radians(1.0)
+        out[f'dEdtheta_{lvl}'] = float(d)
+        say(f'grid {lvl}: dE/dtheta = {d:+.6e} Ha/rad '
+            f'(d2 {vals[0]-2*vals[1]+vals[2]:+.2e})')
+    dump('noise', out)
+
+
+def internal_q(x):
+    r1 = np.linalg.norm(x[1] - x[0])
+    r2 = np.linalg.norm(x[2] - x[0])
+    v1, v2 = x[1] - x[0], x[2] - x[0]
+    return np.array([r1, r2, angle_of(x) * np.pi / 180.0])
+
+
+def b_matrix(x, h=1e-6):
+    """Numeric B = dq/dx (3 x 9)."""
+    B = np.zeros((3, 9))
+    for j in range(9):
+        xp, xm = x.reshape(-1).copy(), x.reshape(-1).copy()
+        xp[j] += h
+        xm[j] -= h
+        B[:, j] = (internal_q(xp.reshape(3, 3)) - internal_q(xm.reshape(3, 3))) / (2 * h)
+    return B
+
+
+def cmd_trinternal():
+    """Trust-region Newton in internal coordinates (r1, r2, theta).
+
+    This is the pragmatic fix: 3 well-defined internal degrees of freedom, an
+    analytic Hessian transformed into them, and a trust radius that is accepted
+    or rejected on the actual energy.  No null-space, no step cap fighting the
+    quasi-Newton step.
+    """
+    x = geom(140.0)
+    radius = 0.15                     # Angstrom, on the scaled internal step
+    traj, e = [], None
+    for it in range(12):
+        e, g, mf = energy_grad(x)
+        m = modes(x)
+        B = b_matrix(x)
+        Bp = np.linalg.pinv(B.T)                       # 3 x 9
+        gq = Bp @ g                                    # Ha/Angstrom-ish
+        Hq = Bp @ m['H'] @ Bp.T
+        Hq = 0.5 * (Hq + Hq.T)
+        r = float(np.mean(internal_q(x)[:2]))
+        D = np.diag([1.0, 1.0, 1.0 / r])               # q -> length units
+        Hs = D @ Hq @ D
+        gs = D @ gq
+        traj.append(dict(it=it, E=e, ang=angle_of(x), r=r,
+                         gnorm=float(np.linalg.norm(g)),
+                         gq=[float(v) for v in gq],
+                         gq_norm=float(np.linalg.norm(gs)),
+                         Hq_eig=[float(v) for v in np.sort(np.linalg.eigvalsh(Hs))]))
+        say(f'trIC it {it:2d} E {e:.9f} theta {angle_of(x):7.3f} r {r:.5f} '
+            f'|g| {np.linalg.norm(g):.2e} |g_q| {np.linalg.norm(gs):.2e} '
+            f'Hq {np.array2string(np.sort(np.linalg.eigvalsh(Hs)), precision=2)}')
+        if np.linalg.norm(gs) < 1e-5:
+            break
+        accepted = False
+        for _try in range(8):
+            lam = 0.0
+            while True:
+                ev = np.linalg.eigvalsh(Hs + lam * np.eye(3))
+                step = -np.linalg.solve(Hs + lam * np.eye(3), gs)
+                if np.linalg.norm(step) <= radius or lam > 1e4:
+                    break
+                lam = max(1e-6, lam * 10 if lam else 1e-4)
+                if lam <= 1e-6:
+                    lam = 1e-4
+            dq = D @ step
+            qn = internal_q(x) + dq
+            r1, r2, th = float(qn[0]), float(qn[1]), float(qn[2])
+            xt = np.array([[0.0, 0.0, 0.0],
+                           [r1 * np.sin(th / 2), 0.0, r1 * np.cos(th / 2)],
+                           [-r2 * np.sin(th / 2), 0.0, r2 * np.cos(th / 2)]])
+            et, gt, _ = energy_grad(xt)
+            traj[-1]['trial_E'] = et
+            if et < e - 1e-10:
+                x = xt
+                radius = min(0.4, radius * 1.5)
+                accepted = True
+                break
+            radius *= 0.5
+        say(f'   step accepted={accepted} radius={radius:.3f} '
+            f'angle -> {angle_of(x):.2f}')
+        if not accepted:
+            break
+    m = modes(x)
+    dump('trinternal', dict(traj=traj, coords=x.tolist(), ang=angle_of(x),
+                            r=bonds_of(x), E=m['e'], freqs=m['freqs']))
+
+
+def cmd_guard():
+    """Same damped BFGS, two-line fix: relative curvature guard on the update.
+
+    sy > 1e-12 is not a curvature test.  When the geometry sits at the grid's
+    noise floor, s and y are both ~1e-7 and sy ~ 1e-14, so rho = 1/sy explodes
+    and B is destroyed.  Require sy > 1e-8*|s||y| (a standard safeguard, cf.
+    SciPy's min_curvature in optimize.BFGS).
+    """
+    x = geom(140.0)
+    hinv = np.eye(9) * 0.3
+    gp = xp = None
+    traj = []
+    for it in range(60):
+        e, g, mf = energy_grad(x)
+        P, nnull, bv, sq = projector(mf.mol, x)
+        gi = float(np.linalg.norm(P @ g))
+        traj.append(dict(it=it, E=e, gnorm=float(np.linalg.norm(g)),
+                         g_internal=gi, ang=angle_of(x),
+                         Bmax=float(np.max(np.abs(np.linalg.eigvalsh(P @ hinv @ P))))))
+        say(f'guard it {it:3d} E {e:.9f} |g| {np.linalg.norm(g):.2e} '
+            f'|Pg| {gi:.2e} theta {angle_of(x):7.3f} '
+            f'Bmax {traj[-1]["Bmax"]:.2e}')
+        if gi < 1e-5:
+            break
+        if gp is not None:
+            s = (x - xp).reshape(-1)
+            y = g - gp
+            sy = float(s @ y)
+            if sy > 1e-8 * np.linalg.norm(s) * np.linalg.norm(y):
+                rho = 1.0 / sy
+                idn = np.eye(9)
+                hinv = ((idn - rho * np.outer(s, y)) @ hinv
+                        @ (idn - rho * np.outer(y, s)) + rho * np.outer(s, s))
+        step = -hinv @ g
+        ns = float(np.linalg.norm(step))
+        if ns > 0.08:
+            step *= 0.08 / ns
+        xp, gp = x.copy(), g.copy()
+        x = x + step.reshape(3, 3)
+    m = modes(x)
+    dump('guard_traj', dict(traj=traj, coords=x.tolist(), ang=angle_of(x),
+                            r=bonds_of(x), E=m['e'], freqs=m['freqs'],
+                            g_internal=gi))
 
 
 def cmd_seed():
@@ -348,14 +589,14 @@ def cmd_newton():
 
 # ----------------------------------------------------------------- basis ----
 def relaxed_scan(basis, xc='pbe', grid=4, thetas=None):
-    """For each theta, relax r by a 3-point parabola (two Newton passes)."""
+    """For each theta, relax r by repeated 3-point parabolas."""
     if thetas is None:
-        thetas = [180, 170, 160, 150, 140, 130, 120, 110]
+        thetas = [180, 170, 160, 150, 140, 130]
     rows = []
     r_guess = 2.00
     for th in thetas:
         r = r_guess
-        for _ in range(3):
+        for _ in range(2):
             es = []
             for dr in (-0.03, 0.0, 0.03):
                 e, _ = scf(geom(th, r + dr), basis=basis, xc=xc, grid=grid)
@@ -378,11 +619,44 @@ def relaxed_scan(basis, xc='pbe', grid=4, thetas=None):
                 bend_rise_kcal=(rows[0]['E'] - emin['E']) * HARTREE2KCAL)
 
 
+def cmd_mp2():
+    """Does a correlated wavefunction method with diffuse functions also bend?
+    MP2/def2-tzvpd, bond length relaxed at each angle."""
+    from pyscf import scf as hf, mp
+    basis, xc = 'def2-tzvpd', 'mp2'
+    rows = []
+    r_guess = 2.05
+    for th in [180, 170, 160, 150, 140, 130]:
+        r = r_guess
+        for _ in range(2):
+            es = []
+            for dr in (-0.03, 0.0, 0.03):
+                m = hf.RHF(build(geom(th, r + dr), basis))
+                m.conv_tol = 1e-10
+                m.kernel()
+                es.append(mp.MP2(m).kernel())
+            a, b, c = es
+            d1 = (c - a) / 0.06
+            d2 = (a - 2 * b + c) / 0.03 ** 2
+            if d2 > 0:
+                r = min(max(r - d1 / d2, 1.85), 2.30)
+        m = hf.RHF(build(geom(th, r), basis))
+        m.conv_tol = 1e-10
+        m.kernel()
+        e = mp.MP2(m).kernel()
+        rows.append(dict(theta=th, r=float(r), E=float(e)))
+        r_guess = r
+        say(f'MP2/{basis} theta {th:5.1f} r {r:.5f} E {e:.8f}')
+    emin = min(rows, key=lambda z: z['E'])
+    for z in rows:
+        z['dE_kcal'] = (z['E'] - emin['E']) * HARTREE2KCAL
+    dump('mp2', dict(basis=basis, rows=rows, theta_min=emin['theta']))
+
+
 def cmd_basis():
-    cases = [('def2-svp', 'pbe'), ('def2-tzvp', 'pbe'), ('def2-tzvpd', 'pbe'),
-             ('ma-def2-svp', 'pbe'), ('def2-svpd', 'pbe'), ('def2-tzvpp', 'pbe'),
-             ('def2-svp', 'b3lyp'), ('def2-tzvpd', 'b3lyp'),
-             ('def2-svp', 'pbe0'), ('def2-tzvpd', 'pbe0')]
+    cases = [('def2-svp', 'pbe'), ('def2-svpd', 'pbe'), ('ma-def2-svp', 'pbe'),
+             ('def2-tzvp', 'pbe'), ('def2-tzvpd', 'pbe'),
+             ('def2-svp', 'b3lyp'), ('def2-tzvpd', 'b3lyp')]
     res = {}
     for basis, xc in cases:
         key = f'{basis}_{xc}'
@@ -392,6 +666,38 @@ def cmd_basis():
         except Exception as exc:                     # noqa: BLE001
             say(f'{key} FAILED {exc}')
             res[key] = {'error': str(exc)}
+
+
+def cmd_linbend():
+    """Hessian bend eigenvalue at the linear geometry, per basis/functional.
+    Negative => linear is a saddle at that level."""
+    cases = [('def2-svp', 'pbe'), ('def2-svpd', 'pbe'), ('ma-def2-svp', 'pbe'),
+             ('def2-tzvp', 'pbe'), ('def2-tzvpd', 'pbe'), ('def2-tzvpp', 'pbe'),
+             ('def2-svp', 'b3lyp'), ('def2-tzvpd', 'b3lyp'),
+             ('def2-svp', 'pbe0'), ('def2-tzvpd', 'pbe0')]
+    out = []
+    for basis, xc in cases:
+        # relax r along the bond at 180 first
+        r = 2.00
+        for _ in range(2):
+            es = []
+            for dr in (-0.02, 0.0, 0.02):
+                e, _ = scf(geom(180, r + dr), basis=basis, xc=xc)
+                es.append(e)
+            a, b, c = es
+            d1 = (c - a) / 0.04
+            d2 = (a - 2 * b + c) / 0.02 ** 2
+            if d2 > 0:
+                r = r - d1 / d2
+        m = modes(geom(180, r), basis=basis, xc=xc)
+        rec = dict(basis=basis, xc=xc, r=float(r), E=m['e'],
+                   freqs=m['freqs'], bend_cm=float(m['freqs'][0]),
+                   bend_w=float(m['w'][0]),
+                   linear_is_saddle=bool(m['freqs'][0] < 0))
+        out.append(rec)
+        say(f'{basis}/{xc}: r {r:.4f} bend {rec["bend_cm"]:+8.2f} cm-1 '
+            f'stretch {np.round(m["freqs"][1:],1)}')
+    dump('linbend', out)
 
 
 # ------------------------------------------------------------------ grid ----
@@ -436,6 +742,24 @@ def cmd_grid():
 
 
 # ---------------------------------------------------------------- linear ----
+def cmd_roteig():
+    """Spread of the six null eigenvalues of the *unprojected* mass-weighted
+    Hessian at the linear geometry: the size of the grid's rotational symmetry
+    breaking."""
+    rows = []
+    for lvl in (3, 4, 6):
+        H, e, mf = hessian(geom(180), grid=lvl)
+        sq = np.repeat(np.sqrt(np.array(mf.mol.atom_mass_list())), 3)
+        w = np.linalg.eigvalsh(H / np.outer(sq, sq))
+        null = np.sort(np.abs(w))[:6]
+        rows.append(dict(level=lvl, null_eigs=[float(v) for v in null],
+                         spread_cm=float(CONV * np.sqrt(null[-1])),
+                         all=[float(v) for v in np.sort(w)[:8]]))
+        say(f'grid {lvl}: six null |w| up to {null[-1]:.2e} '
+            f'({CONV*np.sqrt(null[-1]):.1f} cm-1)')
+    dump('roteig', rows)
+
+
 def cmd_linear():
     """C_infinity_v: bond length only, then a 1D bend fit around 180."""
     r = 2.00
@@ -465,10 +789,10 @@ def cmd_linear():
     coef, *_ = np.linalg.lstsq(A2, ee - ee[0], rcond=None)
     # harmonic bend wavenumber of a 3-body bend from k_theta = 2*a2
     mF, mCa = 18.998403, 40.078
-    G = 2.0 / (mF * (r / BOHR) ** 2) + 0.0        # 1/(m r^2) each, relative angle
-    G = 2.0 / (mF * (r / BOHR) ** 2)
-    lam = 2 * coef[0] * G                          # gaussian -> amu bohr^2
-    cm = np.sign(lam) * CONV * np.sqrt(abs(lam))
+    rb = r / BOHR
+    G = 2.0 / (mF * rb ** 2) + 4.0 / (mCa * rb ** 2)   # Wilson G for the bend
+    lam = 2 * coef[0] * G        # k_theta = 2 a2 ; w = k_theta * G
+    cm = float(np.sign(lam) * CONV * np.sqrt(abs(lam)))
     dump('linear', dict(r=r, E=e_lin, fit=[(float(a), float(b)) for a, b in fit],
                         a2=float(coef[0]), a4=float(coef[1]),
                         quartic_ratio=float(coef[1] * np.radians(20) ** 2 / coef[0]),
@@ -476,4 +800,7 @@ def cmd_linear():
 
 
 if __name__ == '__main__':
+    for a in sys.argv[2:]:
+        if a in ('resp', 'noprune'):
+            FLAGS[a] = True
     globals()[f'cmd_{sys.argv[1]}']()

@@ -1,0 +1,21 @@
+[16:55:15] resuming with 5 geometries
+[16:55:15] geometry optimisation at pbe/def2-svp, gtol 0.0003, analytic-Hessian seed, projected gradient
+[16:55:15] formamidine: reusing optimised geometry (E -149.713110151)
+[16:55:15] HF: reusing optimised geometry (E -100.254099641)
+[16:55:15] Ca_famd2: reusing optimised geometry (E -975.669220910)
+[16:55:15] CaF2: reusing optimised geometry (E -876.770245045)
+[16:55:15] CaF2_linear: reusing optimised geometry
+[16:55:15] single points across eight levels
+[16:55:29]   pbe/def2-svp       bent  -11.95   linear   -9.69 kcal/mol
+[16:56:17]   pbe/def2-tzvp      bent   -8.17   linear   -7.02 kcal/mol
+[16:56:44]   pbe/def2-svpd      bent   -6.05   linear   -5.69 kcal/mol
+[16:58:06]   pbe/def2-tzvpd     bent   -7.05   linear   -6.18 kcal/mol
+[16:58:23]   b3lyp/def2-svp     bent  -10.45   linear   -8.98 kcal/mol
+[16:59:16]   b3lyp/def2-tzvp    bent   -8.59   linear   -8.19 kcal/mol
+[16:59:42]   b3lyp/def2-svpd    bent   -7.11   linear   -7.40 kcal/mol
+[17:01:00]   b3lyp/def2-tzvpd   bent   -8.16   linear   -8.04 kcal/mol
+[17:01:00] 
+[17:01:00] bent   dE in [-11.95, -6.05]  spread 5.90
+[17:01:00] linear dE in [-9.69, -5.69]  spread 4.00
+[17:01:00] full bracket [-11.95, -5.69] width 6.26 kcal/mol
+[17:01:00] written /mnt/e/CalcChemistry/experiments/caf2/reaction3.json
