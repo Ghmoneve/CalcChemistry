@@ -295,10 +295,13 @@ and $4.0$ on the linear one. Two systematic effects are visible and neither is a
 method spread. First, diffuse functions matter by $4$--$6$~kcal\,mol$^{-1}$: the
 four $d$-augmented bases give $-6.1$ to $-8.2$, the four non-augmented $-8.2$ to
 $-12.0$. That is expected for a species as polar as $\mathrm{CaF_2}$ and it is why
-the augmented levels are the ones to trust. Second, the bent-versus-linear choice is
-worth $0.1$--$2.3$~kcal\,mol$^{-1}$ depending on level, and it does not shrink with
-basis quality, because it tracks the barrier to linearity rather than the
-completeness of the one-electron space.
+the augmented levels are the ones to trust. Second, the bent-versus-linear column spans
+$0.1$--$2.3$~kcal\,mol$^{-1}$ at these levels, but as the CCSD(T) check above
+establishes, that span measures DFT's error in the barrier and not a structural
+freedom of the molecule: at a correlated level the two structures are within
+$0.15$~kcal\,mol$^{-1}$ of each other. The column is reported because the
+calculation was performed in both ways, not because the distinction is physically
+worth $2$~kcal\,mol$^{-1}$.
 
 We therefore report the reaction energy as a bracket rather than a number:
 $-6$ to $-8$~kcal\,mol$^{-1}$ at the levels we consider adequate
@@ -347,6 +350,37 @@ $f$ functions, while converged studies use four to six largely uncontracted $d$
 sets; the bending mechanism is $3p$ core--valence mixing into the fluoride
 valence space \citep{Romeu2025}, so a thin $d$ manifold hits exactly the physics
 responsible.
+
+We checked this directly rather than trusting the literature, with CCSD(T) at the
+same geometries (Ca [Ar] and F $1s$ frozen, eight correlated occupied orbitals,
+$98$ and $116$ basis functions for def2-tzvp and def2-tzvpd):
+\[
+  E(180^\circ)-E(\theta_{\min}) =
+  \begin{cases}
+    0.094\ \text{kcal\,mol}^{-1}, & \theta_{\min}=160^\circ \ (\text{def2-tzvp}),\\
+    0.110\ \text{kcal\,mol}^{-1}, & \theta_{\min}=155^\circ \ (\text{def2-tzvpd}),
+  \end{cases}
+\]
+against $0.15$ and $154.3^\circ$ from \citet{Koput2004}. The angle agrees to about
+one degree and the barrier to a factor of $1.4$. DFT overestimates it by a factor of
+$20$; and the exaggeration is not random, it is a thin-$d$ effect that a better
+basis reduces monotonically in every functional tested.
+
+The barrier is small enough that we do not claim a precise value. Varying the frozen
+core at def2-tzvp moves it between $0.00$ and $0.09$~kcal\,mol$^{-1}$ --- with
+Ca[Ar] plus F $1s$ frozen it is $0.094$, with only Ca[Ar] frozen the linear geometry
+becomes the lowest point and it is $0.000$, and with everything but Ca $1s$ correlated
+it is $0.021$. A quantity that moves by $100\%$ of its own size when the core
+treatment changes is one whose magnitude we can bound but not resolve. What is
+established is the bound: \emph{every} correlated treatment gives at most
+$0.15$~kcal\,mol$^{-1}$, while DFT gives $1.1$ to $2.2$.
+
+That bound is what the reaction energy needs, because it settles what the
+bent-versus-linear column of the table below means. At a correlated level the two
+structures differ by at most $0.15$~kcal\,mol$^{-1}$, so the $0.1$ to $2.3$ span that
+column shows at DFT levels is method error, not structural uncertainty. We keep both
+columns because the calculation was done that way, but the true structural freedom is
+ten times smaller than the table suggests.
 
 Two internal checks say the $128.2^\circ$ structure we previously reported should
 not be quoted at all. Its gradient norm was $3.0\times10^{-2}$~Ha\,\AA$^{-1}$ ---
