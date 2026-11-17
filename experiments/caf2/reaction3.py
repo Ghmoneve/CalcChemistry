@@ -119,21 +119,37 @@ def projector(mol, x):
     return np.eye(3 * n) - sum(np.outer(u, u) for u in bv), sq
 
 
+def _linear_stretch_step(grad, n):
+    """Step for a linear ABA molecule: move only the symmetric bond length.
+
+    Both terminal atoms move along +z and -z by equal amounts and the centre atom
+    stays put, so the geometry remains exactly D_inf_h. Taking the antisymmetric
+    combination of the two terminal z-components is what projects the gradient onto
+    that single internal coordinate; using the raw gradient would break linearity.
+    """
+    u = np.array([0.0, 0.0, 1.0])
+    d = grad.reshape(n, 3)
+    r = 0.5 * (float(d[1] @ u) - float(d[2] @ u))
+    out = np.zeros((n, 3))
+    out[1] = r * u
+    out[2] = -r * u
+    return out.reshape(-1)
+
+
 def relax(zs, x0, maxiter=60, maxstep=0.15, linear=False):
+    """Relax to a stationary point, optionally under the D_inf_h constraint.
+
+    `linear=True` restricts the search to the one-dimensional symmetric-stretch
+    subspace, so the result is the best linear geometry rather than a bent one.
+    Convergence is judged on the projected gradient in the unconstrained case and
+    on the single stretch component in the constrained case.
+    """
     x = np.array(x0, float)
     n = len(zs)
+    P = None          # only defined for the unconstrained branch
+    hinv = None
     if linear:
-        # only the symmetric bond length moves
-        def project_step(st):
-            d = st.reshape(n, 3)
-            u = np.array([0.0, 0.0, 1.0])
-            r = 0.5 * (float(d[1] @ u) - float(d[2] @ u))
-            out = np.zeros((n, 3))
-            out[1] = r * u
-            out[2] = -r * u
-            return out.reshape(-1)
-        P = None
-        hinv = None
+        pass
     else:
         mol0 = build(zs, x)
         P, sq = projector(mol0, x)
@@ -145,27 +161,36 @@ def relax(zs, x0, maxiter=60, maxstep=0.15, linear=False):
         for k in keep:
             hinv += np.outer(V[:, k], V[:, k]) / w[k]
 
-    xp = gp = None
+    xp = None
+    gp = None
+    e = float('nan')
+    gi = float('inf')
+    it = 0
     for it in range(maxiter):
         mol = build(zs, x)
         e, g, _ = energy_grad(mol)
-        gi = float(np.linalg.norm(P @ g)) if P is not None else float(abs(g.reshape(n, 3)[1, 2]))
+        if P is not None:
+            gi = float(np.linalg.norm(P @ g))
+        else:
+            gi = float(abs(g.reshape(n, 3)[1, 2]))
         if it % 5 == 0 or it < 3:
             say(f'   it {it:3d}  E {e:.9f}  |Pg| {gi:.2e}')
         if gi < GTOL:
             break
         if linear:
-            step = project_step(-g * 0.5)
+            step = _linear_stretch_step(-g * 0.5, n)
         else:
+            assert hinv is not None, 'unconstrained branch must have a seeded Hessian'
             if gp is not None:
-                s = (x - xp).reshape(-1)
-                y = g - gp
-                sy = float(s @ y)
-                if sy > 1e-8 * np.linalg.norm(s) * np.linalg.norm(y) + 1e-14:
+                svec = (x - xp).reshape(-1)
+                yvec = g - gp
+                sy = float(svec @ yvec)
+                if sy > 1e-8 * np.linalg.norm(svec) * np.linalg.norm(yvec) + 1e-14:
                     rho = 1.0 / sy
                     idn = np.eye(3 * n)
-                    hinv = ((idn - rho * np.outer(s, y)) @ hinv
-                            @ (idn - rho * np.outer(y, s)) + rho * np.outer(s, s))
+                    hinv = ((idn - rho * np.outer(svec, yvec)) @ hinv
+                            @ (idn - rho * np.outer(yvec, svec))
+                            + rho * np.outer(svec, svec))
             step = -hinv @ g
         nrm = float(np.linalg.norm(step))
         if nrm > maxstep:
