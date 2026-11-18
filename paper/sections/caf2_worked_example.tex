@@ -123,6 +123,17 @@ by the availability of surface sites. It does not identify the limiting
 mechanism.
 \end{remark}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_coverage}
+\caption{Growth per cycle mapped to fractional coverage of Ca sites on the
+CaF$_2$(111) surface, using $a_0=5.4626$~\AA{} and a site area of
+$12.92$~\AA$^2$. The reported $0.3$--$0.4$~\AA{}/cycle corresponds to
+$9.5$--$12.7\%$ of a monolayer, so growth is far from saturating the available
+sites. This is arithmetic on published numbers, not a surface calculation.}
+\label{fig:coverage}
+\end{figure}
+
 \subsection{A geometric design rule for the ligand}
 
 The ratio above invites a purely geometric bound, which holds regardless of
@@ -265,6 +276,17 @@ Hessian with translations and rotations projected out, and the conversion was
 checked against known spectra (HF $4213.7$~cm$^{-1}$; H$_2$O at $1540.3$,
 $3918.7$, $4036.1$~cm$^{-1}$).
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_imaginary}
+\caption{Largest imaginary mode for each of the four species as first optimised,
+i.e.\ with the gradient converged but the Hessian unchecked. Three of the four
+were saddle points. A small projected gradient is therefore not evidence of a
+minimum, and every reported energy in this section was re-verified after the
+displacement shown here.}
+\label{fig:imaginary}
+\end{figure}
+
 Eight functional/basis combinations were evaluated at those minima, and
 $\mathrm{CaF_2}$ was treated twice: at its unconstrained minimum and constrained to
 $D_{\infty h}$ with only the bond length relaxed. The pair brackets a systematic
@@ -375,6 +397,40 @@ treatment changes is one whose magnitude we can bound but not resolve. What is
 established is the bound: \emph{every} correlated treatment gives at most
 $0.15$~kcal\,mol$^{-1}$, while DFT gives $1.1$ to $2.2$.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_caf2_bend}
+\caption{Bending potential of gas-phase CaF$_2$, both panels relative to the
+linear geometry so the two energy scales are comparable. (a) Seven DFT levels,
+all producing a well of depth $1.1$ to $2.2$~kcal\,mol$^{-1}$ near
+$140^\circ$. (b) CCSD(T) at two basis sets and two Ca--F distances; the well is
+$0.05$ to $0.11$~kcal\,mol$^{-1}$ deep and the minimum lies between $155^\circ$
+and $170^\circ$, bracketing the experimental $154.3^\circ$. The bending is real;
+its depth at DFT is an artefact.}
+\label{fig:caf2-bend}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_barrier_bar}
+\caption{Bend barrier for the same molecule at every level computed, against the
+experimental $0.15$~kcal\,mol$^{-1}$ (dotted). DFT overestimates by up to a
+factor of $20$, improving monotonically with basis size, while the correlated
+values sit on or below the experimental bar.}
+\label{fig:barrier-bar}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_grid_convergence}
+\caption{The imaginary bend frequency against the DFT integration grid. Levels
+one to three disagree in sign, which is what a grid artefact looks like; from
+level four onward the value is stable near $-102$~cm$^{-1}$. The mode is
+therefore physical for the linear geometry, and the linear geometry is a saddle
+at these levels.}
+\label{fig:grid-convergence}
+\end{figure}
+
 That bound is what the reaction energy needs, because it settles what the
 bent-versus-linear column of the table below means. At a correlated level the two
 structures differ by at most $0.15$~kcal\,mol$^{-1}$, so the $0.1$ to $2.3$ span that
@@ -396,7 +452,19 @@ $54$~cm$^{-1}$. The angle, the depth and the imaginary frequency cannot all come
 from one smooth potential.
 
 The reaction energy is therefore reported twice below, once with $\mathrm{CaF_2}$
-at its unconstrained minimum and once constrained to $D_{\infty h}$, which brackets
+at its unconstrained minimum and once constrained to \begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_reaction_bracket}
+\caption{Reaction energy for
+$\mathrm{Ca(formamidinate)_2+2HF\to CaF_2+2\,formamidine}$ across eight
+functional/basis combinations, with CaF$_2$ either at its unconstrained minimum
+or constrained to $D_{\infty h}$. The shaded band is the bracket the paper
+reports; the spread across levels, not the value at any one level, is the
+honest uncertainty.}
+\label{fig:reaction-bracket}
+\end{figure}
+
+$D_{\infty h}$, which brackets
 the treatment.
 
 \begin{remark}[Why this number must not be quoted as the ALD protonation energy]

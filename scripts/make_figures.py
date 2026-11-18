@@ -129,28 +129,43 @@ def fig_sector_trend():
 
 # ---------------------------------------------------------------- figure 3
 def fig_route_slack():
-    rc = load('experiments/complement/route_comparison.json')
+    """Three rungs of the same certificate, each using more information.
+
+    The numbers are recomputed from stored primitives rather than read from
+    route_comparison.json, whose temple_true_gap entries were produced with an
+    inconsistent residual and yield bounds ABOVE E_FCI, i.e. not bounds at all.
+    Each value plotted here is asserted to lie below E_FCI.
+    """
+    sr = load('experiments/complement/schur_route.json')
+    tm = load('experiments/complement/tau_measure.json')
     vc = load('experiments/complement/verified_cholesky.json')
-    if not (rc and vc):
+    if not (sr and tm and vc):
         return
-    rows = rc['routes']['temple_true_gap']
-    k = [r['k'] for r in rows]
-    temple = [abs(r['slack_kcal']) for r in rows]
-    block = abs(rc['routes']['block_d_minus_tau']['slack_kcal'])
-    schur = abs(vc['slack_vs_fci_kcal'])
-    fig, ax = plt.subplots(figsize=(3.4, 2.4))
-    ax.plot(k, temple, 's-', color=C_ACC, ms=4, lw=1.2,
-            label='Temple (needs the gap)')
-    ax.axhline(block, color=C_GREY, ls='--', lw=1.2,
-               label=f'block $d-\\|O\\|_2$ = {block:.0f}')
-    ax.axhline(schur, color=C_MAIN, ls='-', lw=1.4,
-               label=f'Schur certified = {schur:.2f}')
-    ax.set_xscale('log')
+    d, efci, b = sr['d'], sr['E_FCI'], sr['beta_row']
+    delta = sr['lambda_min_Hr'] - d
+    slack_norm = (d - tm['tau_spectral'] - efci) * KCAL
+    scalar = d - 2 * b * b / (np.sqrt(delta ** 2 + 4 * b * b) + delta)
+    slack_scalar = (scalar - efci) * KCAL
+    slack_schur = (vc['schur_bound_certified'] - efci) * KCAL
+    for name, v in (('full norm', slack_norm), ('scalar', slack_scalar),
+                    ('schur', slack_schur)):
+        assert v < 0, f'{name} bound lies above E_FCI and is not a bound'
+    labels = ['full norm\n$d-\\|O\\|_2$',
+              'one row + gap\n$d-\\frac{2b^2}{\\sqrt{\\delta^2+4b^2}+\\delta}$',
+              'exact Schur\n$d-b^{\\top}A^{-1}b$']
+    vals = [abs(slack_norm), abs(slack_scalar), abs(slack_schur)]
+    fig, ax = plt.subplots(figsize=(3.7, 2.5))
+    bars = ax.bar(labels, vals, color=[C_GREY, '#5b8db8', C_MAIN], width=0.62, zorder=2)
     ax.set_yscale('log')
-    ax.set_xlabel('reference determinants $k$')
     ax.set_ylabel('slack below $E_{\\mathrm{FCI}}$  (kcal/mol)')
-    ax.legend(frameon=False, fontsize=6.5)
-    ax.set_title('only the Schur certificate reaches 1 kcal/mol')
+    for bar, v in zip(bars, vals):
+        ax.text(bar.get_x() + bar.get_width() / 2, v * 1.18, f'{v:.1f}',
+                ha='center', va='bottom', fontsize=7.5)
+    ax.set_ylim(0.3, max(vals) * 5)
+    for i in (1, 2):
+        ax.text(i, vals[i] * 2.6, f'$\\times${vals[i-1]/vals[i]:.0f} tighter',
+                color=C_ACC, fontsize=6.8, ha='center')
+    ax.set_title('each rung buys about two orders of magnitude')
     save(fig, 'fig_route_slack')
 
 

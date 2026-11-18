@@ -7,6 +7,8 @@
 \geometry{margin=2.5cm}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -288,6 +290,35 @@ is
 \]
 with the correction defined as zero when $\overline b=0$. Stability of this
 formula still does not replace outward rounding.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_tau_estimates}
+\caption{Four inexpensive upper bounds on $\norm O_2$ for the model system, all
+exceeding the diagonal gap by a wide margin. Only the spectral norm is sharp;
+the cheap replacements are two to six times larger, so they cannot rescue a bound
+whose usefulness already requires $\tau$ below the correlation energy.}
+\label{fig:tau-estimates}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_sector_trend}
+\caption{$\tau$ against the size of the reference sector. Enlarging the sector
+reduces the complement but does not bring $\tau$ near the gap, and the growth is
+monotone in the wrong direction for the certificate.}
+\label{fig:sector-trend}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_similarity_floor}
+\caption{Best value of $\tau$ attainable under diagonal similarity scalings,
+compared with the diagonal gap. Twenty thousand random scalings and the best
+Gershgorin scaling are both shown; neither reaches the gap, in agreement with
+\eqref{eq:similarity-floor} and with the kernel-checked two-dimensional witness.}
+\label{fig:similarity-floor}
+\end{figure}
 
 \section{Variational states and reduced-density-matrix relaxations}
 \label{sec:rdm}

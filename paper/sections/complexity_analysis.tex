@@ -220,6 +220,7 @@ A diagonal similarity $SOS^{-1}$ preserves the spectrum, and a symmetric matrix 
 2-norm equal to its spectral radius, so
 \[
   \inf_{S=\operatorname{diag}(s)>0}\norm{SOS^{-1}}_2 = \norm{O}_2 .
+  \label{eq:similarity-floor}
 \]
 A search over $20\,000$ random scalings confirms it: every attempt was worse
 (minimum $59.33$~Ha) and none fell below $\norm{O}_2$. Sign information cannot help
@@ -269,6 +270,59 @@ a gap of $0.860$~kcal\,mol$^{-1}$ rather than $1241$: a factor $1443$ improvemen
 using one row of the Hamiltonian and one linear solve. Here
 $H_r-dI$ has smallest eigenvalue $0.349986$~Ha, so the required shift is positive
 definite.
+
+\paragraph{The same measurement on a second system.}
+One matrix is not evidence that a certificate behaves in a certain way, so the
+whole chain was repeated on N$_2$ in STO-3G: $14\,400$ determinants in the
+$S_z=0$ sector, a triple bond rather than lone pairs, and a smaller diagonal gap.
+Table~\ref{tab:two-systems} reports both. The extremes and the intermediate
+agreement with an independent FCI solver (better than $10^{-11}$~Ha in both
+cases) are the whole of the evidence; nothing here speaks for larger bases.
+
+\begin{table}[t]
+\centering
+\caption{The certificate on two systems with exactly known ground energies.
+$\Delta_d$ is the diagonal gap and $\tau=\norm O_2$. Each slack is the certified
+bound minus $E_{\mathrm{FCI}}$. Both bounds are rigorous; the last two rows show
+that tightness is not scale-invariant.}
+\label{tab:two-systems}
+\begin{tabular}{lrr}
+\hline
+ & H$_2$O/STO-3G & N$_2$/STO-3G\\
+\hline
+determinants               & 441      & 14\,400\\
+$E_{\mathrm{FCI}}$ (Ha)    & $-75.012012$ & $-107.652829$\\
+$\Delta_d$ (Ha)            & $0.447404$ & $0.318112$\\
+$\tau/\Delta_d$            & $4.53$   & $17.78$\\
+full-norm slack (kcal\,mol$^{-1}$) & $-1240.7$ & $-3451.1$\\
+certified $\delta$         & $7.43\times10^{-4}$ & $4.21\times10^{-6}$\\
+Schur slack (kcal\,mol$^{-1}$) & $-0.860$ & $-10.031$\\
+improvement over full norm & $1443\times$ & $344\times$\\
+\hline
+\end{tabular}
+\end{table}
+
+Three conclusions are supported. The full-norm route fails on both systems, so
+its failure is not an artefact of the smaller matrix. The Schur step improves
+both by two to three orders of magnitude. The certified $\delta$ falls by a
+factor of $176$ and the slack grows with it, as Lemma~\ref{lem:bracket} predicts,
+since the radius scales as $1/\delta$. One conclusion is \emph{not} supported: a
+claim of kilocalorie accuracy in general. The bound is sub-kcal at $441$
+determinants and about $10$~kcal\,mol$^{-1}$ at $14\,400$. We therefore report
+the Schur step as strict and far tighter, not as scale-invariant.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_route_slack}
+\caption{Slack below $E_{\mathrm{FCI}}$ on a logarithmic scale for three
+certificates on the water model, all rigorously valid and all recomputed from the
+stored primitives. The first uses only $\tau=\norm O_2$; the second uses the
+reference row with the separation $\delta$ through the scalar of
+Theorem~\ref{thm:block}; the third solves with the reference row. Each rung buys
+about two orders of magnitude, and the last removes the spectral norm from the
+calculation.}
+\label{fig:route-slack}
+\end{figure}
 
 \subsection{The Schur certificate, stated and proved}
 \label{sec:schur-proof}
@@ -370,6 +424,36 @@ eigenvectors of $A$. This is why the certified computation needs the linear solv
 rather than a norm estimate, and it is also why the sufficient condition being
 marginal did not prevent a $40$-fold improvement in the bound.
 \end{remark}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_schur_sensitivity}
+\caption{The scalar $g(\mu)$ evaluated with an assumed floor $\mu$ in place of
+$d$. The bound is admissible only while $H_r-\mu I\succ0$; past that point the
+inequality reverses and the curve rises above $E_{\mathrm{FCI}}$. The hypothesis
+of Proposition~\ref{prop:schur} is therefore not a technicality: it is the
+statement that decides whether the number is a bound at all.}
+\label{fig:schur-sensitivity}
+\end{figure}
+
+\paragraph{Two knobs that were measured and rejected.}
+Two parameters could in principle be tuned. One may replace the reference level
+$d$ by a lower shift $t$, which raises $\lambda_{\min}(H_r-tI)$ and hence
+$\delta$; or one may take a reference \emph{block} of $k>1$ determinants, which
+shrinks the omitted space. Both were scanned. Both move the wrong way:
+lowering $t$ raises $\delta$ but lowers the scalar faster, and enlarging the
+block increases the coupling between reference and complement more than the
+smaller complement saves. Figure~\ref{fig:knobs} reports the trade-off, and it is
+the reason the quoted numbers use $k=1$ and $t=d$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_knobs}
+\caption{Slack of the certified bound under the two available knobs. (a) shifting
+the reference level; (b) enlarging the reference block. In both panels the
+certificate is monotone in the wrong direction over the scanned range.}
+\label{fig:knobs}
+\end{figure}
 
 \paragraph{Certifying the shift.}
 The single hypothesis is $d < \lambda_{\min}(H_r)$, and it is certified here without

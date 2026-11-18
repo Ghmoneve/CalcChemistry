@@ -10,6 +10,8 @@
 \geometry{margin=2.5cm}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -291,6 +293,35 @@ is
 \]
 with the correction defined as zero when $\overline b=0$. Stability of this
 formula still does not replace outward rounding.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_tau_estimates}
+\caption{Four inexpensive upper bounds on $\norm O_2$ for the model system, all
+exceeding the diagonal gap by a wide margin. Only the spectral norm is sharp;
+the cheap replacements are two to six times larger, so they cannot rescue a bound
+whose usefulness already requires $\tau$ below the correlation energy.}
+\label{fig:tau-estimates}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_sector_trend}
+\caption{$\tau$ against the size of the reference sector. Enlarging the sector
+reduces the complement but does not bring $\tau$ near the gap, and the growth is
+monotone in the wrong direction for the certificate.}
+\label{fig:sector-trend}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_similarity_floor}
+\caption{Best value of $\tau$ attainable under diagonal similarity scalings,
+compared with the diagonal gap. Twenty thousand random scalings and the best
+Gershgorin scaling are both shown; neither reaches the gap, in agreement with
+\eqref{eq:similarity-floor} and with the kernel-checked two-dimensional witness.}
+\label{fig:similarity-floor}
+\end{figure}
 
 \section{Variational states and reduced-density-matrix relaxations}
 \label{sec:rdm}
@@ -1379,6 +1410,7 @@ A diagonal similarity $SOS^{-1}$ preserves the spectrum, and a symmetric matrix 
 2-norm equal to its spectral radius, so
 \[
   \inf_{S=\operatorname{diag}(s)>0}\norm{SOS^{-1}}_2 = \norm{O}_2 .
+  \label{eq:similarity-floor}
 \]
 A search over $20\,000$ random scalings confirms it: every attempt was worse
 (minimum $59.33$~Ha) and none fell below $\norm{O}_2$. Sign information cannot help
@@ -1428,6 +1460,59 @@ a gap of $0.860$~kcal\,mol$^{-1}$ rather than $1241$: a factor $1443$ improvemen
 using one row of the Hamiltonian and one linear solve. Here
 $H_r-dI$ has smallest eigenvalue $0.349986$~Ha, so the required shift is positive
 definite.
+
+\paragraph{The same measurement on a second system.}
+One matrix is not evidence that a certificate behaves in a certain way, so the
+whole chain was repeated on N$_2$ in STO-3G: $14\,400$ determinants in the
+$S_z=0$ sector, a triple bond rather than lone pairs, and a smaller diagonal gap.
+Table~\ref{tab:two-systems} reports both. The extremes and the intermediate
+agreement with an independent FCI solver (better than $10^{-11}$~Ha in both
+cases) are the whole of the evidence; nothing here speaks for larger bases.
+
+\begin{table}[t]
+\centering
+\caption{The certificate on two systems with exactly known ground energies.
+$\Delta_d$ is the diagonal gap and $\tau=\norm O_2$. Each slack is the certified
+bound minus $E_{\mathrm{FCI}}$. Both bounds are rigorous; the last two rows show
+that tightness is not scale-invariant.}
+\label{tab:two-systems}
+\begin{tabular}{lrr}
+\hline
+ & H$_2$O/STO-3G & N$_2$/STO-3G\\
+\hline
+determinants               & 441      & 14\,400\\
+$E_{\mathrm{FCI}}$ (Ha)    & $-75.012012$ & $-107.652829$\\
+$\Delta_d$ (Ha)            & $0.447404$ & $0.318112$\\
+$\tau/\Delta_d$            & $4.53$   & $17.78$\\
+full-norm slack (kcal\,mol$^{-1}$) & $-1240.7$ & $-3451.1$\\
+certified $\delta$         & $7.43\times10^{-4}$ & $4.21\times10^{-6}$\\
+Schur slack (kcal\,mol$^{-1}$) & $-0.860$ & $-10.031$\\
+improvement over full norm & $1443\times$ & $344\times$\\
+\hline
+\end{tabular}
+\end{table}
+
+Three conclusions are supported. The full-norm route fails on both systems, so
+its failure is not an artefact of the smaller matrix. The Schur step improves
+both by two to three orders of magnitude. The certified $\delta$ falls by a
+factor of $176$ and the slack grows with it, as Lemma~\ref{lem:bracket} predicts,
+since the radius scales as $1/\delta$. One conclusion is \emph{not} supported: a
+claim of kilocalorie accuracy in general. The bound is sub-kcal at $441$
+determinants and about $10$~kcal\,mol$^{-1}$ at $14\,400$. We therefore report
+the Schur step as strict and far tighter, not as scale-invariant.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_route_slack}
+\caption{Slack below $E_{\mathrm{FCI}}$ on a logarithmic scale for three
+certificates on the water model, all rigorously valid and all recomputed from the
+stored primitives. The first uses only $\tau=\norm O_2$; the second uses the
+reference row with the separation $\delta$ through the scalar of
+Theorem~\ref{thm:block}; the third solves with the reference row. Each rung buys
+about two orders of magnitude, and the last removes the spectral norm from the
+calculation.}
+\label{fig:route-slack}
+\end{figure}
 
 \subsection{The Schur certificate, stated and proved}
 \label{sec:schur-proof}
@@ -1529,6 +1614,36 @@ eigenvectors of $A$. This is why the certified computation needs the linear solv
 rather than a norm estimate, and it is also why the sufficient condition being
 marginal did not prevent a $40$-fold improvement in the bound.
 \end{remark}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_schur_sensitivity}
+\caption{The scalar $g(\mu)$ evaluated with an assumed floor $\mu$ in place of
+$d$. The bound is admissible only while $H_r-\mu I\succ0$; past that point the
+inequality reverses and the curve rises above $E_{\mathrm{FCI}}$. The hypothesis
+of Proposition~\ref{prop:schur} is therefore not a technicality: it is the
+statement that decides whether the number is a bound at all.}
+\label{fig:schur-sensitivity}
+\end{figure}
+
+\paragraph{Two knobs that were measured and rejected.}
+Two parameters could in principle be tuned. One may replace the reference level
+$d$ by a lower shift $t$, which raises $\lambda_{\min}(H_r-tI)$ and hence
+$\delta$; or one may take a reference \emph{block} of $k>1$ determinants, which
+shrinks the omitted space. Both were scanned. Both move the wrong way:
+lowering $t$ raises $\delta$ but lowers the scalar faster, and enlarging the
+block increases the coupling between reference and complement more than the
+smaller complement saves. Figure~\ref{fig:knobs} reports the trade-off, and it is
+the reason the quoted numbers use $k=1$ and $t=d$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_knobs}
+\caption{Slack of the certified bound under the two available knobs. (a) shifting
+the reference level; (b) enlarging the reference block. In both panels the
+certificate is monotone in the wrong direction over the scanned range.}
+\label{fig:knobs}
+\end{figure}
 
 \paragraph{Certifying the shift.}
 The single hypothesis is $d < \lambda_{\min}(H_r)$, and it is certified here without
@@ -1760,6 +1875,17 @@ by the availability of surface sites. It does not identify the limiting
 mechanism.
 \end{remark}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_coverage}
+\caption{Growth per cycle mapped to fractional coverage of Ca sites on the
+CaF$_2$(111) surface, using $a_0=5.4626$~\AA{} and a site area of
+$12.92$~\AA$^2$. The reported $0.3$--$0.4$~\AA{}/cycle corresponds to
+$9.5$--$12.7\%$ of a monolayer, so growth is far from saturating the available
+sites. This is arithmetic on published numbers, not a surface calculation.}
+\label{fig:coverage}
+\end{figure}
+
 \subsection{A geometric design rule for the ligand}
 
 The ratio above invites a purely geometric bound, which holds regardless of
@@ -1902,6 +2028,17 @@ Hessian with translations and rotations projected out, and the conversion was
 checked against known spectra (HF $4213.7$~cm$^{-1}$; H$_2$O at $1540.3$,
 $3918.7$, $4036.1$~cm$^{-1}$).
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_imaginary}
+\caption{Largest imaginary mode for each of the four species as first optimised,
+i.e.\ with the gradient converged but the Hessian unchecked. Three of the four
+were saddle points. A small projected gradient is therefore not evidence of a
+minimum, and every reported energy in this section was re-verified after the
+displacement shown here.}
+\label{fig:imaginary}
+\end{figure}
+
 Eight functional/basis combinations were evaluated at those minima, and
 $\mathrm{CaF_2}$ was treated twice: at its unconstrained minimum and constrained to
 $D_{\infty h}$ with only the bond length relaxed. The pair brackets a systematic
@@ -2012,6 +2149,40 @@ treatment changes is one whose magnitude we can bound but not resolve. What is
 established is the bound: \emph{every} correlated treatment gives at most
 $0.15$~kcal\,mol$^{-1}$, while DFT gives $1.1$ to $2.2$.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_caf2_bend}
+\caption{Bending potential of gas-phase CaF$_2$, both panels relative to the
+linear geometry so the two energy scales are comparable. (a) Seven DFT levels,
+all producing a well of depth $1.1$ to $2.2$~kcal\,mol$^{-1}$ near
+$140^\circ$. (b) CCSD(T) at two basis sets and two Ca--F distances; the well is
+$0.05$ to $0.11$~kcal\,mol$^{-1}$ deep and the minimum lies between $155^\circ$
+and $170^\circ$, bracketing the experimental $154.3^\circ$. The bending is real;
+its depth at DFT is an artefact.}
+\label{fig:caf2-bend}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_barrier_bar}
+\caption{Bend barrier for the same molecule at every level computed, against the
+experimental $0.15$~kcal\,mol$^{-1}$ (dotted). DFT overestimates by up to a
+factor of $20$, improving monotonically with basis size, while the correlated
+values sit on or below the experimental bar.}
+\label{fig:barrier-bar}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_grid_convergence}
+\caption{The imaginary bend frequency against the DFT integration grid. Levels
+one to three disagree in sign, which is what a grid artefact looks like; from
+level four onward the value is stable near $-102$~cm$^{-1}$. The mode is
+therefore physical for the linear geometry, and the linear geometry is a saddle
+at these levels.}
+\label{fig:grid-convergence}
+\end{figure}
+
 That bound is what the reaction energy needs, because it settles what the
 bent-versus-linear column of the table below means. At a correlated level the two
 structures differ by at most $0.15$~kcal\,mol$^{-1}$, so the $0.1$ to $2.3$ span that
@@ -2033,7 +2204,19 @@ $54$~cm$^{-1}$. The angle, the depth and the imaginary frequency cannot all come
 from one smooth potential.
 
 The reaction energy is therefore reported twice below, once with $\mathrm{CaF_2}$
-at its unconstrained minimum and once constrained to $D_{\infty h}$, which brackets
+at its unconstrained minimum and once constrained to \begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_reaction_bracket}
+\caption{Reaction energy for
+$\mathrm{Ca(formamidinate)_2+2HF\to CaF_2+2\,formamidine}$ across eight
+functional/basis combinations, with CaF$_2$ either at its unconstrained minimum
+or constrained to $D_{\infty h}$. The shaded band is the bracket the paper
+reports; the spread across levels, not the value at any one level, is the
+honest uncertainty.}
+\label{fig:reaction-bracket}
+\end{figure}
+
+$D_{\infty h}$, which brackets
 the treatment.
 
 \begin{remark}[Why this number must not be quoted as the ALD protonation energy]
