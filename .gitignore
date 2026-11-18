@@ -39,3 +39,8 @@ __pycache__/
 # re-validated against fci.FCI; do not commit binaries)
 *.npy
 experiments/complement/*.partial.json
+*.stdout
+paper/figures/*.png
+
+# Figure PDFs ARE deliverables: the paper cannot build without them.
+!paper/figures/*.pdf

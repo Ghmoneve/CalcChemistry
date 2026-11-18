@@ -1,0 +1,30 @@
+{
+  "system": {
+    "atom": "N 0 0 0; N 0 0 1.0977",
+    "basis": "sto-3g"
+  },
+  "n_determinants": 14400,
+  "rhf_energy": -107.49589330783441,
+  "fci_energy": -107.65282873057886,
+  "fci_reference": -107.65282873057707,
+  "lambda2": -107.35455582559085,
+  "true_gap": 0.2982729049880106,
+  "diagonal_min": -107.49589330783441,
+  "diagonal_gap_to_next": 0.3181116428732764,
+  "correlation_energy": 0.1569354227444535,
+  "reference_index": 0,
+  "tau_spectral": 5.656626982981969,
+  "tau_over_gap": 17.7818923315402,
+  "block_bound": -113.15252029081637,
+  "block_slack_kcal": -3451.108558473909,
+  "certified_positive_definite": true,
+  "dpotrf_info": 0,
+  "sigma_min_L_lower_bound": 0.0021671868258351557,
+  "rounding_bound": 4.878215092878782e-07,
+  "delta_certified": 4.208877228785579e-06,
+  "schur_scalar": 0.17292033977296536,
+  "schur_scalar_radius": 4.902216451542701e-11,
+  "schur_bound": -107.66881364765639,
+  "schur_slack_kcal": -10.030686908264176,
+  "improvement_factor": 344.05505724942697
+}
