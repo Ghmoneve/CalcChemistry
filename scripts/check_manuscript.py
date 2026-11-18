@@ -5,6 +5,7 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+PAPER = ROOT / 'paper'
 seen = set()
 labels = []
 references = []
@@ -32,17 +33,17 @@ def visit(path):
     for entry in re.findall(r'\\cite\w*\*?(?:\[[^\]]*\])*(?:\{([^{}]+)\})', text):
         citations.update(k.strip() for k in entry.split(','))
     for child in re.findall(r'\\(?:input|include)\{([^{}]+)\}', text):
-        visit(ROOT / (child if child.endswith('.tex') else child + '.tex'))
+        visit(PAPER / (child if child.endswith('.tex') else child + '.tex'))
 
 
 def main():
-    visit(ROOT / 'paper_main.tex')
+    visit(PAPER / 'paper_main.tex')
     if len(labels) != len(set(labels)):
         raise ValueError('Duplicate LaTeX label')
     missing = set(references) - set(labels)
     if missing:
         raise ValueError(f'Unknown labels: {sorted(missing)}')
-    bib = (ROOT / 'references.bib').read_text()
+    bib = (PAPER / 'references.bib').read_text()
     keys = set(re.findall(r'@\w+\s*\{\s*([^,\s]+)', bib))
     if citations - keys:
         raise ValueError(f'Unknown citation keys: {sorted(citations-keys)}')

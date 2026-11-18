@@ -45,7 +45,7 @@ def main():
             raise SystemExit(f'Unverified declaration in active file: {path}')
     run_check('python-tests', [sys.executable, '-B', '-m', 'unittest',
                              'discover', '-s', 'tests', '-p', 'test_*.py', '-v'], env)
-    run_check('pairing', [sys.executable, '-B', 'richardson_h2_verification.py'], env)
+    run_check('pairing', [sys.executable, '-B', 'experiments/richardson_h2_verification.py'], env)
     run_check('lean-build', ['lake', 'build'], env)
     axlog = run_check('lean-axioms', ['lake', 'env', 'lean', 'scripts/CheckAxioms.lean'], env)
     text = axlog.read_text()
@@ -66,7 +66,7 @@ def main():
         if not executable:
             raise SystemExit('Tectonic unavailable; LaTeX has not been verified')
         log = run_check('latex-build', [executable, '--keep-logs', '--keep-intermediates',
-                                      '--outdir', 'build', 'paper_main.tex'], env, timeout=900)
+                                      '--outdir', 'build', 'paper/paper_main.tex'], env, timeout=900)
         text = log.read_text()
         bad = ['Undefined control sequence', 'undefined citations',
                'There were undefined references', 'LaTeX Error']

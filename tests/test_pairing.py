@@ -6,9 +6,15 @@ of the production code's sequential occupation/sign updates.
 """
 
 from itertools import product
+import os
+import sys
 import unittest
+from pathlib import Path
 
 import numpy as np
+
+_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_ROOT / 'experiments'))
 
 import richardson_h2_verification as pairing
 
@@ -180,7 +186,7 @@ class VerificationWorkflowTests(unittest.TestCase):
         import sys
         root = pathlib.Path(__file__).resolve().parents[1]
         completed = subprocess.run(
-            [sys.executable, "-B", str(root / "richardson_h2_verification.py")],
+            [sys.executable, "-B", str(root / "experiments" / "richardson_h2_verification.py")],
             cwd=root, capture_output=True, text=True, timeout=30,
         )
         self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
@@ -206,8 +212,11 @@ class VerificationWorkflowTests(unittest.TestCase):
                     "pairing.construct_bethe_wavefunction = corrupt\n"
                     "raise SystemExit(pairing.main([]))\n"
                 )
+                env = dict(os.environ)
+                env["PYTHONPATH"] = str(root / "experiments")
                 completed = subprocess.run([sys.executable, "-B", "-c", code], cwd=root,
-                                           capture_output=True, text=True, timeout=30)
+                                           capture_output=True, text=True, timeout=30,
+                                           env=env)
                 self.assertEqual(completed.returncode, 1, completed.stdout + completed.stderr)
                 self.assertIn("FAIL", completed.stdout)
                 self.assertNotIn("Traceback", completed.stderr)

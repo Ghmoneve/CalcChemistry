@@ -24,8 +24,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 TECTONIC = ROOT / ".tools" / "tectonic"
-MAIN = ROOT / "paper_main.tex"
-STANDALONE = ROOT / "CalcChemistry_paper_standalone.tex"
+PAPER = ROOT / "paper"
+MAIN = PAPER / "paper_main.tex"
+STANDALONE = PAPER / "CalcChemistry_paper_standalone.tex"
 BUILD = ROOT / "build"
 DELIVERABLE_PDF = ROOT / "CalcChemistry_paper.pdf"
 
@@ -34,10 +35,12 @@ BAD_PATTERNS = ("Undefined control sequence", "LaTeX Error", "Emergency stop",
 
 
 def run(cmd, **kw):
-    return subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, **kw)
+    """Run with the repo root as cwd unless the caller overrides it."""
+    cwd = kw.pop("cwd", ROOT)
+    return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, **kw)
 
 
-def tectonic(tex: Path, outdir: Path, label: str) -> tuple[bool, str]:
+def tectonic(tex: Path, outdir: Path, label: str, cwd: Path | None = None) -> tuple[bool, str]:
     """Compile one .tex twice; return (ok, log text of the final pass).
 
     A single pass cannot resolve citations when the bibliography changed: TeX
@@ -49,7 +52,8 @@ def tectonic(tex: Path, outdir: Path, label: str) -> tuple[bool, str]:
     proc = None
     for _ in range(2):
         proc = run([str(TECTONIC), "--keep-logs", "--keep-intermediates",
-                    "--outdir", str(outdir), str(tex)])
+                    "--outdir", str(Path(outdir).resolve()), str(Path(tex).resolve())],
+                   cwd=cwd if cwd is not None else ROOT)
         log_path = outdir / (tex.stem + ".log")
         log = log_path.read_text(errors="replace") if log_path.exists() else proc.stdout
     fatal = [ln for ln in log.splitlines() if any(p in ln for p in BAD_PATTERNS)]
@@ -70,12 +74,12 @@ def make_standalone() -> int:
     main = MAIN.read_text()
     imports = re.findall(r"\\input\{([^}]+)\}", main)
     for rel in imports:
-        p = ROOT / (rel + ".tex")
+        p = PAPER / (rel + ".tex")
         if not p.exists():
             raise SystemExit(f"missing \\input target: {p}")
 
     def inline(m):
-        return (ROOT / (m.group(1) + ".tex")).read_text()
+        return (PAPER / (m.group(1) + ".tex")).read_text()
 
     main = re.sub(r"\\input\{([^}]+)\}", inline, main)
 
@@ -128,7 +132,7 @@ def main() -> int:
         return 1
 
     print("2/3 building multi-file source")
-    ok_main, _ = tectonic(MAIN, BUILD, "main")
+    ok_main, _ = tectonic(MAIN, BUILD, "main", cwd=PAPER)
     if not ok_main:
         print("main build failed")
         return 1
