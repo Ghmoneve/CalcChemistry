@@ -144,3 +144,50 @@ export PATH="$PWD/.tools/lean-4.19.0/bin:$PATH"
 
 `route_comparison.json` 的 `temple_true_gap` 条目 slack 为 **正值**
 （在 E_FCI 之上），即根本不是下界。画图前必须逐个断言 `value < E_FCI`。
+
+## 十一、图的尺寸必须等于印刷宽度
+
+`\includegraphics[width=\columnwidth]` 会把图拉伸到 15.94 cm。
+若 `figsize` 只有 3.3 英寸（8.4 cm），就是**放大 1.9 倍**，
+图内 7.5 pt 的字在页面上变成约 14 pt，比 11 pt 正文还大。
+
+规则：`figsize` 宽度一律设成 `6.3` 英寸（= 15.94 cm），保持纵横比只改宽度。
+这样显示尺寸不变，字回到标称字号。
+
+还有一个字体因素：DejaVu Serif 的 x-height 比 LaTeX 的 Computer Modern 大，
+同样 pt 数看起来更壮。所以图内基准字号取 8 pt（标题 8.5、刻度 7.5）。
+
+核验方法（不要靠肉眼）：
+
+    import pymupdf
+    doc = pymupdf.open('build/paper_main.pdf')
+    for b in doc[p].get_text('dict')['blocks']:
+        for l in b.get('lines', []):
+            for sp in l['spans']:
+                print(round(sp['size'],1), sp['text'][:40])
+
+正文应变 10.9 pt，图内所有 span 都必须小于它。
+
+## 十二、`tabular` 不能跨页
+
+12 行的长表塞进一页时，超出部分**不会报错**，而是直接画到纸张外面。
+本项目 `tab:lean` 就这样把 `ComplementBound` 那一行溢出页底 77 pt（2.7 cm）。
+
+logs 里查不到 "Float too large" —— 因为它不是浮动体问题。
+必须用坐标检查：
+
+    M, H = 70.87, 841.9          # 2.5cm 边距
+    for i in range(doc.page_count):
+        for b in doc[i].get_text('blocks'):
+            if b[3] - (H - M) > 36:   # 36 pt 以上才算，32 pt 是页码页脚
+                print(i+1, b[3]-(H-M), b[4][:50])
+
+长表一律用 `longtable`（带 `\endfirsthead` / `\endhead` / `\endfoot`），
+且不能放在 `table` 浮动体内。
+
+## 十三、窄 `p{}` 列里的长标识符
+
+两端对齐的 `p{}` 列里放 `\texttt{sampling\_gives\_no\_upper\_bound}`
+这类标识符时，`\_` 处不能断行，TeX 只能拉伸词距，badness 冲到 10000。
+对策：列定义加 `>{\raggedright\arraybackslash}`（需 `\usepackage{array}`），
+或者干脆不要在正文里罗列十几个标识符，改用表格。

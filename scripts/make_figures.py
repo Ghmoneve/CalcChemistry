@@ -42,9 +42,9 @@ plt.rcParams.update({
     'font.family': 'serif',
     'font.serif': ['DejaVu Serif'],
     'mathtext.fontset': 'cm',
-    'font.size': 8.5,
-    'axes.labelsize': 8.5,
-    'axes.titlesize': 9,
+    'font.size': 8.0,
+    'axes.labelsize': 8.0,
+    'axes.titlesize': 8.5,
     'legend.fontsize': 7.5,
     'xtick.labelsize': 7.5,
     'ytick.labelsize': 7.5,
@@ -91,7 +91,7 @@ def fig_tau_estimates():
     vals = [d['tau_spectral'], d['tau_gershgorin'],
             d['tau_max_row_2norm'], d['tau_frobenius']]
     gap = d['diagonal_gap_to_next']
-    fig, ax = plt.subplots(figsize=(3.3, 2.3))
+    fig, ax = plt.subplots(figsize=(6.3, 4.39))
     cols = [C_MAIN] + [C_GREY] * 3
     bars = ax.bar(names, vals, color=cols, width=0.62, zorder=2)
     ax.axhline(gap, color=C_ACC, ls='--', lw=1.2, zorder=3,
@@ -115,7 +115,7 @@ def fig_sector_trend():
     k = [r['k_active'] for r in rows]
     tau = [r['tau'] for r in rows]
     gap = d['diagonal_gap_to_next']
-    fig, ax = plt.subplots(figsize=(3.3, 2.3))
+    fig, ax = plt.subplots(figsize=(6.3, 4.39))
     ax.plot(k, tau, 'o-', color=C_MAIN, ms=4, lw=1.2, label='$\\tau=\\|O\\|_2$')
     ax.axhline(gap, color=C_ACC, ls='--', lw=1.2,
                label=f'diagonal gap ${gap:.3f}$ Ha')
@@ -154,7 +154,7 @@ def fig_route_slack():
               'one row + gap\n$d-\\frac{2b^2}{\\sqrt{\\delta^2+4b^2}+\\delta}$',
               'exact Schur\n$d-b^{\\top}A^{-1}b$']
     vals = [abs(slack_norm), abs(slack_scalar), abs(slack_schur)]
-    fig, ax = plt.subplots(figsize=(3.7, 2.5))
+    fig, ax = plt.subplots(figsize=(6.3, 4.26))
     bars = ax.bar(labels, vals, color=[C_GREY, '#5b8db8', C_MAIN], width=0.62, zorder=2)
     ax.set_yscale('log')
     ax.set_ylabel('slack below $E_{\\mathrm{FCI}}$  (kcal/mol)')
@@ -164,7 +164,7 @@ def fig_route_slack():
     ax.set_ylim(0.3, max(vals) * 5)
     for i in (1, 2):
         ax.text(i, vals[i] * 2.6, f'$\\times${vals[i-1]/vals[i]:.0f} tighter',
-                color=C_ACC, fontsize=6.8, ha='center')
+                color=C_ACC, fontsize=7.0, ha='center')
     ax.set_title('each rung buys about two orders of magnitude')
     save(fig, 'fig_route_slack')
 
@@ -179,7 +179,7 @@ def fig_similarity_floor():
     labels = ['gap $\\Delta$', 'best over\n20k scalings', 'Gershgorin\n(best scaling)']
     vals = [gap, au['brute_force_min_sigma_max_over_20000_random_D'],
             au['brute_force_min_gershgorin_over_2000_random_scalings']]
-    fig, ax = plt.subplots(figsize=(3.3, 2.3))
+    fig, ax = plt.subplots(figsize=(6.3, 4.39))
     bars = ax.bar(labels, vals, color=[C_ACC, C_MAIN, C_GREY], width=0.6, zorder=2)
     for b, v in zip(bars, vals):
         ax.text(b.get_x() + b.get_width() / 2, v + 0.06, f'{v:.3f}',
@@ -199,7 +199,7 @@ def fig_schur_sensitivity():
     mu = [r['mu'] for r in rows]
     g = [r['g_mu'] for r in rows]
     efci = d['E_FCI']
-    fig, ax = plt.subplots(figsize=(3.3, 2.3))
+    fig, ax = plt.subplots(figsize=(6.3, 4.39))
     ax.plot(mu, g, 'o-', color=C_MAIN, ms=4, lw=1.2, label='$g(\\mu)=d-b^{\\top}(H_r-\\mu I)^{-1}b$')
     ax.axhline(efci, color=C_ACC, ls='--', lw=1.2, label='$E_{\\mathrm{FCI}}$')
     ax.set_xlabel('assumed floor $\\mu$  (Ha)')
@@ -214,7 +214,7 @@ def fig_knobs():
     d = load('experiments/complement/knob_tradeoff.json')
     if not d:
         return
-    fig, axes = plt.subplots(1, 2, figsize=(6.6, 2.3))
+    fig, axes = plt.subplots(1, 2, figsize=(6.3, 3.40))
     ax = axes[0]
     rows = d['shift_scan']
     ax.plot([r['t'] for r in rows], [r['slack_kcal'] for r in rows],
@@ -239,7 +239,7 @@ def fig_caf2_bend():
     cc = load('experiments/caf2/cct_barrier.json')
     if not fm:
         return
-    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.5))
+    fig, axes = plt.subplots(1, 2, figsize=(6.3, 3.50))
     ax = axes[0]
     keys = sorted(k for k in fm if k.startswith('scan_'))
     for i, k in enumerate(keys):
@@ -260,7 +260,7 @@ def fig_caf2_bend():
     # every curve now lies at or below zero, so the strip just under the top axis
     # is empty and the legend cannot sit on data
     ax.set_ylim(top=0.32)
-    ax.legend(frameon=False, fontsize=5.6, ncol=3, loc='upper left')
+    ax.legend(frameon=False, fontsize=7.0, ncol=3, loc='upper left')
     ax2 = axes[1]
     if cc:
         for j, (k, s) in enumerate(sorted(cc.items())):
@@ -272,7 +272,7 @@ def fig_caf2_bend():
     ax2.set_xlabel('F--Ca--F angle (deg)')
     ax2.set_ylabel('$\\Delta E$ vs linear (kcal/mol)')
     ax2.set_title('(b) CCSD(T): essentially flat')
-    ax2.legend(frameon=False, fontsize=5.8, loc='upper right')
+    ax2.legend(frameon=False, fontsize=7.0, loc='upper right')
     fig.tight_layout()
     save(fig, 'fig_caf2_bend')
 
@@ -300,15 +300,15 @@ def fig_barrier_bar():
     labels = [labels[i] for i in order]
     cols = [cols[i] for i in order]
     vals = [vals[i] for i in order]
-    fig, ax = plt.subplots(figsize=(3.6, 2.7))
+    fig, ax = plt.subplots(figsize=(6.3, 4.73))
     y = np.arange(len(vals))
     ax.barh(y, vals, color=cols, height=0.66, zorder=2)
     ax.set_yticks(y)
-    ax.set_yticklabels(labels, fontsize=6)
+    ax.set_yticklabels(labels, fontsize=7.0)
     ax.set_xlabel('bend barrier (kcal/mol)')
     ax.axvline(0.15, color=C_ACC, ls=':', lw=1.0)
     for yi, v in zip(y, vals):
-        ax.text(v + 0.05, yi, f'{v:.2f}', va='center', fontsize=6)
+        ax.text(v + 0.05, yi, f'{v:.2f}', va='center', fontsize=7.0)
     ax.set_xlim(0, max(vals) * 1.22)
     ax.set_title('DFT overestimates the barrier by up to 20x')
     save(fig, 'fig_barrier_bar')
@@ -323,7 +323,7 @@ def fig_reaction_bracket():
     bent = [r['single_points'][k]['dE_bent_kcal'] for k in levels]
     lin = [r['single_points'][k]['dE_linear_kcal'] for k in levels]
     s = r['summary']
-    fig, ax = plt.subplots(figsize=(3.6, 2.6))
+    fig, ax = plt.subplots(figsize=(6.3, 4.55))
     x = np.arange(len(levels))
     ax.axhspan(s['bracket_low'], s['bracket_high'], color=C_GREY, alpha=0.16, zorder=0,
                label='bracket from all levels')
@@ -332,9 +332,9 @@ def fig_reaction_bracket():
     ax.set_xticks(x)
     short = [l.replace('def2-', '').replace('b3lyp', 'B3LYP').replace('pbe', 'PBE')
              for l in levels]
-    ax.set_xticklabels(short, rotation=40, ha='right', fontsize=6)
+    ax.set_xticklabels(short, rotation=40, ha='right', fontsize=7.0)
     ax.set_ylabel('reaction energy  (kcal/mol)')
-    ax.legend(frameon=False, fontsize=7)
+    ax.legend(frameon=False, fontsize=7.5)
     ax.set_title(f"spread {s['dE_bent_spread']:.2f} kcal/mol across levels")
     save(fig, 'fig_reaction_bracket')
 
@@ -347,13 +347,13 @@ def fig_grid_convergence():
     rows = fm['grid']
     lv = [r['level'] for r in rows]
     cm = [r['bend_cm'] for r in rows]
-    fig, ax = plt.subplots(figsize=(3.3, 2.3))
+    fig, ax = plt.subplots(figsize=(6.3, 4.39))
     ax.plot(lv, cm, 'o-', color=C_MAIN, ms=5, lw=1.2)
     ax.axhline(0, color='k', lw=0.6, ls=':')
     for x, y in zip(lv, cm):
         if x <= 3:
             ax.annotate(f'{y:.0f}', (x, y), textcoords='offset points',
-                        xytext=(0, 6), ha='center', fontsize=6.5, color=C_GREY)
+                        xytext=(0, 6), ha='center', fontsize=7.0, color=C_GREY)
     ax.set_xlabel('DFT integration grid level')
     ax.set_ylabel('bend mode  (cm$^{-1}$)')
     ax.set_title('the imaginary mode survives grid refinement')
@@ -365,13 +365,13 @@ def fig_coverage():
     g = load('experiments/caf2/gpc_coverage.json')
     if not g:
         return
-    fig, ax = plt.subplots(figsize=(3.3, 2.3))
+    fig, ax = plt.subplots(figsize=(6.3, 4.39))
     x = np.array(g['gpc'])
     y = np.array(g['coverage']) * 100
     ax.plot(x, y, 'o-', color=C_MAIN, ms=6, lw=1.4)
     for xi, yi, ai in zip(x, y, g['area_per_metal']):
         ax.annotate(f'{yi:.2f}%  ({ai:.0f} $\\AA^2$/Ca)', (xi, yi),
-                    textcoords='offset points', xytext=(6, -10), fontsize=6.5)
+                    textcoords='offset points', xytext=(6, -10), fontsize=7.0)
     ax.set_xlabel('growth per cycle  ($\\AA$)')
     ax.set_ylabel('fractional Ca site coverage  (%)')
     ax.set_xlim(0.26, 0.44)
@@ -389,16 +389,16 @@ def fig_imaginary():
         names.append(k.replace('_', ' '))
         counts.append(v['imaginary_count'])
         mags.append(abs(min(v['imaginary_cm'])) if v['imaginary_cm'] else 0.0)
-    fig, ax = plt.subplots(figsize=(3.3, 2.3))
+    fig, ax = plt.subplots(figsize=(6.3, 4.39))
     x = np.arange(len(names))
     bars = ax.bar(x, mags, color=[C_ACC if c else C_GREEN for c in counts],
                   width=0.6, zorder=2)
     for b, c, m in zip(bars, counts, mags):
         ax.text(b.get_x() + b.get_width() / 2, m + 4,
                 f'{c} imaginary' if c else 'minimum',
-                ha='center', va='bottom', fontsize=6.5)
+                ha='center', va='bottom', fontsize=7.0)
     ax.set_xticks(x)
-    ax.set_xticklabels(names, rotation=20, ha='right', fontsize=7)
+    ax.set_xticklabels(names, rotation=20, ha='right', fontsize=7.5)
     ax.set_ylabel('largest imaginary mode  (cm$^{-1}$)')
     ax.set_title('three of four geometries were saddle points')
     save(fig, 'fig_imaginary')

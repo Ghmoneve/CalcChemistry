@@ -4,6 +4,8 @@
 \setlength{\emergencystretch}{4em}
 \setlength{\hfuzz}{2pt}
 \usepackage{geometry}
+\usepackage{array}
+\usepackage{longtable}
 \geometry{margin=2.5cm}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[hidelinks]{hyperref}
@@ -377,16 +379,24 @@ scalar lemmas that are listed, not the physical modelling steps, and the module
 is named for each item. Table~\ref{tab:lean} records what each module proves and,
 in the last column, what it deliberately does not.
 
-\begin{table}[ht]
-\centering
-\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}@{}}
 \caption{Kernel-checked declarations by module. The third column is the part a
 reader should not assume: every entry states where the formal closure stops.}
-\label{tab:lean}
-\begin{tabular}{@{}p{0.20\textwidth}p{0.40\textwidth}p{0.33\textwidth}@{}}
+\label{tab:lean}\\
 \hline
 Module & Proved & Not proved \\
 \hline
+\endfirsthead
+\multicolumn{3}{@{}l}{\small\itshape Table~\thetable\ (continued)}\\
+\hline
+Module & Proved & Not proved \\
+\hline
+\endhead
+\hline
+\multicolumn{3}{r@{}}{\small\itshape continued on the next page}\\
+\endfoot
+\hline
+\endlastfoot
 \texttt{Basic} &
 \texttt{reaction\_interval}, \texttt{add\_error\_interval}: real interval
 subtraction and propagation of an additive correction bounded by a supplied
@@ -487,8 +497,7 @@ $A\succeq0$, by applying the discriminant lemma along $x+ty$;
 the hypothesis the Schur step consumes, with equality at $w=A^{-1}b$. &
 Nothing beyond the positive-semidefinite case. \\
 \hline
-\end{tabular}
-\end{table}
+\end{longtable}
 
 This gives $61$ kernel-checked declarations in total, every one audited with
 \texttt{\#print axioms}. The count is of declarations, not of scientific

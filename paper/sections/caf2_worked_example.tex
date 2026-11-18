@@ -237,21 +237,14 @@ reported as one-sided.
 
 Lemmas~\ref{lem:coverage-lean} and \ref{lem:sample-lower} and
 Theorems~\ref{thm:footprint} and \ref{thm:nosampling} are formalized in Lean~4
-against \texttt{mathlib} as \texttt{gpc\_coverage\_interval},
-\texttt{barrier\_lower\_from\_samples},
-\texttt{max\_density\_from\_ligand\_size} with
-\texttt{gpc\_upper\_from\_ligand\_footprint}, and
-\texttt{sampling\_gives\_no\_upper\_bound} respectively, together with the
-supporting interval lemmas \texttt{adsorption\_energy\_interval},
-\texttt{two\_corrections\_widen}, \texttt{coverage\_gpc\_interval},
-\texttt{packing\_bound}, \texttt{barrier\_upper\_at\_max},
-\texttt{certified\_barrier\_interval}, \texttt{stays\_positive} and
-\texttt{certified\_negative}. Each is checked with \texttt{\#print axioms} and
-depends only on \texttt{propext}, \texttt{Classical.choice} and
-\texttt{Quot.sound}; no \texttt{sorry}, \texttt{admit} or project-defined axiom
-appears in the development. Kernel acceptance certifies the inequalities above
-given their hypotheses. It certifies nothing about the hypotheses themselves,
-which remain physical or geometric inputs.
+against \texttt{mathlib}; the declarations, their module, and the hypotheses
+each one leaves to the caller are listed in Table~\ref{tab:lean}. Each is
+checked with \texttt{\#print axioms} and depends only on \texttt{propext},
+\texttt{Classical.choice} and \texttt{Quot.sound}; no \texttt{sorry},
+\texttt{admit} or project-defined axiom appears in the development. Kernel
+acceptance certifies the inequalities above given their hypotheses. It
+certifies nothing about the hypotheses themselves, which remain physical or
+geometric inputs.
 
 \subsection{The model reaction, and what its number does not mean}
 
