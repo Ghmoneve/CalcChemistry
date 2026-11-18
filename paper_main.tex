@@ -473,20 +473,22 @@ $\lambda=d$ case used in the measurement, \path{two_abs_mul_le} is the AM-GM
 itself, and \path{schur_zero_coupling_exact} records that the loss is exactly
 $s$ when the reference is decoupled. All hypotheses are used by the proofs.
 
-One step of the chain is \emph{not} formalized and should not be read as covered:
-deriving the per-$w$ hypothesis from $A\succ0$, that is the Cauchy--Schwarz
-inequality $\ip{b}{w}^2\le\ip{b}{A^{-1}b}\ip{Aw}{w}$ in the $A$-inner product.
-Proposition~\ref{prop:schur} proves it on paper in three lines, and it is checked
-numerically in \path{experiments/complement/verified_cholesky.py}, but the kernel
-does not see it. The gap is one lemma, not a mechanism: it needs the discriminant
-argument for a positive semidefinite quadratic form, and this project's mathlib
-cache carried neither \path{Matrix.PosDef} nor the tactic imports needed to state
-it without a large build. We record the gap rather than closing it with a
-restatement of the hypothesis.
+\item \path{CalcChemistry/PSDCauchy.lean} closes the last step of the chain. The
+per-$w$ hypothesis that \path{schur_block_bound_shifted} consumes is now derived
+rather than assumed:
+\path{disc_le} proves the scalar discriminant lemma (if $a+2tb+t^2c\ge0$ for all
+real $t$ with $c\ge0$, then $b^2\le ac$);
+\path{posSemidef_cauchy} proves $\ip{x}{Ay}^2\le\ip{x}{Ax}\ip{y}{Ay}$ for real
+$A\succeq0$ by applying it to the quadratic form along $x+ty$;
+\path{posSemidef_symm_apply} supplies the entrywise symmetry;
+and \path{schur_scalar_hypothesis} instantiates at $x=A^{-1}b$ to give
+$\ip{b}{w}^2\le\ip{b}{A^{-1}b}\ip{Aw}{w}$ for $A\succ0$, which is exactly the
+hypothesis of the Schur step. The equality is attained at $w=A^{-1}b$, confirming
+the statement is sharp rather than merely true.
 \end{itemize}
 \end{sloppypar}
 
-This gives $57$ kernel-checked declarations in total, every one of them
+This gives $61$ kernel-checked declarations in total, every one of them
 audited with \texttt{\#print axioms}. The count is of declarations, not of
 scientific content. Most are real-arithmetic plumbing; the substantive ones are
 the block certificate, the ligand inequalities, the similarity no-go of

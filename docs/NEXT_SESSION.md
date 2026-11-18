@@ -6,7 +6,16 @@
 
 ---
 
-## 待办：补最后一个 Lean 缺口（用户尚未拍板选哪个方案）
+## 已完成：A-内积 Cauchy–Schwarz（2026-11-18）
+
+方案 A 做成了。`Mathlib.Tactic` 编译完成，`CalcChemistry/PSDCauchy.lean` 四条定理全部进内核：
+`disc_le`（标量判别式）、`posSemidef_symm_apply`（对称性）、`posSemidef_cauchy`（A-内积 C-S）、
+`schur_scalar_hypothesis`（实例化到 s = bᵀA⁻¹b）。60→61 条声明，全部仅三标准公理，无 sorry。
+等式在 w = A⁻¹b 处精确取到（比值 1.000000000000），确认陈述 sharp。
+
+---
+
+## 原待办记录（已解决，保留供追溯）
 
 ### 缺口是什么
 

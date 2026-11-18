@@ -66,3 +66,8 @@ open CalcChemistry
 #print axioms schur_block_bound_shifted
 #print axioms schur_block_bound
 #print axioms schur_zero_coupling_exact
+-- PSDCauchy  (4)
+#print axioms disc_le
+#print axioms posSemidef_symm_apply
+#print axioms posSemidef_cauchy
+#print axioms schur_scalar_hypothesis

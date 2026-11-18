@@ -40,7 +40,7 @@
 
 - Lean 4.19.0 + mathlib v4.19.0（commit `c44e0c8e`）。
 - `lake build`：**Build completed successfully**。
-- **57 个声明**（9 个模块），全部经 `#print axioms` 检查，**只依赖 `propext`、`Classical.choice`、`Quot.sound`**。
+- **61 个声明**（10 个模块），全部经 `#print axioms` 检查，**只依赖 `propext`、`Classical.choice`、`Quot.sound`**。
 - 全仓 Lean 源码**无 `sorry`、无 `admit`、无自定义公理**。
 
 文件与内容：
@@ -52,7 +52,7 @@
 | `CalcChemistry/SurfaceReaction.lean` | 覆盖度区间、吸附能区间、**配体足迹判据**、**证伪条件**、两层势垒区间、**采样无上界反例** |
 | `CalcChemistry/BornOppenheimer.lean` | 质量参数非负（仅算术，不含 BO 定理） |
 
-论文 §Evidence and formal verification status 逐条映射全部 57 个声明，并明确写出：
+论文 §Evidence and formal verification status 逐条映射全部 61 个声明，并明确写出：
 **数量是声明数而非科学内容**，除分块证书与配体不等式外均为实算术管线，无一条认证分子能量。
 
 ---
@@ -125,7 +125,7 @@ python3 scripts/check_manuscript.py      # 静态检查
 python3 scripts/verify.py                # 六门统一验证（旧门）
 export PATH="$PWD/.tools/lean-4.19.0/bin:$PATH"
 lake build                               # Lean 全量构建
-lake env lean scripts/CheckAxioms.lean   # 57 个声明的公理审计
+lake env lean scripts/CheckAxioms.lean   # 61 个声明的公理审计
 python3 experiments/caf2/gpc_coverage.py        # 覆盖度换算
 python3 experiments/caf2/steric_crosscheck.py   # 立体足迹交叉核验
 ```
