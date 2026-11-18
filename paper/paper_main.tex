@@ -320,15 +320,6 @@ Gershgorin scaling are both shown; neither reaches the gap, in agreement with
 \label{fig:similarity-floor}
 \end{figure}
 
-\section{Variational states and reduced-density-matrix relaxations}
-\label{sec:rdm}
-\input{sections/rdm_theory}
-\section{Trial-state compression and topological descriptors}
-\label{sec:tensor}
-\input{sections/tensor_networks}
-\section{An exactly solvable pairing check}
-\label{sec:algebra}
-\input{sections/algebraic_structure}
 \section{From electronic intervals to conditional kinetic bounds}
 \label{sec:approximations}
 \input{sections/approximations}
@@ -357,7 +348,7 @@ enclosures against direct diagonalization. It does not demonstrate efficient
 complement certification or validated numerical rounding. The regression
 checks in \path{tests/test_audit_counterexamples.py} have also passed: they
 reproduce the distinction between component count and independence number,
-the identical 2-RDMs but different 3-RDMs in Example~\ref{ex:three-rdm},
+the existence of states sharing all 2-RDMs while differing in the 3-RDM,
 and the exclusion of a physical state by the invalid proposed SOS constraint.
 These are negative validation tests of mathematical claims, not chemical data
 or tests of a surface-reaction model.
