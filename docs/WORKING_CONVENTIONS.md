@@ -101,3 +101,46 @@ export PATH="$PWD/.tools/lean-4.19.0/bin:$PATH"
 - `docs/NEXT_SESSION.md`：断点与待办
 - `STATUS_REPORT.md`：分层状态总览
 - `PAPER_STATUS.md`（若存在）：投稿进度
+
+---
+
+## 七、中断的三类真实原因（2026-11-18 实测）
+
+1. **工具调用格式损坏**（主因）。多余闭合标签、空调用、只写意图不发调用。
+   对策：一次一个调用，短命令，发完不留任何标签。
+2. **前台命令约 420 秒硬上限**。`sleep 540` 配 `timeout 590` 仍被截断在 420 s。
+   对策：长作业一律 `background=true`，前台只做 `sleep <= 300` 的轮询。
+3. **OOM**。`free -g` 显示的是机器总量，进程实际可用远小于此。
+   实测 4 GB 左右会被杀。对策见下。
+
+## 八、大矩阵计算的内存纪律
+
+14400×14400 float64 就是 1.66 GB，任何一次多余拷贝都会翻倍。
+
+禁止：
+- `O = H - np.diag(D)`（`np.diag` 先造一个完整矩阵，再减，两份 1.66 GB）
+- `np.abs(L)` 后做 `absL @ absL.T`（又两份）
+- 同时持有 H 和 A 和 Cholesky 结果
+
+正确做法：
+- 需要 `O` 的作用时用 `LinearOperator(lambda v: H@v - D*v)`，不物化
+- 舍入界用 `‖ |L||Lᵀ| ‖_F ≤ ‖L‖_F² = trace(A)`，只要一个标量，
+  在 `dpotrf` **之前**取，因为分解会覆盖 A
+- `lapack.dpotrf(..., overwrite_a=1)` 原地分解；`dtrtri(..., overwrite_c=1)` 原地求逆
+- `dpotrf(lower=1)` 只写下三角，严格上三角仍是原 A 的残留 ——
+  **分解后必须 `L[np.triu_indices_from(L,1)] = 0.0`**，否则残差和范数全错
+- 求 `‖L⁻¹‖_∞` 时逐行循环取 max，不要造 `np.abs(Linv)` 大数组
+
+分两趟：先建 H 取极值、参考行、对角，释放；再直接按列建 A。
+峰值从 5 GB 降到 1.7 GB。
+
+## 九、图必须用统一能量基准
+
+`flat_mode.json` 的 `dE_kcal` 相对**各自极小点**，`cct_barrier.json` 的
+`rel_kcal` 相对**线性构型**。混画会把结论说反。
+统一到 `E(θ) − E(180°)` 后再画。
+
+## 十、落盘的 JSON 也要验
+
+`route_comparison.json` 的 `temple_true_gap` 条目 slack 为 **正值**
+（在 E_FCI 之上），即根本不是下界。画图前必须逐个断言 `value < E_FCI`。
