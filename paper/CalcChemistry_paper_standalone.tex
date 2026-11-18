@@ -48,8 +48,7 @@ note gives a self-contained chain of conditional bounds: a finite-dimensional
 block decomposition yields a ground-energy enclosure; interval subtraction
 yields an electronic barrier enclosure; separately bounded thermodynamic and
 geometric corrections allow propagation through an assumed transition-state
-rate formula; and a finite-state Markov generator perturbation bound controls
-state probabilities and bounded observables.
+rate formula.
 
 We then report what happens when the first link is measured rather than assumed.
 On water in STO-3G, where all $441$ determinants can be diagonalised exactly, the
@@ -64,11 +63,12 @@ bound $0.860$~kcal\,mol$^{-1}$ from the exact answer. It costs $O(n^3)$, the sam
 order as diagonalisation, so this is a gain in quality rather than in complexity,
 and the exponential wall is untouched.
 
-We prove the direction of reduced-density-matrix relaxation bounds, distinguish
-dual certificates from approximate primal values, and explain why a small
-eigenvector residual need not identify a ground state. A two-level pairing model
-and a three-vertex conflict graph provide exact algebraic checks and a
-counterexample to a proposed topological occupancy rule. For $\mathrm{CaF_2}$ we
+The scalar core of this chain is formalised in Lean 4 against mathlib, and we
+report which statements the kernel closes and which hypotheses remain assumptions
+supplied by the caller. On a second system, N$_2$ in STO-3G with $14\,400$
+determinants, the same chain is repeated: the Schur bound stays rigorous but its
+slack grows from $0.86$ to $10.0$~kcal\,mol$^{-1}$, so we report the step as far
+tighter than the block route, not as scale-invariant. For $\mathrm{CaF_2}$ we
 compute a gas-phase model reaction between verified minima across eight
 functional/basis levels and two treatments of the product, reporting a bracket of
 $5.7$--$12.0$~kcal\,mol$^{-1}$ rather than a single number, and we withdraw an
@@ -578,278 +578,114 @@ $1-1/(1+\epsilon)=\epsilon/(1+\epsilon)\le\epsilon$.
 These formulas provide a target-dependent energy tolerance instead of a
 universal claim of chemical accuracy.
 
-\subsection{Finite-state kinetic stability with a complete stated generator}
-Let $S=\{1,\ldots,m\}$ be a nonempty finite state space. A row-generator
-$Q$ satisfies $Q_{ij}\ge0$ for $i\ne j$ and
-$Q_{ii}=-\sum_{j\ne i}Q_{ij}$. Row distributions evolve as
-$p(t)=p(0)e^{tQ}$. The following result compares two fully specified,
-time-homogeneous generators on the same state space. It makes no
-irreducibility or reversibility assumption.
-
-\begin{lemma}[Stochastic semigroups and contraction]
-\label{lem:markov}
-For such a generator, $P_t=e^{tQ}$ has nonnegative entries and every row
-sums to one for $t\ge0$. For any real row vector $z$,
-$\norm{zP_t}_1\le\norm z_1$.
-\end{lemma}
-\begin{proof}
-Choose a real $\nu>0$ with $\nu\ge\max_i(-Q_{ii})$ and put
-$P=I+Q/\nu$. Off-diagonal entries and diagonal entries of $P$ are
-nonnegative and its rows sum to one. Products of such matrices have the
-same properties. Since $Q=\nu(P-I)$ and $I$ commutes with $P$,
-\[
- e^{tQ}=e^{-\nu t}\sum_{n=0}^\infty\frac{(\nu t)^n}{n!}P^n.
-\]
-The coefficients are nonnegative and sum to one. Entrywise convergence
-therefore proves the stochastic property. Finally,
-\[
- \sum_j\left|\sum_i z_i(P_t)_{ij}\right|
- \le\sum_i|z_i|\sum_j(P_t)_{ij}=\sum_i|z_i|,
-\]
-which is the asserted contraction.
-\end{proof}
-
-\begin{theorem}[Finite-state generator perturbation bound]
-\label{thm:ctmc}
-Let $Q,\widehat Q$ be row-generators on $S$ and define
-\begin{equation}
- \eta=\frac12\max_i\sum_{j=1}^m|Q_{ij}-\widehat Q_{ij}|.
- \label{eq:eta}
-\end{equation}
-The sum includes the diagonal entry. For the same initial probability
-row vector $p$, put $p_t=pe^{tQ}$ and
-$\widehat p_t=pe^{t\widehat Q}$. Then, for every $t\ge0$,
-\begin{equation}
- \TV(p_t,\widehat p_t):=\tfrac12\norm{p_t-\widehat p_t}_1
- \le\min(1,t\eta).
- \label{eq:ctmc-tv}
-\end{equation}
-For any real observable $f:S\to\R$, define
-$\operatorname{range}(f)=\max_i f(i)-\min_i f(i)$. Then
-\begin{equation}
- |p_t f-\widehat p_t f|
- \le\operatorname{range}(f)\min(1,t\eta).
- \label{eq:observable}
-\end{equation}
-If the initial distributions differ, the corresponding bound is
-$\min(1,\TV(p,\widehat p)+t\eta)$.
-\end{theorem}
-\begin{proof}
-All matrix exponentials are differentiable in finite dimension. For a fixed
-$t$, differentiate $F(s)=e^{sQ}e^{(t-s)\widehat Q}$ on $[0,t]$.
-Commutation of a matrix with its own exponential gives
-\[
- F'(s)=e^{sQ}(Q-\widehat Q)e^{(t-s)\widehat Q}.
-\]
-Integrating from $0$ to $t$ yields the Duhamel identity
-\begin{equation}
- e^{tQ}-e^{t\widehat Q}
- =\int_0^t e^{sQ}(Q-\widehat Q)e^{(t-s)\widehat Q}\,ds.
- \label{eq:duhamel}
-\end{equation}
-For every probability vector $v$, the triangle inequality gives
-\[
- \norm{v(Q-\widehat Q)}_1
- \le\sum_i v_i\sum_j|Q_{ij}-\widehat Q_{ij}|\le2\eta.
-\]
-By Lemma~\ref{lem:markov}, $pe^{sQ}$ is a probability vector, and
-right multiplication by $e^{(t-s)\widehat Q}$ is an $\ell^1$
-contraction. Left-multiplying \eqref{eq:duhamel} by $p$ and applying
-these two estimates under the integral gives
-$\norm{p_t-\widehat p_t}_1\le\int_0^t2\eta\,ds=2t\eta$.
-Two probability vectors have $\ell^1$ distance at most two, proving
-\eqref{eq:ctmc-tv}.
-
-For the observable inequality, put $z=p_t-\widehat p_t$ and
-$c=(\max_i f(i)+\min_i f(i))/2$. Since $\sum_i z_i=0$,
-\[
- |zf|=\left|\sum_i z_i(f(i)-c)\right|
- \le\frac{\operatorname{range}(f)}2\sum_i|z_i|
- =\operatorname{range}(f)\TV(p_t,\widehat p_t).
-\]
-Combining with \eqref{eq:ctmc-tv} proves \eqref{eq:observable}.
-For different initial distributions, write
-\[
- pe^{tQ}-\widehat p e^{t\widehat Q}
- =p(e^{tQ}-e^{t\widehat Q})
-   +(p-\widehat p)e^{t\widehat Q}.
-\]
-The first term has norm at most $2t\eta$, and contraction bounds the
-second by $\norm{p-\widehat p}_1$. Division by two and the universal
-probability-distance bound complete the proof.
-\end{proof}
-
-\begin{corollary}[From individual rate intervals to a generator bound]
-\label{cor:rates-generator}
-Suppose all off-diagonal entries are specified and have validated intervals
-$Q_{ij}\in[l_{ij},u_{ij}]$ with $0\le l_{ij}\le u_{ij}$.
-Choose $\widehat Q_{ij}\in[l_{ij},u_{ij}]$ and set both diagonals by
-zero row sums. Define
-$\epsilon_{ij}=\max(\widehat Q_{ij}-l_{ij},u_{ij}-\widehat Q_{ij})$
-for $i\ne j$. Then
-\begin{equation}
- \eta\le\max_i\sum_{j\ne i}\epsilon_{ij}.
- \label{eq:rate-generator}
-\end{equation}
-\end{corollary}
-\begin{proof}
-Each off-diagonal difference is at most $\epsilon_{ij}$ in absolute
-value, and
-$|Q_{ii}-\widehat Q_{ii}|=
-|\sum_{j\ne i}(Q_{ij}-\widehat Q_{ij})|
-\le\sum_{j\ne i}\epsilon_{ij}$.
-The full row sum of absolute differences is therefore at most twice this
-sum. Substitution in \eqref{eq:eta} proves the claim.
-\end{proof}
-
-An entry may be the sum of several event rates; its interval must include
-all those contributions. A nominally absent transition is justified only if
-its rate is zero by the stated model or is bounded within the error budget.
-The theorem does not certify that an event catalog contains every relevant
-physical reaction. It also does not compare generators on different state
-spaces without an additional embedding or coarse-graining argument. Pulsed
-operating conditions and transport can require time-dependent generators or
-a larger model, which must be analyzed separately.
-
-A bounded terminal occupancy is an observable covered by
-\eqref{eq:observable}. Growth per cycle is not automatically such an
-observable: it may involve accumulated event counts, changing surface states,
-transport, and a conversion from deposited material to thickness. A pathwise
-count is not generally bounded by the range of a state function on $S$.
-Thus the CTMC result is a conditional finite-state stability theorem, not a
-direct growth-per-cycle guarantee. Establishing the physical network and the
-observable mapping remains a separate task.
 
 \section{Computational scope and unresolved tasks}
 \label{sec:complexity}
 \subsection{An enclosure theorem is not a complexity breakthrough}
-The finite-basis electronic-structure problem in the setting of
-\citet{OGorman2022} is a worst-case QMA-complete ground-energy promise
-problem. The relevant precision is an inverse-polynomial additive promise
-gap under the paper's input and scaling conventions, not a universal relative
-error guarantee for all molecular energies. Fermionic $N$-representability
-has a corresponding QMA-completeness result \citep{Liu2007}.
-These classifications concern families of encoded instances. They neither
-prove that every molecule requires exponential time nor provide a probability
-measure under which most molecules are easy. No separation of complexity
-classes is assumed as a proved theorem here.
+The finite-basis ground-energy promise problem is worst-case QMA-complete in the
+setting of \citet{OGorman2022}, and fermionic $N$-representability has a
+corresponding classification \citep{Liu2007}. Both concern an inverse-polynomial
+additive promise gap under the paper's input and scaling conventions, not a
+universal relative-error guarantee. They neither prove that every molecule
+requires exponential time nor supply a probability measure under which most
+molecules are easy, and no separation of complexity classes is assumed here.
 
 The block estimate reduces the \emph{verification statement} to a few scalar
-inequalities once their hypotheses are supplied. It does not reduce the cost
-of constructing those hypotheses. The active eigenproblem, the complementary
-lower bound, the coupling norm, integral generation, and verified rounding all
-contribute to the cost. An active-space dimension that is small relative to
-the full determinant space need not be small as a function of the input size.
-Moreover, a complement estimate may be cheap and so loose that the final
-barrier interval is inconclusive.
+inequalities once their hypotheses are supplied; it does not reduce the cost of
+constructing those hypotheses. The active eigenproblem, the complementary lower
+bound, the coupling norm, integral generation and verified rounding all
+contribute, and an active-space dimension that is small relative to the full
+determinant space need not be small as a function of the input size. A complement
+estimate may also be cheap and so loose that the final interval is
+inconclusive.
 
-The same issue arises for RDM and tensor representations. The dimensions of
-an explicit $p$-RDM on antisymmetric $p$-tuples are
-$\binom Kp\times\binom Kp$. For fixed $p$, this gives a polynomial
-number of entries, but does not make exact $N$-representability easy. For
-commuting SOS variables, if the number of variables is $m$, the number of
-monomials of total degree at most $d$ is $\binom{m+d}{d}$: append a slack
-exponent to the $m$ nonnegative exponents so their sum is exactly $d$, and
-count weak compositions into $m+1$ parts. In particular, taking $m=K^4$
-and $d=3$ gives
-\[
- \binom{K^4+3}{3}
- =\frac{(K^4+3)(K^4+2)(K^4+1)}6=\Theta(K^{12}),
-\]
-not $O(K^6)$. This count is only for that explicitly chosen commuting
-monomial basis; a fermionic operator construction must define its own basis.
-A dimension count alone supplies neither an SDP runtime nor a convergence
-rate, conditioning estimate, or accuracy guarantee.
+The same caution applies to matrix and tensor representations. An explicit
+$p$-RDM on antisymmetric $p$-tuples has $\binom Kp\times\binom Kp$ entries,
+which is polynomial for fixed $p$ without making exact $N$-representability
+easy; and for commuting SOS variables with $m$ variables the monomials of total
+degree at most $d$ number $\binom{m+d}{d}$, so $m=K^{4}$ and $d=3$ give
+$\binom{K^{4}+3}{3}=\Theta(K^{12})$ rather than $O(K^{6})$. That count is for
+that one explicitly chosen basis, and a dimension count alone supplies neither a
+runtime nor a convergence rate, conditioning estimate or accuracy guarantee.
 
 \subsection{What an average-case statement would require}
-An average-case complexity claim needs a family of probability distributions
-$\mathcal D_n$ on finite encoded inputs, an algorithm, a success criterion,
-an accuracy target, and a cost model. Qualitative labels such as stable,
-local, or chemically typical do not specify a normalized distribution.
-Empirical success on a selected set is evidence about that set, not a proof
-of polynomial expected runtime.
+An average-case claim needs a family of probability distributions
+$\mathcal D_n$ on encoded inputs together with an algorithm, a success
+criterion, an accuracy target and a cost model. Qualitative labels such as
+stable, local or chemically typical do not specify a normalized distribution,
+and empirical success on a selected set is evidence about that set rather than a
+proof of polynomial expected runtime.
 
 \begin{proposition}[A sufficient tail condition, not an established chemical law]
 \label{prop:average}
 Let $T_n\ge0$ be the runtime of a specified algorithm under a specified
-$\mathcal D_n$, where $n\ge1$. Suppose constants $C,C',c,d>0$ and
-$k\ge0$ satisfy: outside an event of probability at most $C'e^{-cn}$,
-$T_n\le Cn^k$, and on every input $T_n\le Ce^{dn}$. Then
-\[
- \mathbb E[T_n]\le Cn^k+CC'e^{(d-c)n}.
-\]
-In particular these hypotheses imply a polynomial expectation if $c\ge d$.
+$\mathcal D_n$, $n\ge1$. Suppose constants $C,C',c,d>0$ and $k\ge0$ satisfy
+$T_n\le Cn^k$ outside an event of probability at most $C'e^{-cn}$, and
+$T_n\le Ce^{dn}$ on every input. Then
+$\mathbb E[T_n]\le Cn^k+CC'e^{(d-c)n}$, so these hypotheses give polynomial
+expectation when $c\ge d$.
 \end{proposition}
 \begin{proof}
-Let $A_n$ be the exceptional event. Split the expectation as
-$\mathbb E[T_n\boldsymbol1_{A_n^c}]+
-\mathbb E[T_n\boldsymbol1_{A_n}]$.
-The first term is at most $Cn^k\mathbb P(A_n^c)\le Cn^k$, and the
-second is at most $Ce^{dn}\mathbb P(A_n)\le CC'e^{(d-c)n}$.
-If $c\ge d$, the second bound is at most $CC'$.
+Split $\mathbb E[T_n]$ over the event and its complement. The first term is at
+most $Cn^k\mathbb P(A_n^{c})\le Cn^k$ and the second at most
+$Ce^{dn}\mathbb P(A_n)\le CC'e^{(d-c)n}$, which is at most $CC'$ when $c\ge d$.
 \end{proof}
 
-An exponentially small difficult subset is therefore not by itself a
-polynomial expectation theorem: the runtime on it also matters. For example,
-a runtime equal to $1$ outside an event of probability $e^{-cn}$ and to
-$e^{dn}$ on that event has expectation
-$1-e^{-cn}+e^{(d-c)n}$, which grows exponentially when $d>c$.
-No distribution or tail estimate meeting these hypotheses has been
-constructed here for surface chemistry. No percentages of easy molecules or
-timelines for overcoming an exponential cost are inferred.
+An exponentially small difficult subset is therefore not by itself a polynomial
+expectation theorem, because the runtime on it also counts: a runtime equal to
+$1$ outside an event of probability $e^{-cn}$ and to $e^{dn}$ on that event has
+expectation $1-e^{-cn}+e^{(d-c)n}$, which grows exponentially when $d>c$. No
+distribution or tail estimate meeting these hypotheses has been constructed here
+for surface chemistry, and no percentages of easy molecules or timelines are
+inferred.
 
 \subsection{A research protocol for a specified elementary step}
-The results suggest a concrete sequence of tasks with explicit stopping
-conditions. The aim is an informative interval, which may be too wide to
-rank pathways; a failed ranking is not an algorithmic or physical prediction.
+The results suggest a sequence of tasks with explicit stopping conditions. The
+aim is an informative interval, which may be too wide to rank pathways; a failed
+ranking is not an algorithmic or physical prediction.
 
 \begin{enumerate}
-\item \textbf{Specify the physical question.}
-For $\mathrm{Al_2O_3}/\mathrm{MoCl_5}$, record the substrate phase and
-facet, termination and hydroxylation, slab size and boundary conditions,
-coverage, precursor charge and spin, co-reactant, temperature, and reference
-reservoirs. For CaF2 crystal deposition, resolve the precursor pair, the
-co-reactant, the substrate phase and facet, and the reaction stoichiometry
-before defining any elementary step.
-Define which elementary steps and competing channels are to be compared.
+\item \textbf{Specify the physical question.} For
+$\mathrm{Al_2O_3}/\mathrm{MoCl_5}$, record the substrate phase and facet,
+termination and hydroxylation, slab size and boundary conditions, coverage,
+precursor charge and spin, co-reactant, temperature and reference reservoirs;
+for CaF$_2$ deposition, resolve the precursor pair, co-reactant, substrate facet
+and stoichiometry before defining any elementary step. State which steps and
+competing channels are to be compared.
 
-\item \textbf{Fix a reproducible finite electronic target.}
-Provide geometries, orbital basis and ordering, electron count, symmetry
-sector, Hamiltonian coefficients, nuclear terms, and units. Record how each
-geometry was obtained and what establishes a reactant minimum or a connected
-transition state. A Hamiltonian at an unverified candidate geometry supports
-only a statement about that geometry.
+\item \textbf{Fix a reproducible finite electronic target.} Provide geometries,
+orbital basis and ordering, electron count, symmetry sector, Hamiltonian
+coefficients, nuclear terms and units, and record how each geometry was obtained
+and what establishes a minimum or a connected transition state. A Hamiltonian at
+an unverified candidate geometry supports a statement only about that geometry.
 
-\item \textbf{Produce independently justified endpoints.}
-Construct a normalized trial state and a bound on its expectation. Supply
-$\underline a,\underline c,\overline b$ for the selected block split,
-or a dual-feasible outer-relaxation certificate, with all feasibility and
-rounding errors accounted for. Report the cost of the complement information
-separately. Compare with full diagonalization only where the latter is
-feasible, without treating the comparison itself as a scalable method.
+\item \textbf{Produce independently justified endpoints.} Construct a normalized
+trial state with a bound on its expectation, and supply
+$\underline a,\underline c,\overline b$ for the chosen split, or a dual-feasible
+outer-relaxation certificate, with all feasibility and rounding errors accounted
+for. Report the cost of the complement information separately, and compare with
+full diagonalization only where the latter is feasible.
 
-\item \textbf{Bound every correction to the requested target.}
-Use interval subtraction for electronic differences. Add justified bounds
-for geometry, thermodynamic, environmental, and other corrections that are
-needed for the chosen barrier definition. If a continuous path maximum is
-required, supply between-sample control as in Proposition~\ref{prop:path}.
-Do not infer a free-energy or nonadiabatic error bar from electronic solver
+\item \textbf{Bound every correction to the requested target.} Use interval
+subtraction for electronic differences and add justified bounds for geometry,
+thermodynamic and environmental corrections. If a continuous path maximum is
+required, supply between-sample control as in Proposition~\ref{prop:path}. Do
+not infer a free-energy or nonadiabatic error bar from electronic solver
 convergence alone.
 
-\item \textbf{Set the precision from the kinetic decision.}
-State the rate model, temperature, energy-unit convention, and positive
-prefactor interval. Use Proposition~\ref{prop:log-budget} to decide whether
-the energy precision can meet the desired rate ratio. Apply
-Corollary~\ref{cor:ranking} only when its strict separation holds; otherwise
-report an unresolved ordering and identify the dominant interval width.
+\item \textbf{Set the precision from the kinetic decision.} State the rate model,
+temperature, unit convention and positive prefactor interval, then use
+Proposition~\ref{prop:log-budget} to decide whether the energy precision can meet
+the desired rate ratio. Apply Corollary~\ref{cor:ranking} only where its strict
+separation holds; otherwise report an unresolved ordering and name the dominant
+interval width.
 
-\item \textbf{Define the network and observable separately.}
-For a finite-state kinetic model, enumerate states, transitions, environmental
-conditions, and all generator entries. Establish a rate bound for every entry
-and use Corollary~\ref{cor:rates-generator}. A bounded state observable then
-inherits Theorem~\ref{thm:ctmc}. Any relation to accumulated deposition or
-film thickness requires its own model and error analysis. Validate physical
-inputs against independently sourced data when available.
+\item \textbf{Define the network and observable separately.} Enumerate states,
+transitions, conditions and every generator entry, and fix a rate interval for
+each entry before propagating an observable; a bounded perturbation of the
+generator bounds the observable only once the state space, the observable and
+the time horizon are fixed. Relating any of this to accumulated deposition or
+film thickness needs its own model and error analysis.
 \end{enumerate}
 
 \subsection{Open mathematical and computational questions}
@@ -1827,28 +1663,15 @@ verified minima, and what it exposes is which input is missing next.
 
 \section{Evidence and formal verification status}
 \label{sec:formalization}
-The proofs in this manuscript are mathematical arguments over real and
-complex finite-dimensional spaces. They should be distinguished from the
-repository's numerical checks and any theorem-prover implementation.
-The pairing check builds a fermionic Hamiltonian by sequential application
-of creation and annihilation operators. An independent test constructs
-Jordan--Wigner tensor-product matrices on the full four-mode Fock space,
-checks the canonical anticommutation relations, and projects to the explicit
-two-electron sector. Comparing these constructions can detect occupation-order
-signs, omitted self-pairing terms, and an incorrect energy origin. Tests of
-normalized vectors, both paired eigenvalues, the complete sector spectrum, and
-degenerate cases are stronger than comparison of one energy alone. They remain
-tests of a toy model in floating-point arithmetic.
-
-The dense block experiment evaluates small finite matrices and checks their
-enclosures against direct diagonalization. It does not demonstrate efficient
-complement certification or validated numerical rounding. The regression
-checks in \path{tests/test_audit_counterexamples.py} have also passed: they
-reproduce the distinction between component count and independence number,
-the existence of states sharing all 2-RDMs while differing in the 3-RDM,
-and the exclusion of a physical state by the invalid proposed SOS constraint.
-These are negative validation tests of mathematical claims, not chemical data
-or tests of a surface-reaction model.
+The proofs in this manuscript are mathematical arguments over real and complex
+finite-dimensional spaces. They are distinct from the repository's numerical
+checks and from any theorem-prover implementation. The dense block experiment
+evaluates small finite matrices and checks their enclosures against direct
+diagonalization; it does not demonstrate efficient complement certification or
+validated numerical rounding. The regression suite is a set of negative
+validation tests: it reproduces the distinction between component count and
+independence number and rejects a proposed occupation rule by exhibiting a
+physical state the rule excludes.
 
 \begin{table}[ht]
 \centering
@@ -1861,168 +1684,160 @@ Check & Cases & Observed result \\
 Python regression suite & 30 tests & All passed \\
 Random Hermitian block splits & 360 & Max. interval violation $4.44\times10^{-16}$ \\
 Sharp scalar-block cases & 9 & Max. endpoint error $8.88\times10^{-16}$ \\
-Finite CTMC comparisons & 20 & No violation above tested tolerance \\
-Pairing CLI parameter cases & 10 & All passed \\
 \hline
 \end{tabular}
 \label{tab:reproduced}
 \end{table}
-The block experiment uses dimensions two through ten, real and complex
-entries, four samples per dimension and kind, every nontrivial leading
-split, and seed 20261112. Acceptance tolerances, library versions, every
-case, and the synthetic kinetic parameters are stored in
-\path{experiments/certificate_results.json}. A nonzero rounding violation is
-reported rather than silently replaced by an exact enclosure.
 
-Historical hard-coded SOS energy tables and hand-assigned surface reference
-counts are excluded from the evidence base. No physical accuracy, speedup, or
-independent DFT validation is inferred from them.
+The block experiment uses dimensions two through ten, real and complex entries,
+four samples per dimension and kind, every nontrivial leading split, and seed
+20261112. Acceptance tolerances, library versions, every case and the synthetic
+kinetic parameters are stored in \path{experiments/certificate_results.json}. A
+nonzero rounding violation is reported rather than silently replaced by an exact
+enclosure. Historical hard-coded SOS energy tables and hand-assigned surface
+reference counts are excluded from the evidence base, and no physical accuracy,
+speedup or independent DFT validation is inferred from them.
 
 \paragraph{Lean source mapping and build boundary.}
-The current development uses real numbers and mathlib v4.19.0. It has been
-compiled with Lean 4.19.0 and every declaration listed below was checked with
-\texttt{\#print axioms}: each depends only on the three standard Lean axioms
-\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. No
-\texttt{sorry}, no \texttt{admit} and no project-specific axiom occurs in the
-verified closure. Reproduce with \texttt{lake build} followed by
+The development uses real numbers and mathlib under Lean 4.19.0. Every
+declaration below was checked with \texttt{\#print axioms}: each depends only on
+the three standard Lean axioms \texttt{propext}, \texttt{Classical.choice} and
+\texttt{Quot.sound}. No \texttt{sorry}, no \texttt{admit} and no
+project-specific axiom occurs in the verified closure. Reproduce with
+\texttt{lake build} followed by
 \texttt{lake env lean scripts/CheckAxioms.lean}. Kernel acceptance certifies the
-scalar lemmas that are listed, not the physical modelling steps discussed
-below. Unless qualified otherwise, the names below are in the
-\texttt{CalcChemistry} namespace; the module is named in each item, and the
-declarations are spread over nine files rather than one.
-\begin{sloppypar}
-\begin{itemize}
-\item \path{reaction_interval} proves real interval subtraction as in
-Proposition~\ref{prop:barrier}. \path{add_error_interval} propagates an
-additive correction whose absolute value is bounded by a supplied radius.
-It assumes the correction bound; it does not derive a physical model error.
-\item \path{psd_quadratic_nonneg} is a real two-variable quadratic-form
-inequality under nonnegative diagonal and determinant conditions.
-\path{sharp_block_scalar_lower} proves the sharp square-root bound for the
-scalar quadratic form used in Theorem~\ref{thm:block}. It does not construct
-matrix blocks or prove their spectral hypotheses.
-\item \path{quadratic_gap_lower} proves the scalar inequality with
-$a-b^2/(c-a)$ under $c-a>0$. \path{normalized_block_lower} transfers it
-to a supplied energy using a normalization identity and a supplied
-quadratic-form lower bound, as in Corollary~\ref{cor:gap}.
-\item \path{ground_energy_interval} transfers a uniform lower bound and
-one trial upper bound to an abstract attained Rayleigh minimum. The existence
-and attainment of that minimum are explicit assumptions. The identification
-with a Hermitian matrix's least eigenvalue is not formalized by this theorem.
-\item \path{exponential_barrier_interval} proves the real exponential
-monotonicity used in Theorem~\ref{thm:rate}; \path{rate_interval} also
-allows an uncertain nonnegative prefactor. The strictly positive prefactor
-hypotheses in this manuscript support the further logarithmic formulas.
-Neither declaration proves the transition-state rate law itself.
-\item \path{relaxation_lower_bound} proves the order implication from an
-outer inclusion, a supplied lower bound throughout the relaxed set, and an
-attained physical energy. It does not implement an RDM SDP or verify a dual
-matrix slack. \path{certified_ranking} proves strict ordering from disjoint
-sound real intervals; the kinetic interpretation requires the rate intervals
-proved separately.
-\item \path{pairing_characteristic} proves the paired-block polynomial
-identity and \path{pairing_lower_root} proves that the lower square-root
-expression is a root. These declarations do not construct the CAR operators,
-identify the full six-state spectrum, or establish a molecular model.
-\item \path{BornOppenheimer.parameter_nonneg}, in
-\path{CalcChemistry/BornOppenheimer.lean}, proves nonnegativity of the mass
-parameter under the stated mass hypotheses. It provides no BO error estimate.
-\item \path{block_energy_certificate}, in
-\path{CalcChemistry/BarrierBounds.lean}, lifts the scalar inequality above to
-the block operator in arbitrary finite dimensions $n$ and $m$: given
-Rayleigh-quotient lower bounds $a$ and $c$ on the two diagonal blocks and a
-bound $b$ on the coupling form, every state obeys the sharp two-block inequality
-with constant $(a+c-\sqrt{(a-c)^2+4b^2})/2$. \path{block_energy_certificate_gap}
-gives the same bound in the square-root-free form $a-b^2/(c-a)$ for $c>a$, which
-is the downfolding correction quoted in practice, and
-\path{normalized_energy_lower} states it for a unit vector. The block
-hypotheses remain explicit assumptions: nothing here constructs the blocks from
-molecular integrals or certifies the omitted space.
-\item The surface-reaction certificate of Section~\ref{sec:worked} is
-formalized in \path{CalcChemistry/SurfaceReaction.lean}:
-\path{gpc_coverage_interval} and \path{coverage_gpc_interval} prove the interval
-relation between growth per cycle, layer spacing and fractional coverage;
-\path{adsorption_energy_interval} and \path{two_corrections_widen} propagate
-intervals through an energy difference and through additive corrections;
-\path{packing_bound}, \path{max_density_from_ligand_size} and
-\path{gpc_upper_from_ligand_footprint} prove the ligand-footprint design rule of
-Theorem~\ref{thm:footprint}, and \path{steric_admissible} and
-\path{steric_falsification} state it as an admissibility test together with the
-condition that would refute steric control.
-\path{barrier_lower_from_samples}, \path{barrier_upper_at_max} and
-\path{certified_barrier_interval} give the two-sided barrier interval, and
-\path{sampling_gives_no_upper_bound} is the counterexample of
-Theorem~\ref{thm:nosampling} proving that a finite sample cannot bound a barrier
-from above. \path{stays_positive} and \path{certified_negative} convert
-intervals into sign statements.
-\item The complement certificate which Section~\ref{sec:worked} reduces to two
-scalars is formalized in \path{CalcChemistry/ComplementBound.lean}:
-\path{complement_ground_bound} proves $\lambda_{\min}\ge d-\tau$ from a
-diagonal lower bound and a coupling bound,
-\path{complement_ground_bound_normalized} states the unit-vector form,
-\path{complement_bound_tight_when_decoupled} shows the gap is exactly $\tau$ when
-the coupling vanishes, and \path{complement_bound_improvement} records that
-tightening $\tau$ buys precision one-for-one. What is \emph{not} formalized is the
-hard part: no bound on $\tau$ is derived, and the measurements in
-Section~\ref{sec:complexity} show that no change of basis can supply one.
-\item \path{CalcChemistry/DiagonalMinimum.lean} formalizes the diagonal-minimum
-argument: \path{swap_identity} and \path{diagForm_lower} show that a
-single-particle excitation raises the diagonal element, so a lower bound on the
-diagonal minimum can be certified by inspecting pair excitations rather than the
-whole sector. \path{complement_gap_positive} states the resulting sign condition
-with the strictness needed, since the non-strict form is false at equality.
-\item \path{CalcChemistry/TauSignStructure.lean} formalizes why the coupling
-constant cannot be lowered by a change of basis. \path{abs_quadform_le_absO}
-shows the quadratic form is controlled through $\abs{O}$, which discards all sign
-cancellation at the first step; \path{quadform_le_diag_scaled} and
-\path{quadform_le_rowsum} give the weighted Collatz--Wielandt family, and since
-they are stated for $\abs{O}$ they inherit the same floor;
-\path{two_by_two_scaling_cannot_help} is the kernel-checked core of the
-similarity no-go, witnessed in dimension two. The general statement
-$\inf_S\norm{SOS^{-1}}_2=\norm{O}_2$ for symmetric $O$ needs the spectral theorem
-for normal matrices, which this project's mathlib cache does not carry, and is
-argued on paper and checked numerically instead.
-\item \path{CalcChemistry/SchurStep.lean} formalizes the replacement.
-\path{schur_block_bound_shifted} proves that for a block form
-$d x^2+2x\ip{b}{w}+\ip{Aw}{w}$, one scalar inequality
-$\ip{b}{w}^2\le s(\ip{Aw}{w}-\lambda\norm{w}^2)$ for every $w$ and $\lambda\le d$
-imply the bound $(\lambda-s)(x^2+\norm{w}^2)$; the proof turns the coupling term
-into a quadratic penalty by a scaled AM-GM. \path{schur_block_bound} is the
-$\lambda=d$ case used in the measurement, \path{two_abs_mul_le} is the AM-GM
-itself, and \path{schur_zero_coupling_exact} records that the loss is exactly
-$s$ when the reference is decoupled. All hypotheses are used by the proofs.
+scalar lemmas that are listed, not the physical modelling steps, and the module
+is named for each item. Table~\ref{tab:lean} records what each module proves and,
+in the last column, what it deliberately does not.
 
-\item \path{CalcChemistry/PSDCauchy.lean} closes the last step of the chain. The
-per-$w$ hypothesis that \path{schur_block_bound_shifted} consumes is now derived
-rather than assumed:
-\path{disc_le} proves the scalar discriminant lemma (if $a+2tb+t^2c\ge0$ for all
-real $t$ with $c\ge0$, then $b^2\le ac$);
-\path{posSemidef_cauchy} proves $\ip{x}{Ay}^2\le\ip{x}{Ax}\ip{y}{Ay}$ for real
-$A\succeq0$ by applying it to the quadratic form along $x+ty$;
-\path{posSemidef_symm_apply} supplies the entrywise symmetry;
-and \path{schur_scalar_hypothesis} instantiates at $x=A^{-1}b$ to give
-$\ip{b}{w}^2\le\ip{b}{A^{-1}b}\ip{Aw}{w}$ for $A\succ0$, which is exactly the
-hypothesis of the Schur step. The equality is attained at $w=A^{-1}b$, confirming
-the statement is sharp rather than merely true.
-\end{itemize}
-\end{sloppypar}
+\begin{table}[ht]
+\centering
+\small
+\caption{Kernel-checked declarations by module. The third column is the part a
+reader should not assume: every entry states where the formal closure stops.}
+\label{tab:lean}
+\begin{tabular}{@{}p{0.20\textwidth}p{0.40\textwidth}p{0.33\textwidth}@{}}
+\hline
+Module & Proved & Not proved \\
+\hline
+\texttt{Basic} &
+\texttt{reaction\_interval}, \texttt{add\_error\_interval}: real interval
+subtraction and propagation of an additive correction bounded by a supplied
+radius. &
+Derivation of a physical model error; the correction bound is assumed. \\
+\hline
+\texttt{CertifiedTheory} &
+\texttt{psd\_quadratic\_nonneg},
+\texttt{sharp\_block\_scalar\_lower},
+\texttt{quadratic\_gap\_lower},
+\texttt{normalized\_block\_lower}: the scalar inequalities including the
+square-root-free form $a-b^{2}/(c-a)$ for $c>a$. &
+Construction of matrix blocks or proof of their spectral hypotheses. \\
+\hline
+\texttt{CertifiedTheory} &
+\texttt{ground\_energy\_interval}: transfers a uniform lower bound and one trial
+upper bound to an abstract attained Rayleigh minimum.
+\texttt{exponential\_barrier\_interval} and \texttt{rate\_interval}: exponential
+monotonicity and an uncertain nonnegative prefactor. &
+Attainment of the minimum is an explicit assumption, and the least-eigenvalue
+identification is not formalized. Neither declaration proves the
+transition-state rate law. \\
+\hline
+\texttt{CertifiedTheory} &
+\texttt{relaxation\_lower\_bound}, \texttt{certified\_ranking}: the order
+implication from an outer inclusion, and strict ordering from disjoint sound
+intervals. &
+The outer relaxation is not implemented and no dual matrix slack is verified. \\
+\hline
+\texttt{BarrierBounds} &
+\texttt{block\_energy\_certificate} and
+\texttt{block\_energy\_certificate\_gap}: the block bound in arbitrary finite
+dimensions, with constant $(a+c-\sqrt{(a-c)^2+4b^2})/2$ and its
+square-root-free form; \texttt{normalized\_energy\_lower} states the unit-vector
+version. &
+The block hypotheses remain explicit assumptions; nothing constructs the blocks
+from molecular integrals or certifies the omitted space. \\
+\hline
+\texttt{SurfaceReaction} &
+\texttt{gpc\_coverage\_interval}, \texttt{coverage\_gpc\_interval},
+\texttt{adsorption\_energy\_interval}, \texttt{two\_corrections\_widen},
+\texttt{packing\_bound}, \texttt{max\_density\_from\_ligand\_size},
+\texttt{gpc\_upper\_from\_ligand\_footprint}, \texttt{steric\_admissible},
+\texttt{steric\_falsification}, \texttt{barrier\_lower\_from\_samples},
+\texttt{barrier\_upper\_at\_max}, \texttt{certified\_barrier\_interval},
+\texttt{sampling\_gives\_no\_upper\_bound}, \texttt{stays\_positive},
+\texttt{certified\_negative}: the growth-per-cycle interval relation, the
+ligand-footprint rule stated as an admissibility test with its refutation
+condition, the two-sided barrier interval, and the counterexample that a finite
+sample cannot bound a barrier from above. &
+No surface is modelled and no deposition is simulated; the inputs are the
+caller's numbers. \\
+\hline
+\texttt{ComplementBound} &
+\texttt{complement\_ground\_bound},
+\texttt{complement\_ground\_bound\_normalized},
+\texttt{complement\_bound\_tight\_when\_decoupled},
+\texttt{complement\_bound\_improvement}: $\lambda_{\min}\ge d-\tau$ from a
+diagonal lower bound and a coupling bound, exactness at $\tau$ when the coupling
+vanishes, and one-for-one improvement in $\tau$. &
+The hard part: no bound on $\tau$ is derived, and
+Section~\ref{sec:complexity} measures that no change of basis can supply one. \\
+\hline
+\texttt{DiagonalMinimum} &
+\texttt{swap\_identity}, \texttt{diagForm\_lower},
+\texttt{complement\_gap\_positive}: a single-particle excitation raises the
+diagonal element, so the diagonal minimum is certified by inspecting pair
+excitations, with the strictness needed at equality. &
+Nothing about the sector beyond those excitations. \\
+\hline
+\texttt{TauSignStructure} &
+\texttt{abs\_quadform\_le\_absO}, \texttt{quadform\_le\_diag\_scaled},
+\texttt{quadform\_le\_rowsum}: the quadratic form is controlled through
+$\abs{O}$, which discards sign cancellation at the first step, and the weighted
+Collatz--Wielandt family inherits that floor.
+\texttt{two\_by\_two\_scaling\_cannot\_help}: the similarity no-go, kernel-checked
+in dimension two. &
+The general statement $\inf_S\norm{SOS^{-1}}_2=\norm{O}_2$ for symmetric $O$
+needs the spectral theorem for normal matrices, which this mathlib cache does not
+carry; it is argued on paper and checked numerically instead. \\
+\hline
+\texttt{SchurStep} &
+\texttt{schur\_block\_bound\_shifted}: one scalar inequality for every $w$ and
+every $\lambda\le d$ implies $(\lambda-s)(x^{2}+\norm{w}^{2})$, by a scaled
+AM-GM that turns the coupling into a quadratic penalty;
+\texttt{schur\_block\_bound} is the $\lambda=d$ case,
+\texttt{two\_abs\_mul\_le} is the AM-GM, and
+\texttt{schur\_zero\_coupling\_exact} records that the loss is exactly $s$ when
+the reference is decoupled. All hypotheses are used. &
+The per-$w$ hypothesis was assumed here and is derived in the next module. \\
+\hline
+\texttt{PSDCauchy} &
+\texttt{disc\_le}: the scalar discriminant lemma;
+\texttt{posSemidef\_cauchy}: $\ip{x}{Ay}^{2}\le\ip{x}{Ax}\ip{y}{Ay}$ for
+$A\succeq0$, by applying the discriminant lemma along $x+ty$;
+\texttt{posSemidef\_symm\_apply}: entrywise symmetry;
+\texttt{schur\_scalar\_hypothesis}: instantiation at $x=A^{-1}b$, giving exactly
+the hypothesis the Schur step consumes, with equality at $w=A^{-1}b$. &
+Nothing beyond the positive-semidefinite case. \\
+\hline
+\end{tabular}
+\end{table}
 
-This gives $61$ kernel-checked declarations in total, every one of them
-audited with \texttt{\#print axioms}. The count is of declarations, not of
-scientific content. Most are real-arithmetic plumbing; the substantive ones are
-the block certificate, the ligand inequalities, the similarity no-go of
-\path{TauSignStructure}, and the Schur step, and even those establish only that
-\emph{given} the stated scalar and positivity hypotheses the bounds follow. None of
-them certifies a molecular energy, and none constructs an integral set.
-
-The energy and fifth-order certificate structures store soundness inequalities
-as fields supplied by the caller. Storing such an inequality does not prove
-it for a physical system. The finite-dimensional matrix-to-Rayleigh argument,
-the CTMC semigroup theorem and Duhamel proof, and a physical BO approximation
-theorem are not claimed as formalized here; they are proved on paper in the
-preceding sections and remain outside the kernel-checked closure. The exact
-declarations, the pinned Lean and mathlib versions, and the reproducible build
-that produced the axiom report are recorded in the repository status document.
+This gives $61$ kernel-checked declarations in total, every one audited with
+\texttt{\#print axioms}. The count is of declarations, not of scientific
+content. Most are real-arithmetic plumbing; the substantive ones are the block
+certificate, the ligand inequalities, the similarity no-go of
+\texttt{TauSignStructure} and the Schur step, and even those establish only that
+\emph{given} the stated scalar and positivity hypotheses the bounds follow. None
+certifies a molecular energy, and none constructs an integral set. The energy and
+fifth-order certificate structures store soundness inequalities as fields
+supplied by the caller, and storing such an inequality does not prove it for a
+physical system. The finite-dimensional matrix-to-Rayleigh argument and a
+physical Born--Oppenheimer approximation theorem are not claimed as formalized:
+they are argued on paper in the preceding sections and remain outside the
+kernel-checked closure. The exact declarations, the pinned
+Lean and mathlib versions and the reproducible build that produced the axiom
+report are recorded in the repository status document.
 
 \section{Conclusion}
 For a specified finite Hamiltonian, a justified complement bound and coupling
