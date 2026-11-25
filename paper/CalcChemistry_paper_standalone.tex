@@ -44,46 +44,30 @@ Finite-Basis Surface-Reaction Models}
 \maketitle
 
 \begin{abstract}
-A computed electronic energy becomes an error certificate only when both
-sides of an interval are justified for a specified Hamiltonian. This research
-note gives a self-contained chain of conditional bounds: a finite-dimensional
-block decomposition yields a ground-energy enclosure; interval subtraction
-yields an electronic barrier enclosure; separately bounded thermodynamic and
-geometric corrections allow propagation through an assumed transition-state
-rate formula.
+A computed electronic energy is a certificate only when both sides of an
+interval are justified for a specified Hamiltonian. We assemble such a chain for
+finite-basis surface models: a block decomposition gives a
+ground-energy enclosure, interval subtraction gives a barrier enclosure, and
+bounded corrections propagate through a transition-state rate law.
 
-We then report what happens when the first link is measured rather than assumed.
-On water in STO-3G, where all $441$ determinants can be diagonalised exactly, the
-block certificate needs a coupling constant of $1.75$--$2.03$~Ha to resolve a
-correlation energy of $0.049$~Ha, and the resulting bound sits $1241$~kcal\,mol$^{-1}$
-below the truth. That is not a failure of optimisation: for a symmetric operator a
-similarity transform preserves the spectrum, so no change of basis can lower the
-constant, and neither sign structure nor low rank nor diagonal weighting escapes
-it. A single-reference Schur step avoids the constant entirely and, once a Cholesky
-factorisation certifies one positive-definiteness hypothesis, yields a rigorous
-bound $0.860$~kcal\,mol$^{-1}$ from the exact answer. It costs $O(n^3)$, the same
-order as diagonalisation, so this is a gain in quality rather than in complexity,
-and the exponential wall is untouched.
+We measure the first link rather than assume it. On water in STO-3G, where all
+$441$ determinants are diagonalisable exactly, the block certificate needs a
+coupling constant of $1.75$--$2.03$~Ha to resolve a $0.049$~Ha correlation
+energy, and the bound sits $1241$~kcal\,mol$^{-1}$ below the truth.
+No change of basis lowers that constant, since a similarity transform preserves
+the spectrum. A single-reference Schur step avoids it: once a Cholesky
+factorisation certifies one positive-definiteness hypothesis, the bound is
+$0.860$~kcal\,mol$^{-1}$ from exact. It costs $O(n^{3})$, so the exponential wall
+is untouched and the gain is in quality, not complexity. On N$_2$ with
+$14\,400$ determinants the slack grows to $10.0$~kcal\,mol$^{-1}$: the step is far
+tighter than the block route but not scale-invariant.
 
-The scalar core of this chain is formalised in Lean 4 against mathlib, and we
-report which statements the kernel closes and which hypotheses remain assumptions
-supplied by the caller. On a second system, N$_2$ in STO-3G with $14\,400$
-determinants, the same chain is repeated: the Schur bound stays rigorous but its
-slack grows from $0.86$ to $10.0$~kcal\,mol$^{-1}$, so we report the step as far
-tighter than the block route, not as scale-invariant. For $\mathrm{CaF_2}$ we
-compute a gas-phase model reaction between verified minima across eight
-functional/basis levels and two treatments of the product, reporting a bracket of
-$5.7$--$12.0$~kcal\,mol$^{-1}$ rather than a single number, and we withdraw an
-earlier claim that $\mathrm{CaF_2}$ is conventionally linear: it is quasilinear, and
-what our basis overestimates is the well depth, not the bending.
-
-These are elementary mathematical results assembled for certificate design; no
-novelty is claimed for the inequalities. No molecular or surface benchmark, uniform
-Born--Oppenheimer error estimate, universal polynomial-time algorithm, or
-experimental growth prediction is established. The principal open task is to
-construct useful, inexpensive, rigorously evaluated inputs for one fully
-specified surface-reaction model, and the blocking obstacle is now identified
-precisely: bounding the Schur scalar without forming the omitted block.
+The scalar core is formalised in Lean~4 against \texttt{mathlib}, and state
+which hypotheses remain caller-supplied. For CaF$_2$ we bracket a gas-phase model
+reaction at $5.7$--$12.0$~kcal\,mol$^{-1}$ across eight functional/basis levels,
+and withdraw an earlier claim of linearity: it is quasilinear. No surface benchmark, uniform Born--Oppenheimer estimate or growth
+prediction is established. The open task is to construct inexpensive certified
+inputs for one specified surface model.
 \end{abstract}
 
 \section{Purpose and scope}
