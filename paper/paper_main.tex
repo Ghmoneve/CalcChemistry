@@ -10,6 +10,8 @@
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
+\usepackage{xcolor}
+\newcommand{\fillme}[1]{\textcolor{red}{\textbf{[\,#1\,]}}}
 \graphicspath{{figures/}}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -32,7 +34,12 @@
 
 \title{Energy Certificates and Conditional Kinetic Bounds for
 Finite-Basis Surface-Reaction Models}
-\author{}
+\author{%
+\fillme{YOUR NAME IN ENGLISH}\textsuperscript{1,$*$}\\[4pt]
+\small \textsuperscript{1}\fillme{School}, Shanghai Jiao Tong University,
+Shanghai 200240, China\\[2pt]
+\small \textsuperscript{$*$}Corresponding author:
+\fillme{name@sjtu.edu.cn}}
 \date{}
 \providecommand{\doi}[1]{\href{https://doi.org/#1}{\texttt{doi:#1}}}
 \providecommand{\path}[1]{\texttt{#1}}
@@ -66,6 +73,11 @@ and withdraw an earlier claim of linearity: it is quasilinear. No surface benchm
 prediction is established. The open task is to construct inexpensive certified
 inputs for one specified surface model.
 \end{abstract}
+
+\vspace{0.6em}
+\noindent\textbf{Keywords:} certified energy bounds; interval arithmetic;
+Schur complement; certified Cholesky; Lean~4; atomic layer deposition
+\vspace{0.4em}
 
 \section{Purpose and scope}
 \label{sec:intro}
@@ -530,6 +542,32 @@ that currently contributes an uncertainty as large as the method spread. A wide
 interval or an unverified hypothesis is an informative outcome: it identifies the
 missing evidence without claiming a kinetic prediction that the calculation cannot
 support.
+
+\section*{Statements and Declarations}
+
+\paragraph{Funding.}
+\fillme{FUNDING BODY AND GRANT NUMBER, or state: The author received no specific funding for this work.}
+
+\paragraph{Competing interests.}
+The author declares no competing interests.
+
+\paragraph{Author contributions.}
+\fillme{CONFIRM SOLE AUTHORSHIP, or list each author's contribution.} The author
+designed the study, carried out the derivations, wrote the code, produced the
+figures and wrote the manuscript.
+
+\paragraph{Data availability.}
+The Lean~4 development, the scripts that produce every reported number and every
+figure, and the JSON files those scripts read are available at
+\url{https://github.com/Ghmoneve/CalcChemistry}. The repository also contains the
+script that regenerates the manuscript PDF from source, and
+\texttt{scripts/verify.py}, which re-runs all six verification gates.
+
+\paragraph{Use of generative artificial intelligence.}
+\fillme{STATE THIS ACCURATELY before submission.} Generative tools were used
+during software development and language editing. The author reviewed and
+verified every numerical result, every proof step and every bibliographic entry,
+and takes full responsibility for the content of the manuscript.
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}

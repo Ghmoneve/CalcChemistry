@@ -178,8 +178,26 @@ Shanghai Jiao Tong University, Shanghai 200240, China
 
 ## 九、当前论文与投稿要求的差距汇总
 
-已完成：摘要压缩至 249 词；PDF 与 tex 内容级一致性核验通过；
-图件尺寸与正文匹配；表格跨页溢出已修复；作者历史已改为本人。
+已完成：
 
-待完成：关键词、作者与单位、通讯邮箱、ORCID、Statements 四项声明、
-Cover letter、图件单独打包、参考文献风格转换。
+- 摘要压缩至 **249 词**（JOMC 要求 150–250）
+- 关键词 **6 个**已加（certified energy bounds; interval arithmetic; Schur complement;
+  certified Cholesky; Lean 4; atomic layer deposition）
+- Statements and Declarations 四段结构已加（Funding / Competing interests /
+  Author contributions / Data availability / Use of generative AI）
+- 数据可获得性已写入 GitHub 仓库地址
+- 作者块结构已加，**未填处会以红色方括号显示**，不可能被忽略误投
+- PDF 与 tex 内容级一致性核验通过（`scripts/check_pdf_sync.py`）
+- 图件尺寸与正文匹配；表格跨页溢出已修复；git 历史作者已改为本人
+
+待完成（都需要你的信息或决定）：
+
+- 填红色占位符：姓名、学院、通讯邮箱、基金、作者贡献、AI 使用声明
+- ORCID
+- Cover letter
+- 图件单独打包上传（`paper/figures/*.pdf` 为矢量，可直接用）
+- 参考文献风格转 Springer Basic
+- 向学院确认刊物目录
+
+注意：主文件 35 页、单文件 34 页，差异来自单文件加载 `lmodern` 的字体度量，
+不是内容差异（内容核验为 -67 字符，属提取噪声）。投稿用主文件版本。
