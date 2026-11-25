@@ -45,44 +45,32 @@ SJTU 规定是"发表**或录用**"，拿到录用通知即可，不必等见刊
 内容是我做的证书理论和 CaF₂ 的模型反应计算。想先跟您说一声，看您有没有意见。
 如果您希望署名或挂通讯，我按您的意思改。」
 
-### 3. 填完稿件里剩余的两个红色占位符
+### 3. 占位符状态：已全部填完
 
-打开 `paper/paper_main.tex`，搜索 `fillme`，还剩两处：
+已按你的确认填入，PDF 核验无残留红色标记：
 
-**（a）Funding（第 549 行附近）**
+- **Funding**：`The author received no specific funding for this work.`
+- **Author contributions**：唯一作者，承担全部工作（推导、软件、数值实验、绘图、撰稿）
+- **Use of generative AI**：见下
 
-如果这项工作来自课题组基金，必须写明基金名称和编号，例如：
+**AI 声明我写得比你要求的范围宽，请你确认。**
 
-```latex
-\paragraph{Funding.}
-This work was supported by the National Natural Science Foundation of China
-(grant number XXXXXXXXX).
-```
+你说的是"AI 辅助 Lean 形式化证明"，但我实际写的是三段：
 
-如果没有专项基金：
+> Generative artificial intelligence tools were used to assist with the Lean 4
+> formalisation, with the development of the Python scripts that generate the
+> numerical results and the figures, and with language editing.
 
-```latex
-\paragraph{Funding.}
-The author received no specific funding for this work.
-```
+**为什么加宽**：本仓库的 git 历史里，AI 参与的不只是 Lean——实验脚本、
+绘图代码、稿件编辑都有。只声明 Lean 部分属于**不完整披露**，而不实披露
+比如实披露的风险大得多（Springer 的政策是要求记录 LLM 在内容创作中的使用）。
 
-**注意**：用了课题组经费却写"no specific funding"是不实陈述，被查出会影响学术诚信记录。
-拿不准就问导师。
+如果你确认实际范围确实只有 Lean，告诉我，我改回窄版：
 
-**（b）Use of generative artificial intelligence（第 567 行附近）**
+> Generative artificial intelligence tools were used to assist with the Lean 4
+> formalisation of the scalar lemmas.
 
-这条必须如实写。本项目在开发过程中使用了 AI 辅助（代码编写、绘图、文字编辑）。
-建议措辞：
-
-```latex
-\paragraph{Use of generative artificial intelligence.}
-Generative artificial intelligence tools were used to assist with software
-development and language editing. The author independently verified every
-numerical result, every proof step and every bibliographic entry, and takes
-full responsibility for the content of the manuscript.
-```
-
-如果你实际使用范围与此不同，按实际情况改。**Springer 明确要求披露，隐瞒的风险远大于披露。**
+但我的建议是保留完整版。
 
 ---
 
