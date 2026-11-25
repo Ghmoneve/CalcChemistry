@@ -53,24 +53,26 @@ SJTU 规定是"发表**或录用**"，拿到录用通知即可，不必等见刊
 - **Author contributions**：唯一作者，承担全部工作（推导、软件、数值实验、绘图、撰稿）
 - **Use of generative AI**：见下
 
-**AI 声明我写得比你要求的范围宽，请你确认。**
+**AI 声明（已按你的确认定稿）**
 
-你说的是"AI 辅助 Lean 形式化证明"，但我实际写的是三段：
+"> Generative artificial intelligence tools were used as an aid in this work.
+> The research question, the choice of systems, the scientific judgements and
+> the overall direction of the work are the author's own. Artificial
+> intelligence assisted with (i) the development of the Python scripts that
+> generate the numerical results and the figures, (ii) the Lean 4 formalisation
+> of the scalar lemmas, and (iii) the drafting and language editing of the
+> manuscript. The author verified every mathematical claim, every numerical
+> result and every bibliographic entry, and takes full responsibility for the
+> content."
 
-> Generative artificial intelligence tools were used to assist with the Lean 4
-> formalisation, with the development of the Python scripts that generate the
-> numerical results and the figures, and with language editing.
+三点说明：
 
-**为什么加宽**：本仓库的 git 历史里，AI 参与的不只是 Lean——实验脚本、
-绘图代码、稿件编辑都有。只声明 Lean 部分属于**不完整披露**，而不实披露
-比如实披露的风险大得多（Springer 的政策是要求记录 LLM 在内容创作中的使用）。
-
-如果你确认实际范围确实只有 Lean，告诉我，我改回窄版：
-
-> Generative artificial intelligence tools were used to assist with the Lean 4
-> formalisation of the scalar lemmas.
-
-但我的建议是保留完整版。
+1. **"drafting" 不能写成 "editing"。** editing 指润色已有文字，drafting 指生成初稿。
+   本项目 AI 参与了章节初稿，写 editing 属于不实披露。
+2. **"research question / scientific judgements / overall direction are the
+   author's own" 是你可以主张的**，也是事实：选题、ALD 目标、要求 Lean 形式化、
+   撤回 CaF₂ 线性结论、放弃换基路线转单转向参考 Schur，这些判断都是你做的。
+3. **最后一句"takes full responsibility"是 Springer 的硬性要求**，不能省。
 
 ---
 
